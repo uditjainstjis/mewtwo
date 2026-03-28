@@ -1,0 +1,46 @@
+v2 Setup Log
+============
+Date: 2026-03-29
+
+Phase 0: Environment Check
+- All directories present: src/routers, src/adapters, src/eval, data, results, backend
+- Python imports verified:
+  - GatedRouter from src.routers.gated_router ✅
+  - AdaptiveMultiLoRALinear from src.adapters.adaptive_multi_lora_linear ✅
+  - run_eval_v2 functions (evaluate, load_md_dataset, load_sd_dataset) ✅
+  - multidomain_eval_v2.json loads as valid JSON with 40 questions ✅
+
+Phase 1: Data & Architecture Verification
+- SD dataset: 100 questions across 20 domains (from backend/ablation_benchmark.py HARD_QUESTIONS)
+- MD dataset: 40 questions, all 20 domains covered, each with 2-element required_adapters
+- Schema validated: all entries have id, question, reference_answer, required_adapters/domains
+
+CRITICAL ARCHITECTURAL NOTES:
+1. Backend RoutedLoRALinear (dynamic_mlx_inference.py L39) uses PER-ADAPTER weight cap:
+     w = mx.minimum(routing_weight, _GLOBAL_CLAMP)
+   NOT the per-layer norm-ratio clamp (gamma_l = min(1, c * ||z|| / ||m||)).
+   The AdaptiveMultiLoRALinear in src/adapters/ is a REFERENCE IMPLEMENTATION
+   that is NOT in the real inference path.
+
+2. Orchestrator (orchestrator.py) returns ONE-HOT domain routing (top-1 only).
+   It does NOT return a probability distribution.
+
+3. CONSEQUENCE: The GatedRouter (src/routers/gated_router.py) cannot meaningfully
+   gate K=1 vs K=2 with the current orchestrator, because it always receives
+   gap=1.0 → always K=1.
+
+FIX APPLIED:
+- Rewrote run_eval_v2.py to use ORACLE routing for K=2 methods:
+  - For AdaptiveClamp-v2 and UnclampedMix-v2, routing weights are constructed
+    from the dataset's `required_adapters` field (equal weight per adapter).
+  - This isolates "does K=2 help when both adapters are correct?" from
+    "can the router find both domains?"
+  - SingleAdapter continues to use the real CoT orchestrator.
+- Removed AC-v2-AllLayer method (backend has no layer_idx support).
+- Changed H5 to test clamp necessity (clamped vs unclamped) on MD split.
+
+Methods in v2 eval:
+  1. Baseline:           K=0, clamp=0.001, routing=none
+  2. SingleAdapter:      K=1, clamp=0.5,   routing=cot (real orchestrator)
+  3. AdaptiveClamp-v2:   K=2, clamp=0.5,   routing=oracle (required_adapters)
+  4. UnclampedMix-v2:    K=2, clamp=999,   routing=oracle (required_adapters)

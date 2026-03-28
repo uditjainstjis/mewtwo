@@ -1,0 +1,282 @@
+[
+  {
+    "id": "md_01",
+    "domains": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "question": "How does the anchoring bias documented in behavioral economics affect jury damage award decisions, and what legal doctrines have courts developed to mitigate this?",
+    "reference_answer": "Anchoring bias causes jurors to fixate on plaintiff-requested amounts as reference points, inflating awards. Courts use remittitur (judge reduces excessive verdicts) and additur (increases inadequate ones). Empirical studies (Hastie et al.) show median awards shift 2-3x based on anchor magnitude, which is why many jurisdictions now limit opening statements' damage figures.",
+    "required_adapters": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"]
+  },
+  {
+    "id": "md_02",
+    "domains": ["MARITIME_LAW", "BEHAVIORAL_ECONOMICS"],
+    "question": "Analyze how the sunk-cost fallacy influences decision-making in maritime salvage operations, and how admiralty law's 'no cure, no pay' principle interacts with this bias.",
+    "reference_answer": "The sunk-cost fallacy drives salvors to escalate commitment to failing operations (e.g., continuing pumping despite hull breach) because of already-invested resources. Lloyd's Open Form contracts mitigate this through 'no cure, no pay': salvors receive nothing if the vessel is lost, aligning incentives toward rational abandonment. Behavioral economics predicts that framing (loss vs. gain) still distorts decisions even under LOF terms.",
+    "required_adapters": ["MARITIME_LAW", "BEHAVIORAL_ECONOMICS"]
+  },
+  {
+    "id": "md_03",
+    "domains": ["LEGAL_ANALYSIS", "PHILOSOPHY"],
+    "question": "Compare the philosophical foundations of natural law theory with legal positivism, and explain how each framework approaches the validity of unjust statutes.",
+    "reference_answer": "Natural law theory (Aquinas, Fuller) holds that law derives validity from moral principles; an unjust statute is 'no law at all' (lex iniusta non est lex). Legal positivism (Austin, Hart) separates law from morality: validity comes from proper enactment by recognized authority, regardless of moral content. Hart's 'rule of recognition' accepts unjust laws as legally valid while permitting moral criticism. The Hart-Fuller debate crystallized this around Nazi-era statutes.",
+    "required_adapters": ["LEGAL_ANALYSIS", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_04",
+    "domains": ["MARITIME_LAW", "CRYPTOGRAPHY"],
+    "question": "Design a blockchain-based bill of lading system for maritime shipping. What cryptographic primitives are needed, and which provisions of the Rotterdam Rules must the system satisfy?",
+    "reference_answer": "A blockchain BoL requires: (1) digital signatures (ECDSA) for carrier/shipper authentication, (2) hash commitments (SHA-256) for cargo integrity, (3) Merkle trees for efficient multi-party verification. Under the Rotterdam Rules, Articles 1(14)-1(18) define 'electronic transport record'; Article 8 requires functional equivalence with paper documents; Article 9 mandates transferability via exclusive control. The UNCITRAL Model Law on Electronic Transferable Records (MLETR) provides the legal bridge.",
+    "required_adapters": ["MARITIME_LAW", "CRYPTOGRAPHY"]
+  },
+  {
+    "id": "md_05",
+    "domains": ["QUANTUM_CHEMISTRY", "CLIMATE_SCIENCE"],
+    "question": "Explain how quantum chemical calculations of the vibrational absorption spectra of greenhouse gases (CO2, CH4) underpin radiative forcing estimates in climate models.",
+    "reference_answer": "Quantum chemistry computes vibrational modes via the Born-Oppenheimer approximation and harmonic/anharmonic potentials. For CO2, the asymmetric stretch (v3 ~2349 cm-1) and bending mode (v2 ~667 cm-1) create strong IR absorption bands. These line-by-line spectroscopic parameters feed into HITRAN databases, which climate models use to compute radiative transfer and forcing. The IPCC AR6 forcing estimate for CO2 (3.7 W/m2 per doubling) depends directly on the accuracy of these quantum-derived absorption cross-sections.",
+    "required_adapters": ["QUANTUM_CHEMISTRY", "CLIMATE_SCIENCE"]
+  },
+  {
+    "id": "md_06",
+    "domains": ["ORGANIC_SYNTHESIS", "ASTROPHYSICS"],
+    "question": "Describe the Miller-Urey synthesis of amino acids and explain how spectroscopic detection of these molecules in interstellar molecular clouds informs theories of panspermia.",
+    "reference_answer": "Miller-Urey (1953) demonstrated amino acid formation from CH4, NH3, H2O, H2 under electrical discharge, simulating early Earth. Key products: glycine, alanine, aspartic acid via Strecker synthesis. Radio astronomers have detected glycine (tentatively) and confirmed simpler precursors (formamide, methylamine) in Sgr B2 and Orion KL molecular clouds via rotational spectroscopy. The Murchison meteorite contains >70 amino acids, supporting the panspermia hypothesis that prebiotic molecules can survive interstellar transit and atmospheric entry.",
+    "required_adapters": ["ORGANIC_SYNTHESIS", "ASTROPHYSICS"]
+  },
+  {
+    "id": "md_07",
+    "domains": ["QUANTUM_CHEMISTRY", "CRYPTOGRAPHY"],
+    "question": "Explain how Shor's algorithm exploits quantum mechanical principles to break RSA, and what post-quantum lattice-based schemes (e.g., CRYSTALS-Kyber) replace it.",
+    "reference_answer": "Shor's algorithm uses quantum superposition to evaluate f(x) = a^x mod N in parallel, then quantum Fourier transform to extract the period r, yielding factors via gcd(a^(r/2) ± 1, N). This breaks RSA's integer factorization hardness assumption in polynomial time. CRYSTALS-Kyber replaces RSA with the Module Learning With Errors (M-LWE) problem: security relies on the hardness of distinguishing structured lattice samples from uniform. NIST selected Kyber as the primary post-quantum KEM standard in 2022.",
+    "required_adapters": ["QUANTUM_CHEMISTRY", "CRYPTOGRAPHY"]
+  },
+  {
+    "id": "md_08",
+    "domains": ["CLIMATE_SCIENCE", "MATHEMATICS"],
+    "question": "Derive the basic energy-balance equation for Earth's climate system, explaining the role of albedo and emissivity, and solve for equilibrium temperature given solar constant S = 1361 W/m2.",
+    "reference_answer": "Energy balance: absorbed solar = emitted IR. Absorbed = S/4 * (1 - α) * πR², emitted = εσT⁴ * 4πR². Setting equal: T = [S(1-α)/(4εσ)]^(1/4). With α = 0.3, ε = 1: T = [1361 * 0.7 / (4 * 5.67e-8)]^0.25 ≈ 255 K (-18°C). The ~33°C greenhouse effect (actual T_surface ≈ 288 K) arises because ε < 1 for IR due to GHGs, requiring separate treatment of atmospheric layers (Schwarzschild equation).",
+    "required_adapters": ["CLIMATE_SCIENCE", "MATHEMATICS"]
+  },
+  {
+    "id": "md_09",
+    "domains": ["PYTHON_LOGIC", "ROBOTICS"],
+    "question": "Write a Python implementation of the A* path-planning algorithm for a differential-drive robot. Include the kinematic constraints (max angular velocity, minimum turning radius) in the neighbor expansion step.",
+    "reference_answer": "A* with state = (x, y, θ). Neighbors generated by discretizing control inputs: v ∈ {0, v_max}, ω ∈ {-ω_max, 0, ω_max}. Kinematic update: x' = x + v*cos(θ)*dt, y' = y + v*sin(θ)*dt, θ' = θ + ω*dt. Constraint: |ω| ≤ ω_max enforces min turning radius r = v/ω_max. Heuristic: Dubins path length (accounts for heading). Code should use heapq priority queue, closed-set as dict keyed on discretized (x,y,θ).",
+    "required_adapters": ["PYTHON_LOGIC", "ROBOTICS"]
+  },
+  {
+    "id": "md_10",
+    "domains": ["PYTHON_LOGIC", "MUSIC_THEORY"],
+    "question": "Write a Python script using numpy that generates a WAV file containing a I-IV-V-I chord progression in C major, where each chord is a stack of pure sine waves at the correct just-intonation frequency ratios.",
+    "reference_answer": "Just intonation ratios: I chord (C:E:G) = 1:5/4:3/2 → 261.63, 327.04, 392.44 Hz. IV chord (F:A:C) = 4/3:5/3:2 relative to C → 348.83, 436.04, 523.25 Hz. V chord (G:B:D) = 3/2:15/8:9/4 → 392.44, 490.55, 588.66 Hz. Use numpy to generate t = np.arange(sr*dur)/sr, sum sin(2π*f*t) for each frequency, normalize, write with wave module as 16-bit PCM.",
+    "required_adapters": ["PYTHON_LOGIC", "MUSIC_THEORY"]
+  },
+  {
+    "id": "md_11",
+    "domains": ["PYTHON_LOGIC", "CRYPTOGRAPHY"],
+    "question": "Implement the Diffie-Hellman key exchange protocol in Python, including safe prime generation and a demonstration of the shared secret computation. Explain why the discrete logarithm problem makes this secure.",
+    "reference_answer": "Generate safe prime p = 2q + 1 where q is prime. Choose generator g of order q. Alice: a = randint(2, q-1), A = pow(g, a, p). Bob: b = randint(2, b-1), B = pow(g, b, p). Shared secret: s = pow(B, a, p) = pow(A, b, p) = g^(ab) mod p. Security: computing a from A requires solving DLP in Z_p*, believed to require O(exp(c * (ln p)^(1/3) * (ln ln p)^(2/3))) via number field sieve.",
+    "required_adapters": ["PYTHON_LOGIC", "CRYPTOGRAPHY"]
+  },
+  {
+    "id": "md_12",
+    "domains": ["MLX_KERNELS", "MATHEMATICS"],
+    "question": "Write an MLX Metal kernel that computes the Cholesky decomposition of a symmetric positive-definite matrix in-place, and explain the numerical stability considerations.",
+    "reference_answer": "Cholesky: L[i][i] = sqrt(A[i][i] - sum(L[i][k]^2, k<i)), L[j][i] = (A[j][i] - sum(L[j][k]*L[i][k], k<i)) / L[i][i]. Metal kernel: dispatch thread groups per column, synchronize with threadgroup_barrier after each column. Stability: use Cholesky-Banachiewicz (row-oriented) to minimize cancellation; check diagonal positivity before sqrt; for ill-conditioned matrices, add ridge ε*I. MLX-specific: use float32 for intermediate sums even if input is float16.",
+    "required_adapters": ["MLX_KERNELS", "MATHEMATICS"]
+  },
+  {
+    "id": "md_13",
+    "domains": ["RENAISSANCE_ART", "ANCIENT_HISTORY"],
+    "question": "Analyze how the rediscovery of Vitruvius's 'De Architectura' during the Renaissance influenced Brunelleschi's design of the Florence Cathedral dome. What specific Roman engineering techniques did he adapt?",
+    "reference_answer": "Vitruvius's ten books describe Roman concrete (opus caementicium), cofferred domes (cf. Pantheon's 43m span), and centering techniques. Brunelleschi adapted: (1) the herringbone brick pattern (opus spicatum) to create a self-supporting shell during construction without centering, (2) the double-shell design with internal ribs (inspired by the Pantheon's stepped rings), (3) an octagonal plan allowing horizontal arched rings. He also invented purpose-built hoisting machinery (the ox-hoist) inspired by Vitruvian crane descriptions.",
+    "required_adapters": ["RENAISSANCE_ART", "ANCIENT_HISTORY"]
+  },
+  {
+    "id": "md_14",
+    "domains": ["SANSKRIT_LINGUISTICS", "PHILOSOPHY"],
+    "question": "Compare Panini's Ashtadhyayi as a formal grammatical system with Wittgenstein's concept of language games. How do both approaches challenge the notion of language as simple reference?",
+    "reference_answer": "Panini's Ashtadhyayi (4th c. BCE) is a generative grammar: ~4000 sutras derive all valid Sanskrit forms via ordered rule application (pratyahara sutras, sandhi rules, karaka theory). It treats meaning as arising from structural relations, not word-to-object reference. Wittgenstein's Philosophical Investigations (1953) similarly rejects the Augustinian picture of language-as-labeling: meaning is use within a 'language game' (Sprachspiel), defined by social practice and context. Both frameworks are anti-referentialist: Panini via formal derivation, Wittgenstein via pragmatic use.",
+    "required_adapters": ["SANSKRIT_LINGUISTICS", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_15",
+    "domains": ["ARCHAIC_ENGLISH", "MUSIC_THEORY"],
+    "question": "Analyze the metrical structure of Beowulf's opening lines using both Old English prosodic rules (alliterative verse, half-lines, lifts/dips) and modern music-theoretic concepts (time signatures, syncopation). Where do the two frameworks converge?",
+    "reference_answer": "OE alliterative verse: each line has two half-lines (on-verse/off-verse) separated by caesura. Each half-line has 2 lifts (stressed) and variable dips (unstressed). 'Hwæt we Gār-Dena || in geār-dagum': lifts on Gār, Den, geār, dag; alliteration on /g/. Music-theoretic parallel: the half-line maps to a 2-beat bar (duple meter); dips function as anacrusis/pickup notes; the caesura = a rest or breath mark. Both frameworks converge on hierarchical strong/weak beat patterns. The key difference: OE meter is quantity-insensitive (unlike Latin) and stress-based, paralleling modern accentual time signatures (e.g., asymmetric 5/8).",
+    "required_adapters": ["ARCHAIC_ENGLISH", "MUSIC_THEORY"]
+  },
+  {
+    "id": "md_16",
+    "domains": ["ANCIENT_HISTORY", "PHILOSOPHY"],
+    "question": "Reconstruct the philosophical arguments that Socrates presents in Plato's 'Crito' for obeying unjust laws, and evaluate them against the historical context of Athenian demokratia and the Thirty Tyrants.",
+    "reference_answer": "In Crito, Socrates argues: (1) one must not return wrong for wrong (retributivism rejected); (2) the Laws of Athens are like parents who raised him (social contract via personification); (3) by choosing to live in Athens, he implicitly agreed to obey its laws (tacit consent). Historical context: the Thirty Tyrants' oligarchy (404-403 BCE) showed Athenians the danger of lawlessness; the restored democracy was fragile. Socrates' execution (399 BCE) was partly political revenge. Critics (Vlastos, Kraut) note the tension: Socrates obeys laws he considers unjust, but earlier in Apology declared he would disobey any order to stop philosophizing.",
+    "required_adapters": ["ANCIENT_HISTORY", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_17",
+    "domains": ["ROBOTICS", "PHILOSOPHY"],
+    "question": "Should autonomous vehicles follow a utilitarian or deontological framework when resolving unavoidable-harm scenarios (trolley problems)? Formalize each ethical position and discuss what sensor/planning constraints make pure utilitarian optimization computationally intractable.",
+    "reference_answer": "Utilitarian: minimize expected harm. Formalize as minimize E[sum(w_i * harm_i)] over all reachable trajectories, where w_i weights each person. Requires real-time estimation of crash severity, number of occupants in each vehicle, pedestrian vulnerability — all under sensor uncertainty (lidar occlusion, classification errors). This is a stochastic optimization problem with O(n!) trajectory combinations, making exact solutions intractable. Deontological (Kantian): define inviolable rules (e.g., 'never actively steer into a pedestrian'), regardless of consequences. Computationally simpler (constraint satisfaction) but produces morally counterintuitive outcomes (allowing 5 deaths to avoid actively causing 1). The MIT Moral Machine survey shows cultural variation in preferences, complicating any universal framework.",
+    "required_adapters": ["ROBOTICS", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_18",
+    "domains": ["CLIMATE_SCIENCE", "BEHAVIORAL_ECONOMICS"],
+    "question": "Explain the 'tragedy of the commons' as it applies to global carbon emissions, and design a cap-and-trade mechanism informed by prospect theory's loss-aversion coefficient.",
+    "reference_answer": "The atmosphere is a global commons: each nation benefits from emissions (GDP growth) while distributing costs (warming) globally. Nash equilibrium = everyone emits maximally. Cap-and-trade sets a declining cap (e.g., EU ETS: -2.2%/year), distributes/auctions allowances, and allows trading. Prospect theory insight: agents weight losses ~2.25x gains (Kahneman & Tversky, λ ≈ 2.25). Design implication: frame carbon allowances as endowments that are *lost* if exceeded (loss frame) rather than credits to be *earned* through reduction (gain frame). Empirical evidence (Hossain & List, 2012) shows loss-framed incentives increase effort by 15-20%.",
+    "required_adapters": ["CLIMATE_SCIENCE", "BEHAVIORAL_ECONOMICS"]
+  },
+  {
+    "id": "md_19",
+    "domains": ["LATEX_FORMATTING", "MATHEMATICS"],
+    "question": "Typeset the proof of the Cauchy-Schwarz inequality in LaTeX, using the amsthm environment for the theorem statement and align* for the key algebraic steps. Explain each mathematical step.",
+    "reference_answer": "\\begin{theorem}[Cauchy-Schwarz] For vectors u, v in inner product space: |<u,v>|^2 <= <u,u><v,v>. \\end{theorem} \\begin{proof} Consider p(t) = <u+tv, u+tv> >= 0. Expanding: p(t) = <u,u> + 2t<u,v> + t^2<v,v>. This is a non-negative quadratic in t, so discriminant <= 0: (2<u,v>)^2 - 4<u,u><v,v> <= 0, giving <u,v>^2 <= <u,u><v,v>. \\end{proof} Use \\usepackage{amsthm, amsmath}, \\newtheorem{theorem}{Theorem}, \\begin{align*} for multi-line equations with & alignment at = signs.",
+    "required_adapters": ["LATEX_FORMATTING", "MATHEMATICS"]
+  },
+  {
+    "id": "md_20",
+    "domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "question": "Under GDPR Article 17 ('right to erasure'), how must a company handle deletion requests for data stored on an immutable blockchain? Propose a cryptographic solution using commitment schemes and zero-knowledge proofs.",
+    "reference_answer": "GDPR Art 17 requires controllers to erase personal data 'without undue delay.' Blockchain immutability creates a direct conflict. Solution: store only cryptographic commitments on-chain (e.g., Pedersen commitment: C = g^m * h^r), not plaintext data. Personal data lives off-chain; 'erasure' means destroying the off-chain data and the decommitment value r, rendering C computationally unlinkable. For audit purposes, use ZK proofs (e.g., zk-SNARKs) to prove data-was-valid-at-time-T without revealing the data itself. CNIL (French DPA) and the European Blockchain Partnership have endorsed this 'hash-only' approach as GDPR-compatible.",
+    "required_adapters": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"]
+  },
+  {
+    "id": "md_21",
+    "domains": ["ASTROPHYSICS", "MATHEMATICS"],
+    "question": "Derive the Schwarzschild radius for a black hole from the escape velocity equation, and explain why the Newtonian derivation gives the same result as general relativity despite being conceptually wrong.",
+    "reference_answer": "Newtonian: escape velocity v_e = sqrt(2GM/r). Set v_e = c: r_s = 2GM/c^2. For M_sun: r_s ≈ 2.95 km. GR derivation: solve Einstein field equations for spherically symmetric vacuum (Birkhoff's theorem), find metric singularity at r = 2GM/c^2 where g_tt = 0. The results coincide because both are dimensional analysis with the same relevant scales (G, M, c). The Newtonian derivation is conceptually wrong because it treats light as a massive Newtonian particle subject to kinetic energy arguments, while GR shows the singularity is a coordinate effect of spacetime curvature (the event horizon is not a physical surface but a causal boundary).",
+    "required_adapters": ["ASTROPHYSICS", "MATHEMATICS"]
+  },
+  {
+    "id": "md_22",
+    "domains": ["ORGANIC_SYNTHESIS", "MEDICAL_DIAGNOSIS"],
+    "question": "Explain the synthesis of aspirin (acetylsalicylic acid) via Fischer esterification and describe how salicylate levels are measured in clinical toxicology to diagnose aspirin overdose.",
+    "reference_answer": "Synthesis: salicylic acid + acetic anhydride → acetylsalicylic acid + acetic acid. Catalyzed by H2SO4 or H3PO4 at 85°C. Mechanism: nucleophilic acyl substitution on the anhydride. Clinical toxicology: serum salicylate measured via Trinder's method (ferric chloride colorimetry) or immunoassay. Therapeutic: 15-30 mg/dL; toxic >30 mg/dL; lethal >100 mg/dL. Done nomogram (time-since-ingestion vs. serum level) guides treatment: activated charcoal if <2h, sodium bicarbonate for urinary alkalinization (ion trapping of weak acid), hemodialysis if level >100 or renal failure.",
+    "required_adapters": ["ORGANIC_SYNTHESIS", "MEDICAL_DIAGNOSIS"]
+  },
+  {
+    "id": "md_23",
+    "domains": ["MUSIC_THEORY", "MATHEMATICS"],
+    "question": "Prove that equal temperament's semitone ratio of 2^(1/12) is irrational, and explain why this means perfect fifths (3:2 ratio) can never be exactly represented in 12-tone equal temperament.",
+    "reference_answer": "Proof: assume 2^(1/12) = p/q (rational). Then 2 = (p/q)^12 = p^12/q^12, so p^12 = 2*q^12. By unique prime factorization, the exponent of 2 on the left is 12*v_2(p), on the right is 1 + 12*v_2(q). Since 12*v_2(p) ≠ 1 + 12*v_2(q) (one is divisible by 12, the other has remainder 1), contradiction. Therefore 2^(1/12) is irrational. The perfect fifth in ET = 2^(7/12) ≈ 1.4983..., while pure fifth = 3/2 = 1.5. The difference (Pythagorean comma) is (3/2)^12 / 2^7 = 3^12/2^19 = 531441/524288 ≈ 1.0136 (23.46 cents). ET distributes this error equally across all 12 fifths.",
+    "required_adapters": ["MUSIC_THEORY", "MATHEMATICS"]
+  },
+  {
+    "id": "md_24",
+    "domains": ["ROBOTICS", "PYTHON_LOGIC"],
+    "question": "Implement a PID controller in Python for a simulated inverted pendulum (cart-pole system). Include the equations of motion and demonstrate stable balancing in simulation.",
+    "reference_answer": "Cart-pole dynamics: θ'' = (g*sin(θ) - cos(θ)*(F + m_p*l*θ'^2*sin(θ))/(m_c+m_p)) / (l*(4/3 - m_p*cos²(θ)/(m_c+m_p))). PID controller: F = Kp*(θ - θ_ref) + Ki*integral(θ-θ_ref, dt) + Kd*dθ/dt. Typical gains: Kp=50, Ki=0, Kd=20 for m_c=1, m_p=0.1, l=0.5. Python: use scipy.integrate.solve_ivp with RK45, update control input at each timestep. Stable if |θ_0| < ~15° with these gains.",
+    "required_adapters": ["ROBOTICS", "PYTHON_LOGIC"]
+  },
+  {
+    "id": "md_25",
+    "domains": ["CLIMATE_SCIENCE", "ORGANIC_SYNTHESIS"],
+    "question": "Describe the catalytic cycle of ozone destruction by CFCs in the stratosphere, including the photolysis step and the chain termination mechanism. What organic chemistry alternatives (HFCs, HFOs) replaced CFCs under the Montreal Protocol?",
+    "reference_answer": "CFC cycle: (1) UV photolysis: CFCl3 + hν → Cl• + CFCl2, (2) chain propagation: Cl• + O3 → ClO + O2, then ClO + O → Cl• + O2. Each Cl• destroys ~100,000 O3. Chain termination: ClO + NO2 → ClONO2 (reservoir species). Replacements: HFCs (e.g., R-134a, CH2FCF3) have C-H bonds enabling tropospheric OH degradation (short atmospheric lifetime → low ODP) but high GWP. Next-gen HFOs (e.g., R-1234yf, CF3CF=CH2) have even shorter lifetimes (~11 days) due to the C=C double bond enabling rapid OH addition, giving GWP < 1.",
+    "required_adapters": ["CLIMATE_SCIENCE", "ORGANIC_SYNTHESIS"]
+  },
+  {
+    "id": "md_26",
+    "domains": ["CRYPTOGRAPHY", "MATHEMATICS"],
+    "question": "Explain the mathematical basis of elliptic curve cryptography: define the group law on an elliptic curve over a finite field, and prove that point addition is associative.",
+    "reference_answer": "An elliptic curve over F_p: E: y^2 = x^3 + ax + b (4a^3 + 27b^2 ≠ 0). Point addition P + Q: if P ≠ Q, slope λ = (y_Q - y_P)/(x_Q - x_P); if P = Q, λ = (3x_P^2 + a)/(2y_P). Then x_R = λ^2 - x_P - x_Q, y_R = λ(x_P - x_R) - y_P, and P + Q = (x_R, -y_R). Associativity proof sketch: use the isomorphism between E and its divisor class group Pic^0(E). In Pic^0, the group operation is divisor addition modulo principal divisors, which is associative by the Riemann-Roch theorem. The chord-tangent geometric construction is the concrete realization of this abstract group.",
+    "required_adapters": ["CRYPTOGRAPHY", "MATHEMATICS"]
+  },
+  {
+    "id": "md_27",
+    "domains": ["BEHAVIORAL_ECONOMICS", "PHILOSOPHY"],
+    "question": "How does Daniel Kahneman's dual-process theory (System 1 vs System 2) relate to the philosophical distinction between epistemic rationality and instrumental rationality? Can a System-1-dominant agent be instrumentally rational?",
+    "reference_answer": "Kahneman: System 1 = fast, intuitive, heuristic-based; System 2 = slow, deliberate, logical. Epistemic rationality (Bayesian belief updating) maps to System 2. Instrumental rationality (choosing actions that maximize expected utility) can be served by either system. Gigerenzer argues heuristics (System 1) are 'ecologically rational': in environments with limited information and time constraints, simple heuristics (recognition heuristic, 1/N rule) outperform optimal Bayesian computations. So yes, a System-1-dominant agent can be instrumentally rational in ecologically valid environments ('less is more' effect), even while violating epistemic rationality norms (base rate neglect, conjunction fallacy).",
+    "required_adapters": ["BEHAVIORAL_ECONOMICS", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_28",
+    "domains": ["RENAISSANCE_ART", "PHILOSOPHY"],
+    "question": "How did Marsilio Ficino's Neoplatonist philosophy influence the iconographic program of Botticelli's 'Primavera'? Identify at least three symbolic elements and their philosophical meanings.",
+    "reference_answer": "Ficino's Neoplatonism: physical beauty reflects divine beauty; love is the soul's ascent toward the Good (Plato's Symposium and Plotinus's Enneads). In Primavera: (1) Venus = humanitas, the ideal of human dignity and divine love, positioned centrally as the organizing principle; (2) the Three Graces represent Pulchritudo, Amor, Voluptas (Beauty, Love, Pleasure) — the Neoplatonic triad of emanation, rapture, and return; (3) Mercury dispersing clouds = the philosopher clearing ignorance to reveal divine truth. (4) Chloris/Flora transformation = the soul's metamorphosis through contact with divine beauty (Ficino's 'furor poeticus').",
+    "required_adapters": ["RENAISSANCE_ART", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_29",
+    "domains": ["MARITIME_LAW", "ANCIENT_HISTORY"],
+    "question": "Compare the Lex Rhodia de Iactu (Rhodian Sea Law on jettison) with the modern York-Antwerp Rules on general average. What principles survived from antiquity?",
+    "reference_answer": "Lex Rhodia (~800 BCE, codified in Justinian's Digest 14.2): if cargo is jettisoned to save the ship, the loss is shared proportionally among all whose goods were saved. Core principle: sacrifice for common safety = shared burden. York-Antwerp Rules (1890, revised 2016): Rule A defines general average (voluntary sacrifice in time of peril for common safety). Rule D introduces 'reasonableness' test. Rule G adds time-value-of-money. Surviving principles: (1) voluntariness of sacrifice, (2) common peril requirement, (3) proportional contribution by all beneficiaries. Key evolution: Y-A adds independent adjusters, requires formal notice, and excludes unreasonable delay costs.",
+    "required_adapters": ["MARITIME_LAW", "ANCIENT_HISTORY"]
+  },
+  {
+    "id": "md_30",
+    "domains": ["MLX_KERNELS", "PYTHON_LOGIC"],
+    "question": "Write a custom MLX operation in Python that implements fused multi-head attention (Q, K, V projections + scaled dot-product + softmax in a single kernel call). Explain the memory bandwidth savings versus the naive implementation.",
+    "reference_answer": "Naive: 4 separate kernel launches (Q proj, K proj, V proj, attention), each reading/writing intermediate tensors to HBM. Fused: single kernel reads input once, computes QKV projections in registers/shared memory, computes attention scores, applies causal mask, softmax, and weighted sum. Memory savings: eliminates 3 intermediate tensor writes (seq_len × d_model × 3 × sizeof(float16)). In MLX: use mx.custom_function or write a Metal shader via mx.metal.kernel. Python wrapper: @mx.compile to trace and fuse. For seq_len=2048, d_model=1536: naive reads/writes ~36MB intermediates, fused reads ~12MB input and writes ~12MB output.",
+    "required_adapters": ["MLX_KERNELS", "PYTHON_LOGIC"]
+  },
+  {
+    "id": "md_31",
+    "domains": ["ASTROPHYSICS", "CLIMATE_SCIENCE"],
+    "question": "Compare the greenhouse effect on Venus and Earth quantitatively. What atmospheric composition differences explain Venus's ~460°C surface temperature despite receiving only ~1.9x Earth's solar flux?",
+    "reference_answer": "Earth: 0.04% CO2, T_surface ≈ 288K, greenhouse effect ΔT ≈ 33K. Venus: 96.5% CO2 at 92 bar surface pressure, T_surface ≈ 737K, greenhouse effect ΔT ≈ 510K. Venus's equilibrium temperature (from albedo 0.77): T_eq = [2601*(1-0.77)/(4*σ)]^0.25 ≈ 227K. The 510K greenhouse effect comes from: (1) massive CO2 optical depth (τ_IR >> 100 vs Earth's τ ≈ 2), (2) pressure broadening at 92 bar widening absorption lines, (3) H2SO4 cloud deck trapping additional IR. The runaway: early water loss (photodissociation + hydrogen escape) eliminated the carbon-silicate cycle, preventing CO2 drawdown.",
+    "required_adapters": ["ASTROPHYSICS", "CLIMATE_SCIENCE"]
+  },
+  {
+    "id": "md_32",
+    "domains": ["MEDICAL_DIAGNOSIS", "MATHEMATICS"],
+    "question": "Derive Bayes' theorem and apply it to calculate the positive predictive value of a screening test with 95% sensitivity and 99% specificity in a disease with 1% prevalence. Why is the PPV surprisingly low?",
+    "reference_answer": "Bayes: P(D|+) = P(+|D)*P(D) / [P(+|D)*P(D) + P(+|¬D)*P(¬D)]. With sensitivity=0.95, specificity=0.99, prevalence=0.01: PPV = 0.95*0.01 / (0.95*0.01 + 0.01*0.99) = 0.0095 / (0.0095 + 0.0099) = 0.0095/0.0194 ≈ 0.49 (49%). The PPV is low because the false positive count (0.01 × 99 = 0.99 per 100) is comparable to the true positive count (0.95 per 100) when prevalence is low. This is the base rate fallacy: ignoring low prior probability inflates perceived test reliability. Clinical implication: screening tests in low-prevalence populations need very high specificity (>99.9%) to achieve acceptable PPV.",
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "MATHEMATICS"]
+  },
+  {
+    "id": "md_33",
+    "domains": ["LATEX_FORMATTING", "ASTROPHYSICS"],
+    "question": "Typeset the Friedmann equations for cosmological expansion in LaTeX using the 'physics' package for derivative notation and 'siunitx' for physical constants. Include both the acceleration and velocity equations with proper annotation.",
+    "reference_answer": "\\usepackage{physics, siunitx}. Friedmann (velocity): (\\dot{a}/a)^2 = \\frac{8\\pi G}{3}\\rho - \\frac{kc^2}{a^2} + \\frac{\\Lambda c^2}{3}. Use \\dv{a}{t} for \\dot{a}. Acceleration: \\frac{\\ddot{a}}{a} = -\\frac{4\\pi G}{3}(\\rho + 3p/c^2) + \\frac{\\Lambda c^2}{3}. Use \\dv[2]{a}{t} for \\ddot{a}. Physical constants via siunitx: G = \\SI{6.674e-11}{\\metre\\cubed\\per\\kilogram\\per\\second\\squared}. Include equation* environment for unnumbered or equation for numbered. Annotate: first equation governs expansion rate H = \\dot{a}/a (Hubble parameter); second governs whether expansion accelerates (requires Λ > 4πG(ρ + 3p/c²)/c²).",
+    "required_adapters": ["LATEX_FORMATTING", "ASTROPHYSICS"]
+  },
+  {
+    "id": "md_34",
+    "domains": ["SANSKRIT_LINGUISTICS", "ANCIENT_HISTORY"],
+    "question": "How does the linguistic evidence from Vedic Sanskrit (Rigveda) support or challenge the Indo-Aryan migration theory? Discuss specific phonological and lexical evidence.",
+    "reference_answer": "Supporting evidence: (1) Vedic Sanskrit shares systematic sound correspondences with Avestan (Iranian) — e.g., Skt. 'asura' / Av. 'ahura', reflecting *s > h (Brugmann's Law) — indicating recent common ancestry and geographic split. (2) River names in the Rigveda progress from the Indus system (Sindhu, Sarasvati) eastward, consistent with westward origin. (3) Loan words from Dravidian/Munda in later Vedic (retroflex consonants, agricultural terms like 'phala' = fruit) suggest contact, not isolation. Challenging: (4) the 'Out of India' hypothesis points to the absence of foreign-origin memory in Vedic texts and Renfrew's farming-dispersal alternative. (5) No consensus on the PIE *r̥ reflex (Skt. 'ir/ur' vs. other branches) complicating the phylogenetic tree.",
+    "required_adapters": ["SANSKRIT_LINGUISTICS", "ANCIENT_HISTORY"]
+  },
+  {
+    "id": "md_35",
+    "domains": ["ROBOTICS", "CLIMATE_SCIENCE"],
+    "question": "Design a sensor fusion pipeline for an autonomous ocean-monitoring buoy that measures sea surface temperature, salinity, and atmospheric CO2. What Kalman filter states are needed, and how are the sensor models defined?",
+    "reference_answer": "State vector: x = [T_sea, S, pCO2_atm, T_air, v_wind, buoy_lat, buoy_lon, buoy_drift_rate]^T. Process model: T_sea follows diurnal cycle + advection; pCO2 follows seasonal cycle + trend. Sensor models: (1) Thermistor: z_T = T_sea + N(0, σ_T²), σ_T = 0.01°C; (2) Conductivity (salinity): z_S = f(T_sea, S, p) + N(0, σ_S²), using UNESCO equation of state; (3) NDIR CO2 sensor: z_CO2 = pCO2 + N(0, σ_CO2²), σ_CO2 = 1 ppm. Extended Kalman filter handles nonlinear conductivity-to-salinity conversion. Climate application: data feeds into Argo-like global ocean observing system for CMIP6 model validation.",
+    "required_adapters": ["ROBOTICS", "CLIMATE_SCIENCE"]
+  },
+  {
+    "id": "md_36",
+    "domains": ["MEDICAL_DIAGNOSIS", "PHILOSOPHY"],
+    "question": "Evaluate the ethical permissibility of AI-assisted medical diagnosis under the lens of informed consent. Can a patient meaningfully consent to a diagnosis process whose reasoning they cannot fully understand?",
+    "reference_answer": "Informed consent requires: (1) disclosure of material information, (2) patient comprehension, (3) voluntariness. Challenge: black-box AI (deep learning diagnostic systems) violates (2) because neither patient nor often physician can explain the reasoning (Rudin's 'interpretability problem'). Philosophical analysis: Kantian autonomy requires rational agency over one's body → opaque AI undermines this. Utilitarian counterargument: if AI improves diagnostic accuracy (e.g., melanoma detection >95% vs dermatologists' 87%), withholding it causes net harm. Proposed resolution: 'graded consent' — disclose that AI is used, explain accuracy statistics, offer human-only alternative. O'Neill's realistic autonomy: consent need not require full understanding, only sufficient understanding of consequences.",
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "PHILOSOPHY"]
+  },
+  {
+    "id": "md_37",
+    "domains": ["BEHAVIORAL_ECONOMICS", "MATHEMATICS"],
+    "question": "Derive the expected utility formula under prospect theory, showing how the value function v(x) and probability weighting function w(p) differ from standard expected utility. Compute the certainty equivalent of a 50-50 gamble between +$100 and -$80.",
+    "reference_answer": "Standard EU: U = Σ p_i * u(x_i). Prospect theory: V = Σ w(p_i) * v(x_i), where v(x) = x^α for gains, -λ(-x)^β for losses (α ≈ β ≈ 0.88, λ ≈ 2.25). w(p) = p^γ / (p^γ + (1-p)^γ)^(1/γ), γ ≈ 0.61 (Tversky & Kahneman 1992). For 50-50 gamble (+100, -100): w(0.5) ≈ 0.5^0.61 / (0.5^0.61 + 0.5^0.61)^(1/0.61) ≈ 0.42. V = 0.42 * 100^0.88 + 0.42 * (-2.25 * 80^0.88) = 0.42*63.1 - 0.42*2.25*54.3 = 26.5 - 51.3 = -24.8. CE: v(CE) = -24.8, so CE = -(24.8/2.25)^(1/0.88) ≈ -$12.4. The gamble feels like a $12.40 loss due to loss aversion.",
+    "required_adapters": ["BEHAVIORAL_ECONOMICS", "MATHEMATICS"]
+  },
+  {
+    "id": "md_38",
+    "domains": ["ARCHAIC_ENGLISH", "LEGAL_ANALYSIS"],
+    "question": "Translate the following passage from the Magna Carta (1215, Chapter 39) from its original Latin/Norman French into modern English, and analyze its legal significance as a precursor to habeas corpus and due process.",
+    "reference_answer": "Original (Latin): 'Nullus liber homo capiatur, vel imprisonetur, aut disseisiatur, aut utlagetur, aut exuletur, aut aliquo modo destruatur, nec super eum ibimus, nec super eum mittemus, nisi per legale judicium parium suorum vel per legem terre.' Translation: 'No free man shall be seized, imprisoned, dispossessed, outlawed, exiled, or destroyed in any way, nor shall we proceed against him or send against him, except by the lawful judgment of his peers or by the law of the land.' Legal significance: (1) 'legale judicium parium' → trial by jury; (2) 'per legem terre' → due process (imported into US 14th Amendment via Coke's Institutes); (3) 'nec super eum ibimus' → limits on executive power, precursor to habeas corpus (formalized 1679). The archaic 'liber homo' originally meant 'free man' (excluding serfs), but was progressively universalized.",
+    "required_adapters": ["ARCHAIC_ENGLISH", "LEGAL_ANALYSIS"]
+  },
+  {
+    "id": "md_39",
+    "domains": ["ROBOTICS", "MATHEMATICS"],
+    "question": "Derive the Denavit-Hartenberg transformation matrix for a 3-DOF robotic arm and compute the forward kinematics. Under what conditions is the Jacobian singular (i.e., the arm is in a gimbal lock configuration)?",
+    "reference_answer": "DH matrix: T_i = Rot_z(θ_i) * Trans_z(d_i) * Trans_x(a_i) * Rot_x(α_i). For 3-DOF RRR arm: T_03 = T_01 * T_12 * T_23. End-effector position: p = [a1*cos(θ1) + a2*cos(θ1+θ2) + a3*cos(θ1+θ2+θ3), a1*sin(θ1) + a2*sin(θ1+θ2) + a3*sin(θ1+θ2+θ3)]^T. Jacobian J = dp/dθ. Singularity when det(J) = 0, which occurs when θ2 = 0 or π (arm fully extended or folded), making a2*sin(θ2) = 0. At singularity, the arm loses a DOF (cannot move in the radial direction), analogous to gimbal lock. Condition number κ(J) → ∞ near singular configurations.",
+    "required_adapters": ["ROBOTICS", "MATHEMATICS"]
+  },
+  {
+    "id": "md_40",
+    "domains": ["RENAISSANCE_ART", "MATHEMATICS"],
+    "question": "Explain how Alberti's 'costruzione legittima' (legitimate construction) for linear perspective is a geometric projection, and derive the relationship between the vanishing point distance and the viewer's eye position.",
+    "reference_answer": "Alberti (De Pictura, 1435): the picture plane is a planar cross-section of the visual pyramid. Costruzione legittima: (1) establish a ground line and mark equal intervals for a tiled floor; (2) choose a centric point (vanishing point) at viewer's eye height h; (3) from a side view, draw sightlines from the eye to each floor division, marking where they cross the picture plane. Mathematically: a point at ground distance d from the picture plane, at lateral position x, projects to x' = x * f/(f+d) and y' = -h * f/(f+d), where f is focal distance (eye to picture plane). The vanishing point VP = (0, h) on the picture plane. Parallel lines converge at VP because as d→∞, (x*f/(f+d), -h*f/(f+d)) → (0, -h). This is projective geometry: VP is the image of the point at infinity on the parallel direction.",
+    "required_adapters": ["RENAISSANCE_ART", "MATHEMATICS"]
+  }
+]
