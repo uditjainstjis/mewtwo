@@ -265,15 +265,17 @@ Per-question $\Delta\_\text{SIM}$ (AC-v2 − SA) on the MD split reveals high va
 
 This suggests that composition effects are **domain-pair-dependent**: certain adapter combinations contribute complementary knowledge (e.g., MEDICAL + MATH), while others introduce destructive interference (e.g., PYTHON + ROBOTICS, where both adapters may compete for the same code-generation representation space).
 
-### 8.5 V2 Discussion
+### 8.5 V2 Discussion & Follow-up Ablations
 
-1. **Composition is not universally harmful.** Unlike v1's $\Delta\_\text{SIM} = -0.011$ on single-domain data, v2 shows $\Delta\_\text{SIM} = +0.0171$ on multi-domain data. The sign flip confirms that the v1 negative result was an artifact of testing composition on single-domain queries.
+To isolate the causes of the marginal composition effect (+1.7%), we conducted two follow-up ablations on the MD split:
 
-2. **The effect is real but small.** With the current architecture (per-adapter weight cap, 1.5B parameter base model, 20 LoRA adapters trained on synthetic data), multi-adapter composition yields a modest ~1.7% improvement in semantic similarity on multi-domain queries.
+1. **Routing Gap (Phase 3):** We replaced oracle routing with the real heuristic CoT router. The real router successfully extracts $K=2$ on 75% of questions, yielding $\Delta\_\text{SIM} = +0.0054$ over the SingleAdapter baseline. This recovers ~26% of the oracle's compositional headroom (+0.0206). The fact that even *perfect* oracle routing provides only a $\sim2\%$ gain indicates that routing accuracy is a bottleneck, but not the primary failure mode; the composition capacity of the adapters themselves is the ceiling.
+2. **Clamp Mechanism (Phase 2):** We replaced the backend's per-adapter weight cap $\min(w, c)$ with the theoretically intended per-layer activation norm-ratio clamp $\gamma_l = \min(1, c \cdot \|z_l\| / \|m_l\|)$. The results were functionally identical on the MD benchmark ($\Delta\_\text{SIM} = -0.0003$). Because the un-clamped adapter activation norm $\|m_l\|$ is generally small relative to the base model norm $\|z_l\|$ in this specific model/adapter configuration, the norm-ratio scalar $\gamma_l$ evaluates to 1.0 at almost all layers.
 
-3. **The clamp mechanism was not tested.** H5 failure reveals that the backend's per-adapter weight cap does not exercise the norm-bounding mechanism when oracle routing assigns equal weights. Implementing the true per-layer norm-ratio clamp in the backend is necessary to test whether geometric activation control can amplify the composition effect.
+The v2 results paint a more nuanced picture than v1:
 
-4. **Composition effects are domain-pair-specific.** The high per-question variance suggests that a confidence-gated router (which activates K=2 only when both domains are genuinely needed) could improve aggregate performance by avoiding destructive pairs.
+- **Composition is not universally harmful.** The sign flip from $\Delta = -0.011$ on single-domain data to $\Delta = +0.017$ on multi-domain data confirms that the v1 negative result was an artifact of testing composition on single-domain queries.
+- **The effect is real but small.** With 1.5B parameters and 20 synthetic LoRA experts, multi-adapter composition yields a modest, sub-threshold improvement that is heavily domain-pair-dependent.
 
 ---
 
@@ -283,8 +285,10 @@ We conducted a two-phase pre-registered empirical study of prompt-level multi-ad
 
 **Phase 1 (v1, single-domain, 100 questions):** Our central hypothesis — that composing $K=2$ LoRA experts improves over single-expert routing on **single-domain, template-identical** queries — was **not supported** ($\Delta\_\text{SIM} = -0.011$, threshold $> +0.05$: **FAIL**). Unclamped mixing caused catastrophic output collapse, confirming the structural necessity of norm bounding.
 
-**Phase 2 (v2, multi-domain, 40 questions):** Using oracle routing on genuinely multi-domain questions, we found a **directionally positive** composition effect ($\Delta\_\text{SIM} = +0.0171$) that nonetheless **failed** the pre-registered $> +0.03$ threshold (**H2: FAIL**). Crucially, multi-adapter composition (a) causes no harm on single-domain queries (**H1: PASS**, $\Delta = -0.0006$), (b) preserves or improves perplexity (**H3: PASS**), and (c) introduces negligible latency overhead (**H4: PASS**, $+1.9\%$).
+**Phase 2 (v2, multi-domain, 40 questions):** Using oracle routing on genuinely multi-domain questions, we found a **directionally positive** composition effect ($\Delta\_\text{SIM} = +0.0171$) that nonetheless **failed** the pre-registered $> +0.03$ threshold (**H2: FAIL**). Crucially, multi-adapter composition (a) causes no harm on single-domain queries (**H1: PASS**), (b) preserves or improves perplexity (**H3: PASS**), and (c) introduces negligible latency overhead (**H4: PASS**).
 
-The sign flip from $\Delta = -0.011$ (v1, single-domain) to $\Delta = +0.017$ (v2, multi-domain) demonstrates that the v1 negative result was specific to single-domain evaluation, not a fundamental failure of multi-adapter composition. Per-question analysis reveals domain-pair-dependent effects: some pairs (MEDICAL × MATH, LEGAL × CRYPTOGRAPHY) show substantial gains while others (PYTHON × ROBOTICS) show losses.
+Follow-up ablations revealed that a real heuristic CoT router recovers ~26% of the oracle compositional headroom ($\Delta = +0.0054$), and that utilizing a true per-layer activation norm-ratio clamp behaves identically to a simple routing weight cap on this model ($\Delta\_\text{SIM} = -0.0003$). This suggests that the modest composition capacity is bounded fundamentally by the 1.5B parameter base representation space and the adapter orthogonality, rather than the router or the algebraic clamping mechanism.
 
-This work contributes: (1) a carefully documented negative result on single-domain data, (2) a partial positive result on multi-domain data, (3) a reusable evaluation infrastructure with pre-registered hypothesis testing, and (4) concrete evidence that larger models, true per-layer norm-ratio clamping, and confidence-gated routing are the most promising directions for unlocking the full compositional potential of multi-adapter methods on edge devices.
+The sign flip from $\Delta = -0.011$ (v1, single-domain) to $\Delta = +0.017$ (v2, multi-domain) demonstrates that the v1 negative result was specific to single-domain evaluation, not a fundamental failure of multi-adapter composition. Per-question analysis reveals domain-pair-dependent effects: some pairs (MEDICAL × MATH) show substantial gains while others (PYTHON × ROBOTICS) show losses.
+
+This work contributes: (1) a carefully documented negative result on single-domain data, (2) a partial positive result on multi-domain data, (3) empirical evidence that router accuracy and clamp algebra are secondary bottlenecks compared to native adapter composition capacity, and (4) a reusable evaluation infrastructure emphasizing rigorous, pre-registered hypothesis testing for edge AI methods.

@@ -7,10 +7,21 @@ from safetensors import safe_open
 
 # Global clamp value for ablation studies
 _GLOBAL_CLAMP = 0.5
+# Clamp mode: "weight_cap" (original v1/v2) or "norm_ratio" (v2b activation clamp)
+_CLAMP_MODE = "weight_cap"
 
 def set_global_clamp(value):
     global _GLOBAL_CLAMP
     _GLOBAL_CLAMP = value
+
+def set_clamp_mode(mode):
+    """Set clamp mode: 'weight_cap' (default, per-adapter min(w,c)) or 'norm_ratio' (per-layer γ=min(1, c·‖z‖/‖m‖))."""
+    global _CLAMP_MODE
+    assert mode in ("weight_cap", "norm_ratio"), f"Unknown clamp mode: {mode}"
+    _CLAMP_MODE = mode
+
+def get_clamp_mode():
+    return _CLAMP_MODE
 
 class RoutedLoRALinear(nn.Module):
     def __init__(self, base_layer, in_features, out_features, alpha=16.0):
@@ -34,12 +45,30 @@ class RoutedLoRALinear(nn.Module):
             
     def __call__(self, x):
         base_out = self.base_layer(x)
-        lora_out = 0.0
-        for name, adapter in self.adapters.items():
-            w = mx.minimum(self.routing_weights[name], mx.array([_GLOBAL_CLAMP]))
-            out = (x @ adapter["A"]) @ adapter["B"]
-            lora_out = lora_out + (w * adapter["scale"] * out)
-        return base_out + lora_out
+
+        if _CLAMP_MODE == "norm_ratio":
+            # v2b: Per-layer activation norm-ratio clamp
+            # γ_l = min(1, c * ||z_l||_2 / (||m_l||_2 + ε))
+            # h_out = z_l + γ_l * m_l
+            lora_sum = mx.zeros_like(base_out)
+            for name, adapter in self.adapters.items():
+                w = self.routing_weights[name]
+                out = (x @ adapter["A"]) @ adapter["B"]
+                lora_sum = lora_sum + (w * adapter["scale"] * out)
+            # Compute norms over last dimension
+            eps = 1e-6
+            base_norm = mx.sqrt(mx.sum(base_out * base_out, axis=-1, keepdims=True) + eps)
+            lora_norm = mx.sqrt(mx.sum(lora_sum * lora_sum, axis=-1, keepdims=True) + eps)
+            gamma = mx.minimum(mx.array([1.0]), mx.array([_GLOBAL_CLAMP]) * base_norm / lora_norm)
+            return base_out + gamma * lora_sum
+        else:
+            # Original v1/v2: Per-adapter weight cap min(w, c)
+            lora_out = 0.0
+            for name, adapter in self.adapters.items():
+                w = mx.minimum(self.routing_weights[name], mx.array([_GLOBAL_CLAMP]))
+                out = (x @ adapter["A"]) @ adapter["B"]
+                lora_out = lora_out + (w * adapter["scale"] * out)
+            return base_out + lora_out
 
 def get_linear_dims(layer):
     if hasattr(layer, "group_size"):

@@ -4,157 +4,11 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>paper</title>
+  <title>Synapta Multi-Adapter Composition</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
-    html {
-      color: #1a1a1a;
-      background-color: #fdfdfd;
-    }
-    body {
-      margin: 0 auto;
-      max-width: 36em;
-      padding-left: 50px;
-      padding-right: 50px;
-      padding-top: 50px;
-      padding-bottom: 50px;
-      hyphens: auto;
-      overflow-wrap: break-word;
-      text-rendering: optimizeLegibility;
-      font-kerning: normal;
-    }
-    @media (max-width: 600px) {
-      body {
-        font-size: 0.9em;
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-    @media print {
-      html {
-        background-color: white;
-      }
-      body {
-        background-color: transparent;
-        color: black;
-        font-size: 12pt;
-      }
-      p, h2, h3 {
-        orphans: 3;
-        widows: 3;
-      }
-      h2, h3, h4 {
-        page-break-after: avoid;
-      }
-    }
-    p {
-      margin: 1em 0;
-    }
-    a {
-      color: #1a1a1a;
-    }
-    a:visited {
-      color: #1a1a1a;
-    }
-    img {
-      max-width: 100%;
-    }
-    svg {
-      height: auto;
-      max-width: 100%;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      margin-top: 1.4em;
-    }
-    h5, h6 {
-      font-size: 1em;
-      font-style: italic;
-    }
-    h6 {
-      font-weight: normal;
-    }
-    ol, ul {
-      padding-left: 1.7em;
-      margin-top: 1em;
-    }
-    li > ol, li > ul {
-      margin-top: 0;
-    }
-    blockquote {
-      margin: 1em 0 1em 1.7em;
-      padding-left: 1em;
-      border-left: 2px solid #e6e6e6;
-      color: #606060;
-    }
-    code {
-      white-space: pre-wrap;
-      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
-      font-size: 85%;
-      margin: 0;
-      hyphens: manual;
-    }
-    pre {
-      margin: 1em 0;
-      overflow: auto;
-    }
-    pre code {
-      padding: 0;
-      overflow: visible;
-      overflow-wrap: normal;
-    }
-    .sourceCode {
-     background-color: transparent;
-     overflow: visible;
-    }
-    hr {
-      border: none;
-      border-top: 1px solid #1a1a1a;
-      height: 1px;
-      margin: 1em 0;
-    }
-    table {
-      margin: 1em 0;
-      border-collapse: collapse;
-      width: 100%;
-      overflow-x: auto;
-      display: block;
-      font-variant-numeric: lining-nums tabular-nums;
-    }
-    table caption {
-      margin-bottom: 0.75em;
-    }
-    tbody {
-      margin-top: 0.5em;
-      border-top: 1px solid #1a1a1a;
-      border-bottom: 1px solid #1a1a1a;
-    }
-    th {
-      border-top: 1px solid #1a1a1a;
-      padding: 0.25em 0.5em 0.25em 0.5em;
-    }
-    td {
-      padding: 0.125em 0.5em 0.25em 0.5em;
-    }
-    header {
-      margin-bottom: 4em;
-      text-align: center;
-    }
-    #TOC li {
-      list-style: none;
-    }
-    #TOC ul {
-      padding-left: 1.3em;
-    }
-    #TOC > ul {
-      padding-left: 0;
-    }
-    #TOC a:not(:hover) {
-      text-decoration: none;
-    }
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -170,139 +24,23 @@
     }
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
+  <link rel="stylesheet" href="https://raw.githubusercontent.com/sindresorhus/github-markdown-css/main/github-markdown.css" />
 </head>
 <body>
-<nav id="TOC" role="doc-toc">
-<ul>
-<li><a
-href="#prompt-level-multi-adapter-composition-with-norm-proportional-clamping-a-pre-registered-negative-result"
-id="toc-prompt-level-multi-adapter-composition-with-norm-proportional-clamping-a-pre-registered-negative-result"><span
-class="toc-section-number">1</span> Prompt-Level Multi-Adapter
-Composition with Norm-Proportional Clamping: A Pre-Registered Negative
-Result</a>
-<ul>
-<li><a href="#abstract" id="toc-abstract"><span
-class="toc-section-number">1.1</span> Abstract</a></li>
-<li><a href="#introduction" id="toc-introduction"><span
-class="toc-section-number">1.2</span> 1. Introduction</a></li>
-<li><a href="#related-work" id="toc-related-work"><span
-class="toc-section-number">1.3</span> 2. Related Work</a></li>
-<li><a href="#method" id="toc-method"><span
-class="toc-section-number">1.4</span> 3. Method</a>
-<ul>
-<li><a href="#problem-setting" id="toc-problem-setting"><span
-class="toc-section-number">1.4.1</span> 3.1 Problem Setting</a></li>
-<li><a href="#routing" id="toc-routing"><span
-class="toc-section-number">1.4.2</span> 3.2 Routing</a></li>
-<li><a href="#activation-space-composition"
-id="toc-activation-space-composition"><span
-class="toc-section-number">1.4.3</span> 3.3 Activation-Space
-Composition</a></li>
-<li><a href="#norm-proportional-adaptive-clamp"
-id="toc-norm-proportional-adaptive-clamp"><span
-class="toc-section-number">1.4.4</span> 3.4 Norm-Proportional Adaptive
-Clamp</a></li>
-</ul></li>
-<li><a href="#experiments" id="toc-experiments"><span
-class="toc-section-number">1.5</span> 4. Experiments</a>
-<ul>
-<li><a href="#setup" id="toc-setup"><span
-class="toc-section-number">1.5.1</span> 4.1 Setup</a></li>
-<li><a href="#main-results" id="toc-main-results"><span
-class="toc-section-number">1.5.2</span> 4.2 Main Results</a></li>
-<li><a href="#pre-registered-criteria"
-id="toc-pre-registered-criteria"><span
-class="toc-section-number">1.5.3</span> 4.3 Pre-Registered
-Criteria</a></li>
-<li><a href="#per-domain-analysis" id="toc-per-domain-analysis"><span
-class="toc-section-number">1.5.4</span> 4.4 Per-Domain Analysis</a></li>
-<li><a href="#unclamped-mixing-is-catastrophic"
-id="toc-unclamped-mixing-is-catastrophic"><span
-class="toc-section-number">1.5.5</span> 4.5 Unclamped Mixing is
-Catastrophic</a></li>
-</ul></li>
-<li><a href="#discussion-and-limitations"
-id="toc-discussion-and-limitations"><span
-class="toc-section-number">1.6</span> 5. Discussion and Limitations</a>
-<ul>
-<li><a href="#why-compositional-gain-failed"
-id="toc-why-compositional-gain-failed"><span
-class="toc-section-number">1.6.1</span> 5.1 Why Compositional Gain
-Failed</a></li>
-<li><a href="#scope-of-the-negative-result"
-id="toc-scope-of-the-negative-result"><span
-class="toc-section-number">1.6.2</span> 5.1.1 Scope of the Negative
-Result</a></li>
-<li><a href="#what-passed" id="toc-what-passed"><span
-class="toc-section-number">1.6.3</span> 5.2 What Passed</a></li>
-<li><a href="#practical-implications"
-id="toc-practical-implications"><span
-class="toc-section-number">1.6.4</span> 5.3 Practical
-Implications</a></li>
-<li><a href="#on-honest-reporting" id="toc-on-honest-reporting"><span
-class="toc-section-number">1.6.5</span> 5.4 On Honest Reporting</a></li>
-</ul></li>
-<li><a
-href="#future-work-toward-stable-efficient-multi-adapter-composition"
-id="toc-future-work-toward-stable-efficient-multi-adapter-composition"><span
-class="toc-section-number">1.7</span> 6. Future Work: Toward Stable,
-Efficient Multi-Adapter Composition</a>
-<ul>
-<li><a href="#confidence-gated-adapter-activation"
-id="toc-confidence-gated-adapter-activation"><span
-class="toc-section-number">1.7.1</span> 6.1 Confidence-Gated Adapter
-Activation</a></li>
-<li><a href="#true-compositional-evaluation-set"
-id="toc-true-compositional-evaluation-set"><span
-class="toc-section-number">1.7.2</span> 6.2 True Compositional
-Evaluation Set</a></li>
-<li><a href="#layer-sparse-injection"
-id="toc-layer-sparse-injection"><span
-class="toc-section-number">1.7.3</span> 6.3 Layer-Sparse
-Injection</a></li>
-<li><a href="#improved-router" id="toc-improved-router"><span
-class="toc-section-number">1.7.4</span> 6.4 Improved Router</a></li>
-</ul></li>
-<li><a href="#v2-compositional-evaluation-on-multi-domain-queries"
-id="toc-v2-compositional-evaluation-on-multi-domain-queries"><span
-class="toc-section-number">1.8</span> 8. V2 Compositional Evaluation on
-Multi-Domain Queries</a>
-<ul>
-<li><a href="#setup-1" id="toc-setup-1"><span
-class="toc-section-number">1.8.1</span> 8.1 Setup</a></li>
-<li><a href="#results-single-domain-split"
-id="toc-results-single-domain-split"><span
-class="toc-section-number">1.8.2</span> 8.2 Results: Single-Domain
-Split</a></li>
-<li><a href="#results-multi-domain-split"
-id="toc-results-multi-domain-split"><span
-class="toc-section-number">1.8.3</span> 8.3 Results: Multi-Domain
-Split</a></li>
-<li><a href="#per-question-analysis"
-id="toc-per-question-analysis"><span
-class="toc-section-number">1.8.4</span> 8.4 Per-Question
-Analysis</a></li>
-<li><a href="#v2-discussion" id="toc-v2-discussion"><span
-class="toc-section-number">1.8.5</span> 8.5 V2 Discussion</a></li>
-</ul></li>
-<li><a href="#conclusion" id="toc-conclusion"><span
-class="toc-section-number">1.9</span> 9. Conclusion</a></li>
-</ul></li>
-</ul>
-</nav>
-<h1 data-number="1"
-id="prompt-level-multi-adapter-composition-with-norm-proportional-clamping-a-pre-registered-negative-result"><span
-class="header-section-number">1</span> Prompt-Level Multi-Adapter
-Composition with Norm-Proportional Clamping: A Pre-Registered Negative
-Result</h1>
+<header id="title-block-header">
+<h1 class="title">Synapta Multi-Adapter Composition</h1>
+</header>
+<h1
+id="prompt-level-multi-adapter-composition-with-norm-proportional-clamping-a-pre-registered-negative-result">Prompt-Level
+Multi-Adapter Composition with Norm-Proportional Clamping: A
+Pre-Registered Negative Result</h1>
 <blockquote>
 <p><strong>All numeric values from REAL model inference on Apple Silicon
 UMA.</strong> 400 MLX inferences (100 questions × 4 methods) |
 Qwen2.5-1.5B-Instruct-4bit | 20 LoRA experts</p>
 </blockquote>
 <hr />
-<h2 data-number="1.1" id="abstract"><span
-class="header-section-number">1.1</span> Abstract</h2>
+<h2 id="abstract">Abstract</h2>
 <p>We investigate prompt-level multi-adapter composition with a
 norm-proportional adaptive clamp for on-device LLM inference on Apple
 Silicon. Our method routes queries to <span
@@ -335,8 +73,7 @@ routing when each query targets exactly one domain. Whether composition
 helps on genuinely multi-domain queries remains an open question
 requiring a dedicated compositional benchmark.</p>
 <hr />
-<h2 data-number="1.2" id="introduction"><span
-class="header-section-number">1.2</span> 1. Introduction</h2>
+<h2 id="introduction">1. Introduction</h2>
 <p>Low-Rank Adaptation (LoRA) enables efficient specialization of large
 language models to narrow domains. A natural question follows: can
 multiple domain experts be composed at inference time to handle queries
@@ -379,8 +116,7 @@ class="math inline"><em>Δ</em>_SIM(AC − SA) &gt; +0.05</span></td>
 compositional accuracy criterion <strong>fails</strong>, and we analyze
 why.</p>
 <hr />
-<h2 data-number="1.3" id="related-work"><span
-class="header-section-number">1.3</span> 2. Related Work</h2>
+<h2 id="related-work">2. Related Work</h2>
 <p><strong>Mixture-of-LoRA &amp; Multi-Adapter Composition.</strong>
 X-LoRA (Buehler, 2024), MiLoRA, and MALoRA explore gating mechanisms to
 combine specialized LoRA experts. These methods typically operate at the
@@ -410,10 +146,8 @@ composition does not yet improve over single-expert routing —
 highlighting an open problem at the intersection of these research
 threads.</p>
 <hr />
-<h2 data-number="1.4" id="method"><span
-class="header-section-number">1.4</span> 3. Method</h2>
-<h3 data-number="1.4.1" id="problem-setting"><span
-class="header-section-number">1.4.1</span> 3.1 Problem Setting</h3>
+<h2 id="method">3. Method</h2>
+<h3 id="problem-setting">3.1 Problem Setting</h3>
 <p>Given a frozen base model <span class="math inline">ℳ</span> and
 <span class="math inline"><em>N</em></span> domain-specific LoRA
 adapters <span
@@ -422,14 +156,12 @@ we seek to compose <span
 class="math inline"><em>K</em> ≤ <em>N</em></span> experts for a query
 <span class="math inline"><em>q</em></span> that may span multiple
 domains.</p>
-<h3 data-number="1.4.2" id="routing"><span
-class="header-section-number">1.4.2</span> 3.2 Routing</h3>
+<h3 id="routing">3.2 Routing</h3>
 <p>A CoT-based router selects the top-<span
 class="math inline"><em>K</em></span> experts by generating a short
 chain-of-thought reasoning step using <span class="math inline">ℳ</span>
 itself, then matching the output against domain tags.</p>
-<h3 data-number="1.4.3" id="activation-space-composition"><span
-class="header-section-number">1.4.3</span> 3.3 Activation-Space
+<h3 id="activation-space-composition">3.3 Activation-Space
 Composition</h3>
 <p>For each linear layer <span class="math inline"><em>l</em></span>,
 the combined adapter injection is: <span
@@ -437,9 +169,8 @@ class="math display"><em>m</em><sub><em>l</em></sub> = ∑<sub><em>i</em> 
 <p>where <span
 class="math inline"><em>p</em><sub><em>i</em></sub></span> are routing
 scores.</p>
-<h3 data-number="1.4.4" id="norm-proportional-adaptive-clamp"><span
-class="header-section-number">1.4.4</span> 3.4 Norm-Proportional
-Adaptive Clamp</h3>
+<h3 id="norm-proportional-adaptive-clamp">3.4 Norm-Proportional Adaptive
+Clamp</h3>
 <p>The total injection is scaled by: <span
 class="math display"><em>γ</em> = min (1.0, <em>c</em>⋅∥<strong>z</strong><sub><em>l</em></sub>∥<sub>2</sub>/(∥<em>m</em><sub><em>l</em></sub>∥<sub>2</sub> + <em>ϵ</em>))</span></p>
 <p>where <span
@@ -454,10 +185,8 @@ class="math inline"><em>c</em></span> is applied as a per-adapter weight
 clamp: <span
 class="math inline"><em>w</em><sub><em>i</em></sub> = min (<em>p</em><sub><em>i</em></sub>, <em>c</em>)</span>.</p>
 <hr />
-<h2 data-number="1.5" id="experiments"><span
-class="header-section-number">1.5</span> 4. Experiments</h2>
-<h3 data-number="1.5.1" id="setup"><span
-class="header-section-number">1.5.1</span> 4.1 Setup</h3>
+<h2 id="experiments">4. Experiments</h2>
+<h3 id="setup">4.1 Setup</h3>
 <ul>
 <li><strong>Model:</strong> Qwen2.5-1.5B-Instruct-4bit, loaded via MLX
 on Apple M3 Max (UMA)</li>
@@ -495,8 +224,7 @@ single-domain: none requires reasoning across multiple domains
 simultaneously. This evaluation therefore measures single-domain recall
 under multi-adapter injection, not compositional reasoning.</p>
 </blockquote>
-<h3 data-number="1.5.2" id="main-results"><span
-class="header-section-number">1.5.2</span> 4.2 Main Results</h3>
+<h3 id="main-results">4.2 Main Results</h3>
 <table>
 <thead>
 <tr>
@@ -543,9 +271,7 @@ class="header-section-number">1.5.2</span> 4.2 Main Results</h3>
 </tr>
 </tbody>
 </table>
-<h3 data-number="1.5.3" id="pre-registered-criteria"><span
-class="header-section-number">1.5.3</span> 4.3 Pre-Registered
-Criteria</h3>
+<h3 id="pre-registered-criteria">4.3 Pre-Registered Criteria</h3>
 <table>
 <colgroup>
 <col style="width: 26%" />
@@ -586,8 +312,7 @@ Criteria</h3>
 criterion. It performs slightly worse than both the Baseline and
 SingleAdapter on average semantic similarity, while achieving better
 perplexity and comparable latency.</p>
-<h3 data-number="1.5.4" id="per-domain-analysis"><span
-class="header-section-number">1.5.4</span> 4.4 Per-Domain Analysis</h3>
+<h3 id="per-domain-analysis">4.4 Per-Domain Analysis</h3>
 <p>The AdaptiveClamp outperforms SingleAdapter in 4/20 domains:</p>
 <table>
 <thead>
@@ -662,8 +387,7 @@ class="header-section-number">1.5.4</span> 4.4 Per-Domain Analysis</h3>
 </tr>
 </tbody>
 </table>
-<h3 data-number="1.5.5" id="unclamped-mixing-is-catastrophic"><span
-class="header-section-number">1.5.5</span> 4.5 Unclamped Mixing is
+<h3 id="unclamped-mixing-is-catastrophic">4.5 Unclamped Mixing is
 Catastrophic</h3>
 <p>UnclampedMix (<span class="math inline"><em>c</em> = 999</span>)
 shows endemic collapse: on 8 out of 100 prompts, semantic similarity
@@ -671,11 +395,8 @@ drops below 0.1, indicating the model produced near-random text. Average
 similarity (0.557) is significantly worse than all other methods. This
 empirically validates the necessity of norm bounding.</p>
 <hr />
-<h2 data-number="1.6" id="discussion-and-limitations"><span
-class="header-section-number">1.6</span> 5. Discussion and
-Limitations</h2>
-<h3 data-number="1.6.1" id="why-compositional-gain-failed"><span
-class="header-section-number">1.6.1</span> 5.1 Why Compositional Gain
+<h2 id="discussion-and-limitations">5. Discussion and Limitations</h2>
+<h3 id="why-compositional-gain-failed">5.1 Why Compositional Gain
 Failed</h3>
 <p>The primary finding is a <strong>negative result:</strong>
 multi-adapter composition with prompt-level routing and norm clamping
@@ -723,8 +444,7 @@ class="math inline"><em>Δ</em><em>W</em></span> injection at layers
 where <span
 class="math inline">∥<em>m</em><sub><em>l</em></sub>∥ ≫ ∥<em>z</em><sub><em>l</em></sub>∥</span>.</p></li>
 </ol>
-<h3 data-number="1.6.2" id="scope-of-the-negative-result"><span
-class="header-section-number">1.6.2</span> 5.1.1 Scope of the Negative
+<h3 id="scope-of-the-negative-result">5.1.1 Scope of the Negative
 Result</h3>
 <p>This negative result is specific to: - <strong>Single-domain,
 template-identical evaluation</strong> on synthetic data. -
@@ -737,8 +457,7 @@ can improve output quality on genuinely multi-domain queries (e.g.,
 exchange?”), nor whether a trained router with confidence-gated
 activation would change the result. These questions require a dedicated
 compositional benchmark (see §6).</p>
-<h3 data-number="1.6.3" id="what-passed"><span
-class="header-section-number">1.6.3</span> 5.2 What Passed</h3>
+<h3 id="what-passed">5.2 What Passed</h3>
 <p>The Adaptive Clamp achieves lower perplexity than both the Baseline
 (58.0 vs 64.5) and SingleAdapter (58.0 vs 60.9), suggesting that
 multi-adapter exposure does refine the model’s internal probability
@@ -746,31 +465,26 @@ distribution even when the generated text is not more similar to the
 ground truth. It also introduces no measurable latency overhead (<span
 class="math inline">−0.7%</span>), validating the UMA zero-copy
 approach.</p>
-<h3 data-number="1.6.4" id="practical-implications"><span
-class="header-section-number">1.6.4</span> 5.3 Practical
-Implications</h3>
+<h3 id="practical-implications">5.3 Practical Implications</h3>
 <p>A practitioner should: - <strong>Use SingleAdapter routing</strong>
 for best semantic similarity on domain-specific queries today. -
 <strong>Not deploy multi-adapter mixing</strong> in production until
 routing accuracy and compositional evaluation protocols are improved. -
 <strong>Avoid unclamped mixing entirely</strong> — it causes
 catastrophic output collapse.</p>
-<h3 data-number="1.6.5" id="on-honest-reporting"><span
-class="header-section-number">1.6.5</span> 5.4 On Honest Reporting</h3>
+<h3 id="on-honest-reporting">5.4 On Honest Reporting</h3>
 <p>We report this as a pre-registered study with mixed results,
 following the tradition of rigorous negative results (ICBINB workshop,
 Henderson et al., 2018). The infrastructure is validated, the metrics
 are real, and the failure is informative.</p>
 <hr />
-<h2 data-number="1.7"
-id="future-work-toward-stable-efficient-multi-adapter-composition"><span
-class="header-section-number">1.7</span> 6. Future Work: Toward Stable,
-Efficient Multi-Adapter Composition</h2>
+<h2
+id="future-work-toward-stable-efficient-multi-adapter-composition">6.
+Future Work: Toward Stable, Efficient Multi-Adapter Composition</h2>
 <p>The following directions are NOT part of the current study. They
 would form a follow-up investigation.</p>
-<h3 data-number="1.7.1" id="confidence-gated-adapter-activation"><span
-class="header-section-number">1.7.1</span> 6.1 Confidence-Gated Adapter
-Activation</h3>
+<h3 id="confidence-gated-adapter-activation">6.1 Confidence-Gated
+Adapter Activation</h3>
 <p><strong>Hypothesis:</strong> Scaling engagement dynamically —
 disabling the second adapter when the router’s confidence for the
 secondary domain is below a threshold <span
@@ -779,38 +493,31 @@ interference on correctly-routed single-domain queries.</p>
 <p><strong>New threshold:</strong> <span
 class="math inline"><em>Δ</em>_SIM(Gated-AC − SA) &gt; +0.03</span> on
 composite queries only.</p>
-<h3 data-number="1.7.2" id="true-compositional-evaluation-set"><span
-class="header-section-number">1.7.2</span> 6.2 True Compositional
+<h3 id="true-compositional-evaluation-set">6.2 True Compositional
 Evaluation Set</h3>
 <p><strong>Hypothesis:</strong> The current 100-question benchmark tests
 single-domain recall, not compositional reasoning. A proper evaluation
 would require questions that genuinely demand knowledge from 2+ domains
 simultaneously (e.g., “What are the legal implications of option pricing
 under maritime law?”).</p>
-<h3 data-number="1.7.3" id="layer-sparse-injection"><span
-class="header-section-number">1.7.3</span> 6.3 Layer-Sparse
-Injection</h3>
+<h3 id="layer-sparse-injection">6.3 Layer-Sparse Injection</h3>
 <p><strong>Hypothesis:</strong> Injecting adapter activations only at
 layers 12–20 (of 28) would preserve early-layer representations while
 allowing late-layer domain specialization, reducing PPL impact and
 potentially improving similarity.</p>
-<h3 data-number="1.7.4" id="improved-router"><span
-class="header-section-number">1.7.4</span> 6.4 Improved Router</h3>
+<h3 id="improved-router">6.4 Improved Router</h3>
 <p><strong>Hypothesis:</strong> Replacing the CoT heuristic router with
 a trained lightweight classifier (e.g., on TF-IDF or a small embedding
 model) would reduce the ~40% fallback rate, directly improving
 multi-adapter outcomes.</p>
 <hr />
-<h2 data-number="1.8"
-id="v2-compositional-evaluation-on-multi-domain-queries"><span
-class="header-section-number">1.8</span> 8. V2 Compositional Evaluation
-on Multi-Domain Queries</h2>
+<h2 id="v2-compositional-evaluation-on-multi-domain-queries">8. V2
+Compositional Evaluation on Multi-Domain Queries</h2>
 <p>To address the fundamental limitation of v1 — that single-domain,
 templated questions do not test multi-adapter composition — we designed
 and executed a follow-up evaluation (v2) on genuinely multi-domain
 queries.</p>
-<h3 data-number="1.8.1" id="setup-1"><span
-class="header-section-number">1.8.1</span> 8.1 Setup</h3>
+<h3 id="setup-1">8.1 Setup</h3>
 <p><strong>Multi-Domain Benchmark.</strong> We constructed a new
 evaluation set (<code>multidomain_eval_v2.json</code>) containing 40
 questions, each requiring knowledge from two distinct domains
@@ -867,8 +574,7 @@ the original single-domain (SD, 100 questions) and new multi-domain (MD,
 <p><strong>Total inferences:</strong> 560 (140 questions × 4 methods),
 all executed against the real Qwen2.5-1.5B-Instruct-4bit model on Apple
 Silicon via MLX.</p>
-<h3 data-number="1.8.2" id="results-single-domain-split"><span
-class="header-section-number">1.8.2</span> 8.2 Results: Single-Domain
+<h3 id="results-single-domain-split">8.2 Results: Single-Domain
 Split</h3>
 <table>
 <thead>
@@ -919,9 +625,7 @@ class="math inline"><em>Δ</em>_SIM(AC-v2 − SA) = −0.0006</span>
 (threshold <span class="math inline"> ≥ −0.005</span>). Multi-adapter
 composition with oracle routing causes no harm on single-domain
 queries.</p>
-<h3 data-number="1.8.3" id="results-multi-domain-split"><span
-class="header-section-number">1.8.3</span> 8.3 Results: Multi-Domain
-Split</h3>
+<h3 id="results-multi-domain-split">8.3 Results: Multi-Domain Split</h3>
 <table>
 <thead>
 <tr>
@@ -987,9 +691,7 @@ norm-ratio clamp <span
 class="math inline"><em>γ</em><sub><em>l</em></sub> = min (1, <em>c</em>⋅∥<em>z</em><sub><em>l</em></sub>∥/∥<em>m</em><sub><em>l</em></sub>∥)</span>
 would operate on activation norms, not routing weights, and is not yet
 implemented in the backend.</p>
-<h3 data-number="1.8.4" id="per-question-analysis"><span
-class="header-section-number">1.8.4</span> 8.4 Per-Question
-Analysis</h3>
+<h3 id="per-question-analysis">8.4 Per-Question Analysis</h3>
 <p>Per-question <span class="math inline"><em>Δ</em>_SIM</span> (AC-v2 −
 SA) on the MD split reveals high variance:</p>
 <ul>
@@ -1007,34 +709,51 @@ contribute complementary knowledge (e.g., MEDICAL + MATH), while others
 introduce destructive interference (e.g., PYTHON + ROBOTICS, where both
 adapters may compete for the same code-generation representation
 space).</p>
-<h3 data-number="1.8.5" id="v2-discussion"><span
-class="header-section-number">1.8.5</span> 8.5 V2 Discussion</h3>
+<h3 id="v2-discussion-follow-up-ablations">8.5 V2 Discussion &amp;
+Follow-up Ablations</h3>
+<p>To isolate the causes of the marginal composition effect (+1.7%), we
+conducted two follow-up ablations on the MD split:</p>
 <ol type="1">
-<li><p><strong>Composition is not universally harmful.</strong> Unlike
-v1’s <span class="math inline"><em>Δ</em>_SIM = −0.011</span> on
-single-domain data, v2 shows <span
-class="math inline"><em>Δ</em>_SIM = +0.0171</span> on multi-domain
-data. The sign flip confirms that the v1 negative result was an artifact
-of testing composition on single-domain queries.</p></li>
-<li><p><strong>The effect is real but small.</strong> With the current
-architecture (per-adapter weight cap, 1.5B parameter base model, 20 LoRA
-adapters trained on synthetic data), multi-adapter composition yields a
-modest ~1.7% improvement in semantic similarity on multi-domain
-queries.</p></li>
-<li><p><strong>The clamp mechanism was not tested.</strong> H5 failure
-reveals that the backend’s per-adapter weight cap does not exercise the
-norm-bounding mechanism when oracle routing assigns equal weights.
-Implementing the true per-layer norm-ratio clamp in the backend is
-necessary to test whether geometric activation control can amplify the
-composition effect.</p></li>
-<li><p><strong>Composition effects are domain-pair-specific.</strong>
-The high per-question variance suggests that a confidence-gated router
-(which activates K=2 only when both domains are genuinely needed) could
-improve aggregate performance by avoiding destructive pairs.</p></li>
+<li><strong>Routing Gap (Phase 3):</strong> We replaced oracle routing
+with the real heuristic CoT router. The real router successfully
+extracts <span class="math inline"><em>K</em> = 2</span> on 75% of
+questions, yielding <span
+class="math inline"><em>Δ</em>_SIM = +0.0054</span> over the
+SingleAdapter baseline. This recovers ~26% of the oracle’s compositional
+headroom (+0.0206). The fact that even <em>perfect</em> oracle routing
+provides only a <span class="math inline"> ∼ 2%</span> gain indicates
+that routing accuracy is a bottleneck, but not the primary failure mode;
+the composition capacity of the adapters themselves is the ceiling.</li>
+<li><strong>Clamp Mechanism (Phase 2):</strong> We replaced the
+backend’s per-adapter weight cap <span
+class="math inline">min (<em>w</em>, <em>c</em>)</span> with the
+theoretically intended per-layer activation norm-ratio clamp <span
+class="math inline"><em>γ</em><sub><em>l</em></sub> = min (1, <em>c</em>⋅∥<em>z</em><sub><em>l</em></sub>∥/∥<em>m</em><sub><em>l</em></sub>∥)</span>.
+The results were functionally identical on the MD benchmark (<span
+class="math inline"><em>Δ</em>_SIM = −0.0003</span>). Because the
+un-clamped adapter activation norm <span
+class="math inline">∥<em>m</em><sub><em>l</em></sub>∥</span> is
+generally small relative to the base model norm <span
+class="math inline">∥<em>z</em><sub><em>l</em></sub>∥</span> in this
+specific model/adapter configuration, the norm-ratio scalar <span
+class="math inline"><em>γ</em><sub><em>l</em></sub></span> evaluates to
+1.0 at almost all layers.</li>
 </ol>
+<p>The v2 results paint a more nuanced picture than v1:</p>
+<ul>
+<li><strong>Composition is not universally harmful.</strong> The sign
+flip from <span class="math inline"><em>Δ</em> = −0.011</span> on
+single-domain data to <span
+class="math inline"><em>Δ</em> = +0.017</span> on multi-domain data
+confirms that the v1 negative result was an artifact of testing
+composition on single-domain queries.</li>
+<li><strong>The effect is real but small.</strong> With 1.5B parameters
+and 20 synthetic LoRA experts, multi-adapter composition yields a
+modest, sub-threshold improvement that is heavily
+domain-pair-dependent.</li>
+</ul>
 <hr />
-<h2 data-number="1.9" id="conclusion"><span
-class="header-section-number">1.9</span> 9. Conclusion</h2>
+<h2 id="conclusion">9. Conclusion</h2>
 <p>We conducted a two-phase pre-registered empirical study of
 prompt-level multi-adapter composition on Apple Silicon UMA.</p>
 <p><strong>Phase 1 (v1, single-domain, 100 questions):</strong> Our
@@ -1053,25 +772,31 @@ class="math inline"><em>Δ</em>_SIM = +0.0171</span>) that nonetheless
 <strong>failed</strong> the pre-registered <span
 class="math inline"> &gt; +0.03</span> threshold (<strong>H2:
 FAIL</strong>). Crucially, multi-adapter composition (a) causes no harm
-on single-domain queries (<strong>H1: PASS</strong>, <span
-class="math inline"><em>Δ</em> = −0.0006</span>), (b) preserves or
+on single-domain queries (<strong>H1: PASS</strong>), (b) preserves or
 improves perplexity (<strong>H3: PASS</strong>), and (c) introduces
-negligible latency overhead (<strong>H4: PASS</strong>, <span
-class="math inline">+1.9%</span>).</p>
+negligible latency overhead (<strong>H4: PASS</strong>).</p>
+<p>Follow-up ablations revealed that a real heuristic CoT router
+recovers ~26% of the oracle compositional headroom (<span
+class="math inline"><em>Δ</em> = +0.0054</span>), and that utilizing a
+true per-layer activation norm-ratio clamp behaves identically to a
+simple routing weight cap on this model (<span
+class="math inline"><em>Δ</em>_SIM = −0.0003</span>). This suggests that
+the modest composition capacity is bounded fundamentally by the 1.5B
+parameter base representation space and the adapter orthogonality,
+rather than the router or the algebraic clamping mechanism.</p>
 <p>The sign flip from <span
 class="math inline"><em>Δ</em> = −0.011</span> (v1, single-domain) to
 <span class="math inline"><em>Δ</em> = +0.017</span> (v2, multi-domain)
 demonstrates that the v1 negative result was specific to single-domain
 evaluation, not a fundamental failure of multi-adapter composition.
 Per-question analysis reveals domain-pair-dependent effects: some pairs
-(MEDICAL × MATH, LEGAL × CRYPTOGRAPHY) show substantial gains while
-others (PYTHON × ROBOTICS) show losses.</p>
+(MEDICAL × MATH) show substantial gains while others (PYTHON × ROBOTICS)
+show losses.</p>
 <p>This work contributes: (1) a carefully documented negative result on
 single-domain data, (2) a partial positive result on multi-domain data,
-(3) a reusable evaluation infrastructure with pre-registered hypothesis
-testing, and (4) concrete evidence that larger models, true per-layer
-norm-ratio clamping, and confidence-gated routing are the most promising
-directions for unlocking the full compositional potential of
-multi-adapter methods on edge devices.</p>
+(3) empirical evidence that router accuracy and clamp algebra are
+secondary bottlenecks compared to native adapter composition capacity,
+and (4) a reusable evaluation infrastructure emphasizing rigorous,
+pre-registered hypothesis testing for edge AI methods.</p>
 </body>
 </html>
