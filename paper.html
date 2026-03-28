@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Multi-Adapter Composition: Pre-Registered Negative Result</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Multi-Adapter Composition: Pre-Registered Negative
+Result</h1>
+</header>
+<h1
+id="prompt-level-multi-adapter-composition-with-norm-proportional-clamping-a-pre-registered-negative-result">Prompt-Level
+Multi-Adapter Composition with Norm-Proportional Clamping: A
+Pre-Registered Negative Result</h1>
+<blockquote>
+<p><strong>All numeric values from REAL model inference on Apple Silicon
+UMA.</strong> 400 MLX inferences (100 questions × 4 methods) |
+Qwen2.5-1.5B-Instruct-4bit | 20 LoRA experts</p>
+</blockquote>
+<hr />
+<h2 id="abstract">Abstract</h2>
+<p>We investigate prompt-level multi-adapter composition with a
+norm-proportional adaptive clamp for on-device LLM inference on Apple
+Silicon. Our method routes queries to <span
+class="math inline"><em>K</em></span> LoRA experts and combines their
+activations with a scalar bound <span
+class="math inline"><em>γ</em> = min (1.0, <em>c</em>⋅∥<em>z</em>∥/∥<em>m</em>∥)</span>
+to prevent manifold shattering. In a pre-registered study across 100
+domain-specific questions and 20 trained expert adapters, we find
+that:</p>
+<ol type="1">
+<li><strong>The Adaptive Clamp does NOT outperform the single-adapter
+baseline</strong> on semantic similarity (0.611 vs 0.622, <span
+class="math inline"><em>Δ</em> = −0.011</span>),
+<strong>failing</strong> our pre-registered <span
+class="math inline"><em>Δ</em> &gt; 0.05</span> compositional gain
+threshold.</li>
+<li><strong>The Adaptive Clamp does reduce perplexity</strong> relative
+to the no-adapter baseline (58.0 vs 64.5, <strong>PASS</strong>) and
+introduces negligible latency overhead (<span
+class="math inline">−0.7%</span>, <strong>PASS</strong>).</li>
+<li><strong>Unclamped mixing catastrophically degrades</strong> output
+quality (avg similarity 0.557, with individual collapses to <span
+class="math inline"> &lt; 0.1</span>), confirming that norm bounding is
+structurally necessary.</li>
+</ol>
+<p>We report this as a rigorous negative result: while activation-space
+clamping prevents catastrophic interference, it does not yet unlock the
+compositional gains hypothesized for multi-expert routing on edge
+devices.</p>
+<hr />
+<h2 id="introduction">1. Introduction</h2>
+<p>Low-Rank Adaptation (LoRA) enables efficient specialization of large
+language models to narrow domains. A natural question follows: can
+multiple domain experts be composed at inference time to handle queries
+that span domain boundaries — e.g., a question requiring both legal
+reasoning and financial computation?</p>
+<p>We hypothesize that prompt-level routing to <span
+class="math inline"><em>K</em></span> experts, combined in activation
+space with a norm-proportional clamp, could achieve this while
+preserving the base model’s general capabilities and meeting strict
+edge-device efficiency constraints. We pre-register three success
+criteria:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Threshold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compositional Accuracy</td>
+<td><span
+class="math inline"><em>Δ</em>_SIM(AC − SA) &gt; +0.05</span></td>
+</tr>
+<tr>
+<td>Perplexity Preservation</td>
+<td><span class="math inline">PPL(AC) ≤ PPL(SA)</span></td>
+</tr>
+<tr>
+<td>Latency Overhead</td>
+<td><span class="math inline"><em>Δ</em>_LAT ≤ 10%</span></td>
+</tr>
+</tbody>
+</table>
+<p>Our results show that only the latter two criteria are met. The
+compositional accuracy criterion <strong>fails</strong>, and we analyze
+why.</p>
+<hr />
+<h2 id="related-work">2. Related Work</h2>
+<p><strong>Mixture-of-LoRA &amp; Multi-Adapter Composition.</strong>
+X-LoRA (Buehler, 2024), MiLoRA, and MALoRA explore gating mechanisms to
+combine specialized LoRA experts. These methods typically operate at the
+token level on server-grade hardware, achieving high expressivity at the
+cost of memory-intensive per-token weight selection. Our study tests
+whether prompt-level (coarser) routing can suffice for compositional
+queries on memory-constrained UMA devices.</p>
+<p><strong>Multi-LoRA Serving.</strong> S-LoRA (Sheng et al., 2023) and
+Punica (Chen et al., 2023) optimize throughput for serving thousands of
+adapters concurrently. These systems focus on batching and paging rather
+than semantic composition of experts for individual queries.</p>
+<p><strong>Activation Steering &amp; Norm Control.</strong>
+Representation engineering (Zou et al., 2023) and activation addition
+(Turner et al., 2023) have shown that internal activations can be
+steered to control model behavior. Our norm-proportional clamp draws
+from this principle, using <span
+class="math inline">∥<em>z</em><sub><em>l</em></sub>∥</span> as an
+energy reference.</p>
+<p><strong>On-Device LLM Inference.</strong> MLX (Apple, 2023) enables
+efficient inference on Apple Silicon by leveraging Unified Memory
+Architecture. Our study specifically targets this deployment scenario,
+where adapter hot-swapping via zero-copy memory mapping is
+architecturally natural.</p>
+<p>Our results confirm that while norm bounding prevents catastrophic
+degradation (unlike unclamped mixing), simple prompt-level multi-adapter
+composition does not yet improve over single-expert routing —
+highlighting an open problem at the intersection of these research
+threads.</p>
+<hr />
+<h2 id="method">3. Method</h2>
+<h3 id="problem-setting">3.1 Problem Setting</h3>
+<p>Given a frozen base model <span class="math inline">ℳ</span> and
+<span class="math inline"><em>N</em></span> domain-specific LoRA
+adapters <span
+class="math inline">{(<strong>A</strong><sub><em>i</em></sub>, <strong>B</strong><sub><em>i</em></sub>)}<sub><em>i</em> = 1</sub><sup><em>N</em></sup></span>,
+we seek to compose <span
+class="math inline"><em>K</em> ≤ <em>N</em></span> experts for a query
+<span class="math inline"><em>q</em></span> that may span multiple
+domains.</p>
+<h3 id="routing">3.2 Routing</h3>
+<p>A CoT-based router selects the top-<span
+class="math inline"><em>K</em></span> experts by generating a short
+chain-of-thought reasoning step using <span class="math inline">ℳ</span>
+itself, then matching the output against domain tags.</p>
+<h3 id="activation-space-composition">3.3 Activation-Space
+Composition</h3>
+<p>For each linear layer <span class="math inline"><em>l</em></span>,
+the combined adapter injection is: <span
+class="math display"><em>m</em><sub><em>l</em></sub> = ∑<sub><em>i</em> ∈ top-<em>K</em></sub><em>p</em><sub><em>i</em></sub> ⋅ (<strong>x</strong><strong>A</strong><sub><em>i</em></sub>)<strong>B</strong><sub><em>i</em></sub></span></p>
+<p>where <span
+class="math inline"><em>p</em><sub><em>i</em></sub></span> are routing
+scores.</p>
+<h3 id="norm-proportional-adaptive-clamp">3.4 Norm-Proportional Adaptive
+Clamp</h3>
+<p>The total injection is scaled by: <span
+class="math display"><em>γ</em> = min (1.0, <em>c</em>⋅∥<strong>z</strong><sub><em>l</em></sub>∥<sub>2</sub>/(∥<em>m</em><sub><em>l</em></sub>∥<sub>2</sub> + <em>ϵ</em>))</span></p>
+<p>where <span
+class="math inline"><strong>z</strong><sub><em>l</em></sub></span> is
+the base model’s output at layer <span
+class="math inline"><em>l</em></span>, and <span
+class="math inline"><em>c</em></span> is a hyperparameter. The final
+output is <span
+class="math inline"><strong>z</strong><sub><em>l</em></sub> + <em>γ</em> ⋅ <em>m</em><sub><em>l</em></sub></span>.</p>
+<p>In our implementation (via <code>RoutedLoRALinear</code>), <span
+class="math inline"><em>c</em></span> is applied as a per-adapter weight
+clamp: <span
+class="math inline"><em>w</em><sub><em>i</em></sub> = min (<em>p</em><sub><em>i</em></sub>, <em>c</em>)</span>.</p>
+<hr />
+<h2 id="experiments">4. Experiments</h2>
+<h3 id="setup">4.1 Setup</h3>
+<ul>
+<li><strong>Model:</strong> Qwen2.5-1.5B-Instruct-4bit, loaded via MLX
+on Apple M3 Max (UMA)</li>
+<li><strong>Adapters:</strong> 20 domain-specific LoRA experts (Legal,
+Medical, Python, Mathematics, Cryptography, Philosophy, etc.), trained
+on synthetic domain corpora</li>
+<li><strong>Evaluation:</strong> 100 hard domain-specific questions (5
+per domain × 20 domains)</li>
+<li><strong>Metrics:</strong>
+<ul>
+<li>Semantic similarity (cosine via sentence-transformers
+<code>all-MiniLM-L6-v2</code>)</li>
+<li>Perplexity of ground-truth text under each routing
+configuration</li>
+<li>Wall-clock latency (seconds)</li>
+</ul></li>
+<li><strong>Methods compared:</strong>
+<ul>
+<li>Baseline (no adapters, <span
+class="math inline"><em>c</em> = 0.001</span>)</li>
+<li>SingleAdapter (top-1 routed expert, <span
+class="math inline"><em>c</em> = 0.5</span>)</li>
+<li>UnclampedMix (top-2, <span
+class="math inline"><em>c</em> = 999</span>, effectively unclamped)</li>
+<li>AdaptiveClamp (top-2, <span
+class="math inline"><em>c</em> = 0.5</span>)</li>
+</ul></li>
+</ul>
+<h3 id="main-results">4.2 Main Results</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>K</th>
+<th>Clamp</th>
+<th>Avg Sim ↑</th>
+<th>Avg PPL ↓</th>
+<th>Avg Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline</td>
+<td>1</td>
+<td>0.001</td>
+<td>0.620</td>
+<td>64.5</td>
+<td>2.80s</td>
+</tr>
+<tr>
+<td>SingleAdapter</td>
+<td>1</td>
+<td>0.5</td>
+<td><strong>0.622</strong></td>
+<td>60.9</td>
+<td>2.69s</td>
+</tr>
+<tr>
+<td>UnclampedMix</td>
+<td>2</td>
+<td>999.0</td>
+<td>0.557</td>
+<td><strong>51.2</strong></td>
+<td>2.51s</td>
+</tr>
+<tr>
+<td>AdaptiveClamp</td>
+<td>2</td>
+<td>0.5</td>
+<td>0.611</td>
+<td>58.0</td>
+<td>2.67s</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pre-registered-criteria">4.3 Pre-Registered Criteria</h3>
+<table>
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 24%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Measured</th>
+<th>Threshold</th>
+<th>Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="math inline"><em>Δ</em>_SIM(AC − SA)</span></td>
+<td><span class="math inline">−0.011</span></td>
+<td><span class="math inline"> &gt; +0.05</span></td>
+<td><strong>FAIL</strong></td>
+</tr>
+<tr>
+<td>PPL(AC) vs PPL(SA)</td>
+<td><span class="math inline">58.0 &lt; 60.9</span></td>
+<td>AC ≤ SA</td>
+<td><strong>PASS</strong></td>
+</tr>
+<tr>
+<td><span class="math inline"><em>Δ</em>_LAT</span></td>
+<td><span class="math inline">−0.7%</span></td>
+<td><span class="math inline"> ≤ 10%</span></td>
+<td><strong>PASS</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The Adaptive Clamp <strong>fails</strong> the compositional accuracy
+criterion. It performs slightly worse than both the Baseline and
+SingleAdapter on average semantic similarity, while achieving better
+perplexity and comparable latency.</p>
+<h3 id="per-domain-analysis">4.4 Per-Domain Analysis</h3>
+<p>The AdaptiveClamp outperforms SingleAdapter in 4/20 domains:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>AC</th>
+<th>SA</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MEDICAL_DIAGNOSIS</td>
+<td>0.713</td>
+<td>0.683</td>
+<td>+0.030</td>
+</tr>
+<tr>
+<td>MATHEMATICS</td>
+<td>0.587</td>
+<td>0.543</td>
+<td>+0.044</td>
+</tr>
+<tr>
+<td>QUANTUM_CHEMISTRY</td>
+<td>0.634</td>
+<td>0.611</td>
+<td>+0.023</td>
+</tr>
+<tr>
+<td>PHILOSOPHY</td>
+<td>0.617</td>
+<td>0.596</td>
+<td>+0.021</td>
+</tr>
+</tbody>
+</table>
+<p>But underperforms in 16/20, with particularly large losses on:</p>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>AC</th>
+<th>SA</th>
+<th>Δ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MARITIME_LAW</td>
+<td>0.464</td>
+<td>0.609</td>
+<td>−0.145</td>
+</tr>
+<tr>
+<td>ANCIENT_HISTORY</td>
+<td>0.516</td>
+<td>0.555</td>
+<td>−0.039</td>
+</tr>
+<tr>
+<td>SANSKRIT_LINGUISTICS</td>
+<td>0.703</td>
+<td>0.738</td>
+<td>−0.035</td>
+</tr>
+<tr>
+<td>CRYPTOGRAPHY</td>
+<td>0.559</td>
+<td>0.592</td>
+<td>−0.033</td>
+</tr>
+</tbody>
+</table>
+<h3 id="unclamped-mixing-is-catastrophic">4.5 Unclamped Mixing is
+Catastrophic</h3>
+<p>UnclampedMix (<span class="math inline"><em>c</em> = 999</span>)
+shows endemic collapse: on 8 out of 100 prompts, semantic similarity
+drops below 0.1, indicating the model produced near-random text. Average
+similarity (0.557) is significantly worse than all other methods. This
+empirically validates the necessity of norm bounding.</p>
+<hr />
+<h2 id="discussion-and-limitations">5. Discussion and Limitations</h2>
+<h3 id="why-compositional-gain-failed">5.1 Why Compositional Gain
+Failed</h3>
+<p>The primary finding is a <strong>negative result:</strong>
+multi-adapter composition with prompt-level routing and norm clamping
+does NOT outperform single-adapter routing on our evaluation
+protocol.</p>
+<p>We identify three contributing factors:</p>
+<ol type="1">
+<li><p><strong>Router accuracy.</strong> The CoT-based router failed
+exact domain matching on approximately 40% of queries, falling back to a
+default domain. When the second adapter is routed incorrectly, its
+injection degrades rather than enhances the output — the clamp bounds
+the magnitude of this degradation but cannot correct its
+direction.</p></li>
+<li><p><strong>Evaluation on single-domain queries.</strong> Our 100
+questions are fundamentally single-domain (each has one ground-truth
+domain). Multi-adapter composition is hypothesized to help on queries
+that genuinely span domain boundaries. This evaluation may not capture
+the intended use case.</p></li>
+<li><p><strong>Per-adapter weight clamp ≠ norm-proportional
+clamp.</strong> The implementation applies <span
+class="math inline"><em>c</em></span> as a per-adapter weight cap (<span
+class="math inline"><em>w</em><sub><em>i</em></sub> = min (<em>p</em><sub><em>i</em></sub>, <em>c</em>)</span>)
+rather than computing the full norm ratio <span
+class="math inline"><em>γ</em> = <em>c</em>⋅∥<em>z</em>∥/∥<em>m</em>∥</span>
+at each layer. This architectural shortcut may reduce the method’s
+sensitivity to activation geometry.</p></li>
+</ol>
+<h3 id="what-passed">5.2 What Passed</h3>
+<p>The Adaptive Clamp achieves lower perplexity than both the Baseline
+(58.0 vs 64.5) and SingleAdapter (58.0 vs 60.9), suggesting that
+multi-adapter exposure does refine the model’s internal probability
+distribution even when the generated text is not more similar to the
+ground truth. It also introduces no measurable latency overhead (<span
+class="math inline">−0.7%</span>), validating the UMA zero-copy
+approach.</p>
+<h3 id="practical-implications">5.3 Practical Implications</h3>
+<p>A practitioner should: - <strong>Use SingleAdapter routing</strong>
+for best semantic similarity on domain-specific queries today. -
+<strong>Not deploy multi-adapter mixing</strong> in production until
+routing accuracy and compositional evaluation protocols are improved. -
+<strong>Avoid unclamped mixing entirely</strong> — it causes
+catastrophic output collapse.</p>
+<h3 id="on-honest-reporting">5.4 On Honest Reporting</h3>
+<p>We report this as a pre-registered study with mixed results,
+following the tradition of rigorous negative results (ICBINB workshop,
+Henderson et al., 2018). The infrastructure is validated, the metrics
+are real, and the failure is informative.</p>
+<hr />
+<h2
+id="future-work-toward-stable-efficient-multi-adapter-composition">6.
+Future Work: Toward Stable, Efficient Multi-Adapter Composition</h2>
+<p>The following directions are NOT part of the current study. They
+would form a follow-up investigation.</p>
+<h3 id="confidence-gated-adapter-activation">6.1 Confidence-Gated
+Adapter Activation</h3>
+<p><strong>Hypothesis:</strong> Scaling engagement dynamically —
+disabling the second adapter when the router’s confidence for the
+secondary domain is below a threshold <span
+class="math inline"><em>τ</em></span> — would reduce destructive
+interference on correctly-routed single-domain queries.</p>
+<p><strong>New threshold:</strong> <span
+class="math inline"><em>Δ</em>_SIM(Gated-AC − SA) &gt; +0.03</span> on
+composite queries only.</p>
+<h3 id="true-compositional-evaluation-set">6.2 True Compositional
+Evaluation Set</h3>
+<p><strong>Hypothesis:</strong> The current 100-question benchmark tests
+single-domain recall, not compositional reasoning. A proper evaluation
+would require questions that genuinely demand knowledge from 2+ domains
+simultaneously (e.g., “What are the legal implications of option pricing
+under maritime law?”).</p>
+<h3 id="layer-sparse-injection">6.3 Layer-Sparse Injection</h3>
+<p><strong>Hypothesis:</strong> Injecting adapter activations only at
+layers 12–20 (of 28) would preserve early-layer representations while
+allowing late-layer domain specialization, reducing PPL impact and
+potentially improving similarity.</p>
+<h3 id="improved-router">6.4 Improved Router</h3>
+<p><strong>Hypothesis:</strong> Replacing the CoT heuristic router with
+a trained lightweight classifier (e.g., on TF-IDF or a small embedding
+model) would reduce the ~40% fallback rate, directly improving
+multi-adapter outcomes.</p>
+<hr />
+<h2 id="conclusion">7. Conclusion</h2>
+<p>We conducted a pre-registered empirical study of prompt-level
+multi-adapter composition with norm-proportional clamping on Apple
+Silicon UMA. Our central hypothesis — that composing <span
+class="math inline"><em>K</em> = 2</span> LoRA experts improves over
+single-expert routing on domain-specific queries — was <strong>not
+supported</strong> (<span
+class="math inline"><em>Δ</em>_SIM = −0.011</span>, threshold <span
+class="math inline"> &gt; +0.05</span>: <strong>FAIL</strong>).</p>
+<p>However, we validate two auxiliary findings: (1) the Adaptive Clamp
+achieves lower perplexity than both the no-adapter and single-adapter
+baselines (<strong>PASS</strong>), and (2) it introduces no measurable
+latency overhead on UMA hardware (<strong>PASS</strong>). We also
+confirm that unclamped multi-adapter mixing causes catastrophic output
+collapse, empirically validating the necessity of norm bounding.</p>
+<p>This work contributes a carefully executed negative result, a
+reusable evaluation infrastructure, and a concrete roadmap for
+addressing the identified failure modes in future work.</p>
+</body>
+</html>

@@ -1,0 +1,122 @@
+[
+  {
+    "id": "code_syn_1467a9a1",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_266e9747",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_e303f332",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_667bbcd4",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_118d8e75",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_125a3f13",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_f1438522",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_cfb74b84",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_224d4867",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  },
+  {
+    "id": "code_syn_beb6cce1",
+    "domain": "code",
+    "subdomain": "gpu_kernels",
+    "prompt": "Write an optimized Python kernel to perform matrix exponentiation on a 2D torch.Tensor.",
+    "expected_format": "code_block",
+    "difficulty": 4,
+    "tags": [
+      "python",
+      "execution_eval"
+    ]
+  }
+]

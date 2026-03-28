@@ -1,0 +1,7 @@
+mlx_lm
+sentence-transformers
+fastapi
+uvicorn
+pydantic
+numpy
+safetensors

@@ -1,0 +1,11 @@
+# Debug config for first real sanity check — 1 prompt only
+debug_single_real:
+  method: "single_adapter"
+  k: 1
+  dataset: "mixed_fincode.jsonl"
+
+debug_adaptive_real:
+  method: "adaptive_clamp"
+  k: 2
+  c: 0.5
+  dataset: "mixed_fincode.jsonl"

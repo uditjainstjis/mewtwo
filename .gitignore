@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Frontend (has its own repo)
+frontend/
+build/
+.eggs/
+
+# Node
+node_modules/
+package-lock.json
+
+# MLX / Model weights (large files)
+backend/expert_adapters/
+backend/adapters/
+backend/data/
+backend/data_expert/
+*.safetensors
+*.bin
+*.gguf
+*.ggml
+
+# Environment
+.env
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Ablation raw data (large)
+backend/ablation_raw_results.json
+
+# Cached
+*.npz

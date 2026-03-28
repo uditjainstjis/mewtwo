@@ -1,0 +1,102 @@
+{
+  "LEGAL_ANALYSIS": {
+    "path": "expert_adapters/LEGAL_ANALYSIS/adapters.safetensors",
+    "description": "Expert weights for LEGAL_ANALYSIS",
+    "vram_mb": 20.15
+  },
+  "MEDICAL_DIAGNOSIS": {
+    "path": "expert_adapters/MEDICAL_DIAGNOSIS/adapters.safetensors",
+    "description": "Expert weights for MEDICAL_DIAGNOSIS",
+    "vram_mb": 20.15
+  },
+  "PYTHON_LOGIC": {
+    "path": "expert_adapters/PYTHON_LOGIC/adapters.safetensors",
+    "description": "Expert weights for PYTHON_LOGIC",
+    "vram_mb": 20.15
+  },
+  "MATHEMATICS": {
+    "path": "expert_adapters/MATHEMATICS/adapters.safetensors",
+    "description": "Expert weights for MATHEMATICS",
+    "vram_mb": 20.15
+  },
+  "MLX_KERNELS": {
+    "path": "expert_adapters/MLX_KERNELS/adapters.safetensors",
+    "description": "Expert weights for MLX_KERNELS",
+    "vram_mb": 20.15
+  },
+  "LATEX_FORMATTING": {
+    "path": "expert_adapters/LATEX_FORMATTING/adapters.safetensors",
+    "description": "Expert weights for LATEX_FORMATTING",
+    "vram_mb": 20.15
+  },
+  "SANSKRIT_LINGUISTICS": {
+    "path": "expert_adapters/SANSKRIT_LINGUISTICS/adapters.safetensors",
+    "description": "Expert weights for SANSKRIT_LINGUISTICS",
+    "vram_mb": 20.15
+  },
+  "ARCHAIC_ENGLISH": {
+    "path": "expert_adapters/ARCHAIC_ENGLISH/adapters.safetensors",
+    "description": "Expert weights for ARCHAIC_ENGLISH",
+    "vram_mb": 20.15
+  },
+  "QUANTUM_CHEMISTRY": {
+    "path": "expert_adapters/QUANTUM_CHEMISTRY/adapters.safetensors",
+    "description": "Expert weights for QUANTUM_CHEMISTRY",
+    "vram_mb": 20.15
+  },
+  "ORGANIC_SYNTHESIS": {
+    "path": "expert_adapters/ORGANIC_SYNTHESIS/adapters.safetensors",
+    "description": "Expert weights for ORGANIC_SYNTHESIS",
+    "vram_mb": 20.15
+  },
+  "ASTROPHYSICS": {
+    "path": "expert_adapters/ASTROPHYSICS/adapters.safetensors",
+    "description": "Expert weights for ASTROPHYSICS",
+    "vram_mb": 20.15
+  },
+  "MARITIME_LAW": {
+    "path": "expert_adapters/MARITIME_LAW/adapters.safetensors",
+    "description": "Expert weights for MARITIME_LAW",
+    "vram_mb": 20.15
+  },
+  "RENAISSANCE_ART": {
+    "path": "expert_adapters/RENAISSANCE_ART/adapters.safetensors",
+    "description": "Expert weights for RENAISSANCE_ART",
+    "vram_mb": 20.15
+  },
+  "CRYPTOGRAPHY": {
+    "path": "expert_adapters/CRYPTOGRAPHY/adapters.safetensors",
+    "description": "Expert weights for CRYPTOGRAPHY",
+    "vram_mb": 20.15
+  },
+  "ANCIENT_HISTORY": {
+    "path": "expert_adapters/ANCIENT_HISTORY/adapters.safetensors",
+    "description": "Expert weights for ANCIENT_HISTORY",
+    "vram_mb": 20.15
+  },
+  "MUSIC_THEORY": {
+    "path": "expert_adapters/MUSIC_THEORY/adapters.safetensors",
+    "description": "Expert weights for MUSIC_THEORY",
+    "vram_mb": 20.15
+  },
+  "ROBOTICS": {
+    "path": "expert_adapters/ROBOTICS/adapters.safetensors",
+    "description": "Expert weights for ROBOTICS",
+    "vram_mb": 20.15
+  },
+  "CLIMATE_SCIENCE": {
+    "path": "expert_adapters/CLIMATE_SCIENCE/adapters.safetensors",
+    "description": "Expert weights for CLIMATE_SCIENCE",
+    "vram_mb": 20.15
+  },
+  "PHILOSOPHY": {
+    "path": "expert_adapters/PHILOSOPHY/adapters.safetensors",
+    "description": "Expert weights for PHILOSOPHY",
+    "vram_mb": 20.15
+  },
+  "BEHAVIORAL_ECONOMICS": {
+    "path": "expert_adapters/BEHAVIORAL_ECONOMICS/adapters.safetensors",
+    "description": "Expert weights for BEHAVIORAL_ECONOMICS",
+    "vram_mb": 20.15
+  }
+}

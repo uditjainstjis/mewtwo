@@ -1,0 +1,240 @@
+debug_adaptive_real:
+  c: 0.5
+  dataset: mixed_fincode.jsonl
+  k: 2
+  method: adaptive_clamp
+debug_single_real:
+  dataset: mixed_fincode.jsonl
+  k: 1
+  method: single_adapter
+exp_1_gen_mmlu:
+  dataset: gen_mmlu.json
+  k: 1
+  method: single_adapter
+exp_1_gen_wikitext:
+  dataset: gen_wikitext.jsonl
+  k: 1
+  method: single_adapter
+exp_1_mixed_codephilo:
+  dataset: mixed_codephilo.jsonl
+  k: 1
+  method: single_adapter
+exp_1_mixed_fincode:
+  dataset: mixed_fincode.jsonl
+  k: 1
+  method: single_adapter
+exp_1_mixed_mathlegal:
+  dataset: mixed_mathlegal.jsonl
+  k: 1
+  method: single_adapter
+exp_1_pure_code:
+  dataset: pure_code.json
+  k: 1
+  method: single_adapter
+exp_1_pure_math:
+  dataset: pure_math.json
+  k: 1
+  method: single_adapter
+exp_2_gen_mmlu:
+  dataset: gen_mmlu.json
+  k: 2
+  method: static_merge
+exp_2_gen_wikitext:
+  dataset: gen_wikitext.jsonl
+  k: 2
+  method: static_merge
+exp_2_mixed_codephilo:
+  dataset: mixed_codephilo.jsonl
+  k: 2
+  method: static_merge
+exp_2_mixed_fincode:
+  dataset: mixed_fincode.jsonl
+  k: 2
+  method: static_merge
+exp_2_mixed_mathlegal:
+  dataset: mixed_mathlegal.jsonl
+  k: 2
+  method: static_merge
+exp_2_pure_code:
+  dataset: pure_code.json
+  k: 2
+  method: static_merge
+exp_2_pure_math:
+  dataset: pure_math.json
+  k: 2
+  method: static_merge
+exp_3_gen_mmlu:
+  c: 1.0
+  dataset: gen_mmlu.json
+  k: 2
+  method: unclamped_mix
+exp_3_gen_wikitext:
+  c: 1.0
+  dataset: gen_wikitext.jsonl
+  k: 2
+  method: unclamped_mix
+exp_3_mixed_codephilo:
+  c: 1.0
+  dataset: mixed_codephilo.jsonl
+  k: 2
+  method: unclamped_mix
+exp_3_mixed_fincode:
+  c: 1.0
+  dataset: mixed_fincode.jsonl
+  k: 2
+  method: unclamped_mix
+exp_3_mixed_mathlegal:
+  c: 1.0
+  dataset: mixed_mathlegal.jsonl
+  k: 2
+  method: unclamped_mix
+exp_3_pure_code:
+  c: 1.0
+  dataset: pure_code.json
+  k: 2
+  method: unclamped_mix
+exp_3_pure_math:
+  c: 1.0
+  dataset: pure_math.json
+  k: 2
+  method: unclamped_mix
+exp_4_adaptive_03_gen_mmlu:
+  c: 0.3
+  dataset: gen_mmlu.json
+  k: 2
+  method: adaptive_clamp
+exp_4_adaptive_03_gen_wikitext:
+  c: 0.3
+  dataset: gen_wikitext.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_4_adaptive_03_mixed_codephilo:
+  c: 0.3
+  dataset: mixed_codephilo.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_4_adaptive_03_mixed_fincode:
+  c: 0.3
+  dataset: mixed_fincode.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_4_adaptive_03_mixed_mathlegal:
+  c: 0.3
+  dataset: mixed_mathlegal.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_4_adaptive_03_pure_code:
+  c: 0.3
+  dataset: pure_code.json
+  k: 2
+  method: adaptive_clamp
+exp_4_adaptive_03_pure_math:
+  c: 0.3
+  dataset: pure_math.json
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_gen_mmlu:
+  c: 0.5
+  dataset: gen_mmlu.json
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_gen_wikitext:
+  c: 0.5
+  dataset: gen_wikitext.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_mixed_codephilo:
+  c: 0.5
+  dataset: mixed_codephilo.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_mixed_fincode:
+  c: 0.5
+  dataset: mixed_fincode.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_mixed_mathlegal:
+  c: 0.5
+  dataset: mixed_mathlegal.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_pure_code:
+  c: 0.5
+  dataset: pure_code.json
+  k: 2
+  method: adaptive_clamp
+exp_5_adaptive_05_pure_math:
+  c: 0.5
+  dataset: pure_math.json
+  k: 2
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_gen_mmlu:
+  c: 0.5
+  dataset: gen_mmlu.json
+  k: 3
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_gen_wikitext:
+  c: 0.5
+  dataset: gen_wikitext.jsonl
+  k: 3
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_mixed_codephilo:
+  c: 0.5
+  dataset: mixed_codephilo.jsonl
+  k: 3
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_mixed_fincode:
+  c: 0.5
+  dataset: mixed_fincode.jsonl
+  k: 3
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_mixed_mathlegal:
+  c: 0.5
+  dataset: mixed_mathlegal.jsonl
+  k: 3
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_pure_code:
+  c: 0.5
+  dataset: pure_code.json
+  k: 3
+  method: adaptive_clamp
+exp_6_adaptive_05_k3_pure_math:
+  c: 0.5
+  dataset: pure_math.json
+  k: 3
+  method: adaptive_clamp
+exp_7_adaptive_07_gen_mmlu:
+  c: 0.7
+  dataset: gen_mmlu.json
+  k: 2
+  method: adaptive_clamp
+exp_7_adaptive_07_gen_wikitext:
+  c: 0.7
+  dataset: gen_wikitext.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_7_adaptive_07_mixed_codephilo:
+  c: 0.7
+  dataset: mixed_codephilo.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_7_adaptive_07_mixed_fincode:
+  c: 0.7
+  dataset: mixed_fincode.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_7_adaptive_07_mixed_mathlegal:
+  c: 0.7
+  dataset: mixed_mathlegal.jsonl
+  k: 2
+  method: adaptive_clamp
+exp_7_adaptive_07_pure_code:
+  c: 0.7
+  dataset: pure_code.json
+  k: 2
+  method: adaptive_clamp
+exp_7_adaptive_07_pure_math:
+  c: 0.7
+  dataset: pure_math.json
+  k: 2
+  method: adaptive_clamp

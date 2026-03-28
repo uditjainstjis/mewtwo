@@ -1,0 +1,122 @@
+[
+  {
+    "id": "math_syn_5ea5d17f",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 0x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_6a9ccb21",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 1x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_c8a64732",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 2x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_bcbe6983",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 3x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_523db89d",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 4x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_5dd1b4e3",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 5x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_cc25dcfb",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 6x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_cbd073db",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 7x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_918549a8",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 8x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  },
+  {
+    "id": "math_syn_d2874235",
+    "domain": "math",
+    "subdomain": "algebra",
+    "prompt": "Evaluate the polynomial 9x^2 + 7 = 0 over the complex plane.",
+    "expected_format": "boxed_equation",
+    "difficulty": 3,
+    "tags": [
+      "polynomial",
+      "synthetic"
+    ]
+  }
+]
