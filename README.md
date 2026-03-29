@@ -1,6 +1,6 @@
 # Prompt-Level Multi-Adapter Composition with Norm-Proportional Clamping
 
-> **Pre-registered negative result.** Multi-adapter composition with prompt-level routing and norm clamping does NOT outperform single-adapter routing on domain-specific queries, but does reduce perplexity and introduces zero latency overhead.
+> The repo's final story is mixed: multi-adapter composition is negative on the original single-domain synthetic benchmark, but directionally positive on the later genuine multi-domain benchmark.
 
 ## Quick Results
 
@@ -88,17 +88,19 @@ adapter/
 
 ## Paper
 
-See [`paper.md`](paper.md) for the full writeup. Title:
+The current repo-grounded manuscript is [`Main_Paper_Composition_Updated.md`](Main_Paper_Composition_Updated.md). It supersedes the older draft in `paper.md` by incorporating the later v2, v2b, and v2c results and aligning the text with the live implementation.
 
-> **Prompt-Level Multi-Adapter Composition with Norm-Proportional Clamping: A Pre-Registered Negative Result**
+Primary title:
+
+> **Composition Without Collapse: Pre-Registered Evidence for Safe but Modest Prompt-Level Multi-Adapter LoRA Composition on Apple Silicon**
 
 ## Key Findings
 
-1. **AdaptiveClamp does NOT beat SingleAdapter** on semantic similarity (0.611 vs 0.622)
-2. **AdaptiveClamp does reduce perplexity** (58.0 vs 60.9) — the model assigns higher probability to correct answers
-3. **UnclampedMix is catastrophic** — 8/100 prompts collapse to near-random output (sim < 0.1)
-4. **Router accuracy is a bottleneck** — CoT router fails exact domain matching on ~40% of queries
-5. **Latency overhead is negligible** (−0.7%) on UMA hardware
+1. **AdaptiveClamp does NOT beat SingleAdapter on the v1 single-domain benchmark** (0.611 vs 0.622).
+2. **AdaptiveClamp-v2 is directionally positive on the v2 multi-domain benchmark** (0.6505 vs 0.6334), but still below the pre-registered `+0.03` threshold.
+3. **UnclampedMix is unsafe on v1** — 3/100 prompts fall below `0.1` similarity and 7/100 fall below `0.2`.
+4. **Router accuracy is a bottleneck, but not the only one** — the real top-2 router recovers about 26% of oracle headroom on the MD split.
+5. **Clamp formulation is not the main constraint at this scale** — the norm-ratio clamp and weight cap differ by only `-0.0003` on the MD split.
 
 ## License
 
