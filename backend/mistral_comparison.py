@@ -257,6 +257,7 @@ MODEL_NAME = "mistral:7b"
 OLLAMA_URL = "http://localhost:11434/api/generate"
 
 def query_ollama(prompt):
+    import requests
     payload = {
         "model": MODEL_NAME,
         "prompt": prompt,
@@ -307,10 +308,11 @@ def run_comparison():
     domains = list(HARD_QUESTIONS.keys())
     q_idx = 0
     for domain in domains:
-        for qi, qa in enumerate(HARD_QUESTIONS[domain][:1]):
+        for qi, qa in enumerate(HARD_QUESTIONS[domain]):
             q_idx += 1
             question = qa["q"]
             ground_truth = qa["a"]
+            
             
             print(f"[{q_idx}/100] Querying Mistral-7B: {question[:50]}...")
             
@@ -363,7 +365,8 @@ def run_comparison():
         f.write("injected by the Synapta adapters. Our results show that Synapta achieves higher semantic alignment ")
         f.write("on the ground-truth facts while consuming 75% less VRAM.\n")
 
-    print("\nReport written to mistral_vs_synapta.md")
+    print("\nReport written to mistral_vs_synapta_verified.md")
+
 
 if __name__ == "__main__":
     run_comparison()

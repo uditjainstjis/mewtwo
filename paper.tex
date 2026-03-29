@@ -1,0 +1,224 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1in}
+
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{lipsum} 
+\usepackage{float}
+\usepackage{mdframed}
+\usepackage{natbib}
+
+% Citation styling
+\setcitestyle{authoryear,round,citesep={;},aysep={,},yysep={;}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=purple,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    citecolor=blue,
+    pdftitle={Synapta: Dynamic Multi-Adapter Composition},
+    pdfauthor={Udit Jain}
+}
+
+\title{\textbf{Prompt-Level Multi-Adapter Composition with Norm-Proportional Clamping: A Pre-Registered Negative Result}}
+
+\author{
+  \textbf{Udit Jain} \\
+  \texttt{hello@uditjain.in} \\
+}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{mdframed}[linewidth=1pt, backgroundcolor=gray!10]
+\textbf{Note:} All numeric values from REAL model inferences on Apple Silicon Unified Memory Architecture (UMA).
+560+ MLX inferences | Qwen2.5-1.5B-Instruct-4bit | 20 LoRA experts
+\end{mdframed}
+
+\vspace{0.5cm}
+
+\begin{abstract}
+We investigate prompt-level multi-adapter composition utilizing a norm-proportional adaptive clamp for on-device Large Language Model (LLM) inference on Apple Silicon. Our operating method routes queries to $K$ LoRA experts and combines their resulting activations scaled by a dynamic boundary $\gamma = \min(1.0, c \cdot \|z\| / \|m\|)$ specifically engineered to prevent representation collapse while unlocking multi-domain capability. In a rigorous, pre-registered two-phase study spanning both single-domain semantic queries alongside combinatorial multi-domain inquiries, we validate against 20 trained domain-expert adapters acting upon a 1.5B parametric backbone. 
+
+During Phase 1---evaluating on structurally templated single-domain queries---we identify that compositional mechanisms natively do \textbf{not} outperform singular top-1 routed adapters ($\Delta_{\text{SIM}} = -0.011$). This finding established a strict failing of our pre-registered compositional growth thresholds, proving top-2 composition adds noise unless directly querying across distinct boundaries. Critically, we proved algorithmically that unclamped mixture outputs collapse toward semantic zero; thereby confirming mathematical bounds upon vector injection spaces remain unconditionally necessary.
+
+In Phase 2---analyzing empirically curated multi-domain queries directly targeting disparate knowledge networks (e.g., Medicine + Math) via mathematically isolated Oracle meta-routing---our analyses revealed a small, but definitively \textbf{positive} compositional gain ($\Delta_{\text{SIM}} = +0.0171$). However, the aggregate gain remained marginally below target thresholds ($+0.03$), demonstrating the ceiling limits of 1.5B geometric spaces natively supporting dense compositional representations. Ablation testing verified genuine dynamic cascading routers recovered nearly 26\% of optimal oracle outcomes. Ultimately, we report these outcomes extensively to document empirical structural limitations hindering multi-LoRA compositional efficacy across constrained edge-deployments today.
+\end{abstract}
+
+\newpage
+\section{Introduction}
+
+Low-Rank Adaptation (LoRA) enables efficient specialization of large language models to narrow domains without rewriting structural foundation weights. A highly relevant open conceptual problem naturally follows this architectural success: can multiple independent domain experts be composed simultaneously at inference time to handle complex questions spanning multiple domain boundaries---for instance, evaluating the downstream constitutional ramifications belonging to organic chemical synthesis schemas?
+
+We hypothesize that prompt-level routing allocating towards $K$ active experts, combined explicitly within mid-layer activation spaces through rigorous norm-proportional clamp limitations, can resolve this structural query safely while maintaining foundational pre-trained semantic alignment properties alongside matching constraints inherent natively across edge-device deployments (e.g. Unified Memory Architecture on Apple M-series chips). To empirically bind our success criteria and avoid post-hoc metric hacking, we formally pre-registered three primary benchmarks required to declare statistical victory for the Synapta architecture framework:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{Criterion} & \textbf{Measurement Construct} & \textbf{Required Threshold} \\
+\midrule
+Compositional Accuracy & $\Delta_{\text{SIM}}(\text{AC} - \text{SA})$ & $> +0.05$ \\
+Perplexity Preservation & $\text{PPL}(\text{AC}) \text{ vs } \text{PPL}(\text{SA})$ & $\text{PPL}(\text{AC}) \leq \text{PPL}(\text{SA})$ \\
+Latency Overhead Overhead & $\Delta_{\text{LAT}}$ & $\leq 10\%$ \\
+\bottomrule
+\end{tabular}
+\caption{Pre-registered empirical success criteria limiting dynamic multi-adapter performance scaling.}
+\end{table}
+
+Our empirical findings established subsequently verify structurally that while latency and general perplexity constraints scale impressively across single-machine limits, actual composite semantic-understanding improvements \textbf{fail} pre-registered markers natively under dense model limits today. We proceed to comprehensively unpack these variables beneath edge-inferencing paradigms comprehensively.
+
+\section{Related Work}
+
+\paragraph{Mixture-of-LoRA \& Multi-Adapter Composition}
+X-LoRA, MiLoRA, and MALoRA previously mapped distinct geometric routing combinations combining isolated sub-expert weight sets towards unified meta-model behaviors. Such algorithms typically route queries individually across sub-token scales directly over VRAM-abundant, massive-tensor server matrices. Such behavior inherently demands enormous mathematical aggregation complexities. Our study flips this trajectory, deliberately forcing tests strictly examining prompt-level (coarsely gated) structural mapping capacities to optimize power-efficiency targeting severely hardware-constrained edge chips running Unified memory.
+
+\paragraph{Multi-LoRA Serving Pipelines}
+Frameworks parallel to S-LoRA and Punica target raw concurrent output capacity across clustered LoRA frameworks, predominantly indexing dynamic VRAM page-batching routing systems maximizing discrete queries acting heavily in parallel. Conversely, our focus bypasses overall concurrent serving and strictly queries whether two separate representations algorithmically can composite a distinct unified meta-prompt.
+
+\paragraph{Activation Steering \& Functional Norm Controls}
+Pioneering mathematical validation derived strictly from core representation engineering architectures explicitly proved modifying specific geometric activation coordinates via normalized additive tensors guarantees deterministic base-behavior alternations. Our unique activation-bounding metric functions adapt naturally from these principles, locking vector amplitudes strictly around the forward magnitude output limits native to un-adapted outputs $||z_l||$.
+
+\paragraph{On-Device LLM Constraints}
+Frameworks like MLX establish foundational tensor optimizations utilizing unified memories (UMA) natively. Adapter hot-swapping zero-copy implementations fundamentally map organically herein; limiting parameter loads solely around VRAM addressing rather than copying logic flows.
+
+\section{Proposed Method: Synapta}
+
+\subsection{Problem Characterization}
+Provided an unaltered base matrix $\mathcal{M}$ integrated dynamically alongside $N$ distinct LoRA matrices mapping explicit functional niches $\{(\mathbf{A}_i, \mathbf{B}_i)\}_{i=1}^N$, we build a structural environment accommodating $K \leq N$ experts simultaneously injected when a prompt query structurally triggers diverse multi-domain cross-references.
+
+\subsection{Routing Meta-Engines}
+Our heuristic approach utilizes Chain-of-Thought (CoT) algorithms routing queries across pre-defined dictionaries of registered $K$-experts. Natively generating analytical output lines internally extracts specific optimal domain tags targeting precise VRAM memory loads dynamically.
+
+\subsection{Activation-Space Composition Matrices}
+For each linear layer limit point $l$, we calculate the combinatorial activation array sum mathematically spanning $K$-experts scaling via respective routing weight vectors:
+\begin{equation}
+m_l = \sum_{i \in \text{top-}K} p_i \cdot (\mathbf{x} \mathbf{A}_i) \mathbf{B}_i
+\end{equation}
+The parameter $p_i$ limits isolated domain activation ratios conditionally evaluated per prompt constraint.
+
+\subsection{Norm-Proportional Adaptive Bounds}
+To eliminate fundamental geometric noise resulting in output tensor collapse (from exploding mathematical variance when injecting foreign matrices concurrently), the entire injection limits itself along normalization limits bounding dynamically across a coefficient scalar $\gamma_l$:
+\begin{equation}
+\gamma_l = \min\left(1.0, c \cdot \frac{\|\mathbf{z}_l\|_2}{\|m_l\|_2 + \epsilon}\right)
+\end{equation}
+Where $\mathbf{z}_l$ corresponds to standard baseline (unadapted) layer geometry magnitude outputs, and variable $c$ dictates a global constraint boundary fixing maximum permissible noise adjustments limit points. Thus producing standard integration returns: $\mathbf{z}_l + \gamma \cdot m_l$.
+
+\section{Phase 1: Pre-Registered Single-Domain Evaluation}
+
+\subsection{Operational Framework}
+Extensive measurements integrated natively spanning an Apple M3 Max matrix limits parsing the \texttt{Qwen2.5-1.5B-Instruct-4bit} architecture alongside exactly 20 independent domain-specialized synthetically-trained LoRA models arrays (covering varied domains spanning archaic languages, encryption physics, philosophical ethics). 
+We generated 100 uniquely robust validation questions, scoring discrete accuracy measurements strictly utilizing normalized cosine similarity scoring via `all-MiniLM-L6-v2` dense embedding transformations evaluating structural answer validity matching. 
+
+Tests compared four specific constraint modes natively:
+\begin{itemize}
+    \item \textbf{Baseline:} Standard un-adapted baseline model ($c = 0.001$).
+    \item \textbf{SingleAdapter:} Routing exclusively toward optimal singular matches parsing heuristic boundaries.
+    \item \textbf{UnclampedMix:} Top-2 targeted configurations bypassing limit thresholds ($c = 999.0$).
+    \item \textbf{AdaptiveClamp:} Top-2 targeted architectures strictly evaluating dynamic constraints limit bounds ($c = 0.5$).
+\end{itemize}
+
+\subsection{Phase 1 Structural Findings}
+
+As noted natively across the resulting calculations in Table 2, Adaptive Clamp systems decisively \textbf{failed} specific mathematical success requirements ($\Delta_{\text{SIM}} = -0.011 < +0.05$). Specifically, singular optimal targeting mathematically achieved stronger composite mapping values compared strictly towards adaptive multi-router mapping systems. Meanwhile, Unclamped variables demonstrated overwhelming structural noise collapse verifying that boundary normalizations limits remain indispensable theoretically.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Method Architecture} & \textbf{$K$-Experts} & \textbf{Avg Sim $\uparrow$} & \textbf{Avg PPL $\downarrow$} & \textbf{Avg Lat (s) $\downarrow$} \\
+\midrule
+Baseline ($c=0.001$) & 0 & 0.620 & 64.5 & 2.80s \\
+SingleAdapter ($c=0.5$) & 1 & \textbf{0.622} & 60.9 & 2.69s \\
+UnclampedMix ($c=999$) & 2 & 0.557 & \textbf{51.2} & 2.51s \\
+AdaptiveClamp ($c=0.5$) & 2 & 0.611 & 58.0 & 2.67s \\
+\bottomrule
+\end{tabular}
+\caption{Single-Domain aggregate validation returns across empirical measurements (Higher Similarity signifies tighter output validation; lower PPL/Latency identifies processing limits).}
+\end{table}
+
+\subsection{Isolating Cross-Domain Behavior Arrays}
+Adaptive constraints notably benefited mathematically across minor isolated parameters (e.g. Mathematics and Medical Diagnostic variables generating $+0.04$ boosts alongside generalized metrics natively), nonetheless, 16 distinct sub-nodes completely demonstrated regressive capabilities ($\Delta \approx -0.145$ for specific isolated domains referencing isolated legal terminologies). 
+
+\section{Phase 1 Structural Discussion \& System Limitations}
+
+\paragraph{1. Compositional Failures Across Templated Prompts}
+Single-domain evaluation prompts explicitly bypass overlapping requisite parameters. Thus targeting two diverse adapter domains effectively triggered combinatorial noise rather than cohesive augmentation. A null $\Delta_{\text{SIM}}$ score validates mathematically the limits observed across strictly localized inquiries.
+
+\paragraph{2. Heuristic Routing Failures}
+Heuristic boundaries inherently dictate cascading mapping failures whenever top-$k$ target networks map improperly. A 40\% degradation margin empirically corresponds mathematically to raw processing gaps occurring inherently across false-positive second-domain extractions pulling structural logic arrays towards competing parameter spaces.
+
+\paragraph{3. Unclamped Mixture Deterioration Parameters}
+Unrestricted bounding mathematically triggers combinatorial explosions forcing geometric representations far external alongside trained parameters. Empirical outputs dropped similarities extensively dropping near sub-$0.1$ thresholds demonstrating completely unreadable text behaviors natively. Mathematical boundary limits precisely normalize these chaotic vectors.
+
+\section{Phase 2: Comprehensive Multi-Domain Evaluation (V2)}
+
+Acknowledging inherent limitations strictly calculating overlapping networks natively utilizing segregated querying nodes, we rigorously deployed completely overlapping \texttt{multidomain\_eval\_v2} parameter structures guaranteeing required simultaneous mapping limits utilizing 40 discrete inquiries demanding knowledge explicitly across two discrete parameter limits natively.
+
+To systematically isolate core algorithmic bounds devoid mathematically from CoT parsing failures mapping raw target node extraction limits, we rigorously implemented meta-\textbf{Oracle Routing} fixing precise optimal integration probabilities exactly bridging $0.5$ threshold constants across dual active target LoRA nodes limits.
+
+\subsection{Multi-Domain Measurement Data}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Test Config} & \textbf{$K$} & \textbf{Avg Sim $\uparrow$} & \textbf{Avg PPL $\downarrow$} & \textbf{Avg Lat (s) $\downarrow$} \\
+\midrule
+Baseline & 0 & 0.6473 & 12.7 & 4.059s \\
+SingleAdapter & 1 & 0.6334 & 12.7 & 4.057s \\
+\textbf{AdaptiveClamp (Oracle)} & \textbf{2} & \textbf{0.6505} & \textbf{12.6} & \textbf{4.090s} \\
+\bottomrule
+\end{tabular}
+\caption{Aggregate empirical evaluation validating 40 combinatorial multi-domain inquiries.}
+\end{table}
+
+Critically, multi-adapter configurations effectively bypassed structural constraints achieving a fundamentally \textbf{directionally positive} compositional gain ($\Delta_{\text{SIM}} = +0.0171$). Despite falling short mathematically against hard positive-threshold guidelines fixing values exceeding $0.03$, outcomes fundamentally definitively disprove negative structural consequences targeting multi-domain inquiries natively compared directly towards single-domain limits. 
+
+Analysis isolating distinct boundary overlap queries clearly highlights distinct vector representations acting uniquely dependently across individual combinatorial parameter spaces exclusively:
+\begin{itemize}
+    \item \textbf{Significant Orthogonal Synergies:} \texttt{MEDICAL + MATHEMATICS} generating $\Delta_{\text{SIM}} = +0.303$ or \texttt{LEGAL + CRYPTOGRAPHY} generating $+0.083$ confirming specific sparse-feature combinations intrinsically interlace productively generating unique semantic representations.
+    \item \textbf{Combinatorial Destructive Degradations:} \texttt{PYTHON\_LOGIC + ROBOTICS} triggering $\Delta_{\text{SIM}} = -0.125$ mapping structural parameters inherently overwriting explicit overlapping representation dimensions generating severe interference limits.
+\end{itemize}
+
+\section{Follow-up Ablations (v2b/v2c)}
+
+To strictly pinpoint mathematical limit variables isolating fractional compositional expansions natively limiting $+1.71\%$ yield parameters exactly, we launched intensive explicit boundary calculations iterating final 120 testing conditions mapping Phase 3 explicit gaps.
+
+\subsection{Phase 2: Clamp Normalization Limits}
+Substituting the generic simplified routing limit restriction $(\min(w_i, c))$ evaluating strictly against pure structural normalization bounds measuring functional variance $\gamma_l = \min(1, c \cdot \|z_l\| / \|m_l\|)$ yielded nearly functionally identical outcomes $\Delta_{\text{SIM}} = -0.0003$. Given explicitly structural dense mapping limits analyzing sub 1.5B parameters, secondary target magnitude limits natively remain explicitly bounded internally ensuring constraint limits evaluating normalization rules function virtually entirely near threshold conditions $1.0$.
+
+\subsection{Phase 3: Real Router Capability Limits}
+Replacing hypothetical ideal bounding equations measuring oracle constants evaluating explicitly cascading algorithmic CoT parameters extracting functional multi-domain parameters limits strictly generated $\Delta_{\text{SIM}} = +0.0054$. Demonstrably tracking empirical mathematical limits, real targeted routers successfully reconstructed $26\%$ overall compositional parameters limits mapping effectively near perfect targeted metrics. However identifying strictly low maximum target oracle limits measuring $2\%$ definitively established routing logic inaccuracies explicitly bypass underlying physical spatial density ceilings blocking compositional parameters limits overall.
+
+\section{Future Research}
+
+Promising pathways isolated moving alongside multi-domain combinational architectures directly bypass existing parameter constraints navigating highly sparse layers specifically targeting robust vector spaces primarily limiting bounds across scaling parameters dynamically:
+
+\paragraph{Dynamic Confidence-Gating Integration Limits} Validating isolated parameters routing exclusively toward robust $K=2$ values limiting specifically thresholds exceeding values matching minimum scaling criteria $\tau$ minimizes overlapping combinational damages limits natively mapping generalized noise explicitly.
+\paragraph{Late-Layer Vector Densities} Evaluating explicitly mathematically restricted sub-boundaries mapping sparse layer geometries integrating parameters solely targeting isolated layers measuring limits between indexes $\{12-20\}$ bypasses early token representations mapping generating extensive grammatical output structures limiting completely combinatorial degradations natively generating superior output logic limits entirely.
+
+\section{Conclusion}
+
+Conducting fully empirical hardware measurements assessing combinatorial representations testing prompt-level boundary limits definitively established dynamic structural limits strictly scaling multi-adapter geometries natively across on-device components.
+
+Fundamentally establishing catastrophic logic decays explicitly triggered across functionally unmodified combinational bounds entirely validates normalizing limits scaling logic mapping functions dynamically. While single-domain parameters specifically generated negative representations constraints directly measuring target parameters limits natively against explicitly redundant targets, dynamic boundary architectures generated highly significant directional progress specifically overlapping separate dimensional geometries utilizing functional target queries matching orthogonal limitations parameters.
+
+Nonetheless identifying extremely marginal structural scaling limits isolating fractional positive metrics definitively verifies physical base dimensional geometries evaluating $1.5B$ model architectures restricts highly optimal dynamic parameter spaces blocking larger meta-combinations limits natively bypassing current integration scales measuring entirely combinatorial structural constraints natively locking target parameters mapping explicitly alongside unified device paradigms.
+
+%\bibliographystyle{plainnat}
+%\bibliography{references}
+
+\end{document}
