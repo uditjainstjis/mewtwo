@@ -1,0 +1,36 @@
+base_models:
+  - "Qwen/Qwen2.5-7B-Instruct"
+  - "meta-llama/Llama-3.1-8B-Instruct"
+
+lora:
+  ranks: [16, 32, 64]
+  alpha_ratio: 2                    # lora_alpha = alpha_ratio * rank
+  target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+  dropout: 0.05
+
+training:
+  max_steps: 2000
+  batch_size: 4
+  gradient_accumulation: 4          # effective batch size = 16
+  learning_rate: 2e-4
+  lr_scheduler: "cosine"
+  warmup_ratio: 0.03
+  weight_decay: [0.0, 0.01, 0.1]    # Variable to trigger/prevent grokking
+  max_length: 2048
+  bf16: true
+  gradient_checkpointing: true      # To fit larger models + ranks in 32GB
+
+checkpointing:
+  save_every_n_steps: 25            # Dense checkpointing
+  compute_mmlu_every_n_steps: 100
+  compute_svd_every_n_steps: 25     # Full SVD spectrum logging
+
+anchor_domains:
+  - MATHEMATICS
+  - MEDICAL_DIAGNOSIS
+  - LEGAL_ANALYSIS
+  - PYTHON_LOGIC
+  - PHILOSOPHY
+  - CRYPTOGRAPHY
+  - ASTROPHYSICS
+  - CLIMATE_SCIENCE

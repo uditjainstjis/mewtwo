@@ -283,7 +283,6 @@ def semantic_similarity(model, text_a, text_b):
 def run_ablation():
     from dynamic_mlx_inference import DynamicEngine, set_global_clamp
     from orchestrator import Orchestrator
-    import mlx.core as mx
 
     # Load models
     registry = json.load(open("expert_registry.json"))

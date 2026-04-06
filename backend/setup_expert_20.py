@@ -1,7 +1,7 @@
 import json
 import os
 import subprocess
-import sys
+from runtime_backend import build_lora_train_command
 
 DOMAINS = [
     "LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS", "PYTHON_LOGIC", "MATHEMATICS", "MLX_KERNELS",
@@ -81,16 +81,14 @@ def train_expert_adapters(train_data):
         os.makedirs(adapter_path, exist_ok=True)
         
         print(f"\n--- Training Expert Adapter for {d} ({len(domain_pairs)} pairs) ---")
-        cmd = [
-            sys.executable, "-m", "mlx_lm", "lora",
-            "--model", BASE_MODEL,
-            "--train",
-            "--data", data_dir,
-            "--iters", "200",
-            "--batch-size", "1",
-            "--learning-rate", "2e-4",
-            "--adapter-path", adapter_path
-        ]
+        cmd = build_lora_train_command(
+            base_model=BASE_MODEL,
+            data_dir=data_dir,
+            iters=200,
+            batch_size=1,
+            learning_rate=2e-4,
+            adapter_path=adapter_path,
+        )
         subprocess.run(cmd, check=True)
         
         sf_path = os.path.join(adapter_path, "adapters.safetensors")
@@ -106,4 +104,3 @@ def train_expert_adapters(train_data):
 if __name__ == "__main__":
     benchmark_data, train_data = generate_mock_expert_dataset()
     train_expert_adapters(train_data)
-

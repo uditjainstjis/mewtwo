@@ -1,10 +1,8 @@
 import os
 import json
-import mlx.core as mx
-import mlx.nn as nn
-from mlx_lm import load
 from safetensors.numpy import save_file
 import numpy as np
+from runtime_backend import detect_runtime_backend, resolve_model_path
 
 BASE_MODEL = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
 ADAPTERS_DIR = os.path.join(os.path.dirname(__file__), "adapters")
@@ -46,12 +44,28 @@ def get_linear_dims(layer):
 
 def synthesize_adapters():
     os.makedirs(ADAPTERS_DIR, exist_ok=True)
-    print(f"Loading Base Model: {BASE_MODEL}")
-    model, tokenizer = load(BASE_MODEL)
+    backend = detect_runtime_backend()
+    resolved_model = resolve_model_path(BASE_MODEL, backend)
+    print(f"Loading Base Model [{backend}]: {resolved_model}")
+    if backend == "mlx":
+        import mlx.nn as nn
+        from mlx_lm import load
+
+        model, _tokenizer = load(resolved_model)
+        linear_types = (nn.Linear, nn.QuantizedLinear)
+    else:
+        import torch.nn as nn
+        from transformers import AutoModelForCausalLM
+
+        model = AutoModelForCausalLM.from_pretrained(
+            resolved_model,
+            trust_remote_code=True,
+        )
+        linear_types = (nn.Linear,)
     
     target_keys = []
     for full_name, child in model.named_modules():
-        if isinstance(child, (nn.Linear, nn.QuantizedLinear)):
+        if isinstance(child, linear_types):
             if "q_proj" in full_name or "v_proj" in full_name:
                 in_f, out_f = get_linear_dims(child)
                 target_keys.append((full_name, in_f, out_f))

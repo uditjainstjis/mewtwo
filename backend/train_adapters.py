@@ -2,6 +2,7 @@ import os
 import json
 import subprocess
 import shutil
+from runtime_backend import build_lora_train_command
 
 BASE_MODEL = "mlx-community/Qwen2.5-1.5B-Instruct-4bit"
 ADAPTERS_DIR = os.path.join(os.path.dirname(__file__), "adapters")
@@ -62,19 +63,16 @@ def prepare_data_and_train():
         adapter_path = os.path.join(ADAPTERS_DIR, domain)
         os.makedirs(adapter_path, exist_ok=True)
         
-        import sys
-        cmd = [
-            sys.executable, "-m", "mlx_lm", "lora",
-            "--model", BASE_MODEL,
-            "--train",
-            "--data", data_dir,
-            "--iters", "100",
-            "--batch-size", "1",
-            "--learning-rate", "2e-5",
-            "--adapter-path", adapter_path
-        ]
+        cmd = build_lora_train_command(
+            base_model=BASE_MODEL,
+            data_dir=data_dir,
+            iters=100,
+            batch_size=1,
+            learning_rate=2e-5,
+            adapter_path=adapter_path,
+        )
         
-        print(f"Running MLX LoRA training for {domain}...")
+        print(f"Running LoRA training for {domain}...")
         subprocess.run(cmd, check=True)
         
         # Add to registry

@@ -5,3 +5,7 @@ uvicorn
 pydantic
 numpy
 safetensors
+torch
+transformers
+peft
+accelerate

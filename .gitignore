@@ -47,3 +47,12 @@ backend/ablation_raw_results.json
 
 # Cached
 *.npz
+checkpoints/
+models/
+*.pt
+*.pth
+*.log
+.venv/
+data/training/
+data/eval/
+data/synthetic_geometry/

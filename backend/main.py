@@ -5,6 +5,7 @@ import json
 import time
 from orchestrator import Orchestrator
 from dynamic_mlx_inference import DynamicEngine
+from runtime_backend import get_runtime_summary
 
 app = FastAPI()
 
@@ -58,4 +59,6 @@ def get_adapters():
 
 @app.get("/api/model")
 def get_model():
-    return {"model": "mlx-community/Qwen2.5-1.5B-Instruct-4bit", "status": "loaded"}
+    summary = get_runtime_summary("mlx-community/Qwen2.5-1.5B-Instruct-4bit")
+    summary["status"] = "loaded"
+    return summary
