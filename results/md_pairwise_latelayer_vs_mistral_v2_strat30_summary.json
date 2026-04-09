@@ -1,0 +1,95 @@
+{
+  "system_a": "late_layer_injection",
+  "system_b": "mistral",
+  "n": 30,
+  "wins": {
+    "A": 4,
+    "B": 26,
+    "tie": 0
+  },
+  "avg_score_a": 3.5,
+  "avg_score_b": 5.333333333333333,
+  "avg_confidence": 0.6683333333333333,
+  "section_breakdown": {
+    "Cross Domain Synthesis": {
+      "n": 3,
+      "wins_a": 2,
+      "wins_b": 1,
+      "ties": 0,
+      "avg_score_a": 3.3333,
+      "avg_score_b": 4.0
+    },
+    "Decision Support": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 3.3333,
+      "avg_score_b": 5.3333
+    },
+    "Design Review": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 3.3333,
+      "avg_score_b": 4.6667
+    },
+    "Diagnosis": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 4.6667,
+      "avg_score_b": 6.6667
+    },
+    "Edge Cases": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 2.6667,
+      "avg_score_b": 6.0
+    },
+    "Implementation Planning": {
+      "n": 3,
+      "wins_a": 1,
+      "wins_b": 2,
+      "ties": 0,
+      "avg_score_a": 3.3333,
+      "avg_score_b": 3.6667
+    },
+    "Interpretation": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 5.6667,
+      "avg_score_b": 7.0
+    },
+    "Quantitative Reasoning": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 1.6667,
+      "avg_score_b": 5.0
+    },
+    "Risk And Compliance": {
+      "n": 3,
+      "wins_a": 1,
+      "wins_b": 2,
+      "ties": 0,
+      "avg_score_a": 3.0,
+      "avg_score_b": 4.6667
+    },
+    "Stakeholder Communication": {
+      "n": 3,
+      "wins_a": 0,
+      "wins_b": 3,
+      "ties": 0,
+      "avg_score_a": 4.0,
+      "avg_score_b": 6.3333
+    }
+  }
+}

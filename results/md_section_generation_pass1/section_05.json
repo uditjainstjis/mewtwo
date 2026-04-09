@@ -1,0 +1,198 @@
+```json
+[
+  {
+    "id": "ext_md_021",
+    "domains": ["MLX_KERNELS", "MATHEMATICS"],
+    "required_adapters": ["MLX_KERNELS", "MATHEMATICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "An MLX custom metal kernel accumulates a running sum of float16 values in a tight loop over 4096 elements. A numerical analyst flags this as a compliance risk for scientific workloads. Identify the specific mathematical failure mode, quantify why 4096 iterations makes it worse than 64, and state the minimal kernel change that mitigates it.",
+    "reference_answer": "The risk is catastrophic cancellation and accumulated rounding error in float16. Float16 has ~3 decimal digits of precision and a maximum representable value of 65504. Summing 4096 terms of moderate magnitude causes the partial sum to dwarf individual increments, so small values are rounded to zero and never contribute — a form of severe loss of significance. With N=64 the relative error grows roughly as O(N·ε) where ε≈0.001 for float16; at N=4096 the error bound is 64× larger, easily corrupting the low-order bits of the result entirely. The minimal fix is pairwise (tree) summation or promoting the accumulator to float32 while keeping inputs as float16. In MLX Metal kernels, declare the accumulator as `float acc = 0.0f` (float32) and cast each float16 load before adding. This eliminates the growth of rounding error with N.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "float16 accumulator precision",
+        "loss of significance or catastrophic cancellation",
+        "promote accumulator to float32"
+      ],
+      "must_include_any": [
+        ["pairwise summation", "tree reduction", "Kahan summation"],
+        ["error grows with N", "O(N·ε)", "error bound scales"]
+      ],
+      "must_not_include": [
+        "float16 can represent 4096 exactly",
+        "overflow is the primary risk",
+        "the kernel is safe for scientific use without changes"
+      ],
+      "numeric_targets": [
+        {
+          "label": "float16 max representable value",
+          "value": "65504",
+          "tolerance": 0.0
+        },
+        {
+          "label": "error multiplier 4096 vs 64",
+          "value": "64",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:19:23.007599+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_022",
+    "domains": ["MLX_KERNELS", "ROBOTICS"],
+    "required_adapters": ["MLX_KERNELS", "ROBOTICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A robotics team is deploying a real-time obstacle-avoidance policy on an Apple Silicon edge device. They must choose between: (A) running inference via a compiled MLX Metal kernel with fixed 8ms dispatch latency and deterministic output, or (B) using MLX's eager Python API with ~2–14ms variable latency depending on graph size. The robot's control loop runs at 100 Hz (10ms budget). Compare the safety compliance risk of each option and recommend one.",
+    "reference_answer": "Option A (compiled Metal kernel, fixed 8ms) is the safer choice for a 100 Hz control loop. The 10ms budget leaves only 2ms margin with Option A, which is tight but deterministic — the system can be formally certified against a worst-case execution time (WCET). Option B's variable 2–14ms latency is disqualifying: any dispatch exceeding 10ms causes the control loop to miss its deadline, producing a stale or absent control action. In safety-critical robotics (e.g., ISO 26262 or IEC 61508 contexts), non-deterministic latency is a hard compliance failure because WCET cannot be bounded. Option A should be chosen, with the 2ms residual margin documented and protected by a hardware watchdog that triggers a safe-stop if the kernel overruns. If 8ms proves too close, the kernel should be further optimized or the policy network pruned rather than switching to eager mode.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option A recommended",
+        "deterministic or bounded latency",
+        "Option B latency can exceed 10ms deadline"
+      ],
+      "must_include_any": [
+        ["WCET", "worst-case execution time", "deadline miss"],
+        ["ISO 26262", "IEC 61508", "safety certification", "safety-critical"]
+      ],
+      "must_not_include": [
+        "Option B is acceptable for real-time use",
+        "variable latency is fine at 100 Hz",
+        "eager mode provides determinism"
+      ],
+      "numeric_targets": [
+        {
+          "label": "control loop period ms",
+          "value": "10",
+          "tolerance": 0.0
+        },
+        {
+          "label": "residual margin with Option A ms",
+          "value": "2",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:19:23.007599+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_023",
+    "domains": ["MLX_KERNELS", "CRYPTOGRAPHY"],
+    "required_adapters": ["MLX_KERNELS", "CRYPTOGRAPHY"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A team implements AES-128 key expansion inside an MLX Metal kernel so the round keys reside in GPU threadgroup shared memory during inference. A security auditor flags this as a critical vulnerability. Diagnose the specific cryptographic risk introduced by this design and prescribe the minimal architectural fix.",
+    "reference_answer": "The critical risk is side-channel exposure through shared GPU memory. Threadgroup shared memory in Metal is readable by all threads within the same threadgroup and, depending on driver/hardware behavior, may not be reliably zeroed between dispatches or kernel invocations. This means AES round keys can leak to co-resident threads or persist in memory after the kernel completes — a violation of key material isolation required by standards such as FIPS 140-3. Additionally, data-dependent memory access patterns in table-based AES (T-table implementations) on a GPU are susceptible to timing and cache-based side channels. The minimal fix is twofold: (1) perform key expansion on the CPU and pass only the derived round keys as constant-buffer inputs marked with the `constant` address space, never in threadgroup memory; (2) explicitly zero any on-device buffers containing key material immediately after use via a dedicated zeroing kernel, and use AES hardware intrinsics if available to avoid T-table patterns.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "threadgroup shared memory not reliably zeroed",
+        "key material leakage or key isolation violation",
+        "move key expansion to CPU or use constant buffer"
+      ],
+      "must_include_any": [
+        ["side-channel", "timing attack", "cache attack"],
+        ["FIPS 140", "key material isolation", "cryptographic boundary"]
+      ],
+      "must_not_include": [
+        "threadgroup memory is private and secure",
+        "GPU memory is inaccessible to other threads",
+        "AES on GPU has no side-channel risk"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:19:23.007599+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_024",
+    "domains": ["MLX_KERNELS", "ASTROPHYSICS"],
+    "required_adapters": ["MLX_KERNELS", "ASTROPHYSICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A research pipeline fits stellar spectral energy distributions (SEDs) by running 50,000 Markov Chain Monte Carlo (MCMC) likelihood evaluations per star, each requiring a forward model over a 2048-point wavelength grid. Two MLX designs are proposed: (A) one Metal kernel per likelihood call, launched 50,000 times; or (B) a batched kernel processing all 50,000 evaluations in a single dispatch. Identify the dominant performance risk in Design A and explain why Design B is preferred for this scientific workload.",
+    "reference_answer": "Design A's dominant risk is kernel dispatch overhead. Each Metal kernel launch incurs a fixed CPU-GPU command encoding and scheduling cost — typically on the order of tens of microseconds. Multiplied across 50,000 sequential launches, this overhead can dwarf the actual compute time for a 2048-point forward model, producing a throughput-bound pipeline that wastes the GPU's parallel capacity. For SED fitting, the likelihood evaluations are statistically independent across MCMC samples, making them embarrassingly parallel — the exact structure Design B exploits. A single batched dispatch amortizes launch overhead across all 50,000 evaluations, saturates GPU arithmetic units, and reduces total wall time by potentially one to two orders of magnitude. The scientific compliance concern is also real: sequential launches on MCMC chains can introduce subtle serialization that correlates sample timing with chain state, risking non-uniform sampling if the MCMC controller adapts step sizes using wall-clock feedback.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "kernel dispatch overhead in Design A",
+        "embarrassingly parallel evaluations",
+        "Design B recommended"
+      ],
+      "must_include_any": [
+        ["amortize launch cost", "single dispatch", "batched kernel"],
+        ["throughput", "GPU utilization", "saturate arithmetic units"]
+      ],
+      "must_not_include": [
+        "Design A is preferred",
+        "dispatch overhead is negligible",
+        "MCMC evaluations are not parallelizable"
+      ],
+      "numeric_targets": [
+        {
+          "label": "MCMC evaluations per star",
+          "value": "50000",
+          "tolerance": 0.0
+        },
+        {
+          "label": "wavelength grid points",
+          "value": "2048",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:19:23.007599+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_025",
+    "domains": ["LATEX_FORMATTING", "ASTROPHYSICS"],
+    "required_adapters": ["LATEX_FORMATTING", "ASTROPHYSICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "A junior researcher submits a journal draft with the following LaTeX for the Chandrasekhar mass limit: `$M_{Ch} = \\frac{5.83}{\\mu_e^2} M_{\\odot}$`. The peer reviewer rejects it on both typographic and scientific grounds. Identify one typographic failure and one scientific inaccuracy in this expression, and provide the corrected LaTeX snippet.",
+    "reference_answer": "Typographic failure: The expression uses inline math mode (`$...$`) for a key displayed equation in a results section, which is inappropriate for a standalone, numbered equation in an astronomy journal — it should use a display environment such as `\\begin{equation}...\\end{equation}`. Additionally, the subscript `e` in `\\mu_e` is a plain italic letter rather than an upright Roman subscript; journal style (e.g., AAS, A&A) requires `\\mu_{\\mathrm{e}}` for particle-symbol subscripts. Scientific inaccuracy: The coefficient 5.83 is correct

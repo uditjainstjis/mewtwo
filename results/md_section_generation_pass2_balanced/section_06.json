@@ -1,0 +1,305 @@
+[
+  {
+    "id": "ext_md_076",
+    "domains": [
+      "MLX_KERNELS",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "ROBOTICS"
+    ],
+    "question": "A mobile robot runs a 1 kHz control loop with a policy step offloaded to an MLX GPU kernel. Measured times are: sensor read 90 \u03bcs, state-estimation kernel 140 \u03bcs, policy kernel 180 \u03bcs, actuator write 70 \u03bcs. Each GPU kernel launch adds 35 \u03bcs host-side overhead, and worst-case scheduling jitter is 110 \u03bcs. A teammate says the loop is safe because mean compute is under 1 ms. Is that correct? Give the worst-case loop time, say whether the design meets deadline, and name the edge-case issue.",
+    "reference_answer": "No. For a real-time robot, worst-case timing matters more than mean timing. Worst-case loop time is 90 + 140 + 180 + 70 + 35 + 35 + 110 = 660 \u03bcs, so this configuration still fits within the 1,000 \u03bcs deadline with 340 \u03bcs slack. The edge-case issue is that launch overhead and scheduler jitter must be budgeted explicitly; a design can pass on average yet fail on tail latency if jitter spikes or extra kernel boundaries are introduced.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "Worst-case loop time is 660 microseconds",
+        "The 1 kHz deadline is met"
+      ],
+      "must_include_any": [
+        [
+          "tail latency",
+          "worst-case latency"
+        ],
+        [
+          "kernel launch overhead",
+          "launch overhead"
+        ]
+      ],
+      "must_not_include": [
+        "Mean latency alone proves safety",
+        "Deadline is missed"
+      ],
+      "numeric_targets": [
+        {
+          "label": "worst_case_us",
+          "value": "660",
+          "tolerance": 0.0
+        },
+        {
+          "label": "slack_us",
+          "value": "340",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "1\\s*kHz|1000\\s*\u03bcs|1000\\s*us"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:53:22.661221+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_077",
+    "domains": [
+      "ORGANIC_SYNTHESIS",
+      "LEGAL_ANALYSIS"
+    ],
+    "required_adapters": [
+      "ORGANIC_SYNTHESIS",
+      "LEGAL_ANALYSIS"
+    ],
+    "question": "Plant counsel asks whether a spent mother liquor from a nitration step must be handled as hazardous waste under an internal rule: any waste stream with at least 0.3% of a reproductive toxicant or at least 10% of a skin sensitizer is hazardous, and percentages in the same hazard class are summed. Analysis shows Compound A 0.18% (reprotoxic), Compound B 0.16% (reprotoxic), Compound C 8.5% (skin sensitizer). Should counsel classify the stream as hazardous, and on what quantitative basis?",
+    "reference_answer": "Yes. The stream should be classified as hazardous because the two reproductive toxicants are in the same hazard class and must be summed: 0.18% + 0.16% = 0.34%, which exceeds the 0.3% threshold. The skin sensitizer is below its separate 10% trigger, so it is not the deciding factor. The legally defensible basis is hazard-class aggregation, not picking only the largest individual constituent.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "0.18% + 0.16% = 0.34%",
+        "The stream is hazardous because the reprotoxic threshold is exceeded"
+      ],
+      "must_include_any": [
+        [
+          "same hazard class must be summed",
+          "aggregate within the same hazard class"
+        ],
+        [
+          "8.5% is below 10%",
+          "skin sensitizer does not trigger classification"
+        ]
+      ],
+      "must_not_include": [
+        "Not hazardous",
+        "Use only the single highest constituent"
+      ],
+      "numeric_targets": [
+        {
+          "label": "reprotoxic_sum_percent",
+          "value": "0.34",
+          "tolerance": 0.0
+        },
+        {
+          "label": "reprotoxic_threshold_percent",
+          "value": "0.3",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "0\\.3\\s*%",
+        "10\\s*%"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:53:22.661221+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_078",
+    "domains": [
+      "PYTHON_LOGIC",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "CRYPTOGRAPHY"
+    ],
+    "question": "A review note says this Python encryption helper is safe because the counter changes per message: `nonce = user_id.to_bytes(8,'big'); ks = prg(key, nonce); ct = xor(msg, ks[:len(msg)])`. The same `user_id` sends two equal-length messages under the same key. Analyze the bug. What quantity becomes computable from the two ciphertexts, and why does the programmer's reasoning fail?",
+    "reference_answer": "The design is unsafe because the nonce is deterministic per user, so two messages from the same user under the same key reuse the same keystream. Then an attacker can compute C1 XOR C2 = P1 XOR P2. The programmer focused on per-user variation, but stream-cipher safety requires nonce uniqueness per encryption under a fixed key, not merely a counterexample where different users get different nonces.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Nonce reuse causes keystream reuse",
+        "C1 XOR C2 = P1 XOR P2"
+      ],
+      "must_include_any": [
+        [
+          "nonce must be unique per message",
+          "unique per encryption under the same key"
+        ],
+        [
+          "same user_id gives same nonce",
+          "deterministic nonce per user repeats"
+        ]
+      ],
+      "must_not_include": [
+        "Counter changes per message in the shown code",
+        "This is safe if messages have equal length"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "C1\\s*XOR\\s*C2\\s*=\\s*P1\\s*XOR\\s*P2",
+        "nonce\\s*=\\s*user_id"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:53:22.661221+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_079",
+    "domains": [
+      "QUANTUM_CHEMISTRY",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "QUANTUM_CHEMISTRY",
+      "ASTROPHYSICS"
+    ],
+    "question": "You are drafting a 2-sentence note for telescope operations. Candidate line IDs for a cold cloud are: X at 4.3 meV above ground and Y at 18 meV above ground. Assume level populations scale as `exp(-E/kT)` and use `kT \u2248 8.6 meV` at 100 K. Which line should be prioritized for detection, and roughly how much stronger should its population contribution be than the other?",
+    "reference_answer": "Prioritize line X. Using Boltzmann factors, X scales as exp(-4.3/8.6) = exp(-0.5) \u2248 0.61, while Y scales as exp(-18/8.6) \u2248 exp(-2.09) \u2248 0.12. The ratio is about 0.61/0.12 \u2248 5, so X should have roughly five times the population contribution and is the better operational target in a 100 K cloud.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "Line X should be prioritized",
+        "Population ratio is about 5 to 1"
+      ],
+      "must_include_any": [
+        [
+          "Boltzmann factor",
+          "exp(-E/kT)"
+        ],
+        [
+          "100 K",
+          "kT \u2248 8.6 meV"
+        ]
+      ],
+      "must_not_include": [
+        "Line Y should be prioritized",
+        "The two lines are approximately equal"
+      ],
+      "numeric_targets": [
+        {
+          "label": "x_factor",
+          "value": "0.61",
+          "tolerance": 0.03
+        },
+        {
+          "label": "y_factor",
+          "value": "0.12",
+          "tolerance": 0.03
+        },
+        {
+          "label": "ratio",
+          "value": "5.0",
+          "tolerance": 0.5
+        }
+      ],
+      "regex_targets": [
+        "exp\$$-0\\.5\$$",
+        "exp\$$-2\\.0[0-9]\$$"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:53:22.661221+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_080",
+    "domains": [
+      "RENAISSANCE_ART",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "RENAISSANCE_ART",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "A museum can fund only one digital exhibition. Proposal A covers 12 Renaissance works, each directly tied to a distinct Roman historical episode. Proposal B covers 18 works, but only 5 have clear links to specific ancient events and the rest are generic classical motifs. If the board scores impact as `0.6 \u00d7 artwork count + 1.4 \u00d7 historically specific links`, which proposal should be prioritized?",
+    "reference_answer": "Prioritize Proposal A. Its score is 0.6\u00d712 + 1.4\u00d712 = 7.2 + 16.8 = 24. Proposal B scores 0.6\u00d718 + 1.4\u00d75 = 10.8 + 7 = 17.8. Even though B includes more artworks, A wins because historically specific ancient links are weighted much more heavily than raw artwork count.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "Proposal A should be prioritized",
+        "A scores 24 and B scores 17.8"
+      ],
+      "must_include_any": [
+        [
+          "historically specific links are weighted more heavily",
+          "specific ancient links dominate the scoring"
+        ],
+        [
+          "12 distinct Roman historical episodes",
+          "12 historically specific links"
+        ]
+      ],
+      "must_not_include": [
+        "Proposal B should be prioritized",
+        "Artwork count alone determines the result"
+      ],
+      "numeric_targets": [
+        {
+          "label": "proposal_a_score",
+          "value": "24",
+          "tolerance": 0.0
+        },
+        {
+          "label": "proposal_b_score",
+          "value": "17.8",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "0\\.6\\s*[x\u00d7]\\s*12",
+        "1\\.4\\s*[x\u00d7]\\s*5"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:53:22.661221+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  }
+]

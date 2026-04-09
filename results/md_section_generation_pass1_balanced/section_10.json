@@ -1,0 +1,264 @@
+[
+  {
+    "id": "ext_md_046",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "PHILOSOPHY"
+    ],
+    "question": "A museum director wants a one-sentence exhibit label for a 17th-century pamphlet that says, “Set not thy heart upon that which Fortune turneth.” Explain its practical meaning for modern visitors without modernizing away the older tone. Write 30–45 words for a general audience.",
+    "reference_answer": "Set not thy heart upon that which Fortune turneth means: do not anchor thy peace to rank, wealth, or applause, for such things shift beyond thy governance; prize instead a steadier rule within, namely thy judgment and conduct.",
+    "rubric": {
+      "answer_type": "translation",
+      "must_include_all": [
+        "explains that unstable external goods should not be the basis of peace or attachment",
+        "states that inner judgment, conduct, or self-command is the steadier focus",
+        "preserves some archaic register"
+      ],
+      "must_include_any": [
+        [
+          "Fortune",
+          "outward chance",
+          "external turns"
+        ],
+        [
+          "thy",
+          "thou",
+          "thine"
+        ]
+      ],
+      "must_not_include": [
+        "treats Fortune as a literal goddess requiring worship",
+        "claims the line means to reject all emotion",
+        "fully rewrites into modern colloquial English only"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "^(?=(?:\\S+\\s+){29,44}\\S+$).+"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:46:30.672012+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_047",
+    "domains": [
+      "LATEX_FORMATTING",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "ASTROPHYSICS"
+    ],
+    "question": "A project manager asks why a proposal draft replaced plain text with LaTeX math for a transit search. Give a brief explanation that justifies writing the depth as \$$\\delta \\approx (R_p/R_\\star)^2\$$ instead of “planet radius squared over star radius squared,” and mention one stakeholder benefit beyond aesthetics.",
+    "reference_answer": "Using \$$\\delta \\approx (R_p/R_\\star)^2\$$ is clearer because transit depth is a precise astrophysical relation between observed dimming, planet radius, and stellar radius. The notation removes ambiguity about grouping and subscripts, and it lets reviewers check assumptions quickly. Beyond appearance, it reduces avoidable misreads in technical review and downstream implementation.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "states that the formula expresses transit depth in terms of planet and star radius",
+        "explains that LaTeX/math notation improves precision or removes ambiguity",
+        "mentions a practical stakeholder benefit such as review speed, implementation accuracy, or reduced misreading"
+      ],
+      "must_include_any": [
+        [
+          "subscripts",
+          "grouping",
+          "parentheses"
+        ],
+        [
+          "dimming",
+          "brightness drop",
+          "transit depth"
+        ]
+      ],
+      "must_not_include": [
+        "claims the formula gives planetary mass",
+        "says LaTeX is only for aesthetics",
+        "rewrites the formula incorrectly as Rp/Rstar without squaring"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "\\\\\$$\\\\delta \\\\approx \$$R_p/R_\\\\star\$$\\^2\\\\\$$"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:46:30.672012+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_048",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "MARITIME_LAW"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "MARITIME_LAW"
+    ],
+    "question": "A shipping client says: “Any boat that helped us automatically gets a salvage award, so we should settle now.” Write a short reply for the client explaining why that reasoning is legally incomplete. Keep it plain English and mention the key missing tests.",
+    "reference_answer": "That conclusion is too quick. A salvage claim usually requires more than mere assistance: the service must be voluntary, the vessel or cargo must have faced real marine peril, and the effort must have contributed to successful rescue or preservation of property. If one of those elements is missing, payment may be disputed or reduced, so settlement should wait until the facts are checked.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "states that assistance alone does not automatically create a salvage award",
+        "identifies real peril as a required element",
+        "identifies voluntariness or successful contribution as required elements"
+      ],
+      "must_include_any": [
+        [
+          "voluntary",
+          "not under pre-existing duty"
+        ],
+        [
+          "success",
+          "successful rescue",
+          "preservation of property"
+        ]
+      ],
+      "must_not_include": [
+        "says every helper is automatically entitled to salvage",
+        "confuses salvage with towage without qualification",
+        "focuses only on injury to persons and ignores property peril"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:46:30.672012+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_049",
+    "domains": [
+      "MATHEMATICS",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "MUSIC_THEORY"
+    ],
+    "question": "Explain to a product manager why a tuning feature based only on equal semitone steps can still sound “off” in harmony. Give a 2-sentence explanation that mentions both the logarithmic spacing idea and a contrasting simple interval ratio musicians care about.",
+    "reference_answer": "Equal temperament divides the octave into equal logarithmic steps, which is great for consistency across keys but means most intervals are approximations rather than exact whole-number ratios. So a harmony can feel slightly tense because musicians often compare it, implicitly or explicitly, with simpler ratios such as the perfect fifth 3:2 or major third 5:4.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "mentions equal temperament or equal semitone steps as logarithmically spaced",
+        "explains that this makes intervals approximations rather than exact simple ratios",
+        "gives at least one concrete simple ratio valued in harmony"
+      ],
+      "must_include_any": [
+        [
+          "3:2",
+          "perfect fifth"
+        ],
+        [
+          "5:4",
+          "major third"
+        ]
+      ],
+      "must_not_include": [
+        "claims equal temperament uses exact whole-number ratios for all intervals",
+        "says octave division alone guarantees pure harmony",
+        "discusses rhythm instead of pitch tuning"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "(3:2|5:4)"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:46:30.672012+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_050",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "question": "A plant manager asks whether two incidents likely share one cause: workers developed pinpoint pupils and sweating after a solvent-line upset, while the chemistry team reports an organophosphate intermediate may have escaped. Write a brief explanation for operations leadership that prioritizes what to act on first and why.",
+    "reference_answer": "Treat the events as potentially linked and escalate immediately: pinpoint pupils and sweating are compatible with cholinergic toxicity, which fits possible organophosphate exposure. First priority is worker safety and emergency medical evaluation, then isolate the area and identify the released intermediate. Do not wait for full analytical confirmation before acting, because the clinical pattern and the reported process deviation point to the same mechanism.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "links the symptom pattern to possible cholinergic or organophosphate toxicity",
+        "prioritizes immediate medical/safety response before full chemical confirmation",
+        "recommends operational containment or isolation of the release area"
+      ],
+      "must_include_any": [
+        [
+          "pinpoint pupils",
+          "miosis"
+        ],
+        [
+          "organophosphate",
+          "acetylcholinesterase inhibitor",
+          "cholinergic"
+        ]
+      ],
+      "must_not_include": [
+        "says the symptoms are unrelated to organophosphate exposure",
+        "advises waiting for lab confirmation before taking safety action",
+        "recommends giving a specific drug dose"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:46:30.672012+00:00",
+      "section": "Stakeholder Communication"
+    }
+  }
+]

@@ -1,0 +1,192 @@
+```json
+[
+  {
+    "id": "ext_md_001",
+    "domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "required_adapters": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A SaaS company signs a data processing agreement (DPA) under GDPR requiring end-to-end encryption of personal data in transit. Their engineers implement TLS 1.2 terminating at a reverse proxy, then forward plaintext internally over HTTP. A regulator flags this as non-compliant. Identify the cryptographic failure and explain why it violates the DPA's legal obligation.",
+    "reference_answer": "TLS termination at the proxy breaks the 'end-to-end' guarantee: data travels in plaintext between the proxy and the backend, exposing it to any process or actor with internal network access. GDPR Article 32 requires 'appropriate technical measures' including encryption; a DPA specifying end-to-end encryption contractually extends that requirement across the full data path. The fix is either (a) re-encrypting traffic from proxy to backend (TLS internally), or (b) using mutual TLS or application-layer encryption so the payload is never exposed in plaintext inside the network perimeter. Relying solely on perimeter TLS satisfies transport-layer compliance in appearance but fails the contractual and regulatory standard of end-to-end protection.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "TLS termination at the proxy",
+        "plaintext internal traffic",
+        "GDPR Article 32"
+      ],
+      "must_include_any": [
+        ["end-to-end encryption", "E2E encryption"],
+        ["re-encrypt", "TLS internally", "application-layer encryption"]
+      ],
+      "must_not_include": [
+        "TLS 1.2 is deprecated",
+        "DPA is invalid"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["Article\\s*32"],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:08:35.509629+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_002",
+    "domains": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A consumer lending startup is choosing between two default-prevention nudge designs: (A) a monthly email stating 'You may miss your payment deadline in 14 days' and (B) a push notification stating 'Most borrowers like you pay on time — your payment is due in 14 days.' Legal counsel flags that Option B may carry higher regulatory risk under UDAAP and FTC Act Section 5 than Option A. Is counsel correct? Explain which behavioral mechanism each option uses and why one raises more compliance risk.",
+    "reference_answer": "Counsel is largely correct. Option A is a straightforward factual reminder — it relies on a deadline salience nudge (reducing present bias) with no comparative claim, giving regulators little to challenge. Option B applies a descriptive social norm ('most borrowers like you'), which invokes social proof and identity-based motivation. However, 'borrowers like you' is a segmented comparative claim: if the comparison group is inaccurate or the segmentation is opaque, it can constitute a deceptive or misleading representation under UDAAP (Dodd-Frank § 1031) and FTC Act § 5. If the norm claim is false for any material subgroup, the representation is unfair or deceptive regardless of intent. Option A carries lower legal exposure; Option B requires accurate, documented segmentation data to be defensible.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "social norm",
+        "UDAAP",
+        "deceptive"
+      ],
+      "must_include_any": [
+        ["FTC Act Section 5", "FTC Act § 5"],
+        ["present bias", "salience", "deadline reminder"],
+        ["segmentation", "comparison group", "accurate"]
+      ],
+      "must_not_include": [
+        "Option A is illegal",
+        "both options are equally risky"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["§\\s*1031", "Section\\s*5"],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:08:35.509629+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_003",
+    "domains": ["LEGAL_ANALYSIS", "MARITIME_LAW"],
+    "required_adapters": ["LEGAL_ANALYSIS", "MARITIME_LAW"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A cargo owner files a lawsuit in a U.S. federal district court seeking damages for lost goods after a container vessel deviated from its contractual route without consent, causing a 3-week delay and resulting in spoilage. The shipowner moves to dismiss, citing a forum selection clause in the bill of lading designating London arbitration. The cargo owner argues the clause is unenforceable because the deviation was 'fundamental.' Diagnose the legal flaw in the cargo owner's argument and explain the correct doctrinal fix.",
+    "reference_answer": "The cargo owner conflates 'unreasonable deviation' (a Carriage of Goods by Sea Act / Hague-Visby doctrine that strips the carrier of liability caps) with a separate question of whether deviation voids the contract's forum selection clause. Under U.S. law (M/S Bremen v. Zapata, 407 U.S. 1), forum selection clauses in maritime contracts are prima facie valid and enforceable unless shown to be unreasonable or unjust — deviation does not automatically vitiate a dispute-resolution clause. The correct argument is not that the clause is unenforceable due to deviation, but rather that enforcing the London arbitration forum would be unreasonable under the specific facts, or that COGSA's anti-waiver provision (46 U.S.C. § 30701 note) applies. The cargo owner should reframe the motion around forum reasonableness, not deviation-based contract voidance.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "forum selection clause",
+        "M/S Bremen v. Zapata",
+        "deviation does not void"
+      ],
+      "must_include_any": [
+        ["COGSA", "Carriage of Goods by Sea Act"],
+        ["unreasonable", "unjust", "forum reasonableness"]
+      ],
+      "must_not_include": [
+        "deviation automatically voids the arbitration clause",
+        "the cargo owner is correct"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["407\\s*U\\.S\\.\\s*1", "§\\s*30701"],
+      "judge_focus": ["correctness", "hallucination", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:08:35.509629+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_004",
+    "domains": ["LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A hospital's IRB reviews two proposed consent workflows for an AI-assisted sepsis screening tool: (A) a single up-front consent form covering all future AI-flagged alerts, or (B) a per-alert opt-in triggered each time the tool fires. Clinicians prefer A for workflow speed; patient advocates prefer B for autonomy. From a legal and clinical standpoint, which design better balances informed consent doctrine with sepsis's time-sensitive diagnostic demands? Identify the key failure mode in the weaker option.",
+    "reference_answer": "Design A is the better-balanced choice. Sepsis diagnosis requires action within the 'golden hour'; per-alert opt-in (B) introduces consent latency that can delay screening initiation, conflicting with the standard of care and potentially exposing the hospital to liability for treatment delay. Under the Common Rule (45 CFR 46) and HIPAA, broad prospective consent for a defined, disclosed clinical AI tool is legally valid when the scope, risks, and data use are clearly described at enrollment. The key failure mode in Design B is that the autonomy benefit is largely illusory in emergencies: a critically ill or sedated patient cannot meaningfully consent per-alert, creating a practical informed consent failure rather than strengthening it. Design A's risk is under-disclosure — mitigated by making the initial form specific about how the AI operates.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Design A",
+        "sepsis time-sensitivity",
+        "informed consent"
+      ],
+      "must_include_any": [
+        ["Common Rule", "45 CFR 46"],
+        ["golden hour", "treatment delay", "standard of care"],
+        ["sedated", "critically ill", "cannot meaningfully consent"]
+      ],
+      "must_not_include": [
+        "Design B is legally required",
+        "per-alert consent is always superior"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["45\\s*CFR\\s*46"],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:08:35.509629+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_005",
+    "domains": ["LEGAL_ANALYSIS", "ROBOTICS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "ROBOTICS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "A warehouse operator deploys an autonomous mobile robot (AMR) fleet under a vendor contract that assigns all liability for robot-caused injuries to the operator. During operation, a robot's LiDAR-based obstacle detection fails to stop in time for a worker who steps into its path, causing injury. The operator argues the vendor is liable because the sensor failed due to a firmware defect. The vendor argues the operator accepted full contractual liability. Explain the failure mode in the operator's legal strategy and the counterfactual that would have strengthened their position.",
+    "reference_answer": "The operator's strategy fails because contractual indemnification clauses between commercial parties are generally enforceable, and the operator explicitly assumed all liability — courts will hold them to that allocation absent unconscionability or statutory override. Pointing to a firmware defect is a products liability argument (strict liability or negligence under tort law), but that claim runs against the vendor as a third-party products liability action, separate from the contractual indemnity. The operator's error is conflating contractual liability allocation with independent tort claims: they can still sue the vendor in tort for the defective firmware, but the contract does not automatically void or transfer the assumed liability to the vendor. The counterfactual that would have strengthened their position: negotiating a carve-out in the indemnity clause explicitly excluding injuries caused by vendor-side firmware or hardware defects, or retaining a right of contribution against the vendor for product defects.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "indemnification clause",
+        "products liability",
+        "tort claim"
+      ],
+      "must_include_any": [
+        ["firmware defect", "hardware defect", "vendor-side defect"],
+        ["carve-out", "exception", "exclusion in the indemnity"],
+        ["strict liability", "negligence"]
+      ],
+      "must_not_include": [
+        "the contract is automatically void",
+        "the operator cannot sue the vendor"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "hallucination", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:08:35.509629+00:00",
+      "section": "Diagnosis"
+    }
+  }
+]
+```

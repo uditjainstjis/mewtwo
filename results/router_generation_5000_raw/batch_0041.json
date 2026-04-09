@@ -1,0 +1,1675 @@
+[
+  {
+    "id": "router_04101",
+    "question": "A patient with chronic pain refuses a cheaper effective medication, preferring a costly placebo they believe works better. What diagnosis explains this behavior and what economic principle quantifies their willingness to pay for perceived quality over actual efficacy?",
+    "thinking": [
+      "Identify the medical condition involving pain perception and placebo response",
+      "Apply behavioral economics concepts like placebo effect valuation and price-quality heuristic"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04102",
+    "question": "How does nocebo effect in migraine patients interact with anchoring bias when doctors mention treatment costs, and what quantitative model predicts medication adherence rates considering both physiological and cognitive factors?",
+    "thinking": [
+      "Diagnose nocebo phenomena in migraine clinical presentation",
+      "Model anchoring bias impact on treatment adherence using behavioral economics"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04103",
+    "question": "What MLX kernel optimizations are required for climate science models running on Apple Silicon to comply with energy efficiency regulations for carbon footprint reporting?",
+    "thinking": [
+      "Identify MLX kernel requirements for Apple Silicon",
+      "Determine climate science compliance energy regulations"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04104",
+    "question": "A patient overestimates recovery probability from experimental therapy due to optimism bias. What diagnosis fits their risk assessment pattern and how do we calculate expected utility adjusting for cognitive distortion?",
+    "thinking": [
+      "Diagnose the medical risk perception disorder",
+      "Calculate expected utility with behavioral economics adjustment"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04105",
+    "question": "Plan implementation steps to build a telescope observing exoplanet transit photometry with 0.1 millimagnitude precision for detecting Earth-sized planets in habitable zones.",
+    "thinking": [
+      "Define astrophysics requirements for exoplanet transit detection",
+      "Outline implementation planning for telescope precision instrumentation"
+    ],
+    "experts": [
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04106",
+    "question": "Format in LaTeX a cryptographic proof showing edge cases where zero-knowledge protocol simulation fails when the adversary has quantum computing capabilities.",
+    "thinking": [
+      "Identify LaTeX formatting requirements for mathematical proofs",
+      "Analyze cryptographic edge cases in zero-knowledge protocols"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04107",
+    "question": "Plan implementation for a Renaissance art museum exhibit using behavioral economics nudges to increase visitor engagement with rarely-viewed paintings while maintaining scholarly integrity.",
+    "thinking": [
+      "Identify Renaissance art exhibit requirements",
+      "Apply behavioral economics nudges for visitor engagement"
+    ],
+    "experts": [
+      "RENAISSANCE_ART",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04108",
+    "question": "Write Python code handling edge cases where floating-point arithmetic in mathematical series convergence tests produces incorrect results near machine epsilon.",
+    "thinking": [
+      "Identify Python logic for floating-point edge cases",
+      "Analyze mathematical series convergence near machine epsilon"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04109",
+    "question": "Use Python to calculate quantitative estimates of stellar mass loss rates from red giant branch stars using astrophysical wind models with deep integration of observational data.",
+    "thinking": [
+      "Implement Python logic for astrophysical calculations",
+      "Apply stellar astrophysics mass loss models"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04110",
+    "question": "Design review required: A 45-year-old presents with fatigue, weight loss, night sweats, and lymphadenopathy. What is the comprehensive differential diagnosis and what additional tests are needed before definitive diagnosis?",
+    "thinking": [
+      "Analyze clinical presentation for differential diagnosis",
+      "Determine necessary diagnostic tests for medical evaluation"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04111",
+    "question": "Implement Python code to quantitatively calculate the Chandrasekhar limit for white dwarf stars with deep integration of degenerate electron gas physics.",
+    "thinking": [
+      "Write Python logic for astrophysical computation",
+      "Apply Chandrasekhar limit astrophysics calculations"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04112",
+    "question": "Analyze edge cases where maritime law jurisdiction conflicts with cryptographic blockchain evidence authentication for cargo disputes in international waters.",
+    "thinking": [
+      "Identify maritime law jurisdiction edge cases",
+      "Analyze cryptographic blockchain evidence authentication challenges"
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04113",
+    "question": "Plan implementation for a philosophical robotics system that makes ethical decisions while navigating uncertain environments with incomplete mathematical models.",
+    "thinking": [
+      "Define robotics implementation requirements",
+      "Apply philosophy ethics frameworks to robotic decision-making"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04114",
+    "question": "What quantum chemistry calculations determine molecular stability for maritime law insurance claims involving hazardous chemical cargo spills?",
+    "thinking": [
+      "Identify quantum chemistry molecular stability methods",
+      "Determine maritime law insurance claim requirements"
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04115",
+    "question": "Handle edge cases in Python MLX kernels where sparse matrix operations produce incorrect gradients during machine learning model training.",
+    "thinking": [
+      "Identify Python MLX kernel edge cases",
+      "Analyze sparse matrix gradient computation failures"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "MLX_KERNELS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04116",
+    "question": "Communicate to stakeholders how climate science predicts tipping points and what philosophical frameworks justify ethical obligations to future generations.",
+    "thinking": [
+      "Explain climate science tipping point predictions",
+      "Apply philosophy ethical frameworks for intergenerational justice"
+    ],
+    "experts": [
+      "CLIMATE_SCIENCE",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04117",
+    "question": "Plan implementation steps to detect gravitational waves from binary neutron star mergers using LIGO data analysis pipelines.",
+    "thinking": [
+      "Define astrophysics gravitational wave detection requirements",
+      "Outline LIGO data analysis implementation planning"
+    ],
+    "experts": [
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04118",
+    "question": "Review LaTeX document formatting for behavioral economics paper presenting experimental data on prospect theory with proper visualization standards.",
+    "thinking": [
+      "Identify LaTeX formatting requirements for academic papers",
+      "Apply behavioral economics prospect theory presentation standards"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04119",
+    "question": "Plan implementation for constructing a space-based interferometer to measure black hole shadows with micrometer precision.",
+    "thinking": [
+      "Define astrophysics black hole shadow measurement requirements",
+      "Outline space interferometer implementation planning"
+    ],
+    "experts": [
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04120",
+    "question": "What MLX kernel optimizations ensure climate science simulations comply with environmental impact regulations when running on large-scale Apple Silicon clusters?",
+    "thinking": [
+      "Identify MLX kernel optimization strategies",
+      "Determine climate science environmental compliance requirements"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04121",
+    "question": "Design review: Evaluate legal analysis of cryptographic protocol compliance with data privacy regulations for healthcare information systems.",
+    "thinking": [
+      "Analyze legal compliance frameworks for cryptography",
+      "Evaluate healthcare data privacy regulatory requirements"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04122",
+    "question": "Communicate to stakeholders how climate science attribution studies link extreme weather to human activity and what philosophical concepts support responsibility assignments.",
+    "thinking": [
+      "Explain climate science extreme weather attribution",
+      "Apply philosophy concepts for responsibility attribution"
+    ],
+    "experts": [
+      "CLIMATE_SCIENCE",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04123",
+    "question": "Format in LaTeX a comprehensive synthesis protocol for organic chemistry compounds with deep integration of reaction mechanism diagrams.",
+    "thinking": [
+      "Identify LaTeX formatting for chemistry documentation",
+      "Apply organic synthesis reaction mechanism presentation"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04124",
+    "question": "Translate this archaic English alchemical text quantitatively and determine what organic synthesis reactions it describes using modern chemistry.",
+    "thinking": [
+      "Interpret archaic English alchemical terminology",
+      "Identify organic synthesis reactions described historically"
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04125",
+    "question": "Communicate to stakeholders the significance of Sanskrit linguistic reconstruction for understanding ancient philosophical texts.",
+    "thinking": [
+      "Explain Sanskrit linguistic reconstruction methods",
+      "Communicate philosophical text significance to stakeholders"
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04126",
+    "question": "Plan implementation for a Python system using behavioral economics principles to optimize user interface decision architecture.",
+    "thinking": [
+      "Design Python logic for decision architecture",
+      "Apply behavioral economics optimization principles"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04127",
+    "question": "Plan implementation of a behavioral economics intervention to reduce procrastination using commitment devices and precommitment strategies.",
+    "thinking": [
+      "Identify behavioral economics procrastination mechanisms",
+      "Design commitment device implementation strategy"
+    ],
+    "experts": [
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04128",
+    "question": "Synthesize across domains how existentialist philosophy addresses the meaning crisis in modern technological society.",
+    "thinking": [
+      "Apply existentialist philosophy frameworks",
+      "Synthesize cross-domain analysis of meaning crisis"
+    ],
+    "experts": [
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04129",
+    "question": "Plan implementation for palliative care integrating medical diagnosis of terminal illness with philosophical counseling on existential distress.",
+    "thinking": [
+      "Identify medical diagnosis requirements for palliative care",
+      "Apply philosophy counseling for existential distress"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04130",
+    "question": "What MLX kernel compliance requirements ensure climate science carbon cycle models meet regulatory standards for carbon trading validation?",
+    "thinking": [
+      "Identify MLX kernel regulatory compliance requirements",
+      "Determine climate science carbon trading standards"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04131",
+    "question": "Design review required: Patient presents with persistent cough, hemoptysis, and weight loss. What is the most likely diagnosis?",
+    "thinking": [
+      "Analyze clinical symptoms for differential diagnosis",
+      "Identify most probable medical condition"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04132",
+    "question": "Analyze edge cases in maritime law where vessel registration conflicts with beneficial ownership transparency requirements.",
+    "thinking": [
+      "Identify maritime law vessel registration edge cases",
+      "Analyze beneficial ownership transparency conflicts"
+    ],
+    "experts": [
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04133",
+    "question": "Write Python code to quantitatively calculate orbital decay rates for low Earth orbit satellites due to atmospheric drag with shallow integration of astrophysics models.",
+    "thinking": [
+      "Implement Python logic for orbital mechanics",
+      "Apply astrophysics atmospheric drag calculations"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04134",
+    "question": "Handle edge cases in Python quantum chemistry calculations where basis set superposition error produces incorrect molecular binding energies.",
+    "thinking": [
+      "Identify Python quantum chemistry edge cases",
+      "Analyze basis set superposition error effects"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04135",
+    "question": "Design review: Evaluate how organic synthesis techniques were used in Renaissance art pigment production and their preservation implications.",
+    "thinking": [
+      "Analyze organic synthesis in pigment chemistry",
+      "Evaluate Renaissance art preservation requirements"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04136",
+    "question": "Diagnose why this organic synthesis reaction yield dropped from 85% to 25% after changing solvent from dichloromethane to tetrahydrofuran.",
+    "thinking": [
+      "Analyze organic synthesis reaction mechanism",
+      "Diagnose solvent effect on reaction yield"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04137",
+    "question": "Format in LaTeX edge cases where Renaissance art attribution proofs conflict with traditional art historical documentation standards.",
+    "thinking": [
+      "Identify LaTeX formatting requirements",
+      "Analyze Renaissance art attribution edge cases"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04138",
+    "question": "Design review necessary: Does this MLX kernel implementation support organic synthesis molecular dynamics simulations on Apple Silicon?",
+    "thinking": [
+      "Evaluate MLX kernel implementation capabilities",
+      "Assess organic synthesis molecular dynamics requirements"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04139",
+    "question": "Analyze Sanskrit linguistic compliance risks in ancient history texts when translating Vedic rituals for modern religious practice.",
+    "thinking": [
+      "Identify Sanskrit linguistic translation risks",
+      "Assess ancient history religious compliance requirements"
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04140",
+    "question": "Format in LaTeX deep interpretation of ancient history inscriptions with proper epigraphic conventions and philological annotations.",
+    "thinking": [
+      "Identify LaTeX formatting for epigraphic documents",
+      "Apply ancient history interpretation conventions"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04141",
+    "question": "Provide decision support on authenticating a suspected Michelangelo drawing using Renaissance art stylistic analysis criteria.",
+    "thinking": [
+      "Apply Renaissance art authentication methods",
+      "Evaluate Michelangelo stylistic characteristics"
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04142",
+    "question": "Synthesize how maritime law liability principles interact with behavioral economics loss aversion in cargo insurance claims.",
+    "thinking": [
+      "Analyze maritime law liability frameworks",
+      "Apply behavioral economics loss aversion concepts"
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04143",
+    "question": "Format in LaTeX cryptographic protocol specifications handling edge cases where party collusion breaks multi-party computation security.",
+    "thinking": [
+      "Identify LaTeX formatting for cryptographic protocols",
+      "Analyze multi-party computation edge cases"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04144",
+    "question": "Interpret how organic synthesis reaction mechanisms reflect philosophical concepts of transformation and emergence.",
+    "thinking": [
+      "Analyze organic synthesis reaction mechanisms",
+      "Apply philosophy transformation concepts"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04145",
+    "question": "Synthesize across quantum chemistry molecular orbital theory and philosophy of science regarding scientific realism versus instrumentalism.",
+    "thinking": [
+      "Explain quantum chemistry molecular orbitals",
+      "Apply philosophy science realism frameworks"
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04146",
+    "question": "Interpret MLX kernel performance metrics for astrophysics N-body simulation gravitational calculations.",
+    "thinking": [
+      "Analyze MLX kernel performance characteristics",
+      "Apply astrophysics N-body simulation requirements"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04147",
+    "question": "Plan implementation for a Renaissance art educational program incorporating philosophical ethics discussions on art patronage.",
+    "thinking": [
+      "Design Renaissance art education curriculum",
+      "Apply philosophy ethics to art patronage"
+    ],
+    "experts": [
+      "RENAISSANCE_ART",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04148",
+    "question": "Provide decision support on dating archaeological artifacts from ancient Mesopotamia using stratigraphic evidence.",
+    "thinking": [
+      "Identify ancient history dating methods",
+      "Evaluate Mesopotamian stratigraphic evidence"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04149",
+    "question": "Diagnose translation errors in this archaic English document describing ancient Egyptian mummification practices.",
+    "thinking": [
+      "Analyze archaic English translation issues",
+      "Verify ancient Egyptian mummification accuracy"
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04150",
+    "question": "Design review: Evaluate MLX kernel optimizations for organic synthesis molecular dynamics on Apple Silicon with deep performance analysis.",
+    "thinking": [
+      "Assess MLX kernel optimization strategies",
+      "Evaluate organic synthesis molecular dynamics requirements"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04151",
+    "question": "Apply Python logic to quantitatively reason about philosophical decision theory paradoxes with medium cognitive complexity.",
+    "thinking": [
+      "Implement Python logic for decision theory",
+      "Analyze philosophical paradox quantitative aspects"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04152",
+    "question": "Diagnose maritime law jurisdictional conflict in a case involving Renaissance art stolen during WWII and recovered in international waters.",
+    "thinking": [
+      "Analyze maritime law jurisdictional issues",
+      "Evaluate Renaissance art theft legal context"
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04153",
+    "question": "Plan implementation for music theory-based climate science data sonification system for public engagement.",
+    "thinking": [
+      "Design music theory sonification framework",
+      "Apply climate science data visualization requirements"
+    ],
+    "experts": [
+      "MUSIC_THEORY",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04154",
+    "question": "Interpret deep mathematical proof of the Riemann hypothesis implications for prime number distribution.",
+    "thinking": [
+      "Analyze Riemann hypothesis mathematical structure",
+      "Explain prime number distribution implications"
+    ],
+    "experts": [
+      "MATHEMATICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04155",
+    "question": "Assess risk and compliance for cryptographic protocol using mathematics zero-knowledge proofs when regulatory requirements demand key escrow.",
+    "thinking": [
+      "Identify cryptographic zero-knowledge proof requirements",
+      "Analyze mathematics compliance with key escrow"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04156",
+    "question": "Synthesize across mathematics probability theory and maritime law negligence standards for shipping accident liability calculations.",
+    "thinking": [
+      "Apply mathematics probability to liability",
+      "Analyze maritime law negligence requirements"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04157",
+    "question": "Provide decision support on interpreting ancient history evidence for trade routes between Rome and China during Han dynasty.",
+    "thinking": [
+      "Identify ancient history trade route evidence",
+      "Evaluate Rome-China historical connections"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04158",
+    "question": "Assess risk compliance for legal analysis of music theory copyright in algorithmic composition algorithms.",
+    "thinking": [
+      "Analyze legal copyright frameworks",
+      "Evaluate music theory algorithmic composition"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04159",
+    "question": "Communicate to stakeholders the importance of Sanskrit linguistic analysis for preserving Vedic oral traditions.",
+    "thinking": [
+      "Explain Sanskrit linguistic preservation methods",
+      "Communicate Vedic tradition significance"
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04160",
+    "question": "Provide decision support for organic synthesis pathway selection using cryptographic secret sharing for intellectual property protection.",
+    "thinking": [
+      "Identify organic synthesis pathway options",
+      "Apply cryptographic IP protection methods"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04161",
+    "question": "Synthesize how quantum chemistry explains molecular bonding and behavioral economics explains irrational investment in pseudoscientific health supplements.",
+    "thinking": [
+      "Explain quantum chemistry molecular bonding",
+      "Apply behavioral economics to health investments"
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04162",
+    "question": "Interpret deep Python code parsing Sanskrit linguistic texts with proper grammatical structure recognition.",
+    "thinking": [
+      "Implement Python logic for text parsing",
+      "Apply Sanskrit linguistic grammatical rules"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04163",
+    "question": "Apply quantitative reasoning to music theory harmonic progressions in Sonatas by Bach.",
+    "thinking": [
+      "Analyze music theory harmonic structures",
+      "Calculate quantitative progressions in Bach"
+    ],
+    "experts": [
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04164",
+    "question": "Communicate to stakeholders medical diagnosis findings in LaTeX format with proper poster presentation standards for a patient with autoimmune disorder.",
+    "thinking": [
+      "Identify medical diagnosis presentation requirements",
+      "Apply LaTeX formatting for medical posters"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04165",
+    "question": "Interpret MLX kernel performance data for astrophysics cosmological N-body simulations.",
+    "thinking": [
+      "Analyze MLX kernel performance metrics",
+      "Apply astrophysics cosmological simulation requirements"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04166",
+    "question": "Plan implementation for translating archaic English cryptographic manuscripts with deep historical context analysis.",
+    "thinking": [
+      "Identify archaic English translation requirements",
+      "Apply cryptographic manuscript preservation methods"
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04167",
+    "question": "Diagnose why ancient history archaeological dating results conflict with robotics autonomous excavation measurements.",
+    "thinking": [
+      "Analyze ancient history dating discrepancies",
+      "Evaluate robotics excavation measurement accuracy"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "ROBOTICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04168",
+    "question": "Assess risk and compliance for mathematical cryptographic hash functions when quantum computers break SHA-256 security.",
+    "thinking": [
+      "Identify mathematical cryptographic hash properties",
+      "Analyze quantum computing security risks"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04169",
+    "question": "Plan implementation for cryptographic secure communication system for astrophysics telescope data with deep security architecture design.",
+    "thinking": [
+      "Design cryptographic communication protocols",
+      "Apply astrophysics telescope data requirements"
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04170",
+    "question": "Assess quantum chemistry risk compliance for pharmaceutical manufacturing regarding molecular stability under regulatory scrutiny.",
+    "thinking": [
+      "Identify quantum chemistry molecular stability methods",
+      "Determine pharmaceutical regulatory compliance requirements"
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04171",
+    "question": "Interpret deep climate science data on Arctic amplification and its implications for global circulation patterns.",
+    "thinking": [
+      "Analyze climate science Arctic amplification",
+      "Explain global circulation pattern implications"
+    ],
+    "experts": [
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04172",
+    "question": "Provide decision support comparing quantum chemistry molecular simulation versus astrophysics spectroscopy for exoplanet atmospheric composition.",
+    "thinking": [
+      "Compare quantum chemistry simulation methods",
+      "Evaluate astrophysics spectroscopy applications"
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04173",
+    "question": "Diagnose why organic synthesis Grignard reaction failed to produce expected alcohol from ketone.",
+    "thinking": [
+      "Analyze Grignard reaction mechanism",
+      "Diagnose organic synthesis failure causes"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04174",
+    "question": "Format in LaTeX maritime law compliance documentation for vessel safety regulations with proper legal citing.",
+    "thinking": [
+      "Identify LaTeX legal document formatting",
+      "Apply maritime law compliance documentation requirements"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04175",
+    "question": "Design review required for patient with suspected sepsis: What medical diagnosis framework and diagnostic criteria should guide treatment decisions?",
+    "thinking": [
+      "Analyze sepsis clinical presentation",
+      "Apply medical diagnosis framework for sepsis"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04176",
+    "question": "Interpret archaic English medical manuscript describing symptom patterns for diagnosis of historical disease outbreaks.",
+    "thinking": [
+      "Translate archaic English medical terminology",
+      "Identify historical disease diagnostic patterns"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04177",
+    "question": "Apply deep quantitative reasoning using astrophysics and ancient history to calculate timing of supernova observed by ancient civilizations.",
+    "thinking": [
+      "Calculate astrophysics supernova timing",
+      "Cross-reference ancient history astronomical records"
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04178",
+    "question": "Diagnose maritime law jurisdiction issue for Renaissance art recovery claim involving shipwreck in territorial waters.",
+    "thinking": [
+      "Analyze maritime law territorial jurisdiction",
+      "Evaluate Renaissance art recovery legal claims"
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04179",
+    "question": "Diagnose maritime law ownership dispute for Renaissance painting recovered from smuggled cargo vessel.",
+    "thinking": [
+      "Identify maritime law ownership frameworks",
+      "Analyze Renaissance art recovery legal context"
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04180",
+    "question": "Interpret climate science data on ocean heat content trends over the past 50 years.",
+    "thinking": [
+      "Analyze climate science ocean heat data",
+      "Explain temperature trend interpretations"
+    ],
+    "experts": [
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04181",
+    "question": "Apply Python logic for shallow quantitative philosophical reasoning about utilitarian moral calculus.",
+    "thinking": [
+      "Implement Python logic for moral calculus",
+      "Analyze philosophical utilitarian quantitative aspects"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04182",
+    "question": "Assess Python code risk compliance with LaTeX formatting standards for academic publication requirements.",
+    "thinking": [
+      "Identify Python code documentation requirements",
+      "Apply LaTeX academic formatting standards"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04183",
+    "question": "Synthesize across Sanskrit linguistic patterns and quantum chemistry molecular symmetry classifications.",
+    "thinking": [
+      "Analyze Sanskrit linguistic structures",
+      "Apply quantum chemistry symmetry theory"
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04184",
+    "question": "Provide decision support on dating ancient history artifacts using carbon-14 dating results.",
+    "thinking": [
+      "Identify ancient history dating methods",
+      "Evaluate carbon-14 dating interpretations"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04185",
+    "question": "Interpret shallow mathematical solution to differential equation describing population dynamics.",
+    "thinking": [
+      "Analyze mathematical differential equation",
+      "Explain population dynamics solutions"
+    ],
+    "experts": [
+      "MATHEMATICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04186",
+    "question": "Provide deep decision support comparing mathematics probability analysis and ancient history archaeological evidence for trade route existence.",
+    "thinking": [
+      "Apply mathematics probability to trade evidence",
+      "Evaluate ancient history archaeological data"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04187",
+    "question": "Assess archaic English risk compliance for legal document interpretation in historical court proceedings.",
+    "thinking": [
+      "Identify archaic English translation standards",
+      "Analyze legal document compliance requirements"
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04188",
+    "question": "Diagnose organic synthesis contamination source in ancient history pottery residue analysis.",
+    "thinking": [
+      "Identify organic synthesis contamination methods",
+      "Analyze ancient history residue testing"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04189",
+    "question": "Handle deep edge cases in MLX kernel implementation where gradient checkpointing fails for large transformer models.",
+    "thinking": [
+      "Identify MLX kernel gradient checkpointing issues",
+      "Analyze transformer model edge cases"
+    ],
+    "experts": [
+      "MLX_KERNELS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04190",
+    "question": "Design review for legal analysis of cryptographic protocol compliance with GDPR data protection requirements.",
+    "thinking": [
+      "Analyze legal GDPR frameworks",
+      "Evaluate cryptographic protocol compliance"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04191",
+    "question": "Design review for medical diagnosis integration with music therapy for pain management patients.",
+    "thinking": [
+      "Identify medical diagnosis pain requirements",
+      "Apply music theory therapeutic interventions"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04192",
+    "question": "Synthesize across philosophy ethical frameworks addressing artificial intelligence moral agency.",
+    "thinking": [
+      "Apply philosophy ethical frameworks",
+      "Analyze AI moral agency concepts"
+    ],
+    "experts": [
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04193",
+    "question": "Design review for organic synthesis molecular design considering climate science environmental impact assessment.",
+    "thinking": [
+      "Evaluate organic synthesis molecular pathways",
+      "Assess climate science environmental factors"
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04194",
+    "question": "Communicate Python code functionality to non-technical stakeholders for business automation system.",
+    "thinking": [
+      "Simplify Python logic for stakeholders",
+      "Communicate automation system functionality"
+    ],
+    "experts": [
+      "PYTHON_LOGIC"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04195",
+    "question": "Synthesize across Sanskrit linguistic reconstruction and quantum chemistry molecular modeling of ancient dye compounds.",
+    "thinking": [
+      "Apply Sanskrit linguistic reconstruction methods",
+      "Model quantum chemistry ancient dyes"
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04196",
+    "question": "Assess Python code risk compliance for ancient history digital archive data privacy requirements.",
+    "thinking": [
+      "Identify Python data protection logic",
+      "Apply ancient history archive compliance"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04197",
+    "question": "Design review for LaTeX formatted behavioral economics research paper on nudge theory interventions.",
+    "thinking": [
+      "Apply LaTeX academic formatting standards",
+      "Evaluate behavioral economics nudge theory presentation"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04198",
+    "question": "Apply shallow quantitative reasoning using mathematics and climate science to calculate temperature anomaly trends.",
+    "thinking": [
+      "Calculate mathematics temperature statistics",
+      "Apply climate science anomaly methods"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04199",
+    "question": "Apply medium quantitative reasoning with mathematics regression analysis on climate science precipitation data.",
+    "thinking": [
+      "Implement mathematics regression methods",
+      "Analyze climate science precipitation patterns"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_04200",
+    "question": "Diagnose deep quantum chemistry electronic structure issues affecting Renaissance art pigment chemical stability analysis.",
+    "thinking": [
+      "Analyze quantum chemistry electronic structure",
+      "Evaluate Renaissance art pigment degradation"
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

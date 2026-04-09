@@ -1,0 +1,256 @@
+[
+  {
+    "id": "ext_md_066",
+    "domains": [
+      "MARITIME_LAW",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "MARITIME_LAW",
+      "CRYPTOGRAPHY"
+    ],
+    "question": "A carrier wants to release cargo against an electronic bill of lading. Draft a compact implementation plan for the handoff check so the system respects legal control of the transferable record, not just document possession. Assume the platform supports public-key signatures and hash-linked audit logs. What checks should run before release, and what edge case must stop release even if a signature verifies?",
+    "reference_answer": "Use a release gate that verifies: the presented eBL is the current authoritative record; the claimant is the current lawful controller/holder under the platform’s transfer registry; the endorsement/transfer chain is intact and signed by authorized parties; the document hash matches the registered record; and the record has not been surrendered, replaced, or superseded. Log the decision with immutable timestamps and signer identity. A valid signature alone is insufficient: stop release if the signature is cryptographically valid on a stale or previously transferred version, because legal control follows the active transferable record, not mere possession of a signed copy.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "verify current lawful control/holder status before release",
+        "block release for a stale, superseded, surrendered, or already transferred record even if signature verifies"
+      ],
+      "must_include_any": [
+        [
+          "transfer chain",
+          "endorsement chain"
+        ],
+        [
+          "hash match",
+          "integrity check"
+        ]
+      ],
+      "must_not_include": [
+        "signature verification alone is enough",
+        "release cargo based only on possession of a copy"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "(authoritative|active|current) record",
+        "(immutable|tamper-evident) (audit )?log"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:55.709743+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_067",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "PYTHON_LOGIC"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "PYTHON_LOGIC"
+    ],
+    "question": "You are reviewing a clinic triage rule for possible meningitis: `urgent = fever and headache and stiff_neck or petechial_rash`. Write a brief implementation note explaining whether this logic is safe as written in Python, and give the corrected decision rule if the intended policy is: urgent when petechial rash is present, or when fever, headache, and stiff neck are all present together.",
+    "reference_answer": "The rule is unsafe to leave implicit because Python evaluates `and` before `or`, and clinical triage logic should not rely on readers remembering precedence. The current expression happens to match the stated policy, but it should be rewritten explicitly as `urgent = petechial_rash or (fever and headache and stiff_neck)`. The note should also state that the rule is only a screening trigger, not a diagnosis, and that missing any one of the three meningeal features should not trigger the conjunctive branch unless the rash branch is true.",
+    "rubric": {
+      "answer_type": "code",
+      "must_include_all": [
+        "Python and-before-or precedence is relevant",
+        "correct explicit rule uses petechial_rash or (fever and headache and stiff_neck)"
+      ],
+      "must_include_any": [
+        [
+          "not a diagnosis",
+          "screening trigger"
+        ],
+        [
+          "parentheses",
+          "explicit grouping"
+        ]
+      ],
+      "must_not_include": [
+        "change the policy to fever and (headache or stiff_neck)",
+        "claim the original rule means (fever and headache) and (stiff_neck or petechial_rash)"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "urgent\\s*=\\s*petechial_rash\\s+or\\s*\$$fever\\s+and\\s+headache\\s+and\\s+stiff_neck\$$"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:55.709743+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_068",
+    "domains": [
+      "MLX_KERNELS",
+      "MATHEMATICS"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "MATHEMATICS"
+    ],
+    "question": "A teammate says a tiled matrix-multiply kernel is correct because each output tile is 16x16, so boundary checks are unnecessary when matrix sizes are not multiples of 16. Write a short design-review response identifying the reasoning bug and the minimum implementation fix. Assume row-major storage and standard $$C = AB$$.",
+    "reference_answer": "The reasoning is wrong because tile size does not guarantee valid memory accesses at the matrix edges. For $$C_{m \\times n} = A_{m \\times k} B_{k \\times n}$$, threads in the last tile can map to indices with row >= m, col >= n, or shared-dimension loads with inner index >= k. The minimum fix is per-load and per-store bounds checks: guard A loads on row < m and tiled_k + tx < k, guard B loads on tiled_k + ty < k and col < n, zero-fill out-of-range shared-memory lanes, and guard C stores on row < m and col < n.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "edge tiles can access out-of-bounds indices when dimensions are not multiples of tile size",
+        "must guard loads/stores and zero-fill or mask invalid lanes"
+      ],
+      "must_include_any": [
+        [
+          "row < m and col < n",
+          "bounds checks on output indices"
+        ],
+        [
+          "inner dimension k",
+          "shared dimension"
+        ]
+      ],
+      "must_not_include": [
+        "tile shape alone guarantees safety",
+        "only guard the final store and leave loads unchecked"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "C\\s*=\\s*A[B ]?",
+        "(row\\s*<\\s*m|col\\s*<\\s*n|<\\s*k)"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:55.709743+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_069",
+    "domains": [
+      "ORGANIC_SYNTHESIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "ORGANIC_SYNTHESIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A process team must choose between two route sketches for a solvent-sensitive intermediate. Route A is one step shorter but uses a refrigerant-intensive low-temperature stage and a stoichiometric metal reagent. Route B adds one step but runs near ambient temperature with catalytic hydrogenation and easier solvent recovery. Write a concise recommendation for an operations director that balances synthetic practicality with climate impact.",
+    "reference_answer": "Recommend Route B unless yield loss is extreme. The extra step increases scheduling complexity, but its near-ambient conditions, catalytic reduction, and easier solvent recovery usually lower energy demand and direct process emissions relative to a low-temperature route using stoichiometric metal waste. Implementation-wise, run a quick gate on overall yield, impurity carry-through, hydrogenation safety, and solvent recycle rate; if those are acceptable, B is the more climate-aligned and operationally scalable choice.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Route B is preferred unless performance penalties are severe",
+        "low-temperature operation and stoichiometric metal use increase climate/process burden"
+      ],
+      "must_include_any": [
+        [
+          "solvent recovery",
+          "solvent recycle"
+        ],
+        [
+          "catalytic hydrogenation",
+          "catalytic reduction"
+        ]
+      ],
+      "must_not_include": [
+        "Route A is automatically greener because it has fewer steps",
+        "ignore yield or impurity considerations entirely"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "(ambient|near-ambient)",
+        "(energy demand|process emissions|climate impact)"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:55.709743+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_070",
+    "domains": [
+      "PHILOSOPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "required_adapters": [
+      "PHILOSOPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "question": "A savings app wants to improve emergency-fund contributions without hiding options. You can ship only one feature this quarter: (1) a strong default contribution with easy opt-out, or (2) a mandatory reflective prompt asking users to state their own reasons before choosing any amount. Which should you prioritize, and why, if the product team cares about both effectiveness and respect for user agency?",
+    "reference_answer": "Prioritize the strong default with easy opt-out. Defaults usually produce larger behavior change at lower friction, while still preserving choice if the opt-out path is clear and not manipulative. The reflective prompt better supports deliberative autonomy and reasons-responsiveness, but it adds effort and will often reduce completion. The implementation safeguard is ethical design: transparent wording, equal visibility of alternatives, no shaming language, and simple reversal so the default guides behavior without becoming coercive.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "prioritize the default with easy opt-out",
+        "justify using both effectiveness and agency considerations"
+      ],
+      "must_include_any": [
+        [
+          "autonomy",
+          "agency"
+        ],
+        [
+          "transparent opt-out",
+          "easy reversal"
+        ]
+      ],
+      "must_not_include": [
+        "hide alternatives",
+        "use dark patterns or shame to prevent opt-out"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "(default|opt-out)",
+        "(autonomy|agency|deliberative)"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:55.709743+00:00",
+      "section": "Implementation Planning"
+    }
+  }
+]

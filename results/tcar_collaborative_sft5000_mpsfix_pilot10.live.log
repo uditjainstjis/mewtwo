@@ -1,0 +1,69 @@
+[01:44:10] Dataset=data/multidomain_eval_claude_external_v2_10_stratified.json items=10 methods=['tcar_collaborative', 'tcar_oracle_collaborative', 'mistral'] jobs=30
+[01:44:10] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[01:44:10] Ollama options={'num_gpu': 999}
+[01:44:17] Qwen engine loaded in 2.83s
+[01:44:38] Dataset=data/multidomain_eval_claude_external_v2_10_stratified.json items=10 methods=['tcar_collaborative', 'tcar_oracle_collaborative', 'mistral'] jobs=30
+[01:44:38] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[01:44:38] Ollama options={'num_gpu': 999}
+[01:44:45] Qwen engine loaded in 2.61s
+[01:44:48] TCAR collaborative pipeline ready (parallel_workers=1, max_experts=2, router_adapter=/Users/uditjain/Desktop/adapter/router_adapters/router_reasoning_sft_5000_mpsfix)
+[01:44:48] START job=1/30 item=1/10 id=ext_md_001 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[01:45:20] DONE  job=1/30 id=ext_md_001 method=tcar_collaborative lat=25.61s em=0.00 f1=0.28 sim=0.735 avg/job=32.19s eta=15m33s
+[01:45:20] START job=2/30 item=1/10 id=ext_md_001 method=tcar_oracle_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[01:45:46] DONE  job=2/30 id=ext_md_001 method=tcar_oracle_collaborative lat=25.44s em=0.00 f1=0.33 sim=0.742 avg/job=29.04s eta=13m33s
+[01:45:46] START job=3/30 item=1/10 id=ext_md_001 method=mistral domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[01:45:46] DONE  job=3/30 id=ext_md_001 method=mistral lat=0.03s em=0.00 f1=0.00 sim=0.002 avg/job=19.40s eta=8m43s ollama_error=HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=11434): Failed to establish a new connection: [Errno 61] Connection refused"))
+[01:45:46] START job=4/30 item=2/10 id=ext_md_006 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[01:46:03] DONE  job=4/30 id=ext_md_006 method=tcar_collaborative lat=17.03s em=0.00 f1=0.33 sim=0.750 avg/job=18.89s eta=8m11s
+[01:46:03] START job=5/30 item=2/10 id=ext_md_006 method=tcar_oracle_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[01:46:18] DONE  job=5/30 id=ext_md_006 method=tcar_oracle_collaborative lat=14.74s em=0.00 f1=0.37 sim=0.769 avg/job=18.10s eta=7m32s
+[01:46:18] START job=6/30 item=2/10 id=ext_md_006 method=mistral domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[01:46:18] DONE  job=6/30 id=ext_md_006 method=mistral lat=0.00s em=0.00 f1=0.00 sim=-0.024 avg/job=15.09s eta=6m02s ollama_error=HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=11434): Failed to establish a new connection: [Errno 61] Connection refused"))
+[01:46:18] START job=7/30 item=3/10 id=ext_md_011 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[01:46:34] DONE  job=7/30 id=ext_md_011 method=tcar_collaborative lat=15.10s em=0.00 f1=0.24 sim=0.537 avg/job=15.11s eta=5m47s
+[01:46:34] START job=8/30 item=3/10 id=ext_md_011 method=tcar_oracle_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[01:46:54] DONE  job=8/30 id=ext_md_011 method=tcar_oracle_collaborative lat=20.07s em=0.00 f1=0.20 sim=0.649 avg/job=15.77s eta=5m46s
+[01:46:54] START job=9/30 item=3/10 id=ext_md_011 method=mistral domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[01:46:54] DONE  job=9/30 id=ext_md_011 method=mistral lat=0.01s em=0.00 f1=0.00 sim=0.079 avg/job=14.02s eta=4m54s ollama_error=HTTPConnectionPool(host='127.0.0.1', port=11434): Max retries exceeded with url: /api/generate (Caused by NewConnectionError("HTTPConnection(host='127.0.0.1', port=11434): Failed to establish a new connection: [Errno 61] Connection refused"))
+[01:46:54] START job=10/30 item=4/10 id=ext_md_016 method=tcar_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[01:47:13] DONE  job=10/30 id=ext_md_016 method=tcar_collaborative lat=18.34s em=0.00 f1=0.24 sim=0.643 avg/job=14.48s eta=4m49s
+[01:47:13] START job=11/30 item=4/10 id=ext_md_016 method=tcar_oracle_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[01:47:40] DONE  job=11/30 id=ext_md_016 method=tcar_oracle_collaborative lat=26.83s em=0.00 f1=0.23 sim=0.610 avg/job=15.66s eta=4m57s
+[01:47:40] START job=12/30 item=4/10 id=ext_md_016 method=mistral domains=['MATHEMATICS', 'ASTROPHYSICS']
+[01:48:14] DONE  job=12/30 id=ext_md_016 method=mistral lat=29.73s em=0.00 f1=0.21 sim=0.606 avg/job=17.20s eta=5m09s
+[01:48:14] START job=13/30 item=5/10 id=ext_md_021 method=tcar_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[01:48:33] DONE  job=13/30 id=ext_md_021 method=tcar_collaborative lat=18.37s em=0.00 f1=0.31 sim=0.747 avg/job=17.31s eta=4m54s
+[01:48:33] START job=14/30 item=5/10 id=ext_md_021 method=tcar_oracle_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[01:48:47] DONE  job=14/30 id=ext_md_021 method=tcar_oracle_collaborative lat=13.55s em=0.00 f1=0.30 sim=0.756 avg/job=17.05s eta=4m32s
+[01:48:47] START job=15/30 item=5/10 id=ext_md_021 method=mistral domains=['MLX_KERNELS', 'MATHEMATICS']
+[01:49:08] DONE  job=15/30 id=ext_md_021 method=mistral lat=17.11s em=0.00 f1=0.29 sim=0.719 avg/job=17.33s eta=4m19s
+[01:49:08] START job=16/30 item=6/10 id=ext_md_026 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[01:49:25] DONE  job=16/30 id=ext_md_026 method=tcar_collaborative lat=17.25s em=0.00 f1=0.32 sim=0.719 avg/job=17.34s eta=4m02s
+[01:49:25] START job=17/30 item=6/10 id=ext_md_026 method=tcar_oracle_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[01:49:39] DONE  job=17/30 id=ext_md_026 method=tcar_oracle_collaborative lat=13.41s em=0.00 f1=0.33 sim=0.749 avg/job=17.11s eta=3m42s
+[01:49:39] START job=18/30 item=6/10 id=ext_md_026 method=mistral domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[01:50:00] DONE  job=18/30 id=ext_md_026 method=mistral lat=16.60s em=0.00 f1=0.35 sim=0.716 avg/job=17.32s eta=3m27s
+[01:50:00] START job=19/30 item=7/10 id=ext_md_031 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[01:50:21] DONE  job=19/30 id=ext_md_031 method=tcar_collaborative lat=21.23s em=0.00 f1=0.23 sim=0.793 avg/job=17.55s eta=3m13s
+[01:50:21] START job=20/30 item=7/10 id=ext_md_031 method=tcar_oracle_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[01:50:34] DONE  job=20/30 id=ext_md_031 method=tcar_oracle_collaborative lat=12.64s em=0.00 f1=0.23 sim=0.824 avg/job=17.31s eta=2m53s
+[01:50:34] START job=21/30 item=7/10 id=ext_md_031 method=mistral domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[01:50:56] DONE  job=21/30 id=ext_md_031 method=mistral lat=17.84s em=0.00 f1=0.30 sim=0.831 avg/job=17.52s eta=2m37s
+[01:50:56] START job=22/30 item=8/10 id=ext_md_036 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[01:51:07] DONE  job=22/30 id=ext_md_036 method=tcar_collaborative lat=11.42s em=0.00 f1=0.30 sim=0.670 avg/job=17.25s eta=2m18s
+[01:51:07] START job=23/30 item=8/10 id=ext_md_036 method=tcar_oracle_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[01:51:15] DONE  job=23/30 id=ext_md_036 method=tcar_oracle_collaborative lat=7.60s em=0.00 f1=0.28 sim=0.713 avg/job=16.83s eta=1m57s
+[01:51:15] START job=24/30 item=8/10 id=ext_md_036 method=mistral domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[01:51:30] DONE  job=24/30 id=ext_md_036 method=mistral lat=11.68s em=0.00 f1=0.30 sim=0.600 avg/job=16.78s eta=1m40s
+[01:51:30] START job=25/30 item=9/10 id=ext_md_041 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[01:51:38] DONE  job=25/30 id=ext_md_041 method=tcar_collaborative lat=7.33s em=0.00 f1=0.37 sim=0.579 avg/job=16.41s eta=1m22s
+[01:51:38] START job=26/30 item=9/10 id=ext_md_041 method=tcar_oracle_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[01:51:44] DONE  job=26/30 id=ext_md_041 method=tcar_oracle_collaborative lat=5.91s em=0.00 f1=0.24 sim=0.556 avg/job=16.00s eta=1m04s
+[01:51:44] START job=27/30 item=9/10 id=ext_md_041 method=mistral domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[01:51:58] DONE  job=27/30 id=ext_md_041 method=mistral lat=8.39s em=0.00 f1=0.23 sim=0.648 avg/job=15.92s eta=47s
+[01:51:58] START job=28/30 item=10/10 id=ext_md_046 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[01:52:15] DONE  job=28/30 id=ext_md_046 method=tcar_collaborative lat=16.77s em=0.00 f1=0.27 sim=0.730 avg/job=15.96s eta=31s
+[01:52:15] START job=29/30 item=10/10 id=ext_md_046 method=tcar_oracle_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[01:52:27] DONE  job=29/30 id=ext_md_046 method=tcar_oracle_collaborative lat=11.56s em=0.00 f1=0.27 sim=0.730 avg/job=15.82s eta=15s
+[01:52:27] START job=30/30 item=10/10 id=ext_md_046 method=mistral domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[01:52:43] DONE  job=30/30 id=ext_md_046 method=mistral lat=11.85s em=0.00 f1=0.07 sim=0.511 avg/job=15.85s eta=0s

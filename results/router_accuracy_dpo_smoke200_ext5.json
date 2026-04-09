@@ -1,0 +1,96 @@
+{
+  "summary": {
+    "n": 5,
+    "exact_match_rate": 0.0,
+    "partial_overlap_rate": 1.0,
+    "mean_overlap_f1": 0.6667,
+    "mean_latency_s": 6.4452
+  },
+  "rows": [
+    {
+      "id": "ext_md_001",
+      "question": "A SaaS company's terms of service state that user data is 'encrypted at rest using industry-standard AES.' During litigation, opposing counsel argues this clause is legally unenforceable as a security warranty because it is too vague. Separately, a security auditor flags that the deployment uses AES-128 in ECB mode. Identify the primary legal vulnerability in the clause and the primary cryptographic failure, and explain how each independently undermines the company's position.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Encryption at rest with AES (industry standard)\n- ECB mode encryption",
+      "router_raw_text": "<thinking>\n- Encryption at rest with AES (industry standard)\n- ECB mode encryption\n</thinking>\n<experts>[AES, ECB]</experts><|im_end|>",
+      "latency_s": 7.8819
+    },
+    {
+      "id": "ext_md_002",
+      "question": "A consumer lending startup is deciding between two opt-out designs for arbitration clauses: (A) a single pre-checked checkbox labeled 'I agree to arbitration' during sign-up, or (B) a separate follow-up email sent 30 days after sign-up with a 14-day opt-out window. From both a legal enforceability standpoint and a behavioral economics standpoint, which design is more defensible and why? Identify the main failure mode of the weaker option.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Single pre-checked checkbox\n- Separate follow-up email",
+      "router_raw_text": "<thinking>\n- Single pre-checked checkbox\n- Separate follow-up email\n</thinking>\n<experts>[DOMAIN_A],[DOMAIN_B]</experts><|im_end|>",
+      "latency_s": 2.8739
+    },
+    {
+      "id": "ext_md_003",
+      "question": "A cargo owner files a claim after goods are damaged during a voyage. The bill of lading contains a clause paramount incorporating the Hague Rules and a jurisdiction clause selecting English courts. The carrier's lawyer files a motion to dismiss in a U.S. federal court, arguing forum non conveniens. The motion is denied. Diagnose the most likely reason the motion failed, referencing both the applicable maritime law framework and the general legal doctrine at play.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Cargo Owner claims damages due to damage on a voyage\n- Bill of Lading incorporates Hague Rules and English Courts\n- Carrier's lawyer files motion to dismiss in U.S. federal court\n- Motion denied by U.S. federal court\n- Maritime Law Framework: Hague Rules apply to international shipping contracts\n- General Legal Doctrine: Forum non conveniens applies when a court lacks jurisdiction over a case or controversy",
+      "router_raw_text": "<thinking>\n- Cargo Owner claims damages due to damage on a voyage\n- Bill of Lading incorporates Hague Rules and English Courts\n- Carrier's lawyer files motion to dismiss in U.S. federal court\n- Motion denied by U.S. federal court\n- Maritime Law Framework: Hague Rules apply to international shipping contracts\n- General Legal Doctrine: Forum non conveniens applies when a court lacks jurisdiction over a case or controversy\n</thinking>\n<experts>[Hague Rules],[Forum Non Conveniens Doctrine]</experts><|im_end|>",
+      "latency_s": 9.8035
+    },
+    {
+      "id": "ext_md_004",
+      "question": "A hospital's AI-assisted radiology tool flags a chest CT as low-probability for malignancy (score: 0.18). The radiologist, trusting the tool, does not escalate. Six months later the patient is diagnosed with early-stage lung cancer. The hospital's legal team must decide between two defense postures: (A) argue the AI output was a decision-support tool, not a diagnostic device, shifting liability to the radiologist; or (B) argue the standard of care was met because the 0.18 score was below published clinical thresholds. Identify the stronger defense and the key failure mode of the weaker one.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "MEDICAL_DIAGNOSIS"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- [AI flagged chest CT as low-probability]\n- [Radiologist did not escalate]",
+      "router_raw_text": "<thinking>\n- [AI flagged chest CT as low-probability]\n- [Radiologist did not escalate]\n</thinking>\n<experts>[DOMAIN_A],[DOMAIN_B]</experts><|im_end|>",
+      "latency_s": 4.946
+    },
+    {
+      "id": "ext_md_005",
+      "question": "An autonomous warehouse robot operating under a shared-autonomy framework collides with a worker. Logs show the robot's collision-avoidance module received valid lidar data but a high-latency CAN bus message caused the brake command to arrive 220 ms late \u2014 beyond the system's 150 ms safety threshold. The manufacturer claims the worker was in a restricted zone, invoking contributory negligence. Explain the primary technical failure mode and why the contributory negligence defense is likely to be weak in a strict-liability jurisdiction.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "ROBOTICS"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Lidar data validation failed\n- CAN bus message latency exceeded safety threshold\n- Contributory negligence",
+      "router_raw_text": "<thinking>\n- Lidar data validation failed\n- CAN bus message latency exceeded safety threshold\n- Contributory negligence\n</thinking>\n<experts>[CAN BUS, LIDAR DATA VALIDATION, CAN BUS MESSAGE LATENCY]<|im_end|>",
+      "latency_s": 6.7209
+    }
+  ]
+}

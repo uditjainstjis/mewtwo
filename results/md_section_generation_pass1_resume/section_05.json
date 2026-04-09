@@ -1,0 +1,162 @@
+```json
+[
+  {
+    "id": "ext_md_021",
+    "domains": ["MLX_KERNELS", "MATHEMATICS"],
+    "required_adapters": ["MLX_KERNELS", "MATHEMATICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "An MLX metal kernel computes a batched matrix multiply using fp16 accumulation. A numerical analyst flags that summing 1024 fp16 partial products introduces unacceptable rounding error. Identify the precise mathematical source of this risk and explain what kernel-level change resolves it without switching the entire operation to fp32.",
+    "reference_answer": "The risk is catastrophic cancellation and limited mantissa precision in fp16 (10-bit mantissa, machine epsilon ~9.8e-4). Summing 1024 terms compounds rounding error as O(n·ε), so the accumulated error can reach ~0.1 relative error — unacceptable for most ML workloads. The fix is mixed-precision accumulation: keep inputs in fp16 but accumulate the dot-product reduction into a fp32 register inside the Metal kernel, then cast back to fp16 only at the final store. This is the standard approach used in Apple's MLX matmul kernels (via `float` accum variables in the inner loop) and adds negligible memory cost while reducing rounding error by ~3 orders of magnitude.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["fp16 mantissa precision", "mixed-precision accumulation", "fp32 accumulator"],
+      "must_include_any": [
+        ["machine epsilon", "rounding error", "numerical error"],
+        ["inner loop", "accumulation register", "partial sum"]
+      ],
+      "must_not_include": ["switch entire kernel to fp32", "use bf16 inputs"],
+      "numeric_targets": [
+        { "label": "fp16 mantissa bits", "value": "10", "tolerance": 0.0 },
+        { "label": "summation terms", "value": "1024", "tolerance": 0.0 }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_022",
+    "domains": ["MLX_KERNELS", "ROBOTICS"],
+    "required_adapters": ["MLX_KERNELS", "ROBOTICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A robotics team runs a real-time joint-torque inference loop on an Apple Silicon edge device at 200 Hz. They must choose between: (A) a single large MLX kernel that fuses sensor preprocessing and the neural network forward pass, or (B) separate sequential MLX kernels with intermediate tensor copies. Compare these two options specifically for latency jitter and safety-critical deadline compliance.",
+    "reference_answer": "Option A (fused kernel) is strongly preferred for safety-critical real-time control. Separate kernels (B) incur repeated Metal command buffer scheduling overhead and intermediate DRAM round-trips, which introduce variable latency spikes — directly threatening 200 Hz (5 ms) hard deadlines. Jitter from kernel launch overhead in MLX can be 0.2–0.5 ms per boundary, and with multiple boundaries, worst-case latency can breach the deadline under thermal throttling. Fused kernels amortize scheduling cost, keep intermediate tensors in fast on-chip SRAM, and produce tighter latency distributions. The compliance risk with option B is a missed deadline causing a stale torque command, which in robotics can destabilize a joint servo loop. Recommendation: use option A, and add a watchdog timer to detect deadline violations and trigger a safe-stop.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": ["fused kernel", "latency jitter", "kernel launch overhead", "deadline"],
+      "must_include_any": [
+        ["SRAM", "on-chip memory", "intermediate tensor"],
+        ["watchdog", "safe-stop", "safety mechanism", "fault detection"]
+      ],
+      "must_not_include": ["option B is preferred", "jitter is negligible"],
+      "numeric_targets": [
+        { "label": "control loop frequency Hz", "value": "200", "tolerance": 0.0 }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_023",
+    "domains": ["MLX_KERNELS", "CRYPTOGRAPHY"],
+    "required_adapters": ["MLX_KERNELS", "CRYPTOGRAPHY"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A developer implements AES key schedule expansion inside a custom MLX Metal kernel for bulk on-device encryption of model weights. During audit, a security engineer notes that intermediate round-key tensors are written to MLX's default buffer pool and may persist in GPU-accessible DRAM after the kernel completes. Diagnose the compliance risk and explain the minimal fix.",
+    "reference_answer": "The risk is key material remanence: AES round keys left in GPU DRAM can be read by a subsequent rogue or compromised kernel sharing the same buffer pool, violating key-isolation requirements under standards such as FIPS 140-3 and common-criteria memory protection. MLX's default buffer allocator does not zero buffers on release. The fix has two parts: (1) explicitly zero the round-key tensor immediately after the encryption kernel completes, before releasing it back to the pool — this can be done with a lightweight MLX fill-zero kernel or Metal blit encoder; (2) allocate the round-key buffer with `MTLStorageMode.private` and mark it non-persistent so it is not mapped to the shared unified memory region accessible from CPU or other GPU tasks. Optionally, perform the key schedule in CPU-side secure enclave memory and pass only the final ciphertext to MLX.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["key material remanence", "zero the buffer", "buffer pool"],
+      "must_include_any": [
+        ["FIPS", "key isolation", "memory protection standard"],
+        ["MTLStorageMode", "private storage", "non-persistent"]
+      ],
+      "must_not_include": ["AES is insecure", "switch to software AES"],
+      "numeric_targets": [],
+      "regex_targets": ["FIPS\\s*140"],
+      "judge_focus": ["correctness", "hallucination", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_024",
+    "domains": ["MLX_KERNELS", "ASTROPHYSICS"],
+    "required_adapters": ["MLX_KERNELS", "ASTROPHYSICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A planetary science team runs N-body gravitational simulations on Apple Silicon using MLX kernels. They must choose between fp32 and fp64 for force accumulation. fp64 is not natively supported in Metal and must be emulated. Given the physical scale of the problem (solar-system distances, 10^6 timesteps), which design is safer and why?",
+    "reference_answer": "fp64 emulation (via paired fp32 or software double) is the safer design for this workload. Solar-system N-body integration over 10^6 timesteps is highly sensitive to accumulated floating-point error: gravitational force magnitudes span many orders of magnitude (e.g., Sun vs. Kuiper Belt object), causing severe cancellation in fp32 when subtracting nearly equal large numbers. The resulting orbital drift can be physically meaningless within thousands of steps. fp32 machine epsilon (~1.2e-7) is insufficient; fp64 epsilon (~2.2e-16) is the standard for production ephemeris codes (e.g., JPL Horizons). The compliance risk of fp32 is producing scientifically invalid trajectories without obvious error signals. The tradeoff cost of emulated fp64 is ~4–8× slower kernels, which is acceptable given the scientific correctness requirement. Use emulated fp64 for force accumulation; fp32 is acceptable only for rendering or visualization passes.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": ["fp64", "accumulated error", "orbital drift", "cancellation"],
+      "must_include_any": [
+        ["machine epsilon", "floating-point precision", "rounding error"],
+        ["JPL", "ephemeris", "physically invalid", "scientifically invalid"]
+      ],
+      "must_not_include": ["fp32 is sufficient", "fp64 is unnecessary"],
+      "numeric_targets": [
+        { "label": "fp32 machine epsilon", "value": "1.2e-7", "tolerance": 0.5e-7 },
+        { "label": "fp64 machine epsilon", "value": "2.2e-16", "tolerance": 0.5e-16 }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_025",
+    "domains": ["LATEX_FORMATTING", "ASTROPHYSICS"],
+    "required_adapters": ["LATEX_FORMATTING", "ASTROPHYSICS"],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "A researcher submits a journal paper with this LaTeX snippet for the Schwarzschild radius formula:\n\n`$r_s = \\frac{2GM}{c^2}$`\n\nThe journal's style guide requires SI unit dimensional annotations inline and forbids implicit natural units. The copy editor flags it. Explain the failure mode and provide the corrected LaTeX expression.",
+    "reference_answer": "The failure mode is implicit unit convention: the formula as written is dimensionally correct only if the reader assumes SI units (G in m³ kg⁻¹ s⁻², M in kg, c in m/s), but the journal requires this to be explicit to prevent misinterpretation if the paper is read in a natural-units context (where c=1). The corrected expression must annotate units or declare them. A compliant form is:\n\n`$r_s = \\frac{2GM}{c^2} \\quad [\\mathrm{m}]$`\n\nor with full inline unit declaration:\n\n`$r_s = \\frac{2GM}{c^2}, \\quad G\\,[\\mathrm{m^3\\,kg^{-1}\\,s^{-2}}],\\; M\\,[\\mathrm{kg}],\\; c\\,[\\mathrm{m\\,s^{-1}}]$`\n\nThe `\\mathrm{}` wrapper is required so unit symbols are rendered in roman (non-italic) type per SI convention, distinguishing them from algebraic variables.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["implicit units", "\\mathrm", "SI units"],
+      "must_include_any": [
+        ["natural units", "c=1", "unit convention"],
+        ["roman type", "non-italic", "SI convention"]
+      ],
+      "must_not_include": ["formula is wrong", "Schwarzschild radius is incorrect"],
+      "numeric_targets": [],
+      "regex_targets": ["\\\\mathrm\\{m\\}", "r_s\\s*=\\s*\\\\frac\\{2GM\\}\\{c\\^2\\}"],
+      "judge_focus": ["correctness", "hallucination", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance"
+    }
+  }
+]
+```

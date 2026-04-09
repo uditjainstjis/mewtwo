@@ -1,0 +1,85 @@
+[
+  {
+    "id": "router_00001",
+    "question": "Is it legal for an employer to terminate an employee for refusing to work on a public holiday if the contract is silent on the matter?",
+    "thinking": [
+      "Edge case in employment law with no explicit contractual clause",
+      "Requires legal analysis of default statutory obligations"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "Format the key cargo liability limits from the Hague-Visby Rules into a LaTeX table suitable for a compliance report.",
+    "thinking": [
+      "Needs maritime law knowledge for liability figures",
+      "Requires LaTeX formatting for table structure"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "If patients systematically underestimate their medication side effects due to optimism bias, how does this skew clinical trial dropout rate calculations?",
+    "thinking": [
+      "Involves diagnostic/clinical trial data interpretation",
+      "Behavioral bias affects quantitative outcome measurement"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "How should a doctor explain a new Type 2 diabetes diagnosis to a patient with low health literacy during a short appointment?",
+    "thinking": [
+      "Requires clinical accuracy about diabetes",
+      "Focuses on clear patient-facing communication"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00005",
+    "question": "Did ancient Roman merchants use any pricing or loss-aversion strategies that resemble modern behavioral economics principles?",
+    "thinking": [
+      "Draws on ancient Roman trade history",
+      "Connects to behavioral economics concepts like loss aversion"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

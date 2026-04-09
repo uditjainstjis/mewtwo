@@ -1,0 +1,252 @@
+[
+  {
+    "id": "ext_md_051",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "PHILOSOPHY"
+    ],
+    "question": "A museum chatbot answers a visitor asking for a modern explanation of this line: “If it be that virtue standeth in the mean, then rashnesse and cowardize do alike misse the marke.” The bot rewrites the spelling well, but says the sentence means “moderation is always morally superior, so strong convictions are suspect.” Diagnose the main failure and give the best fix for the explanation layer.",
+    "reference_answer": "The spelling update is not the real problem; the philosophical interpretation is. The line invokes an Aristotelian-style doctrine of the mean, where virtue is a calibrated response between opposing vices, not a blanket preference for bland moderation or weak commitment. “Rashness” and “cowardice” are excess and deficiency relative to fear, so the fix is to preserve that structure in the explanation: courage is the virtue because it hits the appropriate mean for the situation.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "The main failure is misinterpreting the doctrine of the mean, not merely handling archaic wording.",
+        "The fix is to explain virtue as context-appropriate balance between excess and deficiency, with courage between rashness and cowardice."
+      ],
+      "must_include_any": [
+        [
+          "Aristotle",
+          "Aristotelian"
+        ],
+        [
+          "excess and deficiency",
+          "too much and too little"
+        ]
+      ],
+      "must_not_include": [
+        "The sentence means convictions are inherently bad.",
+        "The correct fix is only to modernize spelling."
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:49:22.762972+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_052",
+    "domains": [
+      "LATEX_FORMATTING",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "question": "A publisher’s Sanskrit handout keeps breaking on words like “saṃskṛta” and “ātmā” when compiled with pdfLaTeX, and a teammate proposes two fixes. Option A: replace all diacritics with plain ASCII spellings like “samskrta”. Option B: switch to a Unicode-capable engine and proper font handling for IAST. Which option is the better diagnosis-driven fix, and why?",
+    "reference_answer": "Option B is the better fix. The failure is not just character encoding in the abstract; it is that IAST transliteration uses meaningful phonological distinctions marked by diacritics, so stripping them changes or degrades the Sanskrit representation. A Unicode-capable workflow with suitable fonts preserves forms like ā, ṛ, and ṃ reliably, whereas ASCII fallback is only a lossy workaround and a bad default for publishing-quality text.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B is the correct choice.",
+        "Diacritics in IAST carry linguistically important distinctions and should not be discarded for a publishing workflow."
+      ],
+      "must_include_any": [
+        [
+          "Unicode-capable engine",
+          "XeLaTeX",
+          "LuaLaTeX"
+        ],
+        [
+          "IAST",
+          "transliteration with diacritics"
+        ]
+      ],
+      "must_not_include": [
+        "Option A is equally good for final publication.",
+        "Diacritics are purely decorative."
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "IAST|XeLaTeX|LuaLaTeX|Unicode"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:49:22.762972+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_053",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "question": "A hospital denial letter says a patient’s sudden unilateral facial droop was “probably stress,” so emergency stroke imaging was unnecessary. The chart also notes arm weakness and speech difficulty starting within an hour. Diagnose the strongest flaw in the decision and the most relevant fix for the review team.",
+    "reference_answer": "The core flaw is treating a time-sensitive stroke presentation as benign without addressing red-flag neurologic signs. Facial droop plus arm weakness and speech difficulty is a classic stroke pattern that generally warrants urgent stroke evaluation rather than a casual stress explanation. The legal-review fix is to ground necessity review in the documented symptom cluster and emergency standard of care, then reverse or escalate the denial because the rationale is medically and procedurally weak.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "The denial failed to account for classic acute stroke warning signs.",
+        "The fix is urgent stroke-focused review or reversal based on documented symptoms and emergency standard of care."
+      ],
+      "must_include_any": [
+        [
+          "medical necessity",
+          "necessity review"
+        ],
+        [
+          "stroke workup",
+          "stroke evaluation",
+          "urgent imaging"
+        ]
+      ],
+      "must_not_include": [
+        "Stress is an adequate sole explanation here.",
+        "No emergency review was needed."
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:49:22.762972+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_054",
+    "domains": [
+      "MARITIME_LAW",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "MARITIME_LAW",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "A heritage-shipping startup wants its training memo to justify cargo-loss sharing by citing an ‘ancient rule from Rhodes’ and proposes two versions. Option A frames it as a general piracy-era custom for all losses at sea. Option B frames it narrowly around deliberate jettison for common safety, later echoed in maritime law. Which design is better, and what is the diagnostic reason?",
+    "reference_answer": "Option B is better. The diagnosis is that Option A overgeneralizes ancient Rhodian material into a vague rule for all maritime losses, which is historically and legally misleading. The stronger design focuses on the jettison principle: when cargo is intentionally sacrificed to save ship and voyage, the loss is shared. That is the historically safer and legally more recognizable lineage for a training memo.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B is the better design.",
+        "The Rhodian reference should be tied narrowly to jettison/common safety rather than all sea losses."
+      ],
+      "must_include_any": [
+        [
+          "general average",
+          "loss sharing after deliberate sacrifice"
+        ],
+        [
+          "Rhodian law",
+          "Rhodes",
+          "Lex Rhodia"
+        ]
+      ],
+      "must_not_include": [
+        "Ancient Rhodian law covered every cargo loss at sea.",
+        "Piracy is the core rule being invoked."
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "Rhodes|Rhodian|Lex Rhodia|jettison|general average"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:49:22.762972+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_055",
+    "domains": [
+      "MATHEMATICS",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "ASTROPHYSICS"
+    ],
+    "question": "An analyst fits a planet’s orbital speed data with a linear model in distance, $$v(r)=a+br$$, and then concludes the star’s gravity law is inconsistent because outer points miss badly. In a review meeting, what is the most relevant diagnosis of the failure mode, and what model assumption should be changed first?",
+    "reference_answer": "The likely failure is model mis-specification, not evidence against gravity. Orbital speed is not expected to vary linearly with radius under standard central-gravity dynamics; for circular or nearly circular orbits, the relevant scaling comes from balancing gravity and centripetal motion, giving a non-linear relation such as $$v \propto r^{-1/2}$$ around a dominant central mass. The first fix is to replace the linear fit with a physics-informed non-linear model before questioning the force law.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "The main issue is using an inappropriate linear model.",
+        "The first fix is to use a gravity-informed non-linear scaling for orbital speed versus radius."
+      ],
+      "must_include_any": [
+        [
+          "inverse-square",
+          "central gravity"
+        ],
+        [
+          "v ∝ r^-1/2",
+          "v proportional to 1 over square root of r",
+          "square-root inverse scaling"
+        ]
+      ],
+      "must_not_include": [
+        "Poor fit alone disproves gravity.",
+        "A linear speed-radius law is the expected baseline for Keplerian motion."
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "r\\s*\\^\\s*-?1/2|r\\s*\\^\\s*\$$-1/2\$$|1\\s*/\\s*sqrt\$$r\$$"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:49:22.762972+00:00",
+      "section": "Diagnosis"
+    }
+  }
+]

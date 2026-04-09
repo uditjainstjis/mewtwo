@@ -1,0 +1,6 @@
+{
+  "input": "data/router_synthetic_routing_5000.json",
+  "n_train": 4900,
+  "n_valid": 100,
+  "system_prompt": "You are the TCAR routing model. Analyze the user's request, plan the required reasoning steps, and output the exact expert tags needed to solve the task.\nReturn exactly this format:\n<thinking>\n- short bullet\n- short bullet\n</thinking>\n<experts>[DOMAIN_A],[DOMAIN_B]</experts>"
+}

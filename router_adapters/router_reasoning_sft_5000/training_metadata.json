@@ -1,0 +1,8 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "data_dir": "data/router_reasoning_sft_5000",
+  "task": "router_sft_manual",
+  "force_cpu": true,
+  "device": "cpu",
+  "total_steps": 1226
+}

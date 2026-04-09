@@ -1,0 +1,34 @@
+[18:50:03] Dataset=data/multidomain_eval_claude_external_v2_10_stratified.json items=10 methods=['tcar_collaborative'] jobs=10
+[18:50:03] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[18:50:11] Qwen engine loaded in 3.25s
+[18:50:11] TCAR collaborative pipeline ready (parallel_workers=2, max_experts=2)
+[18:50:11] START job=1/10 item=1/10 id=ext_md_001 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[18:50:55] DONE  job=1/10 id=ext_md_001 method=tcar_collaborative lat=35.20s em=0.00 f1=0.36 sim=0.716 avg/job=43.84s eta=6m34s
+[18:50:55] ANS   id=ext_md_001 method=tcar_collaborative preview=The primary legal vulnerability in the clause is its vagueness, which makes it unenforceable under the U.S. Federal Trade Commission's (FTC)
+[18:50:55] START job=2/10 item=2/10 id=ext_md_006 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[18:51:25] DONE  job=2/10 id=ext_md_006 method=tcar_collaborative lat=28.60s em=0.00 f1=0.30 sim=0.722 avg/job=37.03s eta=4m56s
+[18:51:25] ANS   id=ext_md_006 method=tcar_collaborative preview=The patient's positive test result is a "true positive" with a high probability. The positive predictive value (PPV) is calculated to assess
+[18:51:25] START job=3/10 item=3/10 id=ext_md_011 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[18:51:44] DONE  job=3/10 id=ext_md_011 method=tcar_collaborative lat=17.95s em=0.00 f1=0.25 sim=0.713 avg/job=30.94s eta=3m36s
+[18:51:44] ANS   id=ext_md_011 method=tcar_collaborative preview=**Strongest Mathematical Strength**: The Newton's method is a powerful iterative algorithm for finding roots of a function. Its primary stre
+[18:51:44] START job=4/10 item=4/10 id=ext_md_016 method=tcar_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[18:52:12] DONE  job=4/10 id=ext_md_016 method=tcar_collaborative lat=26.41s em=0.00 f1=0.23 sim=0.470 avg/job=30.19s eta=3m01s
+[18:52:12] ANS   id=ext_md_016 method=tcar_collaborative preview=**Implementation Plan:**  1. **Check for Negative Parallax**:    - Implement a conditional check to see if the parallax value is negative.  
+[18:52:12] START job=5/10 item=5/10 id=ext_md_021 method=tcar_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[18:52:35] DONE  job=5/10 id=ext_md_021 method=tcar_collaborative lat=21.40s em=0.00 f1=0.29 sim=0.733 avg/job=28.82s eta=2m24s
+[18:52:35] ANS   id=ext_md_021 method=tcar_collaborative preview=The precise source of the rounding error in the sum of 1024 fp16 partial products is the finite precision of fp16 numbers. fp16 numbers have
+[18:52:35] START job=6/10 item=6/10 id=ext_md_026 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[18:52:54] DONE  job=6/10 id=ext_md_026 method=tcar_collaborative lat=17.87s em=0.00 f1=0.28 sim=0.658 avg/job=27.23s eta=1m48s
+[18:52:54] ANS   id=ext_md_026 method=tcar_collaborative preview=The decision to grant exile under the proposed tie-break rule involves a nuanced application of ancient Athenian democratic principles. Here
+[18:52:54] START job=7/10 item=7/10 id=ext_md_031 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[18:53:11] DONE  job=7/10 id=ext_md_031 method=tcar_collaborative lat=15.65s em=0.00 f1=0.28 sim=0.832 avg/job=25.78s eta=1m17s
+[18:53:11] ANS   id=ext_md_031 method=tcar_collaborative preview=**One-paragraph explainer for public-sector trainees:**  Stoicism became particularly attractive to elite decision-makers in the Hellenistic
+[18:53:11] START job=8/10 item=8/10 id=ext_md_036 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[18:53:22] DONE  job=8/10 id=ext_md_036 method=tcar_collaborative lat=9.57s em=0.00 f1=0.25 sim=0.546 avg/job=23.85s eta=47s
+[18:53:22] ANS   id=ext_md_036 method=tcar_collaborative preview=Yes, the sentence should pass the style guide. The sentence uses "thou" which is a second-person archaic pronoun, but it is grammatically co
+[18:53:22] START job=9/10 item=9/10 id=ext_md_041 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[18:53:30] DONE  job=9/10 id=ext_md_041 method=tcar_collaborative lat=7.46s em=0.00 f1=0.17 sim=0.662 avg/job=22.07s eta=22s
+[18:53:30] ANS   id=ext_md_041 method=tcar_collaborative preview=The museum label draft translates the ancient Egyptian curse into modern terms, emphasizing the act of defacing the stele as a harmful act a
+[18:53:30] START job=10/10 item=10/10 id=ext_md_046 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[18:53:38] DONE  job=10/10 id=ext_md_046 method=tcar_collaborative lat=8.49s em=0.00 f1=0.27 sim=0.745 avg/job=20.75s eta=0s
+[18:53:38] ANS   id=ext_md_046 method=tcar_collaborative preview=**Practical Meaning:** "Set not thy heart upon that which Fortune turneth" from a 17th-century pamphlet warns against placing too much hope 

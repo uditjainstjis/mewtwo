@@ -16,6 +16,7 @@ import json
 import time
 import argparse
 import numpy as np
+import re
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, List, Tuple, Optional
@@ -62,6 +63,48 @@ def semantic_similarity(a: str, b: str) -> float:
     model = get_sem_model()
     emb = model.encode([a, b], normalize_embeddings=True)
     return float(np.dot(emb[0], emb[1]))
+
+
+def _normalize_text(text: str) -> str:
+    text = (text or "").strip().lower()
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"[^\w\s]", "", text)
+    return text
+
+
+def exact_match(pred: str, ref: str) -> float:
+    return 1.0 if _normalize_text(pred) == _normalize_text(ref) else 0.0
+
+
+def token_f1(pred: str, ref: str) -> float:
+    p = _normalize_text(pred).split()
+    r = _normalize_text(ref).split()
+    if not p and not r:
+        return 1.0
+    if not p or not r:
+        return 0.0
+    p_counts = {}
+    r_counts = {}
+    for t in p:
+        p_counts[t] = p_counts.get(t, 0) + 1
+    for t in r:
+        r_counts[t] = r_counts.get(t, 0) + 1
+    overlap = sum(min(p_counts[t], r_counts.get(t, 0)) for t in p_counts)
+    if overlap == 0:
+        return 0.0
+    precision = overlap / len(p)
+    recall = overlap / len(r)
+    return 2 * precision * recall / (precision + recall)
+
+
+def adapter_recall_at_k(routing_weights: Dict[str, float], required: List[str], k: int) -> float:
+    required = [x for x in (required or []) if x]
+    if not required:
+        return 1.0
+    ranked = sorted(routing_weights.items(), key=lambda kv: kv[1], reverse=True)
+    predicted = [name for name, w in ranked[:k] if w > 0]
+    hit = len(set(predicted) & set(required))
+    return hit / len(set(required))
 
 
 def load_md_dataset() -> List[dict]:
@@ -160,6 +203,13 @@ def run_phase(phase_name, methods, items, output_path):
 
             # Metrics
             sim = semantic_similarity(text, item["reference_answer"])
+            em = exact_match(text, item["reference_answer"])
+            f1 = token_f1(text, item["reference_answer"])
+            ar = adapter_recall_at_k(
+                routing_weights,
+                item.get("required_adapters", item.get("domains", [])),
+                max(1, K_used),
+            )
 
             set_clamp_mode(method["clamp_mode"])
             set_global_clamp(method["clamp_c"])
@@ -178,6 +228,9 @@ def run_phase(phase_name, methods, items, output_path):
                 "K_used": K_used,
                 "generated_text_preview": (text or "")[:200],
                 "semantic_sim": round(sim, 4),
+                "exact_match": round(em, 4),
+                "token_f1": round(f1, 4),
+                "adapter_recall_k": round(ar, 4),
                 "perplexity": round(ppl, 2),
                 "latency_s": round(latency, 3),
                 "real_mode": True,
@@ -187,7 +240,7 @@ def run_phase(phase_name, methods, items, output_path):
             print(
                 f"  [{count}/{total}] {item['id'][:12]:12s} | "
                 f"{method['name']:25s} | clamp={method['clamp_mode']:10s} | "
-                f"Sim={sim:.3f} | PPL={ppl:.1f} | Lat={latency:.2f}s | K={K_used}"
+                f"EM={em:.2f} | F1={f1:.2f} | Sim={sim:.3f} | PPL={ppl:.1f} | Lat={latency:.2f}s | K={K_used}"
             )
 
     # Reset to defaults
@@ -210,8 +263,8 @@ def print_aggregates(results, methods):
     print(f"\n{'='*70}")
     print("  AGGREGATE RESULTS (MD)")
     print(f"{'='*70}")
-    print(f"  {'Method':25s} | {'ClampMode':10s} | {'Avg Sim':>8s} | {'Avg PPL':>8s} | {'Avg Lat':>8s} | {'Avg K':>5s}")
-    print(f"  {'-'*25}-+-{'-'*10}-+-{'-'*8}-+-{'-'*8}-+-{'-'*8}-+-{'-'*5}")
+    print(f"  {'Method':25s} | {'ClampMode':10s} | {'EM%':>7s} | {'F1':>6s} | {'Avg Sim':>8s} | {'Avg PPL':>8s} | {'Avg Lat':>8s} | {'Avg K':>5s} | {'AdpRec':>7s}")
+    print(f"  {'-'*25}-+-{'-'*10}-+-{'-'*7}-+-{'-'*6}-+-{'-'*8}-+-{'-'*8}-+-{'-'*8}-+-{'-'*5}-+-{'-'*7}")
 
     method_sims = {}
     for method in methods:
@@ -219,13 +272,16 @@ def print_aggregates(results, methods):
         if not m_res:
             continue
         avg_sim = np.mean([r["semantic_sim"] for r in m_res])
+        avg_em = np.mean([r.get("exact_match", 0.0) for r in m_res])
+        avg_f1 = np.mean([r.get("token_f1", 0.0) for r in m_res])
         avg_ppl = np.mean([r["perplexity"] for r in m_res])
         avg_lat = np.mean([r["latency_s"] for r in m_res])
         avg_k = np.mean([r["K_used"] for r in m_res])
+        avg_ar = np.mean([r.get("adapter_recall_k", 0.0) for r in m_res])
         method_sims[method["name"]] = avg_sim
         print(
-            f"  {method['name']:25s} | {method['clamp_mode']:10s} | {avg_sim:8.4f} | "
-            f"{avg_ppl:8.1f} | {avg_lat:8.3f} | {avg_k:5.2f}"
+            f"  {method['name']:25s} | {method['clamp_mode']:10s} | {100.0*avg_em:6.1f}% | {avg_f1:6.3f} | {avg_sim:8.4f} | "
+            f"{avg_ppl:8.1f} | {avg_lat:8.3f} | {avg_k:5.2f} | {avg_ar:7.3f}"
         )
 
     # Deltas

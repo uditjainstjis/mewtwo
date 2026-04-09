@@ -1,0 +1,1068 @@
+
+======================================================================
+>>> Mistral Track A (v2, num_predict=180)
+======================================================================
+
+Loading Semantic Similarity Model (all-MiniLM-L6-v2)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7684.20it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+
+======================================================================
+  OLLAMA BENCHMARK: mistral:7b | 40 items | num_predict=180 | multidomain_eval_v2.json
+======================================================================
+
+[1/40] Querying Mistral-7B: How does the anchoring bias documented in behavior...
+    - Sim: 0.071 | Lat: 0.00s
+[2/40] Querying Mistral-7B: Analyze how the sunk-cost fallacy influences decis...
+    - Sim: -0.001 | Lat: 0.00s
+[3/40] Querying Mistral-7B: Compare the philosophical foundations of natural l...
+    - Sim: -0.016 | Lat: 0.00s
+[4/40] Querying Mistral-7B: Design a blockchain-based bill of lading system fo...
+    - Sim: -0.049 | Lat: 0.00s
+[5/40] Querying Mistral-7B: Explain how quantum chemical calculations of the v...
+    - Sim: 0.056 | Lat: 0.00s
+[6/40] Querying Mistral-7B: Describe the Miller-Urey synthesis of amino acids ...
+    - Sim: 0.040 | Lat: 0.00s
+[7/40] Querying Mistral-7B: Explain how Shor's algorithm exploits quantum mech...
+    - Sim: -0.075 | Lat: 0.00s
+[8/40] Querying Mistral-7B: Derive the basic energy-balance equation for Earth...
+    - Sim: 0.064 | Lat: 0.00s
+[9/40] Querying Mistral-7B: Write a Python implementation of the A* path-plann...
+    - Sim: 0.089 | Lat: 0.00s
+[10/40] Querying Mistral-7B: Write a Python script using numpy that generates a...
+    - Sim: 0.037 | Lat: 0.00s
+[11/40] Querying Mistral-7B: Implement the Diffie-Hellman key exchange protocol...
+    - Sim: -0.002 | Lat: 0.00s
+[12/40] Querying Mistral-7B: Write an MLX Metal kernel that computes the Choles...
+    - Sim: 0.000 | Lat: 0.00s
+[13/40] Querying Mistral-7B: Analyze how the rediscovery of Vitruvius's 'De Arc...
+    - Sim: 0.024 | Lat: 0.00s
+[14/40] Querying Mistral-7B: Compare Panini's Ashtadhyayi as a formal grammatic...
+    - Sim: 0.028 | Lat: 0.00s
+[15/40] Querying Mistral-7B: Analyze the metrical structure of Beowulf's openin...
+    - Sim: -0.046 | Lat: 0.00s
+[16/40] Querying Mistral-7B: Reconstruct the philosophical arguments that Socra...
+    - Sim: 0.118 | Lat: 0.00s
+[17/40] Querying Mistral-7B: Should autonomous vehicles follow a utilitarian or...
+    - Sim: -0.057 | Lat: 0.00s
+[18/40] Querying Mistral-7B: Explain the 'tragedy of the commons' as it applies...
+    - Sim: -0.011 | Lat: 0.00s
+[19/40] Querying Mistral-7B: Typeset the proof of the Cauchy-Schwarz inequality...
+    - Sim: 0.001 | Lat: 0.00s
+[20/40] Querying Mistral-7B: Under GDPR Article 17 ('right to erasure'), how mu...
+    - Sim: -0.162 | Lat: 0.00s
+[21/40] Querying Mistral-7B: Derive the Schwarzschild radius for a black hole f...
+    - Sim: 0.038 | Lat: 0.00s
+[22/40] Querying Mistral-7B: Explain the synthesis of aspirin (acetylsalicylic ...
+    - Sim: 0.035 | Lat: 0.00s
+[23/40] Querying Mistral-7B: Prove that equal temperament's semitone ratio of 2...
+    - Sim: 0.033 | Lat: 0.00s
+[24/40] Querying Mistral-7B: Implement a PID controller in Python for a simulat...
+    - Sim: 0.087 | Lat: 0.00s
+[25/40] Querying Mistral-7B: Describe the catalytic cycle of ozone destruction ...
+    - Sim: 0.143 | Lat: 0.00s
+[26/40] Querying Mistral-7B: Explain the mathematical basis of elliptic curve c...
+    - Sim: -0.055 | Lat: 0.00s
+[27/40] Querying Mistral-7B: How does Daniel Kahneman's dual-process theory (Sy...
+    - Sim: -0.071 | Lat: 0.00s
+[28/40] Querying Mistral-7B: How did Marsilio Ficino's Neoplatonist philosophy ...
+    - Sim: 0.058 | Lat: 0.00s
+[29/40] Querying Mistral-7B: Compare the Lex Rhodia de Iactu (Rhodian Sea Law o...
+    - Sim: -0.065 | Lat: 0.00s
+[30/40] Querying Mistral-7B: Write a custom MLX operation in Python that implem...
+    - Sim: -0.055 | Lat: 0.00s
+[31/40] Querying Mistral-7B: Compare the greenhouse effect on Venus and Earth q...
+    - Sim: 0.083 | Lat: 0.00s
+[32/40] Querying Mistral-7B: Derive Bayes' theorem and apply it to calculate th...
+    - Sim: 0.025 | Lat: 0.00s
+[33/40] Querying Mistral-7B: Typeset the Friedmann equations for cosmological e...
+    - Sim: 0.063 | Lat: 0.00s
+[34/40] Querying Mistral-7B: How does the linguistic evidence from Vedic Sanskr...
+    - Sim: 0.028 | Lat: 0.00s
+[35/40] Querying Mistral-7B: Design a sensor fusion pipeline for an autonomous ...
+    - Sim: 0.057 | Lat: 0.00s
+[36/40] Querying Mistral-7B: Evaluate the ethical permissibility of AI-assisted...
+    - Sim: -0.017 | Lat: 0.00s
+[37/40] Querying Mistral-7B: Derive the expected utility formula under prospect...
+    - Sim: -0.008 | Lat: 0.00s
+[38/40] Querying Mistral-7B: Translate the following passage from the Magna Car...
+    - Sim: 0.003 | Lat: 0.00s
+[39/40] Querying Mistral-7B: Derive the Denavit-Hartenberg transformation matri...
+    - Sim: 0.015 | Lat: 0.00s
+[40/40] Querying Mistral-7B: Explain how Alberti's 'costruzione legittima' (leg...
+    - Sim: 0.033 | Lat: 0.00s
+
+======================================================================
+  MISTRAL MD SUMMARY (Synapta ref 0.6525 is legacy marketing number)
+======================================================================
+Mistral-7B MD Avg Similarity:  0.013
+Mistral-7B Avg Latency:        0.00s
+
+SYNAPTA PERFORMANCE ON MD VS MISTRAL: +4746.3%
+
+Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_a.json
+
+======================================================================
+>>> Mistral Track B (external json, num_predict=180)
+======================================================================
+
+Loading Semantic Similarity Model (all-MiniLM-L6-v2)...
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 15052.20it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+
+======================================================================
+  OLLAMA BENCHMARK: mistral:7b | 40 items | num_predict=180 | multidomain_eval_external.json
+======================================================================
+
+[1/40] Querying Mistral-7B: How does the anchoring bias documented in behavior...
+    - Sim: 0.071 | Lat: 0.00s
+[2/40] Querying Mistral-7B: Analyze how the sunk-cost fallacy influences decis...
+    - Sim: -0.001 | Lat: 0.00s
+[3/40] Querying Mistral-7B: Compare the philosophical foundations of natural l...
+    - Sim: -0.016 | Lat: 0.00s
+[4/40] Querying Mistral-7B: Design a blockchain-based bill of lading system fo...
+    - Sim: -0.049 | Lat: 0.00s
+[5/40] Querying Mistral-7B: Explain how quantum chemical calculations of the v...
+    - Sim: 0.056 | Lat: 0.00s
+[6/40] Querying Mistral-7B: Describe the Miller-Urey synthesis of amino acids ...
+    - Sim: 0.040 | Lat: 0.00s
+[7/40] Querying Mistral-7B: Explain how Shor's algorithm exploits quantum mech...
+    - Sim: -0.075 | Lat: 0.00s
+[8/40] Querying Mistral-7B: Derive the basic energy-balance equation for Earth...
+    - Sim: 0.064 | Lat: 0.00s
+[9/40] Querying Mistral-7B: Write a Python implementation of the A* path-plann...
+    - Sim: 0.089 | Lat: 0.00s
+[10/40] Querying Mistral-7B: Write a Python script using numpy that generates a...
+    - Sim: 0.037 | Lat: 0.00s
+[11/40] Querying Mistral-7B: Implement the Diffie-Hellman key exchange protocol...
+    - Sim: -0.002 | Lat: 0.00s
+[12/40] Querying Mistral-7B: Write an MLX Metal kernel that computes the Choles...
+    - Sim: 0.000 | Lat: 0.00s
+[13/40] Querying Mistral-7B: Analyze how the rediscovery of Vitruvius's 'De Arc...
+    - Sim: 0.024 | Lat: 0.00s
+[14/40] Querying Mistral-7B: Compare Panini's Ashtadhyayi as a formal grammatic...
+    - Sim: 0.028 | Lat: 0.00s
+[15/40] Querying Mistral-7B: Analyze the metrical structure of Beowulf's openin...
+    - Sim: -0.046 | Lat: 0.00s
+[16/40] Querying Mistral-7B: Reconstruct the philosophical arguments that Socra...
+    - Sim: 0.118 | Lat: 0.00s
+[17/40] Querying Mistral-7B: Should autonomous vehicles follow a utilitarian or...
+    - Sim: -0.057 | Lat: 0.00s
+[18/40] Querying Mistral-7B: Explain the 'tragedy of the commons' as it applies...
+    - Sim: -0.011 | Lat: 0.00s
+[19/40] Querying Mistral-7B: Typeset the proof of the Cauchy-Schwarz inequality...
+    - Sim: 0.001 | Lat: 0.00s
+[20/40] Querying Mistral-7B: Under GDPR Article 17 ('right to erasure'), how mu...
+    - Sim: -0.162 | Lat: 0.00s
+[21/40] Querying Mistral-7B: Derive the Schwarzschild radius for a black hole f...
+    - Sim: 0.038 | Lat: 0.00s
+[22/40] Querying Mistral-7B: Explain the synthesis of aspirin (acetylsalicylic ...
+    - Sim: 0.035 | Lat: 0.00s
+[23/40] Querying Mistral-7B: Prove that equal temperament's semitone ratio of 2...
+    - Sim: 0.033 | Lat: 0.00s
+[24/40] Querying Mistral-7B: Implement a PID controller in Python for a simulat...
+    - Sim: 0.087 | Lat: 0.00s
+[25/40] Querying Mistral-7B: Describe the catalytic cycle of ozone destruction ...
+    - Sim: 0.143 | Lat: 0.00s
+[26/40] Querying Mistral-7B: Explain the mathematical basis of elliptic curve c...
+    - Sim: -0.055 | Lat: 0.00s
+[27/40] Querying Mistral-7B: How does Daniel Kahneman's dual-process theory (Sy...
+    - Sim: -0.071 | Lat: 0.00s
+[28/40] Querying Mistral-7B: How did Marsilio Ficino's Neoplatonist philosophy ...
+    - Sim: 0.058 | Lat: 0.00s
+[29/40] Querying Mistral-7B: Compare the Lex Rhodia de Iactu (Rhodian Sea Law o...
+    - Sim: -0.065 | Lat: 0.00s
+[30/40] Querying Mistral-7B: Write a custom MLX operation in Python that implem...
+    - Sim: -0.055 | Lat: 0.00s
+[31/40] Querying Mistral-7B: Compare the greenhouse effect on Venus and Earth q...
+    - Sim: 0.083 | Lat: 0.00s
+[32/40] Querying Mistral-7B: Derive Bayes' theorem and apply it to calculate th...
+    - Sim: 0.025 | Lat: 0.00s
+[33/40] Querying Mistral-7B: Typeset the Friedmann equations for cosmological e...
+    - Sim: 0.063 | Lat: 0.00s
+[34/40] Querying Mistral-7B: How does the linguistic evidence from Vedic Sanskr...
+    - Sim: 0.028 | Lat: 0.00s
+[35/40] Querying Mistral-7B: Design a sensor fusion pipeline for an autonomous ...
+    - Sim: 0.057 | Lat: 0.00s
+[36/40] Querying Mistral-7B: Evaluate the ethical permissibility of AI-assisted...
+    - Sim: -0.017 | Lat: 0.00s
+[37/40] Querying Mistral-7B: Derive the expected utility formula under prospect...
+    - Sim: -0.008 | Lat: 0.00s
+[38/40] Querying Mistral-7B: Translate the following passage from the Magna Car...
+    - Sim: 0.003 | Lat: 0.00s
+[39/40] Querying Mistral-7B: Derive the Denavit-Hartenberg transformation matri...
+    - Sim: 0.015 | Lat: 0.00s
+[40/40] Querying Mistral-7B: Explain how Alberti's 'costruzione legittima' (leg...
+    - Sim: 0.033 | Lat: 0.00s
+
+======================================================================
+  MISTRAL MD SUMMARY (Synapta ref 0.6525 is legacy marketing number)
+======================================================================
+Mistral-7B MD Avg Similarity:  0.013
+Mistral-7B Avg Latency:        0.00s
+
+SYNAPTA PERFORMANCE ON MD VS MISTRAL: +4746.3%
+
+Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+
+======================================================================
+>>> Qwen injection Track A
+======================================================================
+
+Loading Base Engine: mlx-community/Qwen2.5-1.5B-Instruct-4bit...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 30491.71it/s]
+Injecting RoutedLoRALinear layers...
+Loading adapters into UMA RAM...
+Dynamic Engine fully initialized.
+Dataset: /Users/uditjain/Desktop/adapter/data/multidomain_eval_v2.json (40 rows raw)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 7094.63it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+[1/360] weighted_merge               | id=md_01 | Sim=0.803 PPL=32.0 EM=0.00 F1=0.10 | lat=5.21s
+[2/360] late_layer_injection         | id=md_01 | Sim=0.791 PPL=30.6 EM=0.00 F1=0.10 | lat=4.60s
+[3/360] sequential_token_segments    | id=md_01 | Sim=0.785 PPL=32.0 EM=0.00 F1=0.10 | lat=5.19s
+[4/360] late_last_quarter            | id=md_01 | Sim=0.822 PPL=30.0 EM=0.00 F1=0.09 | lat=3.43s
+[5/360] sequential_reverse           | id=md_01 | Sim=0.799 PPL=32.0 EM=0.00 F1=0.10 | lat=5.27s
+[6/360] early_third_only             | id=md_01 | Sim=0.782 PPL=29.9 EM=0.00 F1=0.09 | lat=2.25s
+[7/360] oracle_single_d1             | id=md_01 | Sim=0.800 PPL=31.9 EM=0.00 F1=0.10 | lat=4.99s
+[8/360] oracle_single_d2             | id=md_01 | Sim=0.786 PPL=30.2 EM=0.00 F1=0.10 | lat=5.12s
+[9/360] merge_high_clamp             | id=md_01 | Sim=0.803 PPL=32.0 EM=0.00 F1=0.10 | lat=4.62s
+[10/360] weighted_merge               | id=md_02 | Sim=0.755 PPL=24.5 EM=0.00 F1=0.19 | lat=4.53s
+[11/360] late_layer_injection         | id=md_02 | Sim=0.759 PPL=25.3 EM=0.00 F1=0.19 | lat=4.13s
+[12/360] sequential_token_segments    | id=md_02 | Sim=0.701 PPL=24.5 EM=0.00 F1=0.18 | lat=4.76s
+[13/360] late_last_quarter            | id=md_02 | Sim=0.768 PPL=25.3 EM=0.00 F1=0.21 | lat=3.13s
+[14/360] sequential_reverse           | id=md_02 | Sim=0.755 PPL=24.5 EM=0.00 F1=0.19 | lat=4.76s
+[15/360] early_third_only             | id=md_02 | Sim=0.770 PPL=25.2 EM=0.00 F1=0.19 | lat=2.09s
+[16/360] oracle_single_d1             | id=md_02 | Sim=0.754 PPL=24.7 EM=0.00 F1=0.19 | lat=4.52s
+[17/360] oracle_single_d2             | id=md_02 | Sim=0.699 PPL=24.9 EM=0.00 F1=0.18 | lat=4.52s
+[18/360] merge_high_clamp             | id=md_02 | Sim=0.755 PPL=24.5 EM=0.00 F1=0.19 | lat=4.54s
+[19/360] weighted_merge               | id=md_03 | Sim=0.839 PPL=16.6 EM=0.00 F1=0.27 | lat=4.51s
+[20/360] late_layer_injection         | id=md_03 | Sim=0.835 PPL=16.7 EM=0.00 F1=0.26 | lat=4.18s
+[21/360] sequential_token_segments    | id=md_03 | Sim=0.830 PPL=16.6 EM=0.00 F1=0.24 | lat=4.76s
+[22/360] late_last_quarter            | id=md_03 | Sim=0.831 PPL=17.6 EM=0.00 F1=0.22 | lat=3.12s
+[23/360] sequential_reverse           | id=md_03 | Sim=0.858 PPL=16.6 EM=0.00 F1=0.24 | lat=4.82s
+[24/360] early_third_only             | id=md_03 | Sim=0.873 PPL=17.7 EM=0.00 F1=0.25 | lat=2.12s
+[25/360] oracle_single_d1             | id=md_03 | Sim=0.860 PPL=17.1 EM=0.00 F1=0.25 | lat=4.53s
+[26/360] oracle_single_d2             | id=md_03 | Sim=0.865 PPL=17.1 EM=0.00 F1=0.25 | lat=4.51s
+[27/360] merge_high_clamp             | id=md_03 | Sim=0.839 PPL=16.6 EM=0.00 F1=0.27 | lat=4.52s
+[28/360] weighted_merge               | id=md_04 | Sim=0.537 PPL=17.5 EM=0.00 F1=0.19 | lat=4.53s
+[29/360] late_layer_injection         | id=md_04 | Sim=0.539 PPL=17.2 EM=0.00 F1=0.09 | lat=4.14s
+[30/360] sequential_token_segments    | id=md_04 | Sim=0.558 PPL=17.5 EM=0.00 F1=0.11 | lat=4.79s
+[31/360] late_last_quarter            | id=md_04 | Sim=0.523 PPL=17.6 EM=0.00 F1=0.14 | lat=3.13s
+[32/360] sequential_reverse           | id=md_04 | Sim=0.630 PPL=17.5 EM=0.00 F1=0.18 | lat=4.76s
+[33/360] early_third_only             | id=md_04 | Sim=0.523 PPL=99999.0 EM=0.00 F1=0.14 | lat=2.09s
+[34/360] oracle_single_d1             | id=md_04 | Sim=0.546 PPL=17.3 EM=0.00 F1=0.12 | lat=4.53s
+[35/360] oracle_single_d2             | id=md_04 | Sim=0.631 PPL=18.0 EM=0.00 F1=0.21 | lat=4.53s
+[36/360] merge_high_clamp             | id=md_04 | Sim=0.537 PPL=17.5 EM=0.00 F1=0.19 | lat=4.51s
+[37/360] weighted_merge               | id=md_05 | Sim=0.751 PPL=11.7 EM=0.00 F1=0.28 | lat=4.59s
+[38/360] late_layer_injection         | id=md_05 | Sim=0.733 PPL=11.7 EM=0.00 F1=0.25 | lat=4.15s
+[39/360] sequential_token_segments    | id=md_05 | Sim=0.725 PPL=11.7 EM=0.00 F1=0.25 | lat=4.75s
+[40/360] late_last_quarter            | id=md_05 | Sim=0.691 PPL=11.5 EM=0.00 F1=0.24 | lat=3.17s
+[41/360] sequential_reverse           | id=md_05 | Sim=0.714 PPL=11.7 EM=0.00 F1=0.24 | lat=4.87s
+[42/360] early_third_only             | id=md_05 | Sim=0.674 PPL=11.6 EM=0.00 F1=0.22 | lat=2.12s
+[43/360] oracle_single_d1             | id=md_05 | Sim=0.753 PPL=11.6 EM=0.00 F1=0.25 | lat=4.57s
+[44/360] oracle_single_d2             | id=md_05 | Sim=0.692 PPL=11.6 EM=0.00 F1=0.24 | lat=4.56s
+[45/360] merge_high_clamp             | id=md_05 | Sim=0.751 PPL=11.7 EM=0.00 F1=0.28 | lat=4.53s
+[46/360] weighted_merge               | id=md_06 | Sim=0.658 PPL=9.6 EM=0.00 F1=0.18 | lat=4.55s
+[47/360] late_layer_injection         | id=md_06 | Sim=0.723 PPL=9.5 EM=0.00 F1=0.20 | lat=4.17s
+[48/360] sequential_token_segments    | id=md_06 | Sim=0.610 PPL=9.6 EM=0.00 F1=0.16 | lat=4.92s
+[49/360] late_last_quarter            | id=md_06 | Sim=0.775 PPL=9.3 EM=0.00 F1=0.28 | lat=3.30s
+[50/360] sequential_reverse           | id=md_06 | Sim=0.801 PPL=9.6 EM=0.00 F1=0.29 | lat=4.96s
+[51/360] early_third_only             | id=md_06 | Sim=0.775 PPL=9.3 EM=0.00 F1=0.28 | lat=2.12s
+[52/360] oracle_single_d1             | id=md_06 | Sim=0.553 PPL=9.4 EM=0.00 F1=0.13 | lat=4.52s
+[53/360] oracle_single_d2             | id=md_06 | Sim=0.813 PPL=9.5 EM=0.00 F1=0.28 | lat=4.53s
+[54/360] merge_high_clamp             | id=md_06 | Sim=0.658 PPL=9.6 EM=0.00 F1=0.18 | lat=4.57s
+[55/360] weighted_merge               | id=md_07 | Sim=0.697 PPL=9.5 EM=0.00 F1=0.22 | lat=4.57s
+[56/360] late_layer_injection         | id=md_07 | Sim=0.719 PPL=9.3 EM=0.00 F1=0.21 | lat=4.16s
+[57/360] sequential_token_segments    | id=md_07 | Sim=0.716 PPL=9.5 EM=0.00 F1=0.22 | lat=4.80s
+[58/360] late_last_quarter            | id=md_07 | Sim=0.733 PPL=9.3 EM=0.00 F1=0.22 | lat=3.12s
+[59/360] sequential_reverse           | id=md_07 | Sim=0.731 PPL=9.5 EM=0.00 F1=0.23 | lat=4.79s
+[60/360] early_third_only             | id=md_07 | Sim=0.733 PPL=9.3 EM=0.00 F1=0.26 | lat=2.25s
+[61/360] oracle_single_d1             | id=md_07 | Sim=0.728 PPL=9.4 EM=0.00 F1=0.24 | lat=4.66s
+[62/360] oracle_single_d2             | id=md_07 | Sim=0.719 PPL=9.4 EM=0.00 F1=0.23 | lat=4.54s
+[63/360] merge_high_clamp             | id=md_07 | Sim=0.697 PPL=9.5 EM=0.00 F1=0.22 | lat=4.55s
+[64/360] weighted_merge               | id=md_08 | Sim=0.603 PPL=8.1 EM=0.00 F1=0.08 | lat=4.60s
+[65/360] late_layer_injection         | id=md_08 | Sim=0.609 PPL=8.1 EM=0.00 F1=0.11 | lat=4.17s
+[66/360] sequential_token_segments    | id=md_08 | Sim=0.628 PPL=8.1 EM=0.00 F1=0.11 | lat=4.80s
+[67/360] late_last_quarter            | id=md_08 | Sim=0.623 PPL=8.2 EM=0.00 F1=0.12 | lat=3.14s
+[68/360] sequential_reverse           | id=md_08 | Sim=0.623 PPL=8.1 EM=0.00 F1=0.12 | lat=4.85s
+[69/360] early_third_only             | id=md_08 | Sim=0.621 PPL=8.3 EM=0.00 F1=0.12 | lat=2.09s
+[70/360] oracle_single_d1             | id=md_08 | Sim=0.591 PPL=8.1 EM=0.00 F1=0.09 | lat=4.53s
+[71/360] oracle_single_d2             | id=md_08 | Sim=0.623 PPL=8.2 EM=0.00 F1=0.12 | lat=4.58s
+[72/360] merge_high_clamp             | id=md_08 | Sim=0.603 PPL=8.1 EM=0.00 F1=0.08 | lat=4.54s
+[73/360] weighted_merge               | id=md_09 | Sim=0.678 PPL=10.7 EM=0.00 F1=0.15 | lat=4.55s
+[74/360] late_layer_injection         | id=md_09 | Sim=0.677 PPL=10.8 EM=0.00 F1=0.15 | lat=4.19s
+[75/360] sequential_token_segments    | id=md_09 | Sim=0.677 PPL=10.7 EM=0.00 F1=0.15 | lat=5.17s
+[76/360] late_last_quarter            | id=md_09 | Sim=0.681 PPL=11.0 EM=0.00 F1=0.14 | lat=3.58s
+[77/360] sequential_reverse           | id=md_09 | Sim=0.681 PPL=10.7 EM=0.00 F1=0.14 | lat=5.44s
+[78/360] early_third_only             | id=md_09 | Sim=0.681 PPL=11.1 EM=0.00 F1=0.14 | lat=2.37s
+[79/360] oracle_single_d1             | id=md_09 | Sim=0.681 PPL=11.0 EM=0.00 F1=0.14 | lat=4.99s
+[80/360] oracle_single_d2             | id=md_09 | Sim=0.677 PPL=10.8 EM=0.00 F1=0.15 | lat=5.58s
+[81/360] merge_high_clamp             | id=md_09 | Sim=0.678 PPL=10.7 EM=0.00 F1=0.15 | lat=4.96s
+[82/360] weighted_merge               | id=md_10 | Sim=0.672 PPL=6.9 EM=0.00 F1=0.21 | lat=5.03s
+[83/360] late_layer_injection         | id=md_10 | Sim=0.713 PPL=6.9 EM=0.00 F1=0.20 | lat=4.56s
+[84/360] sequential_token_segments    | id=md_10 | Sim=0.665 PPL=6.9 EM=0.00 F1=0.19 | lat=5.18s
+[85/360] late_last_quarter            | id=md_10 | Sim=0.707 PPL=7.0 EM=0.00 F1=0.18 | lat=3.51s
+[86/360] sequential_reverse           | id=md_10 | Sim=0.711 PPL=6.9 EM=0.00 F1=0.18 | lat=5.01s
+[87/360] early_third_only             | id=md_10 | Sim=0.677 PPL=7.0 EM=0.00 F1=0.22 | lat=2.15s
+[88/360] oracle_single_d1             | id=md_10 | Sim=0.711 PPL=6.9 EM=0.00 F1=0.18 | lat=4.52s
+[89/360] oracle_single_d2             | id=md_10 | Sim=0.665 PPL=7.0 EM=0.00 F1=0.19 | lat=4.58s
+[90/360] merge_high_clamp             | id=md_10 | Sim=0.672 PPL=6.9 EM=0.00 F1=0.21 | lat=4.57s
+[91/360] weighted_merge               | id=md_11 | Sim=0.478 PPL=6.2 EM=0.00 F1=0.19 | lat=4.58s
+[92/360] late_layer_injection         | id=md_11 | Sim=0.488 PPL=6.2 EM=0.00 F1=0.21 | lat=4.14s
+[93/360] sequential_token_segments    | id=md_11 | Sim=0.479 PPL=6.2 EM=0.00 F1=0.23 | lat=4.80s
+[94/360] late_last_quarter            | id=md_11 | Sim=0.475 PPL=6.2 EM=0.00 F1=0.21 | lat=3.11s
+[95/360] sequential_reverse           | id=md_11 | Sim=0.440 PPL=6.2 EM=0.00 F1=0.22 | lat=4.79s
+[96/360] early_third_only             | id=md_11 | Sim=0.571 PPL=6.2 EM=0.00 F1=0.25 | lat=2.10s
+[97/360] oracle_single_d1             | id=md_11 | Sim=0.440 PPL=6.1 EM=0.00 F1=0.22 | lat=4.53s
+[98/360] oracle_single_d2             | id=md_11 | Sim=0.467 PPL=6.3 EM=0.00 F1=0.22 | lat=4.54s
+[99/360] merge_high_clamp             | id=md_11 | Sim=0.478 PPL=6.2 EM=0.00 F1=0.19 | lat=5.11s
+[100/360] weighted_merge               | id=md_12 | Sim=0.667 PPL=13.5 EM=0.00 F1=0.10 | lat=5.01s
+[101/360] late_layer_injection         | id=md_12 | Sim=0.655 PPL=13.4 EM=0.00 F1=0.09 | lat=4.55s
+[102/360] sequential_token_segments    | id=md_12 | Sim=0.629 PPL=13.5 EM=0.00 F1=0.09 | lat=5.25s
+[103/360] late_last_quarter            | id=md_12 | Sim=0.613 PPL=13.4 EM=0.00 F1=0.08 | lat=3.32s
+[104/360] sequential_reverse           | id=md_12 | Sim=0.617 PPL=13.5 EM=0.00 F1=0.10 | lat=5.21s
+[105/360] early_third_only             | id=md_12 | Sim=0.661 PPL=13.2 EM=0.00 F1=0.09 | lat=2.21s
+[106/360] oracle_single_d1             | id=md_12 | Sim=0.652 PPL=13.2 EM=0.00 F1=0.09 | lat=4.92s
+[107/360] oracle_single_d2             | id=md_12 | Sim=0.629 PPL=13.6 EM=0.00 F1=0.09 | lat=4.94s
+[108/360] merge_high_clamp             | id=md_12 | Sim=0.667 PPL=13.5 EM=0.00 F1=0.10 | lat=4.89s
+[109/360] weighted_merge               | id=md_13 | Sim=0.615 PPL=21.0 EM=0.00 F1=0.17 | lat=5.05s
+[110/360] late_layer_injection         | id=md_13 | Sim=0.637 PPL=21.1 EM=0.00 F1=0.19 | lat=4.84s
+[111/360] sequential_token_segments    | id=md_13 | Sim=0.614 PPL=21.0 EM=0.00 F1=0.17 | lat=5.28s
+[112/360] late_last_quarter            | id=md_13 | Sim=0.618 PPL=21.3 EM=0.00 F1=0.15 | lat=3.35s
+[113/360] sequential_reverse           | id=md_13 | Sim=0.630 PPL=21.0 EM=0.00 F1=0.17 | lat=5.19s
+[114/360] early_third_only             | id=md_13 | Sim=0.625 PPL=21.1 EM=0.00 F1=0.19 | lat=2.23s
+[115/360] oracle_single_d1             | id=md_13 | Sim=0.604 PPL=21.0 EM=0.00 F1=0.17 | lat=4.96s
+[116/360] oracle_single_d2             | id=md_13 | Sim=0.606 PPL=21.1 EM=0.00 F1=0.17 | lat=5.00s
+[117/360] merge_high_clamp             | id=md_13 | Sim=0.615 PPL=21.0 EM=0.00 F1=0.17 | lat=4.95s
+[118/360] weighted_merge               | id=md_14 | Sim=0.790 PPL=15.1 EM=0.00 F1=0.22 | lat=4.94s
+[119/360] late_layer_injection         | id=md_14 | Sim=0.818 PPL=15.1 EM=0.00 F1=0.23 | lat=4.57s
+[120/360] sequential_token_segments    | id=md_14 | Sim=0.749 PPL=15.1 EM=0.00 F1=0.18 | lat=5.19s
+[121/360] late_last_quarter            | id=md_14 | Sim=0.785 PPL=15.4 EM=0.00 F1=0.19 | lat=3.29s
+[122/360] sequential_reverse           | id=md_14 | Sim=0.787 PPL=15.1 EM=0.00 F1=0.22 | lat=5.18s
+[123/360] early_third_only             | id=md_14 | Sim=0.810 PPL=15.3 EM=0.00 F1=0.24 | lat=2.27s
+[124/360] oracle_single_d1             | id=md_14 | Sim=0.724 PPL=15.3 EM=0.00 F1=0.19 | lat=4.97s
+[125/360] oracle_single_d2             | id=md_14 | Sim=0.812 PPL=15.2 EM=0.00 F1=0.22 | lat=4.97s
+[126/360] merge_high_clamp             | id=md_14 | Sim=0.790 PPL=15.1 EM=0.00 F1=0.22 | lat=4.94s
+[127/360] weighted_merge               | id=md_15 | Sim=0.475 PPL=21.0 EM=0.00 F1=0.21 | lat=5.06s
+[128/360] late_layer_injection         | id=md_15 | Sim=0.474 PPL=20.9 EM=0.00 F1=0.21 | lat=4.71s
+[129/360] sequential_token_segments    | id=md_15 | Sim=0.532 PPL=21.0 EM=0.00 F1=0.20 | lat=5.22s
+[130/360] late_last_quarter            | id=md_15 | Sim=0.515 PPL=21.0 EM=0.00 F1=0.20 | lat=3.45s
+[131/360] sequential_reverse           | id=md_15 | Sim=0.511 PPL=21.0 EM=0.00 F1=0.20 | lat=5.36s
+[132/360] early_third_only             | id=md_15 | Sim=0.571 PPL=99999.0 EM=0.00 F1=0.20 | lat=2.27s
+[133/360] oracle_single_d1             | id=md_15 | Sim=0.523 PPL=21.0 EM=0.00 F1=0.22 | lat=4.97s
+[134/360] oracle_single_d2             | id=md_15 | Sim=0.567 PPL=20.9 EM=0.00 F1=0.21 | lat=5.03s
+[135/360] merge_high_clamp             | id=md_15 | Sim=0.475 PPL=21.0 EM=0.00 F1=0.21 | lat=4.95s
+[136/360] weighted_merge               | id=md_16 | Sim=0.798 PPL=13.8 EM=0.00 F1=0.23 | lat=5.00s
+[137/360] late_layer_injection         | id=md_16 | Sim=0.776 PPL=14.0 EM=0.00 F1=0.24 | lat=4.71s
+[138/360] sequential_token_segments    | id=md_16 | Sim=0.829 PPL=13.8 EM=0.00 F1=0.29 | lat=5.09s
+[139/360] late_last_quarter            | id=md_16 | Sim=0.746 PPL=14.1 EM=0.00 F1=0.20 | lat=3.13s
+[140/360] sequential_reverse           | id=md_16 | Sim=0.783 PPL=13.8 EM=0.00 F1=0.24 | lat=5.03s
+[141/360] early_third_only             | id=md_16 | Sim=0.832 PPL=14.0 EM=0.00 F1=0.24 | lat=2.10s
+[142/360] oracle_single_d1             | id=md_16 | Sim=0.809 PPL=13.9 EM=0.00 F1=0.26 | lat=4.53s
+[143/360] oracle_single_d2             | id=md_16 | Sim=0.806 PPL=13.8 EM=0.00 F1=0.22 | lat=4.53s
+[144/360] merge_high_clamp             | id=md_16 | Sim=0.798 PPL=13.8 EM=0.00 F1=0.23 | lat=4.55s
+[145/360] weighted_merge               | id=md_17 | Sim=0.637 PPL=25.6 EM=0.00 F1=0.17 | lat=4.53s
+[146/360] late_layer_injection         | id=md_17 | Sim=0.642 PPL=26.0 EM=0.00 F1=0.16 | lat=4.13s
+[147/360] sequential_token_segments    | id=md_17 | Sim=0.729 PPL=25.6 EM=0.00 F1=0.17 | lat=4.80s
+[148/360] late_last_quarter            | id=md_17 | Sim=0.623 PPL=27.3 EM=0.00 F1=0.17 | lat=3.11s
+[149/360] sequential_reverse           | id=md_17 | Sim=0.686 PPL=25.6 EM=0.00 F1=0.14 | lat=4.80s
+[150/360] early_third_only             | id=md_17 | Sim=0.722 PPL=27.3 EM=0.00 F1=0.17 | lat=2.12s
+[151/360] oracle_single_d1             | id=md_17 | Sim=0.649 PPL=26.6 EM=0.00 F1=0.17 | lat=4.53s
+[152/360] oracle_single_d2             | id=md_17 | Sim=0.709 PPL=26.3 EM=0.00 F1=0.16 | lat=4.59s
+[153/360] merge_high_clamp             | id=md_17 | Sim=0.637 PPL=25.6 EM=0.00 F1=0.17 | lat=4.52s
+[154/360] weighted_merge               | id=md_18 | Sim=0.717 PPL=17.3 EM=0.00 F1=0.16 | lat=4.53s
+[155/360] late_layer_injection         | id=md_18 | Sim=0.747 PPL=17.5 EM=0.00 F1=0.15 | lat=4.13s
+[156/360] sequential_token_segments    | id=md_18 | Sim=0.740 PPL=17.3 EM=0.00 F1=0.18 | lat=4.80s
+[157/360] late_last_quarter            | id=md_18 | Sim=0.586 PPL=17.3 EM=0.00 F1=0.15 | lat=3.12s
+[158/360] sequential_reverse           | id=md_18 | Sim=0.695 PPL=17.3 EM=0.00 F1=0.17 | lat=4.82s
+[159/360] early_third_only             | id=md_18 | Sim=0.630 PPL=17.3 EM=0.00 F1=0.14 | lat=2.11s
+[160/360] oracle_single_d1             | id=md_18 | Sim=0.576 PPL=17.3 EM=0.00 F1=0.11 | lat=4.54s
+[161/360] oracle_single_d2             | id=md_18 | Sim=0.576 PPL=17.2 EM=0.00 F1=0.15 | lat=4.54s
+[162/360] merge_high_clamp             | id=md_18 | Sim=0.717 PPL=17.3 EM=0.00 F1=0.16 | lat=4.53s
+[163/360] weighted_merge               | id=md_19 | Sim=0.365 PPL=4.0 EM=0.00 F1=0.07 | lat=4.56s
+[164/360] late_layer_injection         | id=md_19 | Sim=0.365 PPL=4.0 EM=0.00 F1=0.07 | lat=4.15s
+[165/360] sequential_token_segments    | id=md_19 | Sim=0.452 PPL=4.0 EM=0.00 F1=0.10 | lat=4.85s
+[166/360] late_last_quarter            | id=md_19 | Sim=0.399 PPL=4.0 EM=0.00 F1=0.09 | lat=3.14s
+[167/360] sequential_reverse           | id=md_19 | Sim=0.399 PPL=4.0 EM=0.00 F1=0.09 | lat=4.80s
+[168/360] early_third_only             | id=md_19 | Sim=0.452 PPL=4.0 EM=0.00 F1=0.10 | lat=2.09s
+[169/360] oracle_single_d1             | id=md_19 | Sim=0.399 PPL=4.0 EM=0.00 F1=0.09 | lat=4.52s
+[170/360] oracle_single_d2             | id=md_19 | Sim=0.452 PPL=4.0 EM=0.00 F1=0.10 | lat=4.55s
+[171/360] merge_high_clamp             | id=md_19 | Sim=0.365 PPL=4.0 EM=0.00 F1=0.07 | lat=4.52s
+[172/360] weighted_merge               | id=md_20 | Sim=0.700 PPL=17.4 EM=0.00 F1=0.23 | lat=4.53s
+[173/360] late_layer_injection         | id=md_20 | Sim=0.674 PPL=16.9 EM=0.00 F1=0.24 | lat=4.13s
+[174/360] sequential_token_segments    | id=md_20 | Sim=0.783 PPL=17.4 EM=0.00 F1=0.23 | lat=4.78s
+[175/360] late_last_quarter            | id=md_20 | Sim=0.725 PPL=17.0 EM=0.00 F1=0.25 | lat=3.19s
+[176/360] sequential_reverse           | id=md_20 | Sim=0.694 PPL=17.4 EM=0.00 F1=0.25 | lat=4.81s
+[177/360] early_third_only             | id=md_20 | Sim=0.787 PPL=17.1 EM=0.00 F1=0.27 | lat=2.11s
+[178/360] oracle_single_d1             | id=md_20 | Sim=0.710 PPL=17.2 EM=0.00 F1=0.25 | lat=4.52s
+[179/360] oracle_single_d2             | id=md_20 | Sim=0.667 PPL=17.2 EM=0.00 F1=0.24 | lat=4.57s
+[180/360] merge_high_clamp             | id=md_20 | Sim=0.700 PPL=17.4 EM=0.00 F1=0.23 | lat=4.55s
+[181/360] weighted_merge               | id=md_21 | Sim=0.594 PPL=9.2 EM=0.00 F1=0.26 | lat=4.53s
+[182/360] late_layer_injection         | id=md_21 | Sim=0.606 PPL=9.3 EM=0.00 F1=0.27 | lat=4.13s
+[183/360] sequential_token_segments    | id=md_21 | Sim=0.620 PPL=9.2 EM=0.00 F1=0.31 | lat=4.79s
+[184/360] late_last_quarter            | id=md_21 | Sim=0.640 PPL=9.4 EM=0.00 F1=0.30 | lat=3.11s
+[185/360] sequential_reverse           | id=md_21 | Sim=0.694 PPL=9.2 EM=0.00 F1=0.33 | lat=4.80s
+[186/360] early_third_only             | id=md_21 | Sim=0.637 PPL=9.4 EM=0.00 F1=0.29 | lat=2.10s
+[187/360] oracle_single_d1             | id=md_21 | Sim=0.594 PPL=9.2 EM=0.00 F1=0.26 | lat=4.53s
+[188/360] oracle_single_d2             | id=md_21 | Sim=0.639 PPL=9.2 EM=0.00 F1=0.29 | lat=4.60s
+[189/360] merge_high_clamp             | id=md_21 | Sim=0.594 PPL=9.2 EM=0.00 F1=0.26 | lat=4.54s
+[190/360] weighted_merge               | id=md_22 | Sim=0.521 PPL=10.8 EM=0.00 F1=0.16 | lat=4.60s
+[191/360] late_layer_injection         | id=md_22 | Sim=0.503 PPL=10.8 EM=0.00 F1=0.15 | lat=4.15s
+[192/360] sequential_token_segments    | id=md_22 | Sim=0.531 PPL=10.8 EM=0.00 F1=0.15 | lat=4.85s
+[193/360] late_last_quarter            | id=md_22 | Sim=0.417 PPL=11.0 EM=0.00 F1=0.15 | lat=3.15s
+[194/360] sequential_reverse           | id=md_22 | Sim=0.521 PPL=10.8 EM=0.00 F1=0.16 | lat=4.80s
+[195/360] early_third_only             | id=md_22 | Sim=0.402 PPL=10.9 EM=0.00 F1=0.16 | lat=2.09s
+[196/360] oracle_single_d1             | id=md_22 | Sim=0.521 PPL=10.9 EM=0.00 F1=0.16 | lat=4.52s
+[197/360] oracle_single_d2             | id=md_22 | Sim=0.531 PPL=10.7 EM=0.00 F1=0.15 | lat=4.54s
+[198/360] merge_high_clamp             | id=md_22 | Sim=0.521 PPL=10.8 EM=0.00 F1=0.16 | lat=4.58s
+[199/360] weighted_merge               | id=md_23 | Sim=0.410 PPL=4.2 EM=0.00 F1=0.19 | lat=4.54s
+[200/360] late_layer_injection         | id=md_23 | Sim=0.574 PPL=4.2 EM=0.00 F1=0.24 | lat=4.19s
+[201/360] sequential_token_segments    | id=md_23 | Sim=0.615 PPL=4.2 EM=0.00 F1=0.18 | lat=4.80s
+[202/360] late_last_quarter            | id=md_23 | Sim=0.574 PPL=4.2 EM=0.00 F1=0.24 | lat=3.12s
+[203/360] sequential_reverse           | id=md_23 | Sim=0.458 PPL=4.2 EM=0.00 F1=0.22 | lat=4.84s
+[204/360] early_third_only             | id=md_23 | Sim=0.622 PPL=4.2 EM=0.00 F1=0.22 | lat=2.09s
+[205/360] oracle_single_d1             | id=md_23 | Sim=0.616 PPL=4.2 EM=0.00 F1=0.20 | lat=4.57s
+[206/360] oracle_single_d2             | id=md_23 | Sim=0.554 PPL=4.2 EM=0.00 F1=0.20 | lat=4.55s
+[207/360] merge_high_clamp             | id=md_23 | Sim=0.410 PPL=4.2 EM=0.00 F1=0.19 | lat=5.28s
+[208/360] weighted_merge               | id=md_24 | Sim=0.632 PPL=7.4 EM=0.00 F1=0.10 | lat=4.67s
+[209/360] late_layer_injection         | id=md_24 | Sim=0.611 PPL=7.4 EM=0.00 F1=0.10 | lat=4.16s
+[210/360] sequential_token_segments    | id=md_24 | Sim=0.694 PPL=7.4 EM=0.00 F1=0.05 | lat=4.84s
+[211/360] late_last_quarter            | id=md_24 | Sim=0.701 PPL=7.6 EM=0.00 F1=0.07 | lat=3.11s
+[212/360] sequential_reverse           | id=md_24 | Sim=0.645 PPL=7.4 EM=0.00 F1=0.08 | lat=4.78s
+[213/360] early_third_only             | id=md_24 | Sim=0.701 PPL=7.7 EM=0.00 F1=0.07 | lat=2.12s
+[214/360] oracle_single_d1             | id=md_24 | Sim=0.698 PPL=7.6 EM=0.00 F1=0.07 | lat=4.55s
+[215/360] oracle_single_d2             | id=md_24 | Sim=0.632 PPL=7.5 EM=0.00 F1=0.10 | lat=4.55s
+[216/360] merge_high_clamp             | id=md_24 | Sim=0.632 PPL=7.4 EM=0.00 F1=0.10 | lat=4.54s
+[217/360] weighted_merge               | id=md_25 | Sim=0.613 PPL=7.9 EM=0.00 F1=0.11 | lat=4.57s
+[218/360] late_layer_injection         | id=md_25 | Sim=0.550 PPL=7.9 EM=0.00 F1=0.10 | lat=4.20s
+[219/360] sequential_token_segments    | id=md_25 | Sim=0.606 PPL=7.9 EM=0.00 F1=0.11 | lat=4.84s
+[220/360] late_last_quarter            | id=md_25 | Sim=0.565 PPL=7.9 EM=0.00 F1=0.09 | lat=3.11s
+[221/360] sequential_reverse           | id=md_25 | Sim=0.690 PPL=7.9 EM=0.00 F1=0.12 | lat=4.78s
+[222/360] early_third_only             | id=md_25 | Sim=0.625 PPL=7.9 EM=0.00 F1=0.11 | lat=2.09s
+[223/360] oracle_single_d1             | id=md_25 | Sim=0.614 PPL=7.9 EM=0.00 F1=0.11 | lat=4.54s
+[224/360] oracle_single_d2             | id=md_25 | Sim=0.700 PPL=8.0 EM=0.00 F1=0.14 | lat=4.52s
+[225/360] merge_high_clamp             | id=md_25 | Sim=0.613 PPL=7.9 EM=0.00 F1=0.11 | lat=4.52s
+[226/360] weighted_merge               | id=md_26 | Sim=0.608 PPL=4.4 EM=0.00 F1=0.27 | lat=5.12s
+[227/360] late_layer_injection         | id=md_26 | Sim=0.608 PPL=4.3 EM=0.00 F1=0.27 | lat=4.24s
+[228/360] sequential_token_segments    | id=md_26 | Sim=0.624 PPL=4.4 EM=0.00 F1=0.28 | lat=4.85s
+[229/360] late_last_quarter            | id=md_26 | Sim=0.621 PPL=4.4 EM=0.00 F1=0.27 | lat=3.15s
+[230/360] sequential_reverse           | id=md_26 | Sim=0.644 PPL=4.4 EM=0.00 F1=0.28 | lat=4.87s
+[231/360] early_third_only             | id=md_26 | Sim=0.639 PPL=4.3 EM=0.00 F1=0.28 | lat=2.12s
+[232/360] oracle_single_d1             | id=md_26 | Sim=0.639 PPL=4.4 EM=0.00 F1=0.28 | lat=5.03s
+[233/360] oracle_single_d2             | id=md_26 | Sim=0.620 PPL=4.3 EM=0.00 F1=0.27 | lat=5.10s
+[234/360] merge_high_clamp             | id=md_26 | Sim=0.608 PPL=4.4 EM=0.00 F1=0.27 | lat=4.96s
+[235/360] weighted_merge               | id=md_27 | Sim=0.806 PPL=8.7 EM=0.00 F1=0.31 | lat=4.96s
+[236/360] late_layer_injection         | id=md_27 | Sim=0.722 PPL=8.7 EM=0.00 F1=0.24 | lat=4.65s
+[237/360] sequential_token_segments    | id=md_27 | Sim=0.727 PPL=8.7 EM=0.00 F1=0.24 | lat=5.21s
+[238/360] late_last_quarter            | id=md_27 | Sim=0.736 PPL=8.7 EM=0.00 F1=0.28 | lat=3.41s
+[239/360] sequential_reverse           | id=md_27 | Sim=0.746 PPL=8.7 EM=0.00 F1=0.25 | lat=5.22s
+[240/360] early_third_only             | id=md_27 | Sim=0.752 PPL=99999.0 EM=0.00 F1=0.29 | lat=2.23s
+[241/360] oracle_single_d1             | id=md_27 | Sim=0.726 PPL=8.7 EM=0.00 F1=0.27 | lat=5.01s
+[242/360] oracle_single_d2             | id=md_27 | Sim=0.749 PPL=8.6 EM=0.00 F1=0.25 | lat=4.97s
+[243/360] merge_high_clamp             | id=md_27 | Sim=0.806 PPL=8.7 EM=0.00 F1=0.31 | lat=5.02s
+[244/360] weighted_merge               | id=md_28 | Sim=0.656 PPL=15.8 EM=0.00 F1=0.30 | lat=5.04s
+[245/360] late_layer_injection         | id=md_28 | Sim=0.674 PPL=15.8 EM=0.00 F1=0.29 | lat=4.65s
+[246/360] sequential_token_segments    | id=md_28 | Sim=0.664 PPL=15.8 EM=0.00 F1=0.30 | lat=5.20s
+[247/360] late_last_quarter            | id=md_28 | Sim=0.681 PPL=16.0 EM=0.00 F1=0.27 | lat=3.39s
+[248/360] sequential_reverse           | id=md_28 | Sim=0.674 PPL=15.8 EM=0.00 F1=0.29 | lat=5.24s
+[249/360] early_third_only             | id=md_28 | Sim=0.668 PPL=16.0 EM=0.00 F1=0.30 | lat=2.25s
+[250/360] oracle_single_d1             | id=md_28 | Sim=0.674 PPL=15.8 EM=0.00 F1=0.29 | lat=4.94s
+[251/360] oracle_single_d2             | id=md_28 | Sim=0.664 PPL=15.9 EM=0.00 F1=0.30 | lat=4.95s
+[252/360] merge_high_clamp             | id=md_28 | Sim=0.656 PPL=15.8 EM=0.00 F1=0.30 | lat=4.92s
+[253/360] weighted_merge               | id=md_29 | Sim=0.539 PPL=15.7 EM=0.00 F1=0.20 | lat=5.02s
+[254/360] late_layer_injection         | id=md_29 | Sim=0.630 PPL=16.0 EM=0.00 F1=0.20 | lat=4.59s
+[255/360] sequential_token_segments    | id=md_29 | Sim=0.569 PPL=15.7 EM=0.00 F1=0.18 | lat=5.23s
+[256/360] late_last_quarter            | id=md_29 | Sim=0.613 PPL=16.1 EM=0.00 F1=0.19 | lat=3.41s
+[257/360] sequential_reverse           | id=md_29 | Sim=0.654 PPL=15.7 EM=0.00 F1=0.21 | lat=5.29s
+[258/360] early_third_only             | id=md_29 | Sim=0.649 PPL=16.0 EM=0.00 F1=0.18 | lat=2.24s
+[259/360] oracle_single_d1             | id=md_29 | Sim=0.640 PPL=15.9 EM=0.00 F1=0.21 | lat=4.92s
+[260/360] oracle_single_d2             | id=md_29 | Sim=0.665 PPL=15.8 EM=0.00 F1=0.20 | lat=5.03s
+[261/360] merge_high_clamp             | id=md_29 | Sim=0.539 PPL=15.7 EM=0.00 F1=0.20 | lat=4.98s
+[262/360] weighted_merge               | id=md_30 | Sim=0.590 PPL=24.1 EM=0.00 F1=0.20 | lat=5.02s
+[263/360] late_layer_injection         | id=md_30 | Sim=0.616 PPL=24.8 EM=0.00 F1=0.19 | lat=4.59s
+[264/360] sequential_token_segments    | id=md_30 | Sim=0.623 PPL=24.1 EM=0.00 F1=0.18 | lat=5.19s
+[265/360] late_last_quarter            | id=md_30 | Sim=0.558 PPL=25.2 EM=0.00 F1=0.23 | lat=3.41s
+[266/360] sequential_reverse           | id=md_30 | Sim=0.585 PPL=24.1 EM=0.00 F1=0.18 | lat=5.22s
+[267/360] early_third_only             | id=md_30 | Sim=0.496 PPL=25.3 EM=0.00 F1=0.15 | lat=2.24s
+[268/360] oracle_single_d1             | id=md_30 | Sim=0.614 PPL=24.4 EM=0.00 F1=0.19 | lat=5.01s
+[269/360] oracle_single_d2             | id=md_30 | Sim=0.585 PPL=25.1 EM=0.00 F1=0.20 | lat=5.09s
+[270/360] merge_high_clamp             | id=md_30 | Sim=0.590 PPL=24.1 EM=0.00 F1=0.20 | lat=4.96s
+[271/360] weighted_merge               | id=md_31 | Sim=0.726 PPL=9.6 EM=0.00 F1=0.17 | lat=4.92s
+[272/360] late_layer_injection         | id=md_31 | Sim=0.786 PPL=9.7 EM=0.00 F1=0.20 | lat=4.57s
+[273/360] sequential_token_segments    | id=md_31 | Sim=0.753 PPL=9.6 EM=0.00 F1=0.17 | lat=5.25s
+[274/360] late_last_quarter            | id=md_31 | Sim=0.768 PPL=9.8 EM=0.00 F1=0.19 | lat=3.41s
+[275/360] sequential_reverse           | id=md_31 | Sim=0.726 PPL=9.6 EM=0.00 F1=0.17 | lat=5.28s
+[276/360] early_third_only             | id=md_31 | Sim=0.768 PPL=9.7 EM=0.00 F1=0.20 | lat=2.23s
+[277/360] oracle_single_d1             | id=md_31 | Sim=0.780 PPL=9.6 EM=0.00 F1=0.19 | lat=4.89s
+[278/360] oracle_single_d2             | id=md_31 | Sim=0.767 PPL=9.7 EM=0.00 F1=0.19 | lat=4.60s
+[279/360] merge_high_clamp             | id=md_31 | Sim=0.726 PPL=9.6 EM=0.00 F1=0.17 | lat=4.59s
+[280/360] weighted_merge               | id=md_32 | Sim=0.466 PPL=3.0 EM=0.00 F1=0.19 | lat=4.62s
+[281/360] late_layer_injection         | id=md_32 | Sim=0.466 PPL=3.0 EM=0.00 F1=0.19 | lat=4.41s
+[282/360] sequential_token_segments    | id=md_32 | Sim=0.458 PPL=3.0 EM=0.00 F1=0.20 | lat=4.86s
+[283/360] late_last_quarter            | id=md_32 | Sim=0.551 PPL=3.0 EM=0.00 F1=0.21 | lat=3.13s
+[284/360] sequential_reverse           | id=md_32 | Sim=0.465 PPL=3.0 EM=0.00 F1=0.19 | lat=4.84s
+[285/360] early_third_only             | id=md_32 | Sim=0.551 PPL=99999.0 EM=0.00 F1=0.21 | lat=2.10s
+[286/360] oracle_single_d1             | id=md_32 | Sim=0.465 PPL=3.0 EM=0.00 F1=0.19 | lat=4.59s
+[287/360] oracle_single_d2             | id=md_32 | Sim=0.458 PPL=3.1 EM=0.00 F1=0.20 | lat=4.60s
+[288/360] merge_high_clamp             | id=md_32 | Sim=0.466 PPL=3.0 EM=0.00 F1=0.19 | lat=4.64s
+[289/360] weighted_merge               | id=md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=4.61s
+[290/360] late_layer_injection         | id=md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=4.20s
+[291/360] sequential_token_segments    | id=md_33 | Sim=0.786 PPL=4.8 EM=0.00 F1=0.16 | lat=4.90s
+[292/360] late_last_quarter            | id=md_33 | Sim=0.758 PPL=4.8 EM=0.00 F1=0.14 | lat=3.16s
+[293/360] sequential_reverse           | id=md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=4.85s
+[294/360] early_third_only             | id=md_33 | Sim=0.786 PPL=4.8 EM=0.00 F1=0.16 | lat=2.13s
+[295/360] oracle_single_d1             | id=md_33 | Sim=0.758 PPL=4.8 EM=0.00 F1=0.14 | lat=4.63s
+[296/360] oracle_single_d2             | id=md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=4.60s
+[297/360] merge_high_clamp             | id=md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=5.07s
+[298/360] weighted_merge               | id=md_34 | Sim=0.710 PPL=19.4 EM=0.00 F1=0.22 | lat=4.84s
+[299/360] late_layer_injection         | id=md_34 | Sim=0.731 PPL=19.4 EM=0.00 F1=0.26 | lat=4.19s
+[300/360] sequential_token_segments    | id=md_34 | Sim=0.760 PPL=19.4 EM=0.00 F1=0.26 | lat=4.79s
+[301/360] late_last_quarter            | id=md_34 | Sim=0.733 PPL=19.5 EM=0.00 F1=0.23 | lat=3.12s
+[302/360] sequential_reverse           | id=md_34 | Sim=0.727 PPL=19.4 EM=0.00 F1=0.22 | lat=4.84s
+[303/360] early_third_only             | id=md_34 | Sim=0.706 PPL=19.8 EM=0.00 F1=0.22 | lat=2.09s
+[304/360] oracle_single_d1             | id=md_34 | Sim=0.735 PPL=19.5 EM=0.00 F1=0.26 | lat=4.56s
+[305/360] oracle_single_d2             | id=md_34 | Sim=0.720 PPL=19.6 EM=0.00 F1=0.21 | lat=4.64s
+[306/360] merge_high_clamp             | id=md_34 | Sim=0.710 PPL=19.4 EM=0.00 F1=0.22 | lat=4.60s
+[307/360] weighted_merge               | id=md_35 | Sim=0.637 PPL=8.2 EM=0.00 F1=0.14 | lat=4.59s
+[308/360] late_layer_injection         | id=md_35 | Sim=0.635 PPL=8.1 EM=0.00 F1=0.14 | lat=4.18s
+[309/360] sequential_token_segments    | id=md_35 | Sim=0.597 PPL=8.2 EM=0.00 F1=0.14 | lat=4.82s
+[310/360] late_last_quarter            | id=md_35 | Sim=0.564 PPL=8.3 EM=0.00 F1=0.12 | lat=3.12s
+[311/360] sequential_reverse           | id=md_35 | Sim=0.608 PPL=8.2 EM=0.00 F1=0.14 | lat=4.91s
+[312/360] early_third_only             | id=md_35 | Sim=0.567 PPL=8.3 EM=0.00 F1=0.11 | lat=2.21s
+[313/360] oracle_single_d1             | id=md_35 | Sim=0.650 PPL=8.2 EM=0.00 F1=0.16 | lat=4.60s
+[314/360] oracle_single_d2             | id=md_35 | Sim=0.606 PPL=8.3 EM=0.00 F1=0.13 | lat=4.59s
+[315/360] merge_high_clamp             | id=md_35 | Sim=0.637 PPL=8.2 EM=0.00 F1=0.14 | lat=4.88s
+[316/360] weighted_merge               | id=md_36 | Sim=0.759 PPL=24.2 EM=0.00 F1=0.22 | lat=4.86s
+[317/360] late_layer_injection         | id=md_36 | Sim=0.745 PPL=24.5 EM=0.00 F1=0.19 | lat=4.27s
+[318/360] sequential_token_segments    | id=md_36 | Sim=0.766 PPL=24.2 EM=0.00 F1=0.23 | lat=4.83s
+[319/360] late_last_quarter            | id=md_36 | Sim=0.753 PPL=24.9 EM=0.00 F1=0.20 | lat=3.25s
+[320/360] sequential_reverse           | id=md_36 | Sim=0.754 PPL=24.2 EM=0.00 F1=0.21 | lat=4.88s
+[321/360] early_third_only             | id=md_36 | Sim=0.759 PPL=24.8 EM=0.00 F1=0.21 | lat=2.12s
+[322/360] oracle_single_d1             | id=md_36 | Sim=0.754 PPL=24.4 EM=0.00 F1=0.21 | lat=4.58s
+[323/360] oracle_single_d2             | id=md_36 | Sim=0.766 PPL=24.5 EM=0.00 F1=0.23 | lat=4.59s
+[324/360] merge_high_clamp             | id=md_36 | Sim=0.759 PPL=24.2 EM=0.00 F1=0.22 | lat=4.66s
+[325/360] weighted_merge               | id=md_37 | Sim=0.539 PPL=3.6 EM=0.00 F1=0.15 | lat=4.69s
+[326/360] late_layer_injection         | id=md_37 | Sim=0.619 PPL=3.6 EM=0.00 F1=0.11 | lat=4.28s
+[327/360] sequential_token_segments    | id=md_37 | Sim=0.602 PPL=3.6 EM=0.00 F1=0.13 | lat=5.01s
+[328/360] late_last_quarter            | id=md_37 | Sim=0.580 PPL=3.6 EM=0.00 F1=0.13 | lat=3.22s
+[329/360] sequential_reverse           | id=md_37 | Sim=0.617 PPL=3.6 EM=0.00 F1=0.11 | lat=4.94s
+[330/360] early_third_only             | id=md_37 | Sim=0.595 PPL=3.6 EM=0.00 F1=0.15 | lat=2.14s
+[331/360] oracle_single_d1             | id=md_37 | Sim=0.575 PPL=3.6 EM=0.00 F1=0.12 | lat=4.76s
+[332/360] oracle_single_d2             | id=md_37 | Sim=0.619 PPL=3.6 EM=0.00 F1=0.11 | lat=4.67s
+[333/360] merge_high_clamp             | id=md_37 | Sim=0.539 PPL=3.6 EM=0.00 F1=0.15 | lat=4.74s
+[334/360] weighted_merge               | id=md_38 | Sim=0.539 PPL=8.1 EM=0.00 F1=0.19 | lat=4.63s
+[335/360] late_layer_injection         | id=md_38 | Sim=0.591 PPL=7.9 EM=0.00 F1=0.13 | lat=4.50s
+[336/360] sequential_token_segments    | id=md_38 | Sim=0.563 PPL=8.1 EM=0.00 F1=0.08 | lat=4.86s
+[337/360] late_last_quarter            | id=md_38 | Sim=0.591 PPL=7.9 EM=0.00 F1=0.13 | lat=3.16s
+[338/360] sequential_reverse           | id=md_38 | Sim=0.567 PPL=8.1 EM=0.00 F1=0.28 | lat=3.72s
+[339/360] early_third_only             | id=md_38 | Sim=0.572 PPL=7.8 EM=0.00 F1=0.12 | lat=2.14s
+[340/360] oracle_single_d1             | id=md_38 | Sim=0.563 PPL=7.8 EM=0.00 F1=0.08 | lat=4.67s
+[341/360] oracle_single_d2             | id=md_38 | Sim=0.589 PPL=8.0 EM=0.00 F1=0.24 | lat=4.94s
+[342/360] merge_high_clamp             | id=md_38 | Sim=0.539 PPL=8.1 EM=0.00 F1=0.19 | lat=4.68s
+[343/360] weighted_merge               | id=md_39 | Sim=0.491 PPL=4.5 EM=0.00 F1=0.11 | lat=4.76s
+[344/360] late_layer_injection         | id=md_39 | Sim=0.491 PPL=4.5 EM=0.00 F1=0.11 | lat=4.58s
+[345/360] sequential_token_segments    | id=md_39 | Sim=0.550 PPL=4.5 EM=0.00 F1=0.15 | lat=4.92s
+[346/360] late_last_quarter            | id=md_39 | Sim=0.562 PPL=4.5 EM=0.00 F1=0.15 | lat=3.19s
+[347/360] sequential_reverse           | id=md_39 | Sim=0.534 PPL=4.5 EM=0.00 F1=0.14 | lat=4.87s
+[348/360] early_third_only             | id=md_39 | Sim=0.584 PPL=4.5 EM=0.00 F1=0.19 | lat=2.27s
+[349/360] oracle_single_d1             | id=md_39 | Sim=0.534 PPL=4.5 EM=0.00 F1=0.14 | lat=4.61s
+[350/360] oracle_single_d2             | id=md_39 | Sim=0.550 PPL=4.5 EM=0.00 F1=0.15 | lat=4.67s
+[351/360] merge_high_clamp             | id=md_39 | Sim=0.491 PPL=4.5 EM=0.00 F1=0.11 | lat=4.71s
+[352/360] weighted_merge               | id=md_40 | Sim=0.641 PPL=10.2 EM=0.00 F1=0.38 | lat=4.60s
+[353/360] late_layer_injection         | id=md_40 | Sim=0.676 PPL=10.2 EM=0.00 F1=0.40 | lat=4.19s
+[354/360] sequential_token_segments    | id=md_40 | Sim=0.614 PPL=10.2 EM=0.00 F1=0.40 | lat=4.94s
+[355/360] late_last_quarter            | id=md_40 | Sim=0.606 PPL=10.3 EM=0.00 F1=0.34 | lat=3.15s
+[356/360] sequential_reverse           | id=md_40 | Sim=0.645 PPL=10.2 EM=0.00 F1=0.38 | lat=4.83s
+[357/360] early_third_only             | id=md_40 | Sim=0.608 PPL=10.3 EM=0.00 F1=0.39 | lat=2.16s
+[358/360] oracle_single_d1             | id=md_40 | Sim=0.621 PPL=10.2 EM=0.00 F1=0.40 | lat=4.67s
+[359/360] oracle_single_d2             | id=md_40 | Sim=0.600 PPL=10.3 EM=0.00 F1=0.37 | lat=4.67s
+[360/360] merge_high_clamp             | id=md_40 | Sim=0.641 PPL=10.2 EM=0.00 F1=0.38 | lat=4.63s
+
+Saved: /Users/uditjain/Desktop/adapter/results/injection_track_a.jsonl
+  weighted_merge               | Sim=0.637 | PPL=12.6 | EM=0.000 | F1=0.193 | Lat=4.74s
+  late_layer_injection         | Sim=0.649 | PPL=12.7 | EM=0.000 | F1=0.189 | Lat=4.34s
+  sequential_token_segments    | Sim=0.654 | PPL=12.6 | EM=0.000 | F1=0.186 | Lat=4.95s
+  late_last_quarter            | Sim=0.645 | PPL=12.8 | EM=0.000 | F1=0.185 | Lat=3.23s
+  sequential_reverse           | Sim=0.657 | PPL=12.6 | EM=0.000 | F1=0.197 | Lat=4.93s
+  early_third_only             | Sim=0.661 | PPL=10011.4 | EM=0.000 | F1=0.195 | Lat=2.16s
+  oracle_single_d1             | Sim=0.646 | PPL=12.7 | EM=0.000 | F1=0.186 | Lat=4.69s
+  oracle_single_d2             | Sim=0.656 | PPL=12.7 | EM=0.000 | F1=0.197 | Lat=4.72s
+  merge_high_clamp             | Sim=0.637 | PPL=12.6 | EM=0.000 | F1=0.193 | Lat=4.72s
+
+ vs weighted_merge [late_layer_injection]:
+   ΔSim: +1.93%  ΔPPL: +0.01
+   ΔEM relative: +0.00%  ΔF1 relative: -2.19%
+
+ vs weighted_merge [sequential_token_segments]:
+   ΔSim: +2.65%  ΔPPL: +0.00
+   ΔEM relative: +0.00%  ΔF1 relative: -3.74%
+
+ vs weighted_merge [late_last_quarter]:
+   ΔSim: +1.31%  ΔPPL: +0.13
+   ΔEM relative: +0.00%  ΔF1 relative: -3.89%
+
+ vs weighted_merge [sequential_reverse]:
+   ΔSim: +3.08%  ΔPPL: +0.00
+   ΔEM relative: +0.00%  ΔF1 relative: +2.27%
+
+ vs weighted_merge [early_third_only]:
+   ΔSim: +3.85%  ΔPPL: +9998.76
+   ΔEM relative: +0.00%  ΔF1 relative: +1.09%
+
+ vs weighted_merge [oracle_single_d1]:
+   ΔSim: +1.40%  ΔPPL: +0.05
+   ΔEM relative: +0.00%  ΔF1 relative: -3.63%
+
+ vs weighted_merge [oracle_single_d2]:
+   ΔSim: +2.98%  ΔPPL: +0.05
+   ΔEM relative: +0.00%  ΔF1 relative: +2.03%
+
+ vs weighted_merge [merge_high_clamp]:
+   ΔSim: +0.00%  ΔPPL: +0.00
+   ΔEM relative: +0.00%  ΔF1 relative: +0.00%
+
+======================================================================
+>>> Qwen injection Track B
+======================================================================
+
+Loading Base Engine: mlx-community/Qwen2.5-1.5B-Instruct-4bit...
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files: 100%|██████████| 9/9 [00:00<00:00, 26397.72it/s]
+Injecting RoutedLoRALinear layers...
+Loading adapters into UMA RAM...
+Dynamic Engine fully initialized.
+Dataset: /Users/uditjain/Desktop/adapter/data/multidomain_eval_external.json (40 rows raw)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|██████████| 103/103 [00:00<00:00, 8083.33it/s]
+[1mBertModel LOAD REPORT[0m from: sentence-transformers/all-MiniLM-L6-v2
+Key                     | Status     |  | 
+------------------------+------------+--+-
+embeddings.position_ids | UNEXPECTED |  | 
+
+[3mNotes:
+- UNEXPECTED[3m	:can be ignored when loading from different task/architecture; not ok if you expect identical arch.[0m
+[1/360] weighted_merge               | id=ext_md_01 | Sim=0.803 PPL=32.0 EM=0.00 F1=0.10 | lat=4.80s
+[2/360] late_layer_injection         | id=ext_md_01 | Sim=0.791 PPL=30.6 EM=0.00 F1=0.10 | lat=4.20s
+[3/360] sequential_token_segments    | id=ext_md_01 | Sim=0.785 PPL=32.0 EM=0.00 F1=0.10 | lat=4.89s
+[4/360] late_last_quarter            | id=ext_md_01 | Sim=0.822 PPL=30.0 EM=0.00 F1=0.09 | lat=3.27s
+[5/360] sequential_reverse           | id=ext_md_01 | Sim=0.799 PPL=32.0 EM=0.00 F1=0.10 | lat=4.89s
+[6/360] early_third_only             | id=ext_md_01 | Sim=0.782 PPL=29.9 EM=0.00 F1=0.09 | lat=2.20s
+[7/360] oracle_single_d1             | id=ext_md_01 | Sim=0.800 PPL=31.9 EM=0.00 F1=0.10 | lat=4.71s
+[8/360] oracle_single_d2             | id=ext_md_01 | Sim=0.786 PPL=30.2 EM=0.00 F1=0.10 | lat=4.60s
+[9/360] merge_high_clamp             | id=ext_md_01 | Sim=0.803 PPL=32.0 EM=0.00 F1=0.10 | lat=4.70s
+[10/360] weighted_merge               | id=ext_md_02 | Sim=0.755 PPL=24.5 EM=0.00 F1=0.19 | lat=4.63s
+[11/360] late_layer_injection         | id=ext_md_02 | Sim=0.759 PPL=25.3 EM=0.00 F1=0.19 | lat=4.17s
+[12/360] sequential_token_segments    | id=ext_md_02 | Sim=0.701 PPL=24.5 EM=0.00 F1=0.18 | lat=4.94s
+[13/360] late_last_quarter            | id=ext_md_02 | Sim=0.768 PPL=25.3 EM=0.00 F1=0.21 | lat=3.19s
+[14/360] sequential_reverse           | id=ext_md_02 | Sim=0.755 PPL=24.5 EM=0.00 F1=0.19 | lat=4.84s
+[15/360] early_third_only             | id=ext_md_02 | Sim=0.770 PPL=25.2 EM=0.00 F1=0.19 | lat=2.12s
+[16/360] oracle_single_d1             | id=ext_md_02 | Sim=0.754 PPL=24.7 EM=0.00 F1=0.19 | lat=4.63s
+[17/360] oracle_single_d2             | id=ext_md_02 | Sim=0.699 PPL=24.9 EM=0.00 F1=0.18 | lat=4.64s
+[18/360] merge_high_clamp             | id=ext_md_02 | Sim=0.755 PPL=24.5 EM=0.00 F1=0.19 | lat=4.59s
+[19/360] weighted_merge               | id=ext_md_03 | Sim=0.839 PPL=16.6 EM=0.00 F1=0.27 | lat=4.66s
+[20/360] late_layer_injection         | id=ext_md_03 | Sim=0.835 PPL=16.7 EM=0.00 F1=0.26 | lat=4.23s
+[21/360] sequential_token_segments    | id=ext_md_03 | Sim=0.830 PPL=16.6 EM=0.00 F1=0.24 | lat=5.15s
+[22/360] late_last_quarter            | id=ext_md_03 | Sim=0.831 PPL=17.6 EM=0.00 F1=0.22 | lat=3.29s
+[23/360] sequential_reverse           | id=ext_md_03 | Sim=0.858 PPL=16.6 EM=0.00 F1=0.24 | lat=4.92s
+[24/360] early_third_only             | id=ext_md_03 | Sim=0.873 PPL=17.7 EM=0.00 F1=0.25 | lat=2.15s
+[25/360] oracle_single_d1             | id=ext_md_03 | Sim=0.860 PPL=17.1 EM=0.00 F1=0.25 | lat=4.59s
+[26/360] oracle_single_d2             | id=ext_md_03 | Sim=0.865 PPL=17.1 EM=0.00 F1=0.25 | lat=4.56s
+[27/360] merge_high_clamp             | id=ext_md_03 | Sim=0.839 PPL=16.6 EM=0.00 F1=0.27 | lat=4.60s
+[28/360] weighted_merge               | id=ext_md_04 | Sim=0.537 PPL=17.5 EM=0.00 F1=0.19 | lat=4.57s
+[29/360] late_layer_injection         | id=ext_md_04 | Sim=0.539 PPL=17.2 EM=0.00 F1=0.09 | lat=4.16s
+[30/360] sequential_token_segments    | id=ext_md_04 | Sim=0.558 PPL=17.5 EM=0.00 F1=0.11 | lat=4.78s
+[31/360] late_last_quarter            | id=ext_md_04 | Sim=0.523 PPL=17.6 EM=0.00 F1=0.14 | lat=3.13s
+[32/360] sequential_reverse           | id=ext_md_04 | Sim=0.630 PPL=17.5 EM=0.00 F1=0.18 | lat=4.78s
+[33/360] early_third_only             | id=ext_md_04 | Sim=0.523 PPL=99999.0 EM=0.00 F1=0.14 | lat=2.10s
+[34/360] oracle_single_d1             | id=ext_md_04 | Sim=0.546 PPL=17.3 EM=0.00 F1=0.12 | lat=4.58s
+[35/360] oracle_single_d2             | id=ext_md_04 | Sim=0.631 PPL=18.0 EM=0.00 F1=0.21 | lat=4.59s
+[36/360] merge_high_clamp             | id=ext_md_04 | Sim=0.537 PPL=17.5 EM=0.00 F1=0.19 | lat=4.56s
+[37/360] weighted_merge               | id=ext_md_05 | Sim=0.751 PPL=11.7 EM=0.00 F1=0.28 | lat=4.55s
+[38/360] late_layer_injection         | id=ext_md_05 | Sim=0.733 PPL=11.7 EM=0.00 F1=0.25 | lat=4.27s
+[39/360] sequential_token_segments    | id=ext_md_05 | Sim=0.725 PPL=11.7 EM=0.00 F1=0.25 | lat=5.27s
+[40/360] late_last_quarter            | id=ext_md_05 | Sim=0.691 PPL=11.5 EM=0.00 F1=0.24 | lat=3.25s
+[41/360] sequential_reverse           | id=ext_md_05 | Sim=0.714 PPL=11.7 EM=0.00 F1=0.24 | lat=4.93s
+[42/360] early_third_only             | id=ext_md_05 | Sim=0.674 PPL=11.6 EM=0.00 F1=0.22 | lat=2.21s
+[43/360] oracle_single_d1             | id=ext_md_05 | Sim=0.753 PPL=11.6 EM=0.00 F1=0.25 | lat=4.59s
+[44/360] oracle_single_d2             | id=ext_md_05 | Sim=0.692 PPL=11.6 EM=0.00 F1=0.24 | lat=4.60s
+[45/360] merge_high_clamp             | id=ext_md_05 | Sim=0.751 PPL=11.7 EM=0.00 F1=0.28 | lat=4.58s
+[46/360] weighted_merge               | id=ext_md_06 | Sim=0.658 PPL=9.6 EM=0.00 F1=0.18 | lat=4.65s
+[47/360] late_layer_injection         | id=ext_md_06 | Sim=0.723 PPL=9.5 EM=0.00 F1=0.20 | lat=4.25s
+[48/360] sequential_token_segments    | id=ext_md_06 | Sim=0.610 PPL=9.6 EM=0.00 F1=0.16 | lat=4.85s
+[49/360] late_last_quarter            | id=ext_md_06 | Sim=0.775 PPL=9.3 EM=0.00 F1=0.28 | lat=3.21s
+[50/360] sequential_reverse           | id=ext_md_06 | Sim=0.801 PPL=9.6 EM=0.00 F1=0.29 | lat=5.01s
+[51/360] early_third_only             | id=ext_md_06 | Sim=0.775 PPL=9.3 EM=0.00 F1=0.28 | lat=2.27s
+[52/360] oracle_single_d1             | id=ext_md_06 | Sim=0.553 PPL=9.4 EM=0.00 F1=0.13 | lat=4.86s
+[53/360] oracle_single_d2             | id=ext_md_06 | Sim=0.813 PPL=9.5 EM=0.00 F1=0.28 | lat=5.02s
+[54/360] merge_high_clamp             | id=ext_md_06 | Sim=0.658 PPL=9.6 EM=0.00 F1=0.18 | lat=5.16s
+[55/360] weighted_merge               | id=ext_md_07 | Sim=0.697 PPL=9.5 EM=0.00 F1=0.22 | lat=5.22s
+[56/360] late_layer_injection         | id=ext_md_07 | Sim=0.719 PPL=9.3 EM=0.00 F1=0.21 | lat=4.67s
+[57/360] sequential_token_segments    | id=ext_md_07 | Sim=0.716 PPL=9.5 EM=0.00 F1=0.22 | lat=5.35s
+[58/360] late_last_quarter            | id=ext_md_07 | Sim=0.733 PPL=9.3 EM=0.00 F1=0.22 | lat=3.39s
+[59/360] sequential_reverse           | id=ext_md_07 | Sim=0.731 PPL=9.5 EM=0.00 F1=0.23 | lat=5.47s
+[60/360] early_third_only             | id=ext_md_07 | Sim=0.733 PPL=9.3 EM=0.00 F1=0.26 | lat=2.48s
+[61/360] oracle_single_d1             | id=ext_md_07 | Sim=0.728 PPL=9.4 EM=0.00 F1=0.24 | lat=5.23s
+[62/360] oracle_single_d2             | id=ext_md_07 | Sim=0.719 PPL=9.4 EM=0.00 F1=0.23 | lat=8.32s
+[63/360] merge_high_clamp             | id=ext_md_07 | Sim=0.697 PPL=9.5 EM=0.00 F1=0.22 | lat=5.05s
+[64/360] weighted_merge               | id=ext_md_08 | Sim=0.603 PPL=8.1 EM=0.00 F1=0.08 | lat=5.10s
+[65/360] late_layer_injection         | id=ext_md_08 | Sim=0.609 PPL=8.1 EM=0.00 F1=0.11 | lat=4.61s
+[66/360] sequential_token_segments    | id=ext_md_08 | Sim=0.628 PPL=8.1 EM=0.00 F1=0.11 | lat=5.89s
+[67/360] late_last_quarter            | id=ext_md_08 | Sim=0.623 PPL=8.2 EM=0.00 F1=0.12 | lat=5.61s
+[68/360] sequential_reverse           | id=ext_md_08 | Sim=0.623 PPL=8.1 EM=0.00 F1=0.12 | lat=5.40s
+[69/360] early_third_only             | id=ext_md_08 | Sim=0.621 PPL=8.3 EM=0.00 F1=0.12 | lat=2.31s
+[70/360] oracle_single_d1             | id=ext_md_08 | Sim=0.591 PPL=8.1 EM=0.00 F1=0.09 | lat=5.25s
+[71/360] oracle_single_d2             | id=ext_md_08 | Sim=0.623 PPL=8.2 EM=0.00 F1=0.12 | lat=5.17s
+[72/360] merge_high_clamp             | id=ext_md_08 | Sim=0.603 PPL=8.1 EM=0.00 F1=0.08 | lat=8.39s
+[73/360] weighted_merge               | id=ext_md_09 | Sim=0.678 PPL=10.7 EM=0.00 F1=0.15 | lat=5.05s
+[74/360] late_layer_injection         | id=ext_md_09 | Sim=0.677 PPL=10.8 EM=0.00 F1=0.15 | lat=4.77s
+[75/360] sequential_token_segments    | id=ext_md_09 | Sim=0.677 PPL=10.7 EM=0.00 F1=0.15 | lat=5.82s
+[76/360] late_last_quarter            | id=ext_md_09 | Sim=0.681 PPL=11.0 EM=0.00 F1=0.14 | lat=4.35s
+[77/360] sequential_reverse           | id=ext_md_09 | Sim=0.681 PPL=10.7 EM=0.00 F1=0.14 | lat=5.24s
+[78/360] early_third_only             | id=ext_md_09 | Sim=0.681 PPL=11.1 EM=0.00 F1=0.14 | lat=2.28s
+[79/360] oracle_single_d1             | id=ext_md_09 | Sim=0.681 PPL=11.0 EM=0.00 F1=0.14 | lat=5.09s
+[80/360] oracle_single_d2             | id=ext_md_09 | Sim=0.677 PPL=10.8 EM=0.00 F1=0.15 | lat=8.73s
+[81/360] merge_high_clamp             | id=ext_md_09 | Sim=0.678 PPL=10.7 EM=0.00 F1=0.15 | lat=4.98s
+[82/360] weighted_merge               | id=ext_md_10 | Sim=0.672 PPL=6.9 EM=0.00 F1=0.21 | lat=4.69s
+[83/360] late_layer_injection         | id=ext_md_10 | Sim=0.713 PPL=6.9 EM=0.00 F1=0.20 | lat=4.42s
+[84/360] sequential_token_segments    | id=ext_md_10 | Sim=0.665 PPL=6.9 EM=0.00 F1=0.19 | lat=4.90s
+[85/360] late_last_quarter            | id=ext_md_10 | Sim=0.707 PPL=7.0 EM=0.00 F1=0.18 | lat=3.20s
+[86/360] sequential_reverse           | id=ext_md_10 | Sim=0.711 PPL=6.9 EM=0.00 F1=0.18 | lat=4.83s
+[87/360] early_third_only             | id=ext_md_10 | Sim=0.677 PPL=7.0 EM=0.00 F1=0.22 | lat=2.11s
+[88/360] oracle_single_d1             | id=ext_md_10 | Sim=0.711 PPL=6.9 EM=0.00 F1=0.18 | lat=4.62s
+[89/360] oracle_single_d2             | id=ext_md_10 | Sim=0.665 PPL=7.0 EM=0.00 F1=0.19 | lat=5.07s
+[90/360] merge_high_clamp             | id=ext_md_10 | Sim=0.672 PPL=6.9 EM=0.00 F1=0.21 | lat=4.68s
+[91/360] weighted_merge               | id=ext_md_11 | Sim=0.478 PPL=6.2 EM=0.00 F1=0.19 | lat=4.69s
+[92/360] late_layer_injection         | id=ext_md_11 | Sim=0.488 PPL=6.2 EM=0.00 F1=0.21 | lat=4.21s
+[93/360] sequential_token_segments    | id=ext_md_11 | Sim=0.479 PPL=6.2 EM=0.00 F1=0.23 | lat=4.94s
+[94/360] late_last_quarter            | id=ext_md_11 | Sim=0.475 PPL=6.2 EM=0.00 F1=0.21 | lat=3.14s
+[95/360] sequential_reverse           | id=ext_md_11 | Sim=0.440 PPL=6.2 EM=0.00 F1=0.22 | lat=4.89s
+[96/360] early_third_only             | id=ext_md_11 | Sim=0.571 PPL=6.2 EM=0.00 F1=0.25 | lat=2.12s
+[97/360] oracle_single_d1             | id=ext_md_11 | Sim=0.440 PPL=6.1 EM=0.00 F1=0.22 | lat=4.59s
+[98/360] oracle_single_d2             | id=ext_md_11 | Sim=0.467 PPL=6.3 EM=0.00 F1=0.22 | lat=4.63s
+[99/360] merge_high_clamp             | id=ext_md_11 | Sim=0.478 PPL=6.2 EM=0.00 F1=0.19 | lat=4.65s
+[100/360] weighted_merge               | id=ext_md_12 | Sim=0.667 PPL=13.5 EM=0.00 F1=0.10 | lat=4.61s
+[101/360] late_layer_injection         | id=ext_md_12 | Sim=0.655 PPL=13.4 EM=0.00 F1=0.09 | lat=4.20s
+[102/360] sequential_token_segments    | id=ext_md_12 | Sim=0.629 PPL=13.5 EM=0.00 F1=0.09 | lat=4.89s
+[103/360] late_last_quarter            | id=ext_md_12 | Sim=0.613 PPL=13.4 EM=0.00 F1=0.08 | lat=3.14s
+[104/360] sequential_reverse           | id=ext_md_12 | Sim=0.617 PPL=13.5 EM=0.00 F1=0.10 | lat=4.94s
+[105/360] early_third_only             | id=ext_md_12 | Sim=0.661 PPL=13.2 EM=0.00 F1=0.09 | lat=2.24s
+[106/360] oracle_single_d1             | id=ext_md_12 | Sim=0.652 PPL=13.2 EM=0.00 F1=0.09 | lat=5.02s
+[107/360] oracle_single_d2             | id=ext_md_12 | Sim=0.629 PPL=13.6 EM=0.00 F1=0.09 | lat=5.07s
+[108/360] merge_high_clamp             | id=ext_md_12 | Sim=0.667 PPL=13.5 EM=0.00 F1=0.10 | lat=5.12s
+[109/360] weighted_merge               | id=ext_md_13 | Sim=0.615 PPL=21.0 EM=0.00 F1=0.17 | lat=4.99s
+[110/360] late_layer_injection         | id=ext_md_13 | Sim=0.637 PPL=21.1 EM=0.00 F1=0.19 | lat=4.60s
+[111/360] sequential_token_segments    | id=ext_md_13 | Sim=0.614 PPL=21.0 EM=0.00 F1=0.17 | lat=5.21s
+[112/360] late_last_quarter            | id=ext_md_13 | Sim=0.618 PPL=21.3 EM=0.00 F1=0.15 | lat=3.33s
+[113/360] sequential_reverse           | id=ext_md_13 | Sim=0.630 PPL=21.0 EM=0.00 F1=0.17 | lat=5.34s
+[114/360] early_third_only             | id=ext_md_13 | Sim=0.625 PPL=21.1 EM=0.00 F1=0.19 | lat=2.28s
+[115/360] oracle_single_d1             | id=ext_md_13 | Sim=0.604 PPL=21.0 EM=0.00 F1=0.17 | lat=5.04s
+[116/360] oracle_single_d2             | id=ext_md_13 | Sim=0.606 PPL=21.1 EM=0.00 F1=0.17 | lat=4.99s
+[117/360] merge_high_clamp             | id=ext_md_13 | Sim=0.615 PPL=21.0 EM=0.00 F1=0.17 | lat=4.96s
+[118/360] weighted_merge               | id=ext_md_14 | Sim=0.790 PPL=15.1 EM=0.00 F1=0.22 | lat=5.09s
+[119/360] late_layer_injection         | id=ext_md_14 | Sim=0.818 PPL=15.1 EM=0.00 F1=0.23 | lat=4.62s
+[120/360] sequential_token_segments    | id=ext_md_14 | Sim=0.749 PPL=15.1 EM=0.00 F1=0.18 | lat=5.36s
+[121/360] late_last_quarter            | id=ext_md_14 | Sim=0.785 PPL=15.4 EM=0.00 F1=0.19 | lat=3.36s
+[122/360] sequential_reverse           | id=ext_md_14 | Sim=0.787 PPL=15.1 EM=0.00 F1=0.22 | lat=5.34s
+[123/360] early_third_only             | id=ext_md_14 | Sim=0.810 PPL=15.3 EM=0.00 F1=0.24 | lat=2.25s
+[124/360] oracle_single_d1             | id=ext_md_14 | Sim=0.724 PPL=15.3 EM=0.00 F1=0.19 | lat=4.96s
+[125/360] oracle_single_d2             | id=ext_md_14 | Sim=0.812 PPL=15.2 EM=0.00 F1=0.22 | lat=5.05s
+[126/360] merge_high_clamp             | id=ext_md_14 | Sim=0.790 PPL=15.1 EM=0.00 F1=0.22 | lat=4.99s
+[127/360] weighted_merge               | id=ext_md_15 | Sim=0.475 PPL=21.0 EM=0.00 F1=0.21 | lat=5.07s
+[128/360] late_layer_injection         | id=ext_md_15 | Sim=0.474 PPL=20.9 EM=0.00 F1=0.21 | lat=4.68s
+[129/360] sequential_token_segments    | id=ext_md_15 | Sim=0.532 PPL=21.0 EM=0.00 F1=0.20 | lat=5.39s
+[130/360] late_last_quarter            | id=ext_md_15 | Sim=0.515 PPL=21.0 EM=0.00 F1=0.20 | lat=3.45s
+[131/360] sequential_reverse           | id=ext_md_15 | Sim=0.511 PPL=21.0 EM=0.00 F1=0.20 | lat=5.37s
+[132/360] early_third_only             | id=ext_md_15 | Sim=0.571 PPL=99999.0 EM=0.00 F1=0.20 | lat=2.29s
+[133/360] oracle_single_d1             | id=ext_md_15 | Sim=0.523 PPL=21.0 EM=0.00 F1=0.22 | lat=5.02s
+[134/360] oracle_single_d2             | id=ext_md_15 | Sim=0.567 PPL=20.9 EM=0.00 F1=0.21 | lat=5.10s
+[135/360] merge_high_clamp             | id=ext_md_15 | Sim=0.475 PPL=21.0 EM=0.00 F1=0.21 | lat=5.02s
+[136/360] weighted_merge               | id=ext_md_16 | Sim=0.798 PPL=13.8 EM=0.00 F1=0.23 | lat=4.96s
+[137/360] late_layer_injection         | id=ext_md_16 | Sim=0.776 PPL=14.0 EM=0.00 F1=0.24 | lat=4.74s
+[138/360] sequential_token_segments    | id=ext_md_16 | Sim=0.829 PPL=13.8 EM=0.00 F1=0.29 | lat=5.68s
+[139/360] late_last_quarter            | id=ext_md_16 | Sim=0.746 PPL=14.1 EM=0.00 F1=0.20 | lat=3.41s
+[140/360] sequential_reverse           | id=ext_md_16 | Sim=0.783 PPL=13.8 EM=0.00 F1=0.24 | lat=5.59s
+[141/360] early_third_only             | id=ext_md_16 | Sim=0.832 PPL=14.0 EM=0.00 F1=0.24 | lat=2.34s
+[142/360] oracle_single_d1             | id=ext_md_16 | Sim=0.809 PPL=13.9 EM=0.00 F1=0.26 | lat=5.03s
+[143/360] oracle_single_d2             | id=ext_md_16 | Sim=0.806 PPL=13.8 EM=0.00 F1=0.22 | lat=5.27s
+[144/360] merge_high_clamp             | id=ext_md_16 | Sim=0.798 PPL=13.8 EM=0.00 F1=0.23 | lat=4.71s
+[145/360] weighted_merge               | id=ext_md_17 | Sim=0.637 PPL=25.6 EM=0.00 F1=0.17 | lat=4.80s
+[146/360] late_layer_injection         | id=ext_md_17 | Sim=0.642 PPL=26.0 EM=0.00 F1=0.16 | lat=4.34s
+[147/360] sequential_token_segments    | id=ext_md_17 | Sim=0.729 PPL=25.6 EM=0.00 F1=0.17 | lat=5.65s
+[148/360] late_last_quarter            | id=ext_md_17 | Sim=0.623 PPL=27.3 EM=0.00 F1=0.17 | lat=3.20s
+[149/360] sequential_reverse           | id=ext_md_17 | Sim=0.686 PPL=25.6 EM=0.00 F1=0.14 | lat=4.83s
+[150/360] early_third_only             | id=ext_md_17 | Sim=0.722 PPL=27.3 EM=0.00 F1=0.17 | lat=2.09s
+[151/360] oracle_single_d1             | id=ext_md_17 | Sim=0.649 PPL=26.6 EM=0.00 F1=0.17 | lat=4.53s
+[152/360] oracle_single_d2             | id=ext_md_17 | Sim=0.709 PPL=26.3 EM=0.00 F1=0.16 | lat=4.60s
+[153/360] merge_high_clamp             | id=ext_md_17 | Sim=0.637 PPL=25.6 EM=0.00 F1=0.17 | lat=4.59s
+[154/360] weighted_merge               | id=ext_md_18 | Sim=0.717 PPL=17.3 EM=0.00 F1=0.16 | lat=4.55s
+[155/360] late_layer_injection         | id=ext_md_18 | Sim=0.747 PPL=17.5 EM=0.00 F1=0.15 | lat=4.18s
+[156/360] sequential_token_segments    | id=ext_md_18 | Sim=0.740 PPL=17.3 EM=0.00 F1=0.18 | lat=4.83s
+[157/360] late_last_quarter            | id=ext_md_18 | Sim=0.586 PPL=17.3 EM=0.00 F1=0.15 | lat=3.17s
+[158/360] sequential_reverse           | id=ext_md_18 | Sim=0.695 PPL=17.3 EM=0.00 F1=0.17 | lat=4.84s
+[159/360] early_third_only             | id=ext_md_18 | Sim=0.630 PPL=17.3 EM=0.00 F1=0.14 | lat=2.11s
+[160/360] oracle_single_d1             | id=ext_md_18 | Sim=0.576 PPL=17.3 EM=0.00 F1=0.11 | lat=4.53s
+[161/360] oracle_single_d2             | id=ext_md_18 | Sim=0.576 PPL=17.2 EM=0.00 F1=0.15 | lat=4.53s
+[162/360] merge_high_clamp             | id=ext_md_18 | Sim=0.717 PPL=17.3 EM=0.00 F1=0.16 | lat=4.55s
+[163/360] weighted_merge               | id=ext_md_19 | Sim=0.365 PPL=4.0 EM=0.00 F1=0.07 | lat=4.54s
+[164/360] late_layer_injection         | id=ext_md_19 | Sim=0.365 PPL=4.0 EM=0.00 F1=0.07 | lat=4.14s
+[165/360] sequential_token_segments    | id=ext_md_19 | Sim=0.452 PPL=4.0 EM=0.00 F1=0.10 | lat=4.79s
+[166/360] late_last_quarter            | id=ext_md_19 | Sim=0.399 PPL=4.0 EM=0.00 F1=0.09 | lat=3.12s
+[167/360] sequential_reverse           | id=ext_md_19 | Sim=0.399 PPL=4.0 EM=0.00 F1=0.09 | lat=4.80s
+[168/360] early_third_only             | id=ext_md_19 | Sim=0.452 PPL=4.0 EM=0.00 F1=0.10 | lat=2.15s
+[169/360] oracle_single_d1             | id=ext_md_19 | Sim=0.399 PPL=4.0 EM=0.00 F1=0.09 | lat=4.52s
+[170/360] oracle_single_d2             | id=ext_md_19 | Sim=0.452 PPL=4.0 EM=0.00 F1=0.10 | lat=4.58s
+[171/360] merge_high_clamp             | id=ext_md_19 | Sim=0.365 PPL=4.0 EM=0.00 F1=0.07 | lat=4.53s
+[172/360] weighted_merge               | id=ext_md_20 | Sim=0.700 PPL=17.4 EM=0.00 F1=0.23 | lat=4.54s
+[173/360] late_layer_injection         | id=ext_md_20 | Sim=0.674 PPL=16.9 EM=0.00 F1=0.24 | lat=4.13s
+[174/360] sequential_token_segments    | id=ext_md_20 | Sim=0.783 PPL=17.4 EM=0.00 F1=0.23 | lat=4.80s
+[175/360] late_last_quarter            | id=ext_md_20 | Sim=0.725 PPL=17.0 EM=0.00 F1=0.25 | lat=3.13s
+[176/360] sequential_reverse           | id=ext_md_20 | Sim=0.694 PPL=17.4 EM=0.00 F1=0.25 | lat=5.27s
+[177/360] early_third_only             | id=ext_md_20 | Sim=0.787 PPL=17.1 EM=0.00 F1=0.27 | lat=2.31s
+[178/360] oracle_single_d1             | id=ext_md_20 | Sim=0.710 PPL=17.2 EM=0.00 F1=0.25 | lat=5.24s
+[179/360] oracle_single_d2             | id=ext_md_20 | Sim=0.667 PPL=17.2 EM=0.00 F1=0.24 | lat=5.09s
+[180/360] merge_high_clamp             | id=ext_md_20 | Sim=0.700 PPL=17.4 EM=0.00 F1=0.23 | lat=4.98s
+[181/360] weighted_merge               | id=ext_md_21 | Sim=0.594 PPL=9.2 EM=0.00 F1=0.26 | lat=5.11s
+[182/360] late_layer_injection         | id=ext_md_21 | Sim=0.606 PPL=9.3 EM=0.00 F1=0.27 | lat=4.60s
+[183/360] sequential_token_segments    | id=ext_md_21 | Sim=0.620 PPL=9.2 EM=0.00 F1=0.31 | lat=5.43s
+[184/360] late_last_quarter            | id=ext_md_21 | Sim=0.640 PPL=9.4 EM=0.00 F1=0.30 | lat=3.33s
+[185/360] sequential_reverse           | id=ext_md_21 | Sim=0.694 PPL=9.2 EM=0.00 F1=0.33 | lat=4.93s
+[186/360] early_third_only             | id=ext_md_21 | Sim=0.637 PPL=9.4 EM=0.00 F1=0.29 | lat=2.13s
+[187/360] oracle_single_d1             | id=ext_md_21 | Sim=0.594 PPL=9.2 EM=0.00 F1=0.26 | lat=4.59s
+[188/360] oracle_single_d2             | id=ext_md_21 | Sim=0.639 PPL=9.2 EM=0.00 F1=0.29 | lat=4.56s
+[189/360] merge_high_clamp             | id=ext_md_21 | Sim=0.594 PPL=9.2 EM=0.00 F1=0.26 | lat=4.56s
+[190/360] weighted_merge               | id=ext_md_22 | Sim=0.521 PPL=10.8 EM=0.00 F1=0.16 | lat=4.59s
+[191/360] late_layer_injection         | id=ext_md_22 | Sim=0.503 PPL=10.8 EM=0.00 F1=0.15 | lat=4.18s
+[192/360] sequential_token_segments    | id=ext_md_22 | Sim=0.531 PPL=10.8 EM=0.00 F1=0.15 | lat=4.83s
+[193/360] late_last_quarter            | id=ext_md_22 | Sim=0.417 PPL=11.0 EM=0.00 F1=0.15 | lat=3.16s
+[194/360] sequential_reverse           | id=ext_md_22 | Sim=0.521 PPL=10.8 EM=0.00 F1=0.16 | lat=4.91s
+[195/360] early_third_only             | id=ext_md_22 | Sim=0.402 PPL=10.9 EM=0.00 F1=0.16 | lat=2.14s
+[196/360] oracle_single_d1             | id=ext_md_22 | Sim=0.521 PPL=10.9 EM=0.00 F1=0.16 | lat=4.56s
+[197/360] oracle_single_d2             | id=ext_md_22 | Sim=0.531 PPL=10.7 EM=0.00 F1=0.15 | lat=4.53s
+[198/360] merge_high_clamp             | id=ext_md_22 | Sim=0.521 PPL=10.8 EM=0.00 F1=0.16 | lat=4.53s
+[199/360] weighted_merge               | id=ext_md_23 | Sim=0.410 PPL=4.2 EM=0.00 F1=0.19 | lat=4.54s
+[200/360] late_layer_injection         | id=ext_md_23 | Sim=0.574 PPL=4.2 EM=0.00 F1=0.24 | lat=4.23s
+[201/360] sequential_token_segments    | id=ext_md_23 | Sim=0.615 PPL=4.2 EM=0.00 F1=0.18 | lat=4.87s
+[202/360] late_last_quarter            | id=ext_md_23 | Sim=0.574 PPL=4.2 EM=0.00 F1=0.24 | lat=3.15s
+[203/360] sequential_reverse           | id=ext_md_23 | Sim=0.458 PPL=4.2 EM=0.00 F1=0.22 | lat=4.85s
+[204/360] early_third_only             | id=ext_md_23 | Sim=0.622 PPL=4.2 EM=0.00 F1=0.22 | lat=2.17s
+[205/360] oracle_single_d1             | id=ext_md_23 | Sim=0.616 PPL=4.2 EM=0.00 F1=0.20 | lat=4.56s
+[206/360] oracle_single_d2             | id=ext_md_23 | Sim=0.554 PPL=4.2 EM=0.00 F1=0.20 | lat=4.59s
+[207/360] merge_high_clamp             | id=ext_md_23 | Sim=0.410 PPL=4.2 EM=0.00 F1=0.19 | lat=4.62s
+[208/360] weighted_merge               | id=ext_md_24 | Sim=0.632 PPL=7.4 EM=0.00 F1=0.10 | lat=4.58s
+[209/360] late_layer_injection         | id=ext_md_24 | Sim=0.611 PPL=7.4 EM=0.00 F1=0.10 | lat=4.13s
+[210/360] sequential_token_segments    | id=ext_md_24 | Sim=0.694 PPL=7.4 EM=0.00 F1=0.05 | lat=4.79s
+[211/360] late_last_quarter            | id=ext_md_24 | Sim=0.701 PPL=7.6 EM=0.00 F1=0.07 | lat=3.19s
+[212/360] sequential_reverse           | id=ext_md_24 | Sim=0.645 PPL=7.4 EM=0.00 F1=0.08 | lat=4.79s
+[213/360] early_third_only             | id=ext_md_24 | Sim=0.701 PPL=7.7 EM=0.00 F1=0.07 | lat=2.11s
+[214/360] oracle_single_d1             | id=ext_md_24 | Sim=0.698 PPL=7.6 EM=0.00 F1=0.07 | lat=4.53s
+[215/360] oracle_single_d2             | id=ext_md_24 | Sim=0.632 PPL=7.5 EM=0.00 F1=0.10 | lat=4.55s
+[216/360] merge_high_clamp             | id=ext_md_24 | Sim=0.632 PPL=7.4 EM=0.00 F1=0.10 | lat=4.54s
+[217/360] weighted_merge               | id=ext_md_25 | Sim=0.613 PPL=7.9 EM=0.00 F1=0.11 | lat=4.59s
+[218/360] late_layer_injection         | id=ext_md_25 | Sim=0.550 PPL=7.9 EM=0.00 F1=0.10 | lat=4.18s
+[219/360] sequential_token_segments    | id=ext_md_25 | Sim=0.606 PPL=7.9 EM=0.00 F1=0.11 | lat=4.84s
+[220/360] late_last_quarter            | id=ext_md_25 | Sim=0.565 PPL=7.9 EM=0.00 F1=0.09 | lat=3.14s
+[221/360] sequential_reverse           | id=ext_md_25 | Sim=0.690 PPL=7.9 EM=0.00 F1=0.12 | lat=4.83s
+[222/360] early_third_only             | id=ext_md_25 | Sim=0.625 PPL=7.9 EM=0.00 F1=0.11 | lat=2.12s
+[223/360] oracle_single_d1             | id=ext_md_25 | Sim=0.614 PPL=7.9 EM=0.00 F1=0.11 | lat=4.56s
+[224/360] oracle_single_d2             | id=ext_md_25 | Sim=0.700 PPL=8.0 EM=0.00 F1=0.14 | lat=4.60s
+[225/360] merge_high_clamp             | id=ext_md_25 | Sim=0.613 PPL=7.9 EM=0.00 F1=0.11 | lat=4.56s
+[226/360] weighted_merge               | id=ext_md_26 | Sim=0.608 PPL=4.4 EM=0.00 F1=0.27 | lat=4.54s
+[227/360] late_layer_injection         | id=ext_md_26 | Sim=0.608 PPL=4.3 EM=0.00 F1=0.27 | lat=4.14s
+[228/360] sequential_token_segments    | id=ext_md_26 | Sim=0.624 PPL=4.4 EM=0.00 F1=0.28 | lat=4.78s
+[229/360] late_last_quarter            | id=ext_md_26 | Sim=0.621 PPL=4.4 EM=0.00 F1=0.27 | lat=3.15s
+[230/360] sequential_reverse           | id=ext_md_26 | Sim=0.644 PPL=4.4 EM=0.00 F1=0.28 | lat=4.84s
+[231/360] early_third_only             | id=ext_md_26 | Sim=0.639 PPL=4.3 EM=0.00 F1=0.28 | lat=2.11s
+[232/360] oracle_single_d1             | id=ext_md_26 | Sim=0.639 PPL=4.4 EM=0.00 F1=0.28 | lat=4.56s
+[233/360] oracle_single_d2             | id=ext_md_26 | Sim=0.620 PPL=4.3 EM=0.00 F1=0.27 | lat=4.60s
+[234/360] merge_high_clamp             | id=ext_md_26 | Sim=0.608 PPL=4.4 EM=0.00 F1=0.27 | lat=4.56s
+[235/360] weighted_merge               | id=ext_md_27 | Sim=0.806 PPL=8.7 EM=0.00 F1=0.31 | lat=4.54s
+[236/360] late_layer_injection         | id=ext_md_27 | Sim=0.722 PPL=8.7 EM=0.00 F1=0.24 | lat=4.15s
+[237/360] sequential_token_segments    | id=ext_md_27 | Sim=0.727 PPL=8.7 EM=0.00 F1=0.24 | lat=4.82s
+[238/360] late_last_quarter            | id=ext_md_27 | Sim=0.736 PPL=8.7 EM=0.00 F1=0.28 | lat=3.15s
+[239/360] sequential_reverse           | id=ext_md_27 | Sim=0.746 PPL=8.7 EM=0.00 F1=0.25 | lat=5.59s
+[240/360] early_third_only             | id=ext_md_27 | Sim=0.752 PPL=99999.0 EM=0.00 F1=0.29 | lat=2.24s
+[241/360] oracle_single_d1             | id=ext_md_27 | Sim=0.726 PPL=8.7 EM=0.00 F1=0.27 | lat=4.96s
+[242/360] oracle_single_d2             | id=ext_md_27 | Sim=0.749 PPL=8.6 EM=0.00 F1=0.25 | lat=5.05s
+[243/360] merge_high_clamp             | id=ext_md_27 | Sim=0.806 PPL=8.7 EM=0.00 F1=0.31 | lat=5.00s
+[244/360] weighted_merge               | id=ext_md_28 | Sim=0.656 PPL=15.8 EM=0.00 F1=0.30 | lat=5.04s
+[245/360] late_layer_injection         | id=ext_md_28 | Sim=0.674 PPL=15.8 EM=0.00 F1=0.29 | lat=4.61s
+[246/360] sequential_token_segments    | id=ext_md_28 | Sim=0.664 PPL=15.8 EM=0.00 F1=0.30 | lat=5.31s
+[247/360] late_last_quarter            | id=ext_md_28 | Sim=0.681 PPL=16.0 EM=0.00 F1=0.27 | lat=3.33s
+[248/360] sequential_reverse           | id=ext_md_28 | Sim=0.674 PPL=15.8 EM=0.00 F1=0.29 | lat=5.30s
+[249/360] early_third_only             | id=ext_md_28 | Sim=0.668 PPL=16.0 EM=0.00 F1=0.30 | lat=2.32s
+[250/360] oracle_single_d1             | id=ext_md_28 | Sim=0.674 PPL=15.8 EM=0.00 F1=0.29 | lat=5.20s
+[251/360] oracle_single_d2             | id=ext_md_28 | Sim=0.664 PPL=15.9 EM=0.00 F1=0.30 | lat=5.17s
+[252/360] merge_high_clamp             | id=ext_md_28 | Sim=0.656 PPL=15.8 EM=0.00 F1=0.30 | lat=5.03s
+[253/360] weighted_merge               | id=ext_md_29 | Sim=0.539 PPL=15.7 EM=0.00 F1=0.20 | lat=5.17s
+[254/360] late_layer_injection         | id=ext_md_29 | Sim=0.630 PPL=16.0 EM=0.00 F1=0.20 | lat=4.64s
+[255/360] sequential_token_segments    | id=ext_md_29 | Sim=0.569 PPL=15.7 EM=0.00 F1=0.18 | lat=5.34s
+[256/360] late_last_quarter            | id=ext_md_29 | Sim=0.613 PPL=16.1 EM=0.00 F1=0.19 | lat=3.36s
+[257/360] sequential_reverse           | id=ext_md_29 | Sim=0.654 PPL=15.7 EM=0.00 F1=0.21 | lat=5.38s
+[258/360] early_third_only             | id=ext_md_29 | Sim=0.649 PPL=16.0 EM=0.00 F1=0.18 | lat=2.30s
+[259/360] oracle_single_d1             | id=ext_md_29 | Sim=0.640 PPL=15.9 EM=0.00 F1=0.21 | lat=5.04s
+[260/360] oracle_single_d2             | id=ext_md_29 | Sim=0.665 PPL=15.8 EM=0.00 F1=0.20 | lat=5.05s
+[261/360] merge_high_clamp             | id=ext_md_29 | Sim=0.539 PPL=15.7 EM=0.00 F1=0.20 | lat=5.07s
+[262/360] weighted_merge               | id=ext_md_30 | Sim=0.590 PPL=24.1 EM=0.00 F1=0.20 | lat=5.01s
+[263/360] late_layer_injection         | id=ext_md_30 | Sim=0.616 PPL=24.8 EM=0.00 F1=0.19 | lat=4.68s
+[264/360] sequential_token_segments    | id=ext_md_30 | Sim=0.623 PPL=24.1 EM=0.00 F1=0.18 | lat=5.26s
+[265/360] late_last_quarter            | id=ext_md_30 | Sim=0.558 PPL=25.2 EM=0.00 F1=0.23 | lat=3.41s
+[266/360] sequential_reverse           | id=ext_md_30 | Sim=0.585 PPL=24.1 EM=0.00 F1=0.18 | lat=5.27s
+[267/360] early_third_only             | id=ext_md_30 | Sim=0.496 PPL=25.3 EM=0.00 F1=0.15 | lat=2.24s
+[268/360] oracle_single_d1             | id=ext_md_30 | Sim=0.614 PPL=24.4 EM=0.00 F1=0.19 | lat=5.06s
+[269/360] oracle_single_d2             | id=ext_md_30 | Sim=0.585 PPL=25.1 EM=0.00 F1=0.20 | lat=4.99s
+[270/360] merge_high_clamp             | id=ext_md_30 | Sim=0.590 PPL=24.1 EM=0.00 F1=0.20 | lat=5.08s
+[271/360] weighted_merge               | id=ext_md_31 | Sim=0.726 PPL=9.6 EM=0.00 F1=0.17 | lat=5.03s
+[272/360] late_layer_injection         | id=ext_md_31 | Sim=0.786 PPL=9.7 EM=0.00 F1=0.20 | lat=4.68s
+[273/360] sequential_token_segments    | id=ext_md_31 | Sim=0.753 PPL=9.6 EM=0.00 F1=0.17 | lat=5.35s
+[274/360] late_last_quarter            | id=ext_md_31 | Sim=0.768 PPL=9.8 EM=0.00 F1=0.19 | lat=3.37s
+[275/360] sequential_reverse           | id=ext_md_31 | Sim=0.726 PPL=9.6 EM=0.00 F1=0.17 | lat=5.33s
+[276/360] early_third_only             | id=ext_md_31 | Sim=0.768 PPL=9.7 EM=0.00 F1=0.20 | lat=2.27s
+[277/360] oracle_single_d1             | id=ext_md_31 | Sim=0.780 PPL=9.6 EM=0.00 F1=0.19 | lat=4.95s
+[278/360] oracle_single_d2             | id=ext_md_31 | Sim=0.767 PPL=9.7 EM=0.00 F1=0.19 | lat=5.06s
+[279/360] merge_high_clamp             | id=ext_md_31 | Sim=0.726 PPL=9.6 EM=0.00 F1=0.17 | lat=4.98s
+[280/360] weighted_merge               | id=ext_md_32 | Sim=0.466 PPL=3.0 EM=0.00 F1=0.19 | lat=5.06s
+[281/360] late_layer_injection         | id=ext_md_32 | Sim=0.466 PPL=3.0 EM=0.00 F1=0.19 | lat=4.64s
+[282/360] sequential_token_segments    | id=ext_md_32 | Sim=0.458 PPL=3.0 EM=0.00 F1=0.20 | lat=5.33s
+[283/360] late_last_quarter            | id=ext_md_32 | Sim=0.551 PPL=3.0 EM=0.00 F1=0.21 | lat=3.35s
+[284/360] sequential_reverse           | id=ext_md_32 | Sim=0.465 PPL=3.0 EM=0.00 F1=0.19 | lat=5.35s
+[285/360] early_third_only             | id=ext_md_32 | Sim=0.551 PPL=99999.0 EM=0.00 F1=0.21 | lat=2.26s
+[286/360] oracle_single_d1             | id=ext_md_32 | Sim=0.465 PPL=3.0 EM=0.00 F1=0.19 | lat=5.05s
+[287/360] oracle_single_d2             | id=ext_md_32 | Sim=0.458 PPL=3.1 EM=0.00 F1=0.20 | lat=5.05s
+[288/360] merge_high_clamp             | id=ext_md_32 | Sim=0.466 PPL=3.0 EM=0.00 F1=0.19 | lat=5.02s
+[289/360] weighted_merge               | id=ext_md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=5.07s
+[290/360] late_layer_injection         | id=ext_md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=4.66s
+[291/360] sequential_token_segments    | id=ext_md_33 | Sim=0.786 PPL=4.8 EM=0.00 F1=0.16 | lat=5.38s
+[292/360] late_last_quarter            | id=ext_md_33 | Sim=0.758 PPL=4.8 EM=0.00 F1=0.14 | lat=3.37s
+[293/360] sequential_reverse           | id=ext_md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=5.37s
+[294/360] early_third_only             | id=ext_md_33 | Sim=0.786 PPL=4.8 EM=0.00 F1=0.16 | lat=2.28s
+[295/360] oracle_single_d1             | id=ext_md_33 | Sim=0.758 PPL=4.8 EM=0.00 F1=0.14 | lat=5.11s
+[296/360] oracle_single_d2             | id=ext_md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=5.07s
+[297/360] merge_high_clamp             | id=ext_md_33 | Sim=0.765 PPL=4.8 EM=0.00 F1=0.21 | lat=5.08s
+[298/360] weighted_merge               | id=ext_md_34 | Sim=0.710 PPL=19.4 EM=0.00 F1=0.22 | lat=5.54s
+[299/360] late_layer_injection         | id=ext_md_34 | Sim=0.731 PPL=19.4 EM=0.00 F1=0.26 | lat=4.90s
+[300/360] sequential_token_segments    | id=ext_md_34 | Sim=0.760 PPL=19.4 EM=0.00 F1=0.26 | lat=5.30s
+[301/360] late_last_quarter            | id=ext_md_34 | Sim=0.733 PPL=19.5 EM=0.00 F1=0.23 | lat=3.43s
+[302/360] sequential_reverse           | id=ext_md_34 | Sim=0.727 PPL=19.4 EM=0.00 F1=0.22 | lat=5.19s
+[303/360] early_third_only             | id=ext_md_34 | Sim=0.706 PPL=19.8 EM=0.00 F1=0.22 | lat=2.38s
+[304/360] oracle_single_d1             | id=ext_md_34 | Sim=0.735 PPL=19.5 EM=0.00 F1=0.26 | lat=5.09s
+[305/360] oracle_single_d2             | id=ext_md_34 | Sim=0.720 PPL=19.6 EM=0.00 F1=0.21 | lat=5.08s
+[306/360] merge_high_clamp             | id=ext_md_34 | Sim=0.710 PPL=19.4 EM=0.00 F1=0.22 | lat=4.94s
+[307/360] weighted_merge               | id=ext_md_35 | Sim=0.637 PPL=8.2 EM=0.00 F1=0.14 | lat=5.01s
+[308/360] late_layer_injection         | id=ext_md_35 | Sim=0.635 PPL=8.1 EM=0.00 F1=0.14 | lat=4.56s
+[309/360] sequential_token_segments    | id=ext_md_35 | Sim=0.597 PPL=8.2 EM=0.00 F1=0.14 | lat=5.24s
+[310/360] late_last_quarter            | id=ext_md_35 | Sim=0.564 PPL=8.3 EM=0.00 F1=0.12 | lat=3.37s
+[311/360] sequential_reverse           | id=ext_md_35 | Sim=0.608 PPL=8.2 EM=0.00 F1=0.14 | lat=5.24s
+[312/360] early_third_only             | id=ext_md_35 | Sim=0.567 PPL=8.3 EM=0.00 F1=0.11 | lat=2.30s
+[313/360] oracle_single_d1             | id=ext_md_35 | Sim=0.650 PPL=8.2 EM=0.00 F1=0.16 | lat=4.92s
+[314/360] oracle_single_d2             | id=ext_md_35 | Sim=0.606 PPL=8.3 EM=0.00 F1=0.13 | lat=4.85s
+[315/360] merge_high_clamp             | id=ext_md_35 | Sim=0.637 PPL=8.2 EM=0.00 F1=0.14 | lat=4.88s
+[316/360] weighted_merge               | id=ext_md_36 | Sim=0.759 PPL=24.2 EM=0.00 F1=0.22 | lat=4.96s
+[317/360] late_layer_injection         | id=ext_md_36 | Sim=0.745 PPL=24.5 EM=0.00 F1=0.19 | lat=4.58s
+[318/360] sequential_token_segments    | id=ext_md_36 | Sim=0.766 PPL=24.2 EM=0.00 F1=0.23 | lat=5.14s
+[319/360] late_last_quarter            | id=ext_md_36 | Sim=0.753 PPL=24.9 EM=0.00 F1=0.20 | lat=3.28s
+[320/360] sequential_reverse           | id=ext_md_36 | Sim=0.754 PPL=24.2 EM=0.00 F1=0.21 | lat=5.11s
+[321/360] early_third_only             | id=ext_md_36 | Sim=0.759 PPL=24.8 EM=0.00 F1=0.21 | lat=2.34s
+[322/360] oracle_single_d1             | id=ext_md_36 | Sim=0.754 PPL=24.4 EM=0.00 F1=0.21 | lat=4.99s
+[323/360] oracle_single_d2             | id=ext_md_36 | Sim=0.766 PPL=24.5 EM=0.00 F1=0.23 | lat=4.89s
+[324/360] merge_high_clamp             | id=ext_md_36 | Sim=0.759 PPL=24.2 EM=0.00 F1=0.22 | lat=4.84s
+[325/360] weighted_merge               | id=ext_md_37 | Sim=0.539 PPL=3.6 EM=0.00 F1=0.15 | lat=4.98s
+[326/360] late_layer_injection         | id=ext_md_37 | Sim=0.619 PPL=3.6 EM=0.00 F1=0.11 | lat=4.60s
+[327/360] sequential_token_segments    | id=ext_md_37 | Sim=0.602 PPL=3.6 EM=0.00 F1=0.13 | lat=5.22s
+[328/360] late_last_quarter            | id=ext_md_37 | Sim=0.580 PPL=3.6 EM=0.00 F1=0.13 | lat=3.42s
+[329/360] sequential_reverse           | id=ext_md_37 | Sim=0.617 PPL=3.6 EM=0.00 F1=0.11 | lat=5.28s
+[330/360] early_third_only             | id=ext_md_37 | Sim=0.595 PPL=3.6 EM=0.00 F1=0.15 | lat=2.27s
+[331/360] oracle_single_d1             | id=ext_md_37 | Sim=0.575 PPL=3.6 EM=0.00 F1=0.12 | lat=4.92s
+[332/360] oracle_single_d2             | id=ext_md_37 | Sim=0.619 PPL=3.6 EM=0.00 F1=0.11 | lat=4.94s
+[333/360] merge_high_clamp             | id=ext_md_37 | Sim=0.539 PPL=3.6 EM=0.00 F1=0.15 | lat=5.04s
+[334/360] weighted_merge               | id=ext_md_38 | Sim=0.539 PPL=8.1 EM=0.00 F1=0.19 | lat=5.14s
+[335/360] late_layer_injection         | id=ext_md_38 | Sim=0.591 PPL=7.9 EM=0.00 F1=0.13 | lat=4.51s
+[336/360] sequential_token_segments    | id=ext_md_38 | Sim=0.563 PPL=8.1 EM=0.00 F1=0.08 | lat=5.18s
+[337/360] late_last_quarter            | id=ext_md_38 | Sim=0.591 PPL=7.9 EM=0.00 F1=0.13 | lat=3.37s
+[338/360] sequential_reverse           | id=ext_md_38 | Sim=0.567 PPL=8.1 EM=0.00 F1=0.28 | lat=3.91s
+[339/360] early_third_only             | id=ext_md_38 | Sim=0.572 PPL=7.8 EM=0.00 F1=0.12 | lat=2.28s
+[340/360] oracle_single_d1             | id=ext_md_38 | Sim=0.563 PPL=7.8 EM=0.00 F1=0.08 | lat=4.94s
+[341/360] oracle_single_d2             | id=ext_md_38 | Sim=0.589 PPL=8.0 EM=0.00 F1=0.24 | lat=5.12s
+[342/360] merge_high_clamp             | id=ext_md_38 | Sim=0.539 PPL=8.1 EM=0.00 F1=0.19 | lat=4.92s
+[343/360] weighted_merge               | id=ext_md_39 | Sim=0.491 PPL=4.5 EM=0.00 F1=0.11 | lat=4.91s
+[344/360] late_layer_injection         | id=ext_md_39 | Sim=0.491 PPL=4.5 EM=0.00 F1=0.11 | lat=4.53s
+[345/360] sequential_token_segments    | id=ext_md_39 | Sim=0.550 PPL=4.5 EM=0.00 F1=0.15 | lat=5.21s
+[346/360] late_last_quarter            | id=ext_md_39 | Sim=0.562 PPL=4.5 EM=0.00 F1=0.15 | lat=3.37s
+[347/360] sequential_reverse           | id=ext_md_39 | Sim=0.534 PPL=4.5 EM=0.00 F1=0.14 | lat=5.28s
+[348/360] early_third_only             | id=ext_md_39 | Sim=0.584 PPL=4.5 EM=0.00 F1=0.19 | lat=2.33s
+[349/360] oracle_single_d1             | id=ext_md_39 | Sim=0.534 PPL=4.5 EM=0.00 F1=0.14 | lat=4.97s
+[350/360] oracle_single_d2             | id=ext_md_39 | Sim=0.550 PPL=4.5 EM=0.00 F1=0.15 | lat=4.87s
+[351/360] merge_high_clamp             | id=ext_md_39 | Sim=0.491 PPL=4.5 EM=0.00 F1=0.11 | lat=4.95s
+[352/360] weighted_merge               | id=ext_md_40 | Sim=0.641 PPL=10.2 EM=0.00 F1=0.38 | lat=4.93s
+[353/360] late_layer_injection         | id=ext_md_40 | Sim=0.676 PPL=10.2 EM=0.00 F1=0.40 | lat=4.64s
+[354/360] sequential_token_segments    | id=ext_md_40 | Sim=0.614 PPL=10.2 EM=0.00 F1=0.40 | lat=5.14s
+[355/360] late_last_quarter            | id=ext_md_40 | Sim=0.606 PPL=10.3 EM=0.00 F1=0.34 | lat=3.38s
+[356/360] sequential_reverse           | id=ext_md_40 | Sim=0.645 PPL=10.2 EM=0.00 F1=0.38 | lat=5.67s
+[357/360] early_third_only             | id=ext_md_40 | Sim=0.608 PPL=10.3 EM=0.00 F1=0.39 | lat=2.80s
+[358/360] oracle_single_d1             | id=ext_md_40 | Sim=0.621 PPL=10.2 EM=0.00 F1=0.40 | lat=5.07s
+[359/360] oracle_single_d2             | id=ext_md_40 | Sim=0.600 PPL=10.3 EM=0.00 F1=0.37 | lat=5.17s
+[360/360] merge_high_clamp             | id=ext_md_40 | Sim=0.641 PPL=10.2 EM=0.00 F1=0.38 | lat=5.06s
+
+Saved: /Users/uditjain/Desktop/adapter/results/injection_track_b.jsonl
+  weighted_merge               | Sim=0.637 | PPL=12.6 | EM=0.000 | F1=0.193 | Lat=4.85s
+  late_layer_injection         | Sim=0.649 | PPL=12.7 | EM=0.000 | F1=0.189 | Lat=4.44s
+  sequential_token_segments    | Sim=0.654 | PPL=12.6 | EM=0.000 | F1=0.186 | Lat=5.15s
+  late_last_quarter            | Sim=0.645 | PPL=12.8 | EM=0.000 | F1=0.185 | Lat=3.36s
+  sequential_reverse           | Sim=0.657 | PPL=12.6 | EM=0.000 | F1=0.197 | Lat=5.10s
+  early_third_only             | Sim=0.661 | PPL=10011.4 | EM=0.000 | F1=0.195 | Lat=2.24s
+  oracle_single_d1             | Sim=0.646 | PPL=12.7 | EM=0.000 | F1=0.186 | Lat=4.86s
+  oracle_single_d2             | Sim=0.656 | PPL=12.7 | EM=0.000 | F1=0.197 | Lat=5.05s
+  merge_high_clamp             | Sim=0.637 | PPL=12.6 | EM=0.000 | F1=0.193 | Lat=4.92s
+
+ vs weighted_merge [late_layer_injection]:
+   ΔSim: +1.93%  ΔPPL: +0.01
+   ΔEM relative: +0.00%  ΔF1 relative: -2.19%
+
+ vs weighted_merge [sequential_token_segments]:
+   ΔSim: +2.65%  ΔPPL: +0.00
+   ΔEM relative: +0.00%  ΔF1 relative: -3.74%
+
+ vs weighted_merge [late_last_quarter]:
+   ΔSim: +1.31%  ΔPPL: +0.13
+   ΔEM relative: +0.00%  ΔF1 relative: -3.89%
+
+ vs weighted_merge [sequential_reverse]:
+   ΔSim: +3.08%  ΔPPL: +0.00
+   ΔEM relative: +0.00%  ΔF1 relative: +2.27%
+
+ vs weighted_merge [early_third_only]:
+   ΔSim: +3.85%  ΔPPL: +9998.76
+   ΔEM relative: +0.00%  ΔF1 relative: +1.09%
+
+ vs weighted_merge [oracle_single_d1]:
+   ΔSim: +1.40%  ΔPPL: +0.05
+   ΔEM relative: +0.00%  ΔF1 relative: -3.63%
+
+ vs weighted_merge [oracle_single_d2]:
+   ΔSim: +2.98%  ΔPPL: +0.05
+   ΔEM relative: +0.00%  ΔF1 relative: +2.03%
+
+ vs weighted_merge [merge_high_clamp]:
+   ΔSim: +0.00%  ΔPPL: +0.00
+   ΔEM relative: +0.00%  ΔF1 relative: +0.00%
+
+Wrote results/showcase_pipeline_summary.json and results/showcase_pipeline_summary.txt

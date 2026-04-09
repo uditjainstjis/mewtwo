@@ -1,0 +1,247 @@
+[
+  {
+    "id": "ext_md_036",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "A museum label draft reads: \"Behold the decree of Hammurabi; thy authority over widows and debtors is absolute.\" The style guide says second-person archaic pronouns are allowed only if grammatically correct and historically non-misleading. Should this sentence pass? Give a brief decision and the main reason.",
+    "reference_answer": "No. \"Thy authority\" is grammatically possible before a consonant, but the bigger failure is historical framing: it addresses Hammurabi directly while implying a modern summary of the code as an absolute personal power over groups, which is misleading for an ancient legal monument. The line should be rewritten in neutral descriptive prose rather than mock-archaic direct address.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "rejects or fails the sentence",
+        "notes that the main problem is historical misleadingness rather than just pronoun form",
+        "identifies \"thy\" as grammatically acceptable before a consonant"
+      ],
+      "must_include_any": [
+        [
+          "direct address",
+          "apostrophe-style address"
+        ],
+        [
+          "rewrite in neutral prose",
+          "use descriptive modern wording"
+        ]
+      ],
+      "must_not_include": [
+        "claims \"thy authority\" is ungrammatical",
+        "treats Hammurabi's code as a personal letter"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:44:59.222160+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_037",
+    "domains": [
+      "ASTROPHYSICS",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "ASTROPHYSICS",
+      "PHILOSOPHY"
+    ],
+    "question": "A science exhibit caption says: \"A red giant becomes a white dwarf, so the star survives unchanged in identity.\" For a public-facing review, should that claim be accepted, softened, or rejected? Answer in one short paragraph using both physical continuity and a philosophical criterion of identity.",
+    "reference_answer": "It should be softened, not accepted as stated. Astrophysically, the white dwarf is the evolved remnant of the same star after major structural change and mass loss, so there is continuity of origin. Philosophically, whether it is \"unchanged in identity\" is too strong, because persistence through radical transformation depends on the identity criterion being used; the safer wording is that the star evolves into a white-dwarf remnant.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "soften rather than fully accept",
+        "mentions continuity from stellar evolution",
+        "states that \"unchanged in identity\" is too strong"
+      ],
+      "must_include_any": [
+        [
+          "mass loss",
+          "radical transformation"
+        ],
+        [
+          "criterion of identity",
+          "identity criterion"
+        ]
+      ],
+      "must_not_include": [
+        "rejects continuity entirely",
+        "claims a red giant and white dwarf are identical without qualification"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:44:59.222160+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_038",
+    "domains": [
+      "LATEX_FORMATTING",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "MUSIC_THEORY"
+    ],
+    "question": "A documentation note says: \"In engraved examples, accidentals always need to be reprinted on the second note of a tie across a barline, so our LaTeX macro should force that output.\" Analyze the bug in that reasoning and give the safer implementation rule.",
+    "reference_answer": "The reasoning confuses readability practice with the core notation rule. In common notation, the accidental continues through the tie, so the second tied note does not always require a repeated accidental; adding one may be a courtesy choice in some house styles or edge cases. The safer macro rule is to preserve pitch across the tie and allow an optional courtesy accidental rather than forcing one universally.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "states that tied notes carry the pitch across the barline",
+        "explains that repeating the accidental is not universally required",
+        "recommends optional or style-controlled courtesy accidental behavior"
+      ],
+      "must_include_any": [
+        [
+          "house style",
+          "engraving style"
+        ],
+        [
+          "courtesy accidental",
+          "cautionary accidental"
+        ]
+      ],
+      "must_not_include": [
+        "says the accidental must always be printed on the second tied note",
+        "treats the second tied note as a new attack"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:44:59.222160+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_039",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "question": "A regulator is reviewing a checkout flow that pre-ticks an arbitration clause and highlights \"most users keep this option.\" Write a two-sentence memo for a general counsel on the edge-case risk: the clause may be formally disclosed, but the product team claims users can still opt out.",
+    "reference_answer": "The main risk is that nominal disclosure and opt-out may not cure a design that steers assent through default effects and social-proof framing, which can undermine meaningful consent and create unfairness challenges. Counsel should review whether the presentation is likely to be treated as manipulative or insufficiently conspicuous even if the clause is technically present.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "identifies default or status-quo effect risk",
+        "identifies social-proof or normative framing risk",
+        "states that formal disclosure alone may not establish meaningful consent"
+      ],
+      "must_include_any": [
+        [
+          "dark pattern",
+          "manipulative design"
+        ],
+        [
+          "conspicuous",
+          "clear and prominent"
+        ]
+      ],
+      "must_not_include": [
+        "says opt-out automatically eliminates legal risk",
+        "ignores behavioral steering"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:44:59.222160+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_040",
+    "domains": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A ship operator has budget for one immediate change before the next season: rerouting to avoid newly ice-prone passages, or upgrading onboard fuel monitoring to support emissions compliance. Which should be prioritized if the company asks for the option with the sharper edge-case downside when ignored?",
+    "reference_answer": "Prioritize rerouting for the next season if the concern is sharper edge-case downside. Climate-driven ice variability can create immediate navigational and casualty risk, whereas weak fuel-monitoring controls usually create compliance and evidentiary problems that are serious but less abruptly catastrophic. The monitoring upgrade still matters, but the more severe near-term failure mode is unsafe voyage planning in changed ice conditions.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "prioritizes rerouting or voyage planning",
+        "ties the choice to immediate safety or casualty risk from changing ice conditions",
+        "distinguishes that fuel monitoring is mainly compliance or evidence risk"
+      ],
+      "must_include_any": [
+        [
+          "ice variability",
+          "ice unpredictability"
+        ],
+        [
+          "near-term catastrophic risk",
+          "abrupt operational hazard"
+        ]
+      ],
+      "must_not_include": [
+        "claims emissions compliance is irrelevant",
+        "treats climate risk as only a long-term issue"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:44:59.222160+00:00",
+      "section": "Edge Cases"
+    }
+  }
+]

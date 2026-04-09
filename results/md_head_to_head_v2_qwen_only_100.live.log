@@ -1,0 +1,903 @@
+[14:07:51] Dataset=data/multidomain_eval_claude_external_v2_100.json items=100 methods=['weighted_merge', 'late_layer_injection', 'sequential_reverse'] jobs=300
+[14:07:51] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[14:07:58] Qwen engine loaded in 2.51s
+[14:07:58] START job=1/300 item=1/100 id=ext_md_001 method=weighted_merge domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:08:11] DONE  job=1/300 id=ext_md_001 method=weighted_merge lat=7.11s em=0.00 f1=0.32 sim=0.754 avg/job=13.45s eta=1h07m02s
+[14:08:11] ANS   id=ext_md_001 method=weighted_merge preview=The primary legal vulnerability in the clause is that it is too vague to be enfo
+[14:08:11] START job=2/300 item=1/100 id=ext_md_001 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:08:18] DONE  job=2/300 id=ext_md_001 method=late_layer_injection lat=6.54s em=0.00 f1=0.27 sim=0.773 avg/job=10.03s eta=49m47s
+[14:08:18] ANS   id=ext_md_001 method=late_layer_injection preview=The primary legal vulnerability in the clause is that it is too vague to be enfo
+[14:08:18] START job=3/300 item=1/100 id=ext_md_001 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:08:25] DONE  job=3/300 id=ext_md_001 method=sequential_reverse lat=7.21s em=0.00 f1=0.32 sim=0.642 avg/job=9.11s eta=45m04s
+[14:08:25] ANS   id=ext_md_001 method=sequential_reverse preview=The primary legal vulnerability in the clause is that it is too vague to be enfo
+[14:08:25] START job=4/300 item=2/100 id=ext_md_002 method=weighted_merge domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:08:32] DONE  job=4/300 id=ext_md_002 method=weighted_merge lat=6.43s em=0.00 f1=0.24 sim=0.656 avg/job=8.45s eta=41m41s
+[14:08:32] ANS   id=ext_md_002 method=weighted_merge preview=To determine which opt-out design is more defensible, we need to consider both t
+[14:08:32] START job=5/300 item=2/100 id=ext_md_002 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:08:38] DONE  job=5/300 id=ext_md_002 method=late_layer_injection lat=6.10s em=0.00 f1=0.22 sim=0.680 avg/job=7.99s eta=39m16s
+[14:08:38] ANS   id=ext_md_002 method=late_layer_injection preview=To determine which opt-out design is more defensible, we need to consider both t
+[14:08:38] START job=6/300 item=2/100 id=ext_md_002 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:08:45] DONE  job=6/300 id=ext_md_002 method=sequential_reverse lat=6.85s em=0.00 f1=0.20 sim=0.704 avg/job=7.81s eta=38m15s
+[14:08:45] ANS   id=ext_md_002 method=sequential_reverse preview=To determine which opt-out design is more defensible, we need to consider both l
+[14:08:45] START job=7/300 item=3/100 id=ext_md_003 method=weighted_merge domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:08:49] DONE  job=7/300 id=ext_md_003 method=weighted_merge lat=4.58s em=0.00 f1=0.32 sim=0.625 avg/job=7.36s eta=35m55s
+[14:08:49] ANS   id=ext_md_003 method=weighted_merge preview=The motion to dismiss failed because the U.S. federal court's jurisdiction is no
+[14:08:49] START job=8/300 item=3/100 id=ext_md_003 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:08:56] DONE  job=8/300 id=ext_md_003 method=late_layer_injection lat=6.72s em=0.00 f1=0.31 sim=0.704 avg/job=7.29s eta=35m27s
+[14:08:56] ANS   id=ext_md_003 method=late_layer_injection preview=The motion to dismiss failed because the U.S. federal court's jurisdiction is no
+[14:08:56] START job=9/300 item=3/100 id=ext_md_003 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:09:02] DONE  job=9/300 id=ext_md_003 method=sequential_reverse lat=5.79s em=0.00 f1=0.35 sim=0.627 avg/job=7.13s eta=34m35s
+[14:09:02] ANS   id=ext_md_003 method=sequential_reverse preview=The motion to dismiss failed because the U.S. federal court's jurisdiction is no
+[14:09:02] START job=10/300 item=4/100 id=ext_md_004 method=weighted_merge domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[14:09:06] DONE  job=10/300 id=ext_md_004 method=weighted_merge lat=3.58s em=0.00 f1=0.43 sim=0.722 avg/job=6.78s eta=32m46s
+[14:09:06] ANS   id=ext_md_004 method=weighted_merge preview=The stronger defense is (A) arguing that the AI output was a decision-support to
+[14:09:06] START job=11/300 item=4/100 id=ext_md_004 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[14:09:08] DONE  job=11/300 id=ext_md_004 method=late_layer_injection lat=2.89s em=0.00 f1=0.43 sim=0.716 avg/job=6.43s eta=30m58s
+[14:09:08] ANS   id=ext_md_004 method=late_layer_injection preview=The stronger defense is (A) arguing that the AI output was a decision-support to
+[14:09:08] START job=12/300 item=4/100 id=ext_md_004 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[14:09:13] DONE  job=12/300 id=ext_md_004 method=sequential_reverse lat=4.51s em=0.00 f1=0.44 sim=0.714 avg/job=6.27s eta=30m06s
+[14:09:13] ANS   id=ext_md_004 method=sequential_reverse preview=The stronger defense is (A) arguing that the AI output was a decision-support to
+[14:09:13] START job=13/300 item=5/100 id=ext_md_005 method=weighted_merge domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[14:09:18] DONE  job=13/300 id=ext_md_005 method=weighted_merge lat=4.86s em=0.00 f1=0.34 sim=0.776 avg/job=6.17s eta=29m29s
+[14:09:18] ANS   id=ext_md_005 method=weighted_merge preview=In a strict-liability jurisdiction, the contributory negligence defense is likel
+[14:09:18] START job=14/300 item=5/100 id=ext_md_005 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[14:09:22] DONE  job=14/300 id=ext_md_005 method=late_layer_injection lat=4.36s em=0.00 f1=0.39 sim=0.771 avg/job=6.04s eta=28m47s
+[14:09:22] ANS   id=ext_md_005 method=late_layer_injection preview=In this scenario, the primary technical failure mode is the high-latency CAN bus
+[14:09:22] START job=15/300 item=5/100 id=ext_md_005 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[14:09:27] DONE  job=15/300 id=ext_md_005 method=sequential_reverse lat=5.06s em=0.00 f1=0.37 sim=0.764 avg/job=5.98s eta=28m23s
+[14:09:27] ANS   id=ext_md_005 method=sequential_reverse preview=In this scenario, the primary technical failure mode is the high-latency CAN bus
+[14:09:27] START job=16/300 item=6/100 id=ext_md_006 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[14:09:32] DONE  job=16/300 id=ext_md_006 method=weighted_merge lat=4.70s em=0.00 f1=0.28 sim=0.625 avg/job=5.90s eta=27m55s
+[14:09:32] ANS   id=ext_md_006 method=weighted_merge preview=To determine the positive predictive value (PPV) of the screening test, we need 
+[14:09:32] START job=17/300 item=6/100 id=ext_md_006 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[14:09:36] DONE  job=17/300 id=ext_md_006 method=late_layer_injection lat=4.29s em=0.00 f1=0.31 sim=0.719 avg/job=5.81s eta=27m23s
+[14:09:36] ANS   id=ext_md_006 method=late_layer_injection preview=To determine whether the clinician's decision to begin aggressive treatment is j
+[14:09:36] START job=18/300 item=6/100 id=ext_md_006 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[14:09:42] DONE  job=18/300 id=ext_md_006 method=sequential_reverse lat=5.02s em=0.00 f1=0.30 sim=0.705 avg/job=5.77s eta=27m05s
+[14:09:42] ANS   id=ext_md_006 method=sequential_reverse preview=To determine whether the clinician's decision to begin aggressive treatment imme
+[14:09:42] START job=19/300 item=7/100 id=ext_md_007 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[14:09:46] DONE  job=19/300 id=ext_md_007 method=weighted_merge lat=4.70s em=0.00 f1=0.26 sim=0.585 avg/job=5.71s eta=26m44s
+[14:09:46] ANS   id=ext_md_007 method=weighted_merge preview=Given the scenario, the primary clinical justification for the robot's controlle
+[14:09:46] START job=20/300 item=7/100 id=ext_md_007 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[14:09:52] DONE  job=20/300 id=ext_md_007 method=late_layer_injection lat=5.72s em=0.00 f1=0.27 sim=0.583 avg/job=5.72s eta=26m40s
+[14:09:52] ANS   id=ext_md_007 method=late_layer_injection preview=Given the scenario, the primary clinical justification for the robot's controlle
+[14:09:52] START job=21/300 item=7/100 id=ext_md_007 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[14:09:59] DONE  job=21/300 id=ext_md_007 method=sequential_reverse lat=6.71s em=0.00 f1=0.26 sim=0.613 avg/job=5.76s eta=26m48s
+[14:09:59] ANS   id=ext_md_007 method=sequential_reverse preview=Given the scenario, the primary clinical justification for the robot's controlle
+[14:09:59] START job=22/300 item=8/100 id=ext_md_008 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[14:10:05] DONE  job=22/300 id=ext_md_008 method=weighted_merge lat=6.36s em=0.00 f1=0.16 sim=0.591 avg/job=5.79s eta=26m50s
+[14:10:05] ANS   id=ext_md_008 method=weighted_merge preview=The triage script classifies a patient as "low risk" for sepsis based on the fol
+[14:10:05] START job=23/300 item=8/100 id=ext_md_008 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[14:10:11] DONE  job=23/300 id=ext_md_008 method=late_layer_injection lat=5.97s em=0.00 f1=0.18 sim=0.681 avg/job=5.80s eta=26m47s
+[14:10:11] ANS   id=ext_md_008 method=late_layer_injection preview=The triage script classifies a patient as "low risk" for sepsis based on the fol
+[14:10:11] START job=24/300 item=8/100 id=ext_md_008 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[14:10:18] DONE  job=24/300 id=ext_md_008 method=sequential_reverse lat=6.85s em=0.00 f1=0.25 sim=0.673 avg/job=5.85s eta=26m54s
+[14:10:18] ANS   id=ext_md_008 method=sequential_reverse preview=The triage script classifies a patient as "low risk" for sepsis based on the fol
+[14:10:18] START job=25/300 item=9/100 id=ext_md_009 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'CLIMATE_SCIENCE']
+[14:10:25] DONE  job=25/300 id=ext_md_009 method=weighted_merge lat=6.51s em=0.00 f1=0.30 sim=0.737 avg/job=5.88s eta=26m56s
+[14:10:25] ANS   id=ext_md_009 method=weighted_merge preview=To make an informed decision, the public health officer should consider the foll
+[14:10:25] START job=26/300 item=9/100 id=ext_md_009 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'CLIMATE_SCIENCE']
+[14:10:31] DONE  job=26/300 id=ext_md_009 method=late_layer_injection lat=6.44s em=0.00 f1=0.32 sim=0.825 avg/job=5.90s eta=26m57s
+[14:10:31] ANS   id=ext_md_009 method=late_layer_injection preview=To make an informed decision, the public health officer should consider the foll
+[14:10:31] START job=27/300 item=9/100 id=ext_md_009 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'CLIMATE_SCIENCE']
+[14:10:38] DONE  job=27/300 id=ext_md_009 method=sequential_reverse lat=6.71s em=0.00 f1=0.27 sim=0.758 avg/job=5.93s eta=26m59s
+[14:10:38] ANS   id=ext_md_009 method=sequential_reverse preview=To make an informed decision, the public health officer should consider the foll
+[14:10:38] START job=28/300 item=10/100 id=ext_md_010 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[14:10:44] DONE  job=28/300 id=ext_md_010 method=weighted_merge lat=6.21s em=0.00 f1=0.36 sim=0.810 avg/job=5.94s eta=26m56s
+[14:10:44] ANS   id=ext_md_010 method=weighted_merge preview=The mechanism-level reason for contraindication of aspirin in patients with G6PD
+[14:10:44] START job=29/300 item=10/100 id=ext_md_010 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[14:10:50] DONE  job=29/300 id=ext_md_010 method=late_layer_injection lat=6.11s em=0.00 f1=0.36 sim=0.810 avg/job=5.95s eta=26m52s
+[14:10:50] ANS   id=ext_md_010 method=late_layer_injection preview=The mechanism-level reason for contraindication of aspirin in patients with G6PD
+[14:10:50] START job=30/300 item=10/100 id=ext_md_010 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[14:10:57] DONE  job=30/300 id=ext_md_010 method=sequential_reverse lat=6.95s em=0.00 f1=0.30 sim=0.657 avg/job=5.99s eta=26m56s
+[14:10:57] ANS   id=ext_md_010 method=sequential_reverse preview=### Mechanism-Level Reason for Aspirin's Contraindication  **Mechanism-Level Rea
+[14:10:57] START job=31/300 item=11/100 id=ext_md_011 method=weighted_merge domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[14:11:03] DONE  job=31/300 id=ext_md_011 method=weighted_merge lat=5.83s em=0.00 f1=0.23 sim=0.731 avg/job=5.98s eta=26m49s
+[14:11:03] ANS   id=ext_md_011 method=weighted_merge preview=The strongest mathematical strength of this design is its ability to efficiently
+[14:11:03] START job=32/300 item=11/100 id=ext_md_011 method=late_layer_injection domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[14:11:08] DONE  job=32/300 id=ext_md_011 method=late_layer_injection lat=4.51s em=0.00 f1=0.25 sim=0.759 avg/job=5.94s eta=26m31s
+[14:11:08] ANS   id=ext_md_011 method=late_layer_injection preview=The strongest mathematical strength of this design is its ability to efficiently
+[14:11:08] START job=33/300 item=11/100 id=ext_md_011 method=sequential_reverse domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[14:11:13] DONE  job=33/300 id=ext_md_011 method=sequential_reverse lat=5.13s em=0.00 f1=0.25 sim=0.721 avg/job=5.92s eta=26m19s
+[14:11:13] ANS   id=ext_md_011 method=sequential_reverse preview=The strongest mathematical strength of this design is its ability to efficiently
+[14:11:13] START job=34/300 item=12/100 id=ext_md_012 method=weighted_merge domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[14:11:18] DONE  job=34/300 id=ext_md_012 method=weighted_merge lat=5.00s em=0.00 f1=0.27 sim=0.797 avg/job=5.89s eta=26m06s
+[14:11:18] ANS   id=ext_md_012 method=weighted_merge preview=To compare the two designs, we need to consider the efficiency, memory layout, a
+[14:11:18] START job=35/300 item=12/100 id=ext_md_012 method=late_layer_injection domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[14:11:22] DONE  job=35/300 id=ext_md_012 method=late_layer_injection lat=4.14s em=0.00 f1=0.26 sim=0.797 avg/job=5.84s eta=25m47s
+[14:11:22] ANS   id=ext_md_012 method=late_layer_injection preview=To compare the two designs, we need to analyze the efficiency, memory layout, an
+[14:11:22] START job=36/300 item=12/100 id=ext_md_012 method=sequential_reverse domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[14:11:27] DONE  job=36/300 id=ext_md_012 method=sequential_reverse lat=5.12s em=0.00 f1=0.28 sim=0.829 avg/job=5.82s eta=25m36s
+[14:11:27] ANS   id=ext_md_012 method=sequential_reverse preview=To compare the two designs, we need to analyze the efficiency, memory layout, an
+[14:11:27] START job=37/300 item=13/100 id=ext_md_013 method=weighted_merge domains=['PYTHON_LOGIC', 'ROBOTICS']
+[14:11:33] DONE  job=37/300 id=ext_md_013 method=weighted_merge lat=6.09s em=0.00 f1=0.29 sim=0.635 avg/job=5.83s eta=25m33s
+[14:11:33] ANS   id=ext_md_013 method=weighted_merge preview=To diagnose the issues, let's break down the problem into two parts:  ### 1. **C
+[14:11:33] START job=38/300 item=13/100 id=ext_md_013 method=late_layer_injection domains=['PYTHON_LOGIC', 'ROBOTICS']
+[14:11:40] DONE  job=38/300 id=ext_md_013 method=late_layer_injection lat=6.24s em=0.00 f1=0.28 sim=0.651 avg/job=5.84s eta=25m31s
+[14:11:40] ANS   id=ext_md_013 method=late_layer_injection preview=To diagnose the issues, let's break down the problem into two parts:  ### 1. **C
+[14:11:40] START job=39/300 item=13/100 id=ext_md_013 method=sequential_reverse domains=['PYTHON_LOGIC', 'ROBOTICS']
+[14:11:45] DONE  job=39/300 id=ext_md_013 method=sequential_reverse lat=5.11s em=0.00 f1=0.28 sim=0.525 avg/job=5.83s eta=25m20s
+[14:11:45] ANS   id=ext_md_013 method=sequential_reverse preview=To diagnose the issues, let's break down the problem into two parts:  ### 1. **C
+[14:11:45] START job=40/300 item=14/100 id=ext_md_014 method=weighted_merge domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[14:11:50] DONE  job=40/300 id=ext_md_014 method=weighted_merge lat=4.63s em=0.00 f1=0.40 sim=0.551 avg/job=5.80s eta=25m07s
+[14:11:50] ANS   id=ext_md_014 method=weighted_merge preview=### Analysis of the Two Designs  **Design A:** Encrypt tokens with AES-256-GCM u
+[14:11:50] START job=41/300 item=14/100 id=ext_md_014 method=late_layer_injection domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[14:11:54] DONE  job=41/300 id=ext_md_014 method=late_layer_injection lat=4.34s em=0.00 f1=0.34 sim=0.574 avg/job=5.76s eta=24m52s
+[14:11:54] ANS   id=ext_md_014 method=late_layer_injection preview=To analyze the security and operational tradeoffs of the two designs, let's brea
+[14:11:54] START job=42/300 item=14/100 id=ext_md_014 method=sequential_reverse domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[14:11:59] DONE  job=42/300 id=ext_md_014 method=sequential_reverse lat=4.84s em=0.00 f1=0.33 sim=0.554 avg/job=5.74s eta=24m41s
+[14:11:59] ANS   id=ext_md_014 method=sequential_reverse preview=To analyze the security and operational tradeoffs of the two designs, let's brea
+[14:11:59] START job=43/300 item=15/100 id=ext_md_015 method=weighted_merge domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[14:12:04] DONE  job=43/300 id=ext_md_015 method=weighted_merge lat=4.50s em=0.00 f1=0.26 sim=0.511 avg/job=5.72s eta=24m29s
+[14:12:04] ANS   id=ext_md_015 method=weighted_merge preview=The script `render` fails to generate the correct LaTeX report because it does n
+[14:12:04] START job=44/300 item=15/100 id=ext_md_015 method=late_layer_injection domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[14:12:08] DONE  job=44/300 id=ext_md_015 method=late_layer_injection lat=4.14s em=0.00 f1=0.26 sim=0.503 avg/job=5.68s eta=24m14s
+[14:12:08] ANS   id=ext_md_015 method=late_layer_injection preview=The script `render` function provided has a few issues that need to be addressed
+[14:12:08] START job=45/300 item=15/100 id=ext_md_015 method=sequential_reverse domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[14:12:13] DONE  job=45/300 id=ext_md_015 method=sequential_reverse lat=4.80s em=0.00 f1=0.24 sim=0.480 avg/job=5.66s eta=24m04s
+[14:12:13] ANS   id=ext_md_015 method=sequential_reverse preview=The script `render` provided has a few issues that need to be addressed to ensur
+[14:12:13] START job=46/300 item=16/100 id=ext_md_016 method=weighted_merge domains=['MATHEMATICS', 'ASTROPHYSICS']
+[14:12:18] DONE  job=46/300 id=ext_md_016 method=weighted_merge lat=4.99s em=0.00 f1=0.25 sim=0.539 avg/job=5.65s eta=23m55s
+[14:12:18] ANS   id=ext_md_016 method=weighted_merge preview=To handle the edge case where a star's parallax measurement from Gaia returns a 
+[14:12:18] START job=47/300 item=16/100 id=ext_md_016 method=late_layer_injection domains=['MATHEMATICS', 'ASTROPHYSICS']
+[14:12:23] DONE  job=47/300 id=ext_md_016 method=late_layer_injection lat=4.89s em=0.00 f1=0.22 sim=0.565 avg/job=5.64s eta=23m45s
+[14:12:23] ANS   id=ext_md_016 method=late_layer_injection preview=To handle the edge case where a star's parallax measurement from Gaia returns a 
+[14:12:23] START job=48/300 item=16/100 id=ext_md_016 method=sequential_reverse domains=['MATHEMATICS', 'ASTROPHYSICS']
+[14:12:29] DONE  job=48/300 id=ext_md_016 method=sequential_reverse lat=6.37s em=0.00 f1=0.27 sim=0.591 avg/job=5.66s eta=23m45s
+[14:12:29] ANS   id=ext_md_016 method=sequential_reverse preview=To handle the edge case where a star's parallax measurement from Gaia returns a 
+[14:12:29] START job=49/300 item=17/100 id=ext_md_017 method=weighted_merge domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[14:12:34] DONE  job=49/300 id=ext_md_017 method=weighted_merge lat=5.08s em=0.00 f1=0.36 sim=0.724 avg/job=5.65s eta=23m37s
+[14:12:34] ANS   id=ext_md_017 method=weighted_merge preview=To determine which strategy to use for the Hartree–Fock SCF solver, we need to c
+[14:12:34] START job=50/300 item=17/100 id=ext_md_017 method=late_layer_injection domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[14:12:39] DONE  job=50/300 id=ext_md_017 method=late_layer_injection lat=4.48s em=0.00 f1=0.31 sim=0.722 avg/job=5.63s eta=23m26s
+[14:12:39] ANS   id=ext_md_017 method=late_layer_injection preview=To determine which strategy to use in implementing a Hartree–Fock SCF solver, we
+[14:12:39] START job=51/300 item=17/100 id=ext_md_017 method=sequential_reverse domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[14:12:44] DONE  job=51/300 id=ext_md_017 method=sequential_reverse lat=4.98s em=0.00 f1=0.37 sim=0.758 avg/job=5.61s eta=23m17s
+[14:12:44] ANS   id=ext_md_017 method=sequential_reverse preview=To determine which strategy to use in implementing a Hartree–Fock SCF solver, we
+[14:12:44] START job=52/300 item=18/100 id=ext_md_018 method=weighted_merge domains=['MATHEMATICS', 'CLIMATE_SCIENCE']
+[14:12:49] DONE  job=52/300 id=ext_md_018 method=weighted_merge lat=4.59s em=0.00 f1=0.30 sim=0.583 avg/job=5.60s eta=23m07s
+[14:12:49] ANS   id=ext_md_018 method=weighted_merge preview=The specific mathematical assumption that Ordinary Least Squares (OLS) violates 
+[14:12:49] START job=53/300 item=18/100 id=ext_md_018 method=late_layer_injection domains=['MATHEMATICS', 'CLIMATE_SCIENCE']
+[14:12:53] DONE  job=53/300 id=ext_md_018 method=late_layer_injection lat=4.25s em=0.00 f1=0.30 sim=0.569 avg/job=5.57s eta=22m55s
+[14:12:53] ANS   id=ext_md_018 method=late_layer_injection preview=The specific mathematical assumption that Ordinary Least Squares (OLS) violates 
+[14:12:53] START job=54/300 item=18/100 id=ext_md_018 method=sequential_reverse domains=['MATHEMATICS', 'CLIMATE_SCIENCE']
+[14:12:58] DONE  job=54/300 id=ext_md_018 method=sequential_reverse lat=4.82s em=0.00 f1=0.30 sim=0.675 avg/job=5.56s eta=22m47s
+[14:12:58] ANS   id=ext_md_018 method=sequential_reverse preview=The specific mathematical assumption that Ordinary Least Squares (OLS) violates 
+[14:12:58] START job=55/300 item=19/100 id=ext_md_019 method=weighted_merge domains=['MATHEMATICS', 'MUSIC_THEORY']
+[14:13:02] DONE  job=55/300 id=ext_md_019 method=weighted_merge lat=4.51s em=0.00 f1=0.22 sim=0.556 avg/job=5.54s eta=22m37s
+[14:13:02] ANS   id=ext_md_019 method=weighted_merge preview=In music theory, chords are classified based on their intervals, which are the d
+[14:13:02] START job=56/300 item=19/100 id=ext_md_019 method=late_layer_injection domains=['MATHEMATICS', 'MUSIC_THEORY']
+[14:13:07] DONE  job=56/300 id=ext_md_019 method=late_layer_injection lat=4.20s em=0.00 f1=0.22 sim=0.567 avg/job=5.52s eta=22m25s
+[14:13:07] ANS   id=ext_md_019 method=late_layer_injection preview=In music theory, chords are classified based on their intervals, which are the d
+[14:13:07] START job=57/300 item=19/100 id=ext_md_019 method=sequential_reverse domains=['MATHEMATICS', 'MUSIC_THEORY']
+[14:13:11] DONE  job=57/300 id=ext_md_019 method=sequential_reverse lat=4.77s em=0.00 f1=0.27 sim=0.537 avg/job=5.50s eta=22m17s
+[14:13:11] ANS   id=ext_md_019 method=sequential_reverse preview=In music theory, chords are classified based on their intervals, which are the d
+[14:13:11] START job=58/300 item=20/100 id=ext_md_020 method=weighted_merge domains=['MATHEMATICS', 'LATEX_FORMATTING']
+[14:13:16] DONE  job=58/300 id=ext_md_020 method=weighted_merge lat=4.58s em=0.00 f1=0.30 sim=0.736 avg/job=5.49s eta=22m08s
+[14:13:16] ANS   id=ext_md_020 method=weighted_merge preview=To address the problem of typesetting a piecewise-defined function with three ca
+[14:13:16] START job=59/300 item=20/100 id=ext_md_020 method=late_layer_injection domains=['MATHEMATICS', 'LATEX_FORMATTING']
+[14:13:20] DONE  job=59/300 id=ext_md_020 method=late_layer_injection lat=4.16s em=0.00 f1=0.31 sim=0.736 avg/job=5.47s eta=21m57s
+[14:13:20] ANS   id=ext_md_020 method=late_layer_injection preview=To address the problem of typesetting a piecewise-defined function with three ca
+[14:13:20] START job=60/300 item=20/100 id=ext_md_020 method=sequential_reverse domains=['MATHEMATICS', 'LATEX_FORMATTING']
+[14:13:25] DONE  job=60/300 id=ext_md_020 method=sequential_reverse lat=4.83s em=0.00 f1=0.37 sim=0.713 avg/job=5.46s eta=21m49s
+[14:13:25] ANS   id=ext_md_020 method=sequential_reverse preview=To address the problem of typesetting a piecewise-defined function with three ca
+[14:13:25] START job=61/300 item=21/100 id=ext_md_021 method=weighted_merge domains=['MLX_KERNELS', 'MATHEMATICS']
+[14:13:30] DONE  job=61/300 id=ext_md_021 method=weighted_merge lat=4.51s em=0.00 f1=0.28 sim=0.710 avg/job=5.44s eta=21m40s
+[14:13:30] ANS   id=ext_md_021 method=weighted_merge preview=The precise mathematical source of the rounding error in summing 1024 fp16 parti
+[14:13:30] START job=62/300 item=21/100 id=ext_md_021 method=late_layer_injection domains=['MLX_KERNELS', 'MATHEMATICS']
+[14:13:34] DONE  job=62/300 id=ext_md_021 method=late_layer_injection lat=4.15s em=0.00 f1=0.30 sim=0.720 avg/job=5.42s eta=21m30s
+[14:13:34] ANS   id=ext_md_021 method=late_layer_injection preview=The precise mathematical source of the rounding error in summing 1024 fp16 parti
+[14:13:34] START job=63/300 item=21/100 id=ext_md_021 method=sequential_reverse domains=['MLX_KERNELS', 'MATHEMATICS']
+[14:13:39] DONE  job=63/300 id=ext_md_021 method=sequential_reverse lat=4.76s em=0.00 f1=0.32 sim=0.742 avg/job=5.41s eta=21m22s
+[14:13:39] ANS   id=ext_md_021 method=sequential_reverse preview=The precise mathematical source of the rounding error in summing 1024 fp16 parti
+[14:13:39] START job=64/300 item=22/100 id=ext_md_022 method=weighted_merge domains=['MLX_KERNELS', 'ROBOTICS']
+[14:13:43] DONE  job=64/300 id=ext_md_022 method=weighted_merge lat=4.52s em=0.00 f1=0.27 sim=0.679 avg/job=5.40s eta=21m14s
+[14:13:43] ANS   id=ext_md_022 method=weighted_merge preview=To compare the two options for latency jitter and safety-critical deadline compl
+[14:13:43] START job=65/300 item=22/100 id=ext_md_022 method=late_layer_injection domains=['MLX_KERNELS', 'ROBOTICS']
+[14:13:47] DONE  job=65/300 id=ext_md_022 method=late_layer_injection lat=4.14s em=0.00 f1=0.26 sim=0.710 avg/job=5.38s eta=21m04s
+[14:13:47] ANS   id=ext_md_022 method=late_layer_injection preview=To compare the two options for latency jitter and safety-critical deadline compl
+[14:13:47] START job=66/300 item=22/100 id=ext_md_022 method=sequential_reverse domains=['MLX_KERNELS', 'ROBOTICS']
+[14:13:52] DONE  job=66/300 id=ext_md_022 method=sequential_reverse lat=4.80s em=0.00 f1=0.23 sim=0.693 avg/job=5.37s eta=20m56s
+[14:13:52] ANS   id=ext_md_022 method=sequential_reverse preview=To compare the two options for latency jitter and safety-critical deadline compl
+[14:13:52] START job=67/300 item=23/100 id=ext_md_023 method=weighted_merge domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[14:13:57] DONE  job=67/300 id=ext_md_023 method=weighted_merge lat=4.52s em=0.00 f1=0.35 sim=0.682 avg/job=5.36s eta=20m48s
+[14:13:57] ANS   id=ext_md_023 method=weighted_merge preview=The compliance risk in this scenario is primarily related to the potential leaka
+[14:13:57] START job=68/300 item=23/100 id=ext_md_023 method=late_layer_injection domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[14:14:01] DONE  job=68/300 id=ext_md_023 method=late_layer_injection lat=4.17s em=0.00 f1=0.34 sim=0.704 avg/job=5.34s eta=20m39s
+[14:14:01] ANS   id=ext_md_023 method=late_layer_injection preview=The compliance risk in this scenario is primarily related to the potential leaka
+[14:14:01] START job=69/300 item=23/100 id=ext_md_023 method=sequential_reverse domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[14:14:06] DONE  job=69/300 id=ext_md_023 method=sequential_reverse lat=4.81s em=0.00 f1=0.33 sim=0.696 avg/job=5.33s eta=20m32s
+[14:14:06] ANS   id=ext_md_023 method=sequential_reverse preview=The compliance risk in this scenario is primarily related to data privacy and se
+[14:14:06] START job=70/300 item=24/100 id=ext_md_024 method=weighted_merge domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[14:14:10] DONE  job=70/300 id=ext_md_024 method=weighted_merge lat=4.53s em=0.00 f1=0.35 sim=0.756 avg/job=5.32s eta=20m24s
+[14:14:10] ANS   id=ext_md_024 method=weighted_merge preview=When designing a planetary science simulation, the choice between fp32 and fp64 
+[14:14:10] START job=71/300 item=24/100 id=ext_md_024 method=late_layer_injection domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[14:14:15] DONE  job=71/300 id=ext_md_024 method=late_layer_injection lat=4.15s em=0.00 f1=0.31 sim=0.690 avg/job=5.31s eta=20m15s
+[14:14:15] ANS   id=ext_md_024 method=late_layer_injection preview=When designing a planetary science simulation, the choice between fp32 and fp64 
+[14:14:15] START job=72/300 item=24/100 id=ext_md_024 method=sequential_reverse domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[14:14:19] DONE  job=72/300 id=ext_md_024 method=sequential_reverse lat=4.81s em=0.00 f1=0.30 sim=0.749 avg/job=5.30s eta=20m08s
+[14:14:19] ANS   id=ext_md_024 method=sequential_reverse preview=When designing a planetary science simulation, the choice between fp32 and fp64 
+[14:14:19] START job=73/300 item=25/100 id=ext_md_025 method=weighted_merge domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[14:14:23] DONE  job=73/300 id=ext_md_025 method=weighted_merge lat=3.92s em=0.00 f1=0.31 sim=0.739 avg/job=5.28s eta=19m59s
+[14:14:23] ANS   id=ext_md_025 method=weighted_merge preview=The failure mode in this case is related to the use of natural units in the expr
+[14:14:23] START job=74/300 item=25/100 id=ext_md_025 method=late_layer_injection domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[14:14:27] DONE  job=74/300 id=ext_md_025 method=late_layer_injection lat=3.63s em=0.00 f1=0.31 sim=0.739 avg/job=5.26s eta=19m49s
+[14:14:27] ANS   id=ext_md_025 method=late_layer_injection preview=The failure mode in this case is related to the use of natural units in the expr
+[14:14:27] START job=75/300 item=25/100 id=ext_md_025 method=sequential_reverse domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[14:14:32] DONE  job=75/300 id=ext_md_025 method=sequential_reverse lat=4.57s em=0.00 f1=0.31 sim=0.742 avg/job=5.25s eta=19m41s
+[14:14:32] ANS   id=ext_md_025 method=sequential_reverse preview=The failure mode in this case is related to the use of natural units in the form
+[14:14:32] START job=76/300 item=26/100 id=ext_md_026 method=weighted_merge domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[14:14:36] DONE  job=76/300 id=ext_md_026 method=weighted_merge lat=4.61s em=0.00 f1=0.30 sim=0.644 avg/job=5.24s eta=19m34s
+[14:14:36] ANS   id=ext_md_026 method=weighted_merge preview=In a vote where 250 members support exile, 249 members oppose it, and 1 abstains
+[14:14:36] START job=77/300 item=26/100 id=ext_md_026 method=late_layer_injection domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[14:14:41] DONE  job=77/300 id=ext_md_026 method=late_layer_injection lat=4.25s em=0.00 f1=0.43 sim=0.710 avg/job=5.23s eta=19m26s
+[14:14:41] ANS   id=ext_md_026 method=late_layer_injection preview=In a vote where 250 members support exile, 249 members oppose it, and 1 abstains
+[14:14:41] START job=78/300 item=26/100 id=ext_md_026 method=sequential_reverse domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[14:14:46] DONE  job=78/300 id=ext_md_026 method=sequential_reverse lat=5.24s em=0.00 f1=0.36 sim=0.681 avg/job=5.23s eta=19m21s
+[14:14:46] ANS   id=ext_md_026 method=sequential_reverse preview=In a vote where 250 members support exile, 249 members oppose it, and 1 abstains
+[14:14:46] START job=79/300 item=27/100 id=ext_md_027 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[14:14:51] DONE  job=79/300 id=ext_md_027 method=weighted_merge lat=4.55s em=0.00 f1=0.29 sim=0.602 avg/job=5.23s eta=19m14s
+[14:14:51] ANS   id=ext_md_027 method=weighted_merge preview=The phrase "Singe ye all on o steven" is a complex historical text that requires
+[14:14:51] START job=80/300 item=27/100 id=ext_md_027 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[14:14:55] DONE  job=80/300 id=ext_md_027 method=late_layer_injection lat=4.17s em=0.00 f1=0.24 sim=0.595 avg/job=5.21s eta=19m06s
+[14:14:55] ANS   id=ext_md_027 method=late_layer_injection preview=The phrase "Singe ye all on o steven" in the context of a historically flavored 
+[14:14:55] START job=81/300 item=27/100 id=ext_md_027 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[14:15:00] DONE  job=81/300 id=ext_md_027 method=sequential_reverse lat=4.87s em=0.00 f1=0.26 sim=0.569 avg/job=5.21s eta=19m00s
+[14:15:00] ANS   id=ext_md_027 method=sequential_reverse preview=The phrase "Singe ye all on o steven" in the context of a historically flavored 
+[14:15:00] START job=82/300 item=28/100 id=ext_md_028 method=weighted_merge domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[14:15:04] DONE  job=82/300 id=ext_md_028 method=weighted_merge lat=4.54s em=0.00 f1=0.33 sim=0.848 avg/job=5.20s eta=18m53s
+[14:15:04] ANS   id=ext_md_028 method=weighted_merge preview=The correct absorbed global-mean forcing is calculated by taking into account th
+[14:15:04] START job=83/300 item=28/100 id=ext_md_028 method=late_layer_injection domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[14:15:08] DONE  job=83/300 id=ext_md_028 method=late_layer_injection lat=4.19s em=0.00 f1=0.32 sim=0.804 avg/job=5.19s eta=18m45s
+[14:15:08] ANS   id=ext_md_028 method=late_layer_injection preview=The correct absorbed global-mean forcing is calculated by taking into account th
+[14:15:08] START job=84/300 item=28/100 id=ext_md_028 method=sequential_reverse domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[14:15:13] DONE  job=84/300 id=ext_md_028 method=sequential_reverse lat=4.85s em=0.00 f1=0.34 sim=0.855 avg/job=5.18s eta=18m39s
+[14:15:13] ANS   id=ext_md_028 method=sequential_reverse preview=The correct absorbed global-mean forcing is calculated by taking into account th
+[14:15:13] START job=85/300 item=29/100 id=ext_md_029 method=weighted_merge domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[14:15:16] DONE  job=85/300 id=ext_md_029 method=weighted_merge lat=2.16s em=0.00 f1=0.18 sim=0.559 avg/job=5.15s eta=18m27s
+[14:15:16] ANS   id=ext_md_029 method=weighted_merge preview=Option A is more effective for the goal of total attacks avoided because it dire
+[14:15:16] START job=86/300 item=29/100 id=ext_md_029 method=late_layer_injection domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[14:15:17] DONE  job=86/300 id=ext_md_029 method=late_layer_injection lat=1.80s em=0.00 f1=0.19 sim=0.472 avg/job=5.11s eta=18m13s
+[14:15:17] ANS   id=ext_md_029 method=late_layer_injection preview=The product should ship Option A: "Cuts account-takeover probability from 4% to 
+[14:15:17] START job=87/300 item=29/100 id=ext_md_029 method=sequential_reverse domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[14:15:20] DONE  job=87/300 id=ext_md_029 method=sequential_reverse lat=2.37s em=0.00 f1=0.14 sim=0.567 avg/job=5.08s eta=18m02s
+[14:15:20] ANS   id=ext_md_029 method=sequential_reverse preview=Option A focuses on reducing account-takeover probability, which is a more gener
+[14:15:20] START job=88/300 item=30/100 id=ext_md_030 method=weighted_merge domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[14:15:22] DONE  job=88/300 id=ext_md_030 method=weighted_merge lat=2.08s em=0.00 f1=0.34 sim=0.573 avg/job=5.05s eta=17m49s
+[14:15:22] ANS   id=ext_md_030 method=weighted_merge preview=The compact term-symbol style summary is the best choice for this scenario. Here
+[14:15:22] START job=89/300 item=30/100 id=ext_md_030 method=late_layer_injection domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[14:15:24] DONE  job=89/300 id=ext_md_030 method=late_layer_injection lat=1.67s em=0.00 f1=0.38 sim=0.591 avg/job=5.01s eta=17m36s
+[14:15:24] ANS   id=ext_md_030 method=late_layer_injection preview=The compact term-symbol style summary is the best choice for this scenario. Here
+[14:15:24] START job=90/300 item=30/100 id=ext_md_030 method=sequential_reverse domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[14:15:26] DONE  job=90/300 id=ext_md_030 method=sequential_reverse lat=2.77s em=0.00 f1=0.34 sim=0.554 avg/job=4.98s eta=17m26s
+[14:15:26] ANS   id=ext_md_030 method=sequential_reverse preview=The compact term-symbol style summary is the best choice for this scenario. Here
+[14:15:26] START job=91/300 item=31/100 id=ext_md_031 method=weighted_merge domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[14:15:31] DONE  job=91/300 id=ext_md_031 method=weighted_merge lat=4.14s em=0.00 f1=0.23 sim=0.807 avg/job=4.98s eta=17m19s
+[14:15:31] ANS   id=ext_md_031 method=weighted_merge preview=Stoicism, a philosophical tradition that emphasizes self-control, rationality, a
+[14:15:31] START job=92/300 item=31/100 id=ext_md_031 method=late_layer_injection domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[14:15:34] DONE  job=92/300 id=ext_md_031 method=late_layer_injection lat=3.80s em=0.00 f1=0.23 sim=0.807 avg/job=4.96s eta=17m12s
+[14:15:34] ANS   id=ext_md_031 method=late_layer_injection preview=Stoicism, a philosophical tradition that emphasizes self-control, rationality, a
+[14:15:34] START job=93/300 item=31/100 id=ext_md_031 method=sequential_reverse domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[14:15:39] DONE  job=93/300 id=ext_md_031 method=sequential_reverse lat=4.55s em=0.00 f1=0.28 sim=0.852 avg/job=4.96s eta=17m06s
+[14:15:39] ANS   id=ext_md_031 method=sequential_reverse preview=Stoicism, a philosophical tradition that emphasizes self-control, rationality, a
+[14:15:39] START job=94/300 item=32/100 id=ext_md_032 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[14:15:44] DONE  job=94/300 id=ext_md_032 method=weighted_merge lat=4.50s em=0.00 f1=0.33 sim=0.694 avg/job=4.95s eta=17m00s
+[14:15:44] ANS   id=ext_md_032 method=weighted_merge preview="Here ends the song on a plagal close" is the better choice for a short piece me
+[14:15:44] START job=95/300 item=32/100 id=ext_md_032 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[14:15:48] DONE  job=95/300 id=ext_md_032 method=late_layer_injection lat=4.12s em=0.00 f1=0.32 sim=0.825 avg/job=4.95s eta=16m54s
+[14:15:48] ANS   id=ext_md_032 method=late_layer_injection preview="Here ends the song on a plagal close" is the better choice for a short piece me
+[14:15:48] START job=96/300 item=32/100 id=ext_md_032 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[14:15:52] DONE  job=96/300 id=ext_md_032 method=sequential_reverse lat=4.75s em=0.00 f1=0.30 sim=0.648 avg/job=4.94s eta=16m48s
+[14:15:52] ANS   id=ext_md_032 method=sequential_reverse preview="Here ends the song on a plagal close" is the better choice for a short piece me
+[14:15:52] START job=97/300 item=33/100 id=ext_md_033 method=weighted_merge domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[14:15:55] DONE  job=97/300 id=ext_md_033 method=weighted_merge lat=2.64s em=0.00 f1=0.26 sim=0.674 avg/job=4.92s eta=16m39s
+[14:15:55] ANS   id=ext_md_033 method=weighted_merge preview=The product manager's statement contains a significant scientific error. The cor
+[14:15:55] START job=98/300 item=33/100 id=ext_md_033 method=late_layer_injection domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[14:15:58] DONE  job=98/300 id=ext_md_033 method=late_layer_injection lat=2.49s em=0.00 f1=0.27 sim=0.706 avg/job=4.90s eta=16m29s
+[14:15:58] ANS   id=ext_md_033 method=late_layer_injection preview=The product manager's statement contains a significant scientific error. The cor
+[14:15:58] START job=99/300 item=33/100 id=ext_md_033 method=sequential_reverse domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[14:16:01] DONE  job=99/300 id=ext_md_033 method=sequential_reverse lat=2.95s em=0.00 f1=0.27 sim=0.713 avg/job=4.88s eta=16m20s
+[14:16:01] ANS   id=ext_md_033 method=sequential_reverse preview=The product manager's statement contains a significant scientific error. The cor
+[14:16:01] START job=100/300 item=34/100 id=ext_md_034 method=weighted_merge domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[14:16:05] DONE  job=100/300 id=ext_md_034 method=weighted_merge lat=4.51s em=0.00 f1=0.25 sim=0.716 avg/job=4.87s eta=16m14s
+[14:16:05] ANS   id=ext_md_034 method=weighted_merge preview=The better design overall depends on the specific needs and characteristics of t
+[14:16:05] START job=101/300 item=34/100 id=ext_md_034 method=late_layer_injection domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[14:16:09] DONE  job=101/300 id=ext_md_034 method=late_layer_injection lat=4.14s em=0.00 f1=0.26 sim=0.752 avg/job=4.87s eta=16m08s
+[14:16:09] ANS   id=ext_md_034 method=late_layer_injection preview=The better design overall depends on the specific needs and characteristics of t
+[14:16:09] START job=102/300 item=34/100 id=ext_md_034 method=sequential_reverse domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[14:16:14] DONE  job=102/300 id=ext_md_034 method=sequential_reverse lat=4.77s em=0.00 f1=0.20 sim=0.661 avg/job=4.87s eta=16m03s
+[14:16:14] ANS   id=ext_md_034 method=sequential_reverse preview=To determine which login design is better overall, we need to consider several f
+[14:16:14] START job=103/300 item=35/100 id=ext_md_035 method=weighted_merge domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[14:16:19] DONE  job=103/300 id=ext_md_035 method=weighted_merge lat=4.51s em=0.00 f1=0.28 sim=0.662 avg/job=4.86s eta=15m58s
+[14:16:19] ANS   id=ext_md_035 method=weighted_merge preview=The failure mode you're describing involves a few key issues:  1. **Inconsistent
+[14:16:19] START job=104/300 item=35/100 id=ext_md_035 method=late_layer_injection domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[14:16:23] DONE  job=104/300 id=ext_md_035 method=late_layer_injection lat=4.15s em=0.00 f1=0.31 sim=0.728 avg/job=4.86s eta=15m52s
+[14:16:23] ANS   id=ext_md_035 method=late_layer_injection preview=The failure mode you're describing involves a few key issues:  1. **Inconsistent
+[14:16:23] START job=105/300 item=35/100 id=ext_md_035 method=sequential_reverse domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[14:16:28] DONE  job=105/300 id=ext_md_035 method=sequential_reverse lat=4.74s em=0.00 f1=0.25 sim=0.578 avg/job=4.86s eta=15m47s
+[14:16:28] ANS   id=ext_md_035 method=sequential_reverse preview=The failure mode in this case involves the inconsistent use of LaTeX to denote o
+[14:16:28] START job=106/300 item=36/100 id=ext_md_036 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[14:16:29] DONE  job=106/300 id=ext_md_036 method=weighted_merge lat=1.30s em=0.00 f1=0.28 sim=0.456 avg/job=4.82s eta=15m35s
+[14:16:29] ANS   id=ext_md_036 method=weighted_merge preview=No, this sentence should not pass muster. It is not grammatically correct and it
+[14:16:29] START job=107/300 item=36/100 id=ext_md_036 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[14:16:30] DONE  job=107/300 id=ext_md_036 method=late_layer_injection lat=1.16s em=0.00 f1=0.37 sim=0.659 avg/job=4.79s eta=15m24s
+[14:16:30] ANS   id=ext_md_036 method=late_layer_injection preview=No, this sentence should not pass as it is not grammatically correct. The correc
+[14:16:30] START job=108/300 item=36/100 id=ext_md_036 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[14:16:32] DONE  job=108/300 id=ext_md_036 method=sequential_reverse lat=2.04s em=0.00 f1=0.41 sim=0.619 avg/job=4.76s eta=15m14s
+[14:16:32] ANS   id=ext_md_036 method=sequential_reverse preview=No, this sentence should not pass as it is misleading. The sentence implies that
+[14:16:32] START job=109/300 item=37/100 id=ext_md_037 method=weighted_merge domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[14:16:37] DONE  job=109/300 id=ext_md_037 method=weighted_merge lat=4.35s em=0.00 f1=0.31 sim=0.673 avg/job=4.76s eta=15m09s
+[14:16:37] ANS   id=ext_md_037 method=weighted_merge preview=The claim that a red giant star becomes a white dwarf without changing its ident
+[14:16:37] START job=110/300 item=37/100 id=ext_md_037 method=late_layer_injection domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[14:16:41] DONE  job=110/300 id=ext_md_037 method=late_layer_injection lat=4.03s em=0.00 f1=0.32 sim=0.704 avg/job=4.75s eta=15m03s
+[14:16:41] ANS   id=ext_md_037 method=late_layer_injection preview=The claim that a red giant star becomes a white dwarf without changing its ident
+[14:16:41] START job=111/300 item=37/100 id=ext_md_037 method=sequential_reverse domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[14:16:44] DONE  job=111/300 id=ext_md_037 method=sequential_reverse lat=3.66s em=0.00 f1=0.38 sim=0.667 avg/job=4.74s eta=14m56s
+[14:16:44] ANS   id=ext_md_037 method=sequential_reverse preview=The claim that a red giant star becomes a white dwarf without changing its ident
+[14:16:44] START job=112/300 item=38/100 id=ext_md_038 method=weighted_merge domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[14:16:49] DONE  job=112/300 id=ext_md_038 method=weighted_merge lat=4.46s em=0.00 f1=0.26 sim=0.678 avg/job=4.74s eta=14m51s
+[14:16:49] ANS   id=ext_md_038 method=weighted_merge preview=The documentation note suggests that in engraved examples, accidentals need to b
+[14:16:49] START job=113/300 item=38/100 id=ext_md_038 method=late_layer_injection domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[14:16:52] DONE  job=113/300 id=ext_md_038 method=late_layer_injection lat=2.73s em=0.00 f1=0.32 sim=0.634 avg/job=4.72s eta=14m43s
+[14:16:52] ANS   id=ext_md_038 method=late_layer_injection preview=The documentation note suggests that in engraved examples, accidentals need to b
+[14:16:52] START job=114/300 item=38/100 id=ext_md_038 method=sequential_reverse domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[14:16:56] DONE  job=114/300 id=ext_md_038 method=sequential_reverse lat=4.72s em=0.00 f1=0.27 sim=0.670 avg/job=4.72s eta=14m38s
+[14:16:56] ANS   id=ext_md_038 method=sequential_reverse preview=The documentation note suggests that in engraved examples, accidentals need to b
+[14:16:56] START job=115/300 item=39/100 id=ext_md_039 method=weighted_merge domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:16:59] DONE  job=115/300 id=ext_md_039 method=weighted_merge lat=2.76s em=0.00 f1=0.32 sim=0.448 avg/job=4.71s eta=14m30s
+[14:16:59] ANS   id=ext_md_039 method=weighted_merge preview=The regulator's review of the checkout flow highlights the formal disclosure of 
+[14:16:59] START job=116/300 item=39/100 id=ext_md_039 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:17:00] DONE  job=116/300 id=ext_md_039 method=late_layer_injection lat=1.28s em=0.00 f1=0.29 sim=0.452 avg/job=4.68s eta=14m20s
+[14:17:00] ANS   id=ext_md_039 method=late_layer_injection preview=The regulator's review of the checkout flow highlights the edge-case risk that t
+[14:17:00] START job=117/300 item=39/100 id=ext_md_039 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:17:02] DONE  job=117/300 id=ext_md_039 method=sequential_reverse lat=1.83s em=0.00 f1=0.25 sim=0.503 avg/job=4.65s eta=14m11s
+[14:17:02] ANS   id=ext_md_039 method=sequential_reverse preview=The regulator's review of the checkout flow highlights the formal disclosure of 
+[14:17:02] START job=118/300 item=40/100 id=ext_md_040 method=weighted_merge domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[14:17:06] DONE  job=118/300 id=ext_md_040 method=weighted_merge lat=3.69s em=0.00 f1=0.23 sim=0.720 avg/job=4.65s eta=14m05s
+[14:17:06] ANS   id=ext_md_040 method=weighted_merge preview=The option that should be prioritized if the company asks for the one with the s
+[14:17:06] START job=119/300 item=40/100 id=ext_md_040 method=late_layer_injection domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[14:17:09] DONE  job=119/300 id=ext_md_040 method=late_layer_injection lat=2.46s em=0.00 f1=0.22 sim=0.517 avg/job=4.63s eta=13m57s
+[14:17:09] ANS   id=ext_md_040 method=late_layer_injection preview=The option with the sharper edge-case downside when ignored should be prioritize
+[14:17:09] START job=120/300 item=40/100 id=ext_md_040 method=sequential_reverse domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[14:17:16] DONE  job=120/300 id=ext_md_040 method=sequential_reverse lat=7.11s em=0.00 f1=0.22 sim=0.717 avg/job=4.65s eta=13m57s
+[14:17:16] ANS   id=ext_md_040 method=sequential_reverse preview=In this scenario, the ship operator should prioritize upgrading onboard fuel mon
+[14:17:16] START job=121/300 item=41/100 id=ext_md_041 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[14:17:18] DONE  job=121/300 id=ext_md_041 method=weighted_merge lat=1.78s em=0.00 f1=0.37 sim=0.726 avg/job=4.63s eta=13m48s
+[14:17:18] ANS   id=ext_md_041 method=weighted_merge preview=The inscription on the stele warns against defacing it, as doing so would curse 
+[14:17:18] START job=122/300 item=41/100 id=ext_md_041 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[14:17:19] DONE  job=122/300 id=ext_md_041 method=late_layer_injection lat=1.18s em=0.00 f1=0.22 sim=0.627 avg/job=4.60s eta=13m39s
+[14:17:19] ANS   id=ext_md_041 method=late_layer_injection preview=The inscription on the stele warns against defacing it, emphasizing the importan
+[14:17:19] START job=123/300 item=41/100 id=ext_md_041 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[14:17:22] DONE  job=123/300 id=ext_md_041 method=sequential_reverse lat=2.35s em=0.00 f1=0.37 sim=0.726 avg/job=4.59s eta=13m31s
+[14:17:22] ANS   id=ext_md_041 method=sequential_reverse preview=The inscription on the stele warns against defacing it, as doing so would curse 
+[14:17:22] START job=124/300 item=42/100 id=ext_md_042 method=weighted_merge domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[14:17:26] DONE  job=124/300 id=ext_md_042 method=weighted_merge lat=3.77s em=0.00 f1=0.35 sim=0.558 avg/job=4.59s eta=13m27s
+[14:17:26] ANS   id=ext_md_042 method=weighted_merge preview=The better correction for a public exhibit would be option A: "Elements in our b
+[14:17:26] START job=125/300 item=42/100 id=ext_md_042 method=late_layer_injection domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[14:17:30] DONE  job=125/300 id=ext_md_042 method=late_layer_injection lat=3.35s em=0.00 f1=0.35 sim=0.626 avg/job=4.58s eta=13m21s
+[14:17:30] ANS   id=ext_md_042 method=late_layer_injection preview=The better correction for a public exhibit would be option A: "Elements in our b
+[14:17:30] START job=126/300 item=42/100 id=ext_md_042 method=sequential_reverse domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[14:17:35] DONE  job=126/300 id=ext_md_042 method=sequential_reverse lat=3.98s em=0.00 f1=0.32 sim=0.522 avg/job=4.58s eta=13m16s
+[14:17:35] ANS   id=ext_md_042 method=sequential_reverse preview=The better correction for a public exhibit would be option A: "Elements in our b
+[14:17:35] START job=127/300 item=43/100 id=ext_md_043 method=weighted_merge domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[14:17:42] DONE  job=127/300 id=ext_md_043 method=weighted_merge lat=6.24s em=0.00 f1=0.20 sim=0.389 avg/job=4.60s eta=13m15s
+[14:17:42] ANS   id=ext_md_043 method=weighted_merge preview=To address the spacing and italic issues in the PDF, you can use the `mathtools`
+[14:17:42] START job=128/300 item=43/100 id=ext_md_043 method=late_layer_injection domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[14:17:50] DONE  job=128/300 id=ext_md_043 method=late_layer_injection lat=7.27s em=0.00 f1=0.21 sim=0.506 avg/job=4.62s eta=13m15s
+[14:17:50] ANS   id=ext_md_043 method=late_layer_injection preview=To address the issue of the handout rendering poorly in PDF format, we need to e
+[14:17:50] START job=129/300 item=43/100 id=ext_md_043 method=sequential_reverse domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[14:17:58] DONE  job=129/300 id=ext_md_043 method=sequential_reverse lat=7.52s em=0.00 f1=0.28 sim=0.680 avg/job=4.65s eta=13m15s
+[14:17:58] ANS   id=ext_md_043 method=sequential_reverse preview=To address the issue of the handout's presentation of the ii-V-I progression in 
+[14:17:58] START job=130/300 item=44/100 id=ext_md_044 method=weighted_merge domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:18:05] DONE  job=130/300 id=ext_md_044 method=weighted_merge lat=6.68s em=0.00 f1=0.23 sim=0.605 avg/job=4.67s eta=13m13s
+[14:18:05] ANS   id=ext_md_044 method=weighted_merge preview=The better claim is:  **"Your files are encrypted, but account recovery may allo
+[14:18:05] START job=131/300 item=44/100 id=ext_md_044 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:18:08] DONE  job=131/300 id=ext_md_044 method=late_layer_injection lat=2.96s em=0.00 f1=0.27 sim=0.633 avg/job=4.66s eta=13m06s
+[14:18:08] ANS   id=ext_md_044 method=late_layer_injection preview=The better claim is **B) "Your files are encrypted, but account recovery may all
+[14:18:08] START job=132/300 item=44/100 id=ext_md_044 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:18:14] DONE  job=132/300 id=ext_md_044 method=sequential_reverse lat=6.08s em=0.00 f1=0.24 sim=0.606 avg/job=4.67s eta=13m04s
+[14:18:14] ANS   id=ext_md_044 method=sequential_reverse preview=The better claim is **B) "Your files are encrypted, but account recovery may all
+[14:18:14] START job=133/300 item=45/100 id=ext_md_045 method=weighted_merge domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[14:18:21] DONE  job=133/300 id=ext_md_045 method=weighted_merge lat=6.10s em=0.00 f1=0.19 sim=0.769 avg/job=4.69s eta=13m02s
+[14:18:21] ANS   id=ext_md_045 method=weighted_merge preview=The reasoning provided by the shipping manager can fail today for several reason
+[14:18:21] START job=134/300 item=45/100 id=ext_md_045 method=late_layer_injection domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[14:18:26] DONE  job=134/300 id=ext_md_045 method=late_layer_injection lat=5.14s em=0.00 f1=0.19 sim=0.769 avg/job=4.69s eta=12m58s
+[14:18:26] ANS   id=ext_md_045 method=late_layer_injection preview=The reasoning provided by the shipping manager can fail today for several reason
+[14:18:26] START job=135/300 item=45/100 id=ext_md_045 method=sequential_reverse domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[14:18:32] DONE  job=135/300 id=ext_md_045 method=sequential_reverse lat=5.26s em=0.00 f1=0.17 sim=0.742 avg/job=4.70s eta=12m55s
+[14:18:32] ANS   id=ext_md_045 method=sequential_reverse preview=The reasoning provided by the shipping manager can fail today for several reason
+[14:18:32] START job=136/300 item=46/100 id=ext_md_046 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[14:18:33] DONE  job=136/300 id=ext_md_046 method=weighted_merge lat=1.12s em=0.00 f1=0.06 sim=0.319 avg/job=4.67s eta=12m46s
+[14:18:33] ANS   id=ext_md_046 method=weighted_merge preview=The pamphlet's message is to focus on personal growth and development rather tha
+[14:18:33] START job=137/300 item=46/100 id=ext_md_046 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[14:18:34] DONE  job=137/300 id=ext_md_046 method=late_layer_injection lat=1.03s em=0.00 f1=0.10 sim=0.465 avg/job=4.65s eta=12m37s
+[14:18:34] ANS   id=ext_md_046 method=late_layer_injection preview=The 17th-century pamphlet warns against placing too much emphasis on luck, encou
+[14:18:34] START job=138/300 item=46/100 id=ext_md_046 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[14:18:36] DONE  job=138/300 id=ext_md_046 method=sequential_reverse lat=1.46s em=0.00 f1=0.09 sim=0.305 avg/job=4.62s eta=12m29s
+[14:18:36] ANS   id=ext_md_046 method=sequential_reverse preview=The pamphlet's message is to focus on personal growth and achievement rather tha
+[14:18:36] START job=139/300 item=47/100 id=ext_md_047 method=weighted_merge domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[14:18:40] DONE  job=139/300 id=ext_md_047 method=weighted_merge lat=4.14s em=0.00 f1=0.29 sim=0.835 avg/job=4.62s eta=12m24s
+[14:18:40] ANS   id=ext_md_047 method=weighted_merge preview=The proposal draft replaced plain text with LaTeX math for a transit search to i
+[14:18:40] START job=140/300 item=47/100 id=ext_md_047 method=late_layer_injection domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[14:18:44] DONE  job=140/300 id=ext_md_047 method=late_layer_injection lat=3.90s em=0.00 f1=0.16 sim=0.235 avg/job=4.62s eta=12m18s
+[14:18:44] ANS   id=ext_md_047 method=late_layer_injection preview=The proposal draft replaced plain text with LaTeX math for a transit search to i
+[14:18:44] START job=141/300 item=47/100 id=ext_md_047 method=sequential_reverse domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[14:18:47] DONE  job=141/300 id=ext_md_047 method=sequential_reverse lat=3.29s em=0.00 f1=0.19 sim=0.321 avg/job=4.61s eta=12m12s
+[14:18:47] ANS   id=ext_md_047 method=sequential_reverse preview=The proposal draft replaced plain text with LaTeX math for a transit search to i
+[14:18:47] START job=142/300 item=48/100 id=ext_md_048 method=weighted_merge domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:18:52] DONE  job=142/300 id=ext_md_048 method=weighted_merge lat=4.48s em=0.00 f1=0.19 sim=0.605 avg/job=4.61s eta=12m08s
+[14:18:52] ANS   id=ext_md_048 method=weighted_merge preview=Your client's reasoning is incomplete because it fails to consider several impor
+[14:18:52] START job=143/300 item=48/100 id=ext_md_048 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:18:56] DONE  job=143/300 id=ext_md_048 method=late_layer_injection lat=4.10s em=0.00 f1=0.21 sim=0.565 avg/job=4.60s eta=12m02s
+[14:18:56] ANS   id=ext_md_048 method=late_layer_injection preview=The client's reasoning is incomplete because it fails to consider the following 
+[14:18:56] START job=144/300 item=48/100 id=ext_md_048 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:18:58] DONE  job=144/300 id=ext_md_048 method=sequential_reverse lat=2.06s em=0.00 f1=0.25 sim=0.721 avg/job=4.59s eta=11m55s
+[14:18:58] ANS   id=ext_md_048 method=sequential_reverse preview=The client's reasoning is incomplete because it fails to meet the legal requirem
+[14:18:58] START job=145/300 item=49/100 id=ext_md_049 method=weighted_merge domains=['MATHEMATICS', 'MUSIC_THEORY']
+[14:19:01] DONE  job=145/300 id=ext_md_049 method=weighted_merge lat=2.67s em=0.00 f1=0.25 sim=0.503 avg/job=4.57s eta=11m49s
+[14:19:01] ANS   id=ext_md_049 method=weighted_merge preview=A tuning feature based on equal semitone steps, like in a piano's tuning, create
+[14:19:01] START job=146/300 item=49/100 id=ext_md_049 method=late_layer_injection domains=['MATHEMATICS', 'MUSIC_THEORY']
+[14:19:03] DONE  job=146/300 id=ext_md_049 method=late_layer_injection lat=2.45s em=0.00 f1=0.35 sim=0.605 avg/job=4.56s eta=11m42s
+[14:19:03] ANS   id=ext_md_049 method=late_layer_injection preview=A tuning feature based on equal semitone steps, like in a piano's tuning, create
+[14:19:03] START job=147/300 item=49/100 id=ext_md_049 method=sequential_reverse domains=['MATHEMATICS', 'MUSIC_THEORY']
+[14:19:07] DONE  job=147/300 id=ext_md_049 method=sequential_reverse lat=3.73s em=0.00 f1=0.24 sim=0.634 avg/job=4.55s eta=11m36s
+[14:19:07] ANS   id=ext_md_049 method=sequential_reverse preview=A tuning feature based on equal semitone steps, like in a piano's tuning, create
+[14:19:07] START job=148/300 item=50/100 id=ext_md_050 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[14:19:12] DONE  job=148/300 id=ext_md_050 method=weighted_merge lat=4.48s em=0.00 f1=0.26 sim=0.787 avg/job=4.55s eta=11m32s
+[14:19:12] ANS   id=ext_md_050 method=weighted_merge preview=**Explanation for Operations Leadership:**  **Incident 1: Workers Develop Pinpoi
+[14:19:12] START job=149/300 item=50/100 id=ext_md_050 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[14:19:16] DONE  job=149/300 id=ext_md_050 method=late_layer_injection lat=4.09s em=0.00 f1=0.29 sim=0.792 avg/job=4.55s eta=11m27s
+[14:19:16] ANS   id=ext_md_050 method=late_layer_injection preview=**Explanation for Operations Leadership:**  **Incident 1: Workers Develop Pinpoi
+[14:19:16] START job=150/300 item=50/100 id=ext_md_050 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[14:19:21] DONE  job=150/300 id=ext_md_050 method=sequential_reverse lat=4.75s em=0.00 f1=0.27 sim=0.799 avg/job=4.55s eta=11m22s
+[14:19:21] ANS   id=ext_md_050 method=sequential_reverse preview=**Explanation for Operations Leadership:**  **Incident 1: Workers Develop Pinpoi
+[14:19:21] START job=151/300 item=51/100 id=ext_md_051 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[14:19:25] DONE  job=151/300 id=ext_md_051 method=weighted_merge lat=4.52s em=0.00 f1=0.33 sim=0.663 avg/job=4.55s eta=11m18s
+[14:19:25] ANS   id=ext_md_051 method=weighted_merge preview=The main failure in the explanation is that it does not capture the nuanced mean
+[14:19:25] START job=152/300 item=51/100 id=ext_md_051 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[14:19:29] DONE  job=152/300 id=ext_md_051 method=late_layer_injection lat=3.90s em=0.00 f1=0.34 sim=0.572 avg/job=4.55s eta=11m13s
+[14:19:29] ANS   id=ext_md_051 method=late_layer_injection preview=The main failure in the explanation is that it does not capture the nuanced mean
+[14:19:29] START job=153/300 item=51/100 id=ext_md_051 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[14:19:34] DONE  job=153/300 id=ext_md_051 method=sequential_reverse lat=4.59s em=0.00 f1=0.31 sim=0.686 avg/job=4.55s eta=11m08s
+[14:19:34] ANS   id=ext_md_051 method=sequential_reverse preview=The main failure in the explanation is that it does not capture the nuanced mean
+[14:19:34] START job=154/300 item=52/100 id=ext_md_052 method=weighted_merge domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[14:19:38] DONE  job=154/300 id=ext_md_052 method=weighted_merge lat=4.54s em=0.00 f1=0.32 sim=0.797 avg/job=4.55s eta=11m04s
+[14:19:38] ANS   id=ext_md_052 method=weighted_merge preview=The better diagnosis-driven fix is Option B: switch to a Unicode-capable engine 
+[14:19:38] START job=155/300 item=52/100 id=ext_md_052 method=late_layer_injection domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[14:19:43] DONE  job=155/300 id=ext_md_052 method=late_layer_injection lat=4.17s em=0.00 f1=0.28 sim=0.820 avg/job=4.55s eta=10m59s
+[14:19:43] ANS   id=ext_md_052 method=late_layer_injection preview=The better diagnosis-driven fix is Option B: switch to a Unicode-capable engine 
+[14:19:43] START job=156/300 item=52/100 id=ext_md_052 method=sequential_reverse domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[14:19:47] DONE  job=156/300 id=ext_md_052 method=sequential_reverse lat=4.83s em=0.00 f1=0.27 sim=0.852 avg/job=4.55s eta=10m55s
+[14:19:47] ANS   id=ext_md_052 method=sequential_reverse preview=The better diagnosis-driven fix is Option B: switch to a Unicode-capable engine 
+[14:19:47] START job=157/300 item=53/100 id=ext_md_053 method=weighted_merge domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[14:19:52] DONE  job=157/300 id=ext_md_053 method=weighted_merge lat=4.50s em=0.00 f1=0.33 sim=0.767 avg/job=4.55s eta=10m50s
+[14:19:52] ANS   id=ext_md_053 method=weighted_merge preview=The strongest flaw in the decision is the lack of comprehensive evaluation. The 
+[14:19:52] START job=158/300 item=53/100 id=ext_md_053 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[14:19:56] DONE  job=158/300 id=ext_md_053 method=late_layer_injection lat=3.77s em=0.00 f1=0.33 sim=0.777 avg/job=4.54s eta=10m45s
+[14:19:56] ANS   id=ext_md_053 method=late_layer_injection preview=The strongest flaw in the decision is the lack of comprehensive evaluation. The 
+[14:19:56] START job=159/300 item=53/100 id=ext_md_053 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[14:20:01] DONE  job=159/300 id=ext_md_053 method=sequential_reverse lat=4.77s em=0.00 f1=0.32 sim=0.758 avg/job=4.55s eta=10m41s
+[14:20:01] ANS   id=ext_md_053 method=sequential_reverse preview=The strongest flaw in the decision is the lack of comprehensive evaluation. The 
+[14:20:01] START job=160/300 item=54/100 id=ext_md_054 method=weighted_merge domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[14:20:03] DONE  job=160/300 id=ext_md_054 method=weighted_merge lat=2.86s em=0.00 f1=0.34 sim=0.677 avg/job=4.54s eta=10m35s
+[14:20:03] ANS   id=ext_md_054 method=weighted_merge preview=The better design is Option B. The diagnostic reason is that Option B is more sp
+[14:20:03] START job=161/300 item=54/100 id=ext_md_054 method=late_layer_injection domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[14:20:06] DONE  job=161/300 id=ext_md_054 method=late_layer_injection lat=1.99s em=0.00 f1=0.36 sim=0.656 avg/job=4.52s eta=10m28s
+[14:20:06] ANS   id=ext_md_054 method=late_layer_injection preview=The better design is Option B, "Narrowly around deliberate jettison for common s
+[14:20:06] START job=162/300 item=54/100 id=ext_md_054 method=sequential_reverse domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[14:20:10] DONE  job=162/300 id=ext_md_054 method=sequential_reverse lat=4.79s em=0.00 f1=0.34 sim=0.709 avg/job=4.52s eta=10m24s
+[14:20:10] ANS   id=ext_md_054 method=sequential_reverse preview=To determine which design is better, we need to consider the core principles of 
+[14:20:10] START job=163/300 item=55/100 id=ext_md_055 method=weighted_merge domains=['MATHEMATICS', 'ASTROPHYSICS']
+[14:20:15] DONE  job=163/300 id=ext_md_055 method=weighted_merge lat=4.51s em=0.00 f1=0.22 sim=0.547 avg/job=4.52s eta=10m19s
+[14:20:15] ANS   id=ext_md_055 method=weighted_merge preview=The most relevant diagnosis of the failure mode is that the linear model \( v(r)
+[14:20:15] START job=164/300 item=55/100 id=ext_md_055 method=late_layer_injection domains=['MATHEMATICS', 'ASTROPHYSICS']
+[14:20:19] DONE  job=164/300 id=ext_md_055 method=late_layer_injection lat=4.13s em=0.00 f1=0.26 sim=0.637 avg/job=4.52s eta=10m14s
+[14:20:19] ANS   id=ext_md_055 method=late_layer_injection preview=The most relevant diagnosis of the failure mode is that the linear model \( v(r)
+[14:20:19] START job=165/300 item=55/100 id=ext_md_055 method=sequential_reverse domains=['MATHEMATICS', 'ASTROPHYSICS']
+[14:20:24] DONE  job=165/300 id=ext_md_055 method=sequential_reverse lat=4.77s em=0.00 f1=0.25 sim=0.542 avg/job=4.52s eta=10m10s
+[14:20:24] ANS   id=ext_md_055 method=sequential_reverse preview=The most relevant diagnosis of the failure mode is that the linear model \( v(r)
+[14:20:24] START job=166/300 item=56/100 id=ext_md_056 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[14:20:26] DONE  job=166/300 id=ext_md_056 method=weighted_merge lat=2.14s em=0.00 f1=0.35 sim=0.827 avg/job=4.51s eta=10m04s
+[14:20:26] ANS   id=ext_md_056 method=weighted_merge preview=Option A: "Behold ye the master's craft."  This option uses archaic wording that
+[14:20:26] START job=167/300 item=56/100 id=ext_md_056 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[14:20:29] DONE  job=167/300 id=ext_md_056 method=late_layer_injection lat=3.23s em=0.00 f1=0.29 sim=0.643 avg/job=4.50s eta=9m58s
+[14:20:29] ANS   id=ext_md_056 method=late_layer_injection preview=Option A: "Behold ye the master's craft."  Explanation: The phrase "Behold ye th
+[14:20:29] START job=168/300 item=56/100 id=ext_md_056 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[14:20:34] DONE  job=168/300 id=ext_md_056 method=sequential_reverse lat=4.76s em=0.00 f1=0.24 sim=0.838 avg/job=4.50s eta=9m54s
+[14:20:34] ANS   id=ext_md_056 method=sequential_reverse preview=Option A: "Behold ye the master's craft."  Explanation:  - **"Behold ye the mast
+[14:20:34] START job=169/300 item=57/100 id=ext_md_057 method=weighted_merge domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[14:20:39] DONE  job=169/300 id=ext_md_057 method=weighted_merge lat=4.54s em=0.00 f1=0.22 sim=0.657 avg/job=4.50s eta=9m49s
+[14:20:39] ANS   id=ext_md_057 method=weighted_merge preview=Option A: "saṃskṛta" typed directly in Unicode is generally safer for several re
+[14:20:39] START job=170/300 item=57/100 id=ext_md_057 method=late_layer_injection domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[14:20:43] DONE  job=170/300 id=ext_md_057 method=late_layer_injection lat=4.16s em=0.00 f1=0.22 sim=0.657 avg/job=4.50s eta=9m45s
+[14:20:43] ANS   id=ext_md_057 method=late_layer_injection preview=Option A: "saṃskṛta" typed directly in Unicode is generally safer for several re
+[14:20:43] START job=171/300 item=57/100 id=ext_md_057 method=sequential_reverse domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[14:20:48] DONE  job=171/300 id=ext_md_057 method=sequential_reverse lat=4.79s em=0.00 f1=0.24 sim=0.635 avg/job=4.50s eta=9m40s
+[14:20:48] ANS   id=ext_md_057 method=sequential_reverse preview=Option A: "saṃskṛta" typed directly in Unicode is generally safer for several re
+[14:20:48] START job=172/300 item=58/100 id=ext_md_058 method=weighted_merge domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[14:20:52] DONE  job=172/300 id=ext_md_058 method=weighted_merge lat=4.51s em=0.00 f1=0.20 sim=0.728 avg/job=4.50s eta=9m36s
+[14:20:52] ANS   id=ext_md_058 method=weighted_merge preview=The manager's reasoning is flawed. Liability for the robot's actions should not 
+[14:20:52] START job=173/300 item=58/100 id=ext_md_058 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[14:20:56] DONE  job=173/300 id=ext_md_058 method=late_layer_injection lat=4.13s em=0.00 f1=0.24 sim=0.749 avg/job=4.50s eta=9m31s
+[14:20:56] ANS   id=ext_md_058 method=late_layer_injection preview=The manager's reasoning is flawed. Liability for the robot's actions does not sh
+[14:20:56] START job=174/300 item=58/100 id=ext_md_058 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[14:21:01] DONE  job=174/300 id=ext_md_058 method=sequential_reverse lat=4.77s em=0.00 f1=0.26 sim=0.786 avg/job=4.50s eta=9m27s
+[14:21:01] ANS   id=ext_md_058 method=sequential_reverse preview=The manager's reasoning is flawed for several reasons:  1. **Liability Shift**: 
+[14:21:01] START job=175/300 item=59/100 id=ext_md_059 method=weighted_merge domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[14:21:02] DONE  job=175/300 id=ext_md_059 method=weighted_merge lat=0.92s em=0.00 f1=0.28 sim=0.669 avg/job=4.48s eta=9m20s
+[14:21:02] ANS   id=ext_md_059 method=weighted_merge preview=B: "Its cargo can suggest trade networks, but modern ownership and salvage right
+[14:21:02] START job=176/300 item=59/100 id=ext_md_059 method=late_layer_injection domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[14:21:03] DONE  job=176/300 id=ext_md_059 method=late_layer_injection lat=0.86s em=0.00 f1=0.28 sim=0.669 avg/job=4.46s eta=9m13s
+[14:21:03] ANS   id=ext_md_059 method=late_layer_injection preview=B: "Its cargo can suggest trade networks, but modern ownership and salvage right
+[14:21:03] START job=177/300 item=59/100 id=ext_md_059 method=sequential_reverse domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[14:21:04] DONE  job=177/300 id=ext_md_059 method=sequential_reverse lat=1.21s em=0.00 f1=0.28 sim=0.669 avg/job=4.44s eta=9m06s
+[14:21:04] ANS   id=ext_md_059 method=sequential_reverse preview=B: "Its cargo can suggest trade networks, but modern ownership and salvage right
+[14:21:04] START job=178/300 item=60/100 id=ext_md_060 method=weighted_merge domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[14:21:09] DONE  job=178/300 id=ext_md_060 method=weighted_merge lat=4.53s em=0.00 f1=0.33 sim=0.690 avg/job=4.44s eta=9m02s
+[14:21:09] ANS   id=ext_md_060 method=weighted_merge preview=In a scenario where the primary concern is avoiding false confidence from unstab
+[14:21:09] START job=179/300 item=60/100 id=ext_md_060 method=late_layer_injection domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[14:21:13] DONE  job=179/300 id=ext_md_060 method=late_layer_injection lat=4.13s em=0.00 f1=0.36 sim=0.634 avg/job=4.44s eta=8m57s
+[14:21:13] ANS   id=ext_md_060 method=late_layer_injection preview=In the context of a compute-limited chemistry team, the team should prioritize *
+[14:21:13] START job=180/300 item=60/100 id=ext_md_060 method=sequential_reverse domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[14:21:18] DONE  job=180/300 id=ext_md_060 method=sequential_reverse lat=4.80s em=0.00 f1=0.36 sim=0.658 avg/job=4.44s eta=8m53s
+[14:21:18] ANS   id=ext_md_060 method=sequential_reverse preview=For a screening stage where false confidence from unstable estimates is the main
+[14:21:18] START job=181/300 item=61/100 id=ext_md_061 method=weighted_merge domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[14:21:22] DONE  job=181/300 id=ext_md_061 method=weighted_merge lat=4.51s em=0.00 f1=0.29 sim=0.579 avg/job=4.44s eta=8m48s
+[14:21:22] ANS   id=ext_md_061 method=weighted_merge preview=### Strongest Benefit: The strongest benefit of this design is that it effective
+[14:21:22] START job=182/300 item=61/100 id=ext_md_061 method=late_layer_injection domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[14:21:26] DONE  job=182/300 id=ext_md_061 method=late_layer_injection lat=4.14s em=0.00 f1=0.16 sim=0.525 avg/job=4.44s eta=8m44s
+[14:21:26] ANS   id=ext_md_061 method=late_layer_injection preview=### Review of the Interactive Label System Design  **Strong Benefits:**  1. **Hi
+[14:21:26] START job=183/300 item=61/100 id=ext_md_061 method=sequential_reverse domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[14:21:31] DONE  job=183/300 id=ext_md_061 method=sequential_reverse lat=4.76s em=0.00 f1=0.19 sim=0.547 avg/job=4.45s eta=8m40s
+[14:21:31] ANS   id=ext_md_061 method=sequential_reverse preview=### Review of the Interactive Label System for a Renaissance Altarpiece  **Stron
+[14:21:31] START job=184/300 item=62/100 id=ext_md_062 method=weighted_merge domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[14:21:36] DONE  job=184/300 id=ext_md_062 method=weighted_merge lat=4.53s em=0.00 f1=0.27 sim=0.582 avg/job=4.45s eta=8m35s
+[14:21:36] ANS   id=ext_md_062 method=weighted_merge preview=The legal safety of a shipping platform's electronic bill of lading system depen
+[14:21:36] START job=185/300 item=62/100 id=ext_md_062 method=late_layer_injection domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[14:21:40] DONE  job=185/300 id=ext_md_062 method=late_layer_injection lat=4.20s em=0.00 f1=0.20 sim=0.560 avg/job=4.44s eta=8m31s
+[14:21:40] ANS   id=ext_md_062 method=late_layer_injection preview=The legal safety of a shipping platform's transferable electronic bills of ladin
+[14:21:40] START job=186/300 item=62/100 id=ext_md_062 method=sequential_reverse domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[14:21:45] DONE  job=186/300 id=ext_md_062 method=sequential_reverse lat=4.74s em=0.00 f1=0.27 sim=0.561 avg/job=4.45s eta=8m26s
+[14:21:45] ANS   id=ext_md_062 method=sequential_reverse preview=The legal safety of a shipping platform's transferable electronic bills of ladin
+[14:21:45] START job=187/300 item=63/100 id=ext_md_063 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[14:21:49] DONE  job=187/300 id=ext_md_063 method=weighted_merge lat=4.51s em=0.00 f1=0.21 sim=0.548 avg/job=4.45s eta=8m22s
+[14:21:49] ANS   id=ext_md_063 method=weighted_merge preview=The triage tool's "95% accurate" claim is misleading because it does not account
+[14:21:49] START job=188/300 item=63/100 id=ext_md_063 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[14:21:53] DONE  job=188/300 id=ext_md_063 method=late_layer_injection lat=4.13s em=0.00 f1=0.29 sim=0.617 avg/job=4.45s eta=8m17s
+[14:21:53] ANS   id=ext_md_063 method=late_layer_injection preview=The triage tool's design error lies in its reliance on a single biomarker to fla
+[14:21:53] START job=189/300 item=63/100 id=ext_md_063 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[14:21:58] DONE  job=189/300 id=ext_md_063 method=sequential_reverse lat=4.76s em=0.00 f1=0.24 sim=0.580 avg/job=4.45s eta=8m13s
+[14:21:58] ANS   id=ext_md_063 method=sequential_reverse preview=The triage tool's design error lies in its reliance on a single biomarker to fla
+[14:21:58] START job=190/300 item=64/100 id=ext_md_064 method=weighted_merge domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[14:22:03] DONE  job=190/300 id=ext_md_064 method=weighted_merge lat=4.52s em=0.00 f1=0.21 sim=0.443 avg/job=4.45s eta=8m09s
+[14:22:03] ANS   id=ext_md_064 method=weighted_merge preview=Design A is generally considered better for several reasons:  1. **Simplicity an
+[14:22:03] START job=191/300 item=64/100 id=ext_md_064 method=late_layer_injection domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[14:22:07] DONE  job=191/300 id=ext_md_064 method=late_layer_injection lat=4.14s em=0.00 f1=0.21 sim=0.633 avg/job=4.45s eta=8m04s
+[14:22:07] ANS   id=ext_md_064 method=late_layer_injection preview=Design A is generally considered better for several reasons:  1. **Efficiency**:
+[14:22:07] START job=192/300 item=64/100 id=ext_md_064 method=sequential_reverse domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[14:22:12] DONE  job=192/300 id=ext_md_064 method=sequential_reverse lat=4.82s em=0.00 f1=0.22 sim=0.579 avg/job=4.45s eta=8m00s
+[14:22:12] ANS   id=ext_md_064 method=sequential_reverse preview=Design A is generally considered better for several reasons:  1. **Simplicity an
+[14:22:12] START job=193/300 item=65/100 id=ext_md_065 method=weighted_merge domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[14:22:16] DONE  job=193/300 id=ext_md_065 method=weighted_merge lat=4.53s em=0.00 f1=0.20 sim=0.598 avg/job=4.45s eta=7m56s
+[14:22:16] ANS   id=ext_md_065 method=weighted_merge preview=The most likely failure mode in the company's "greener process" claim could be r
+[14:22:16] START job=194/300 item=65/100 id=ext_md_065 method=late_layer_injection domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[14:22:20] DONE  job=194/300 id=ext_md_065 method=late_layer_injection lat=4.10s em=0.00 f1=0.23 sim=0.564 avg/job=4.45s eta=7m51s
+[14:22:20] ANS   id=ext_md_065 method=late_layer_injection preview=The most likely failure mode in the company's "greener process" claim is the inc
+[14:22:20] START job=195/300 item=65/100 id=ext_md_065 method=sequential_reverse domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[14:22:25] DONE  job=195/300 id=ext_md_065 method=sequential_reverse lat=4.74s em=0.00 f1=0.23 sim=0.566 avg/job=4.45s eta=7m47s
+[14:22:25] ANS   id=ext_md_065 method=sequential_reverse preview=The most likely failure mode in the company's "greener process" claim is the inc
+[14:22:25] START job=196/300 item=66/100 id=ext_md_066 method=weighted_merge domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[14:22:30] DONE  job=196/300 id=ext_md_066 method=weighted_merge lat=4.51s em=0.00 f1=0.30 sim=0.504 avg/job=4.45s eta=7m42s
+[14:22:30] ANS   id=ext_md_066 method=weighted_merge preview=To ensure that the release of cargo against an electronic bill of lading is done
+[14:22:30] START job=197/300 item=66/100 id=ext_md_066 method=late_layer_injection domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[14:22:34] DONE  job=197/300 id=ext_md_066 method=late_layer_injection lat=4.13s em=0.00 f1=0.28 sim=0.516 avg/job=4.45s eta=7m38s
+[14:22:34] ANS   id=ext_md_066 method=late_layer_injection preview=To ensure that the release of cargo against an electronic bill of lading is done
+[14:22:34] START job=198/300 item=66/100 id=ext_md_066 method=sequential_reverse domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[14:22:39] DONE  job=198/300 id=ext_md_066 method=sequential_reverse lat=4.80s em=0.00 f1=0.30 sim=0.574 avg/job=4.45s eta=7m33s
+[14:22:39] ANS   id=ext_md_066 method=sequential_reverse preview=To ensure that the release of cargo against an electronic bill of lading is done
+[14:22:39] START job=199/300 item=67/100 id=ext_md_067 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[14:22:42] DONE  job=199/300 id=ext_md_067 method=weighted_merge lat=3.50s em=0.00 f1=0.46 sim=0.863 avg/job=4.44s eta=7m28s
+[14:22:42] ANS   id=ext_md_067 method=weighted_merge preview=The current logic for the triage rule is not safe as written in Python. The rule
+[14:22:42] START job=200/300 item=67/100 id=ext_md_067 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[14:22:46] DONE  job=200/300 id=ext_md_067 method=late_layer_injection lat=4.13s em=0.00 f1=0.39 sim=0.864 avg/job=4.44s eta=7m24s
+[14:22:46] ANS   id=ext_md_067 method=late_layer_injection preview=The current logic for the triage rule is `urgent = fever and headache and stiff_
+[14:22:46] START job=201/300 item=67/100 id=ext_md_067 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[14:22:51] DONE  job=201/300 id=ext_md_067 method=sequential_reverse lat=4.80s em=0.00 f1=0.37 sim=0.834 avg/job=4.45s eta=7m20s
+[14:22:51] ANS   id=ext_md_067 method=sequential_reverse preview=The current logic `urgent = fever and headache and stiff_neck or petechial_rash`
+[14:22:51] START job=202/300 item=68/100 id=ext_md_068 method=weighted_merge domains=['MLX_KERNELS', 'MATHEMATICS']
+[14:22:56] DONE  job=202/300 id=ext_md_068 method=weighted_merge lat=4.51s em=0.00 f1=0.22 sim=0.664 avg/job=4.45s eta=7m15s
+[14:22:56] ANS   id=ext_md_068 method=weighted_merge preview=The reasoning is flawed because the matrix sizes need to be multiples of the til
+[14:22:56] START job=203/300 item=68/100 id=ext_md_068 method=late_layer_injection domains=['MLX_KERNELS', 'MATHEMATICS']
+[14:22:58] DONE  job=203/300 id=ext_md_068 method=late_layer_injection lat=1.94s em=0.00 f1=0.25 sim=0.686 avg/job=4.43s eta=7m10s
+[14:22:58] ANS   id=ext_md_068 method=late_layer_injection preview=The reasoning is flawed because the matrix sizes need to be multiples of the til
+[14:22:58] START job=204/300 item=68/100 id=ext_md_068 method=sequential_reverse domains=['MLX_KERNELS', 'MATHEMATICS']
+[14:23:03] DONE  job=204/300 id=ext_md_068 method=sequential_reverse lat=4.83s em=0.00 f1=0.17 sim=0.719 avg/job=4.44s eta=7m05s
+[14:23:03] ANS   id=ext_md_068 method=sequential_reverse preview=The teammate's reasoning is flawed because it assumes that the matrix sizes are 
+[14:23:03] START job=205/300 item=69/100 id=ext_md_069 method=weighted_merge domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[14:23:07] DONE  job=205/300 id=ext_md_069 method=weighted_merge lat=4.53s em=0.00 f1=0.27 sim=0.793 avg/job=4.44s eta=7m01s
+[14:23:07] ANS   id=ext_md_069 method=weighted_merge preview=**Recommendation: Route B**  **Reasoning:**  1. **Operational Simplicity and Cos
+[14:23:07] START job=206/300 item=69/100 id=ext_md_069 method=late_layer_injection domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[14:23:11] DONE  job=206/300 id=ext_md_069 method=late_layer_injection lat=4.18s em=0.00 f1=0.24 sim=0.716 avg/job=4.44s eta=6m56s
+[14:23:11] ANS   id=ext_md_069 method=late_layer_injection preview=**Recommendation: Route B**  **Reasoning:**  1. **Operational Simplicity and Cos
+[14:23:11] START job=207/300 item=69/100 id=ext_md_069 method=sequential_reverse domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[14:23:16] DONE  job=207/300 id=ext_md_069 method=sequential_reverse lat=4.92s em=0.00 f1=0.28 sim=0.741 avg/job=4.44s eta=6m52s
+[14:23:16] ANS   id=ext_md_069 method=sequential_reverse preview=**Recommendation: Route B**  **Reasoning:**  1. **Synthetic Practicality:**    -
+[14:23:16] START job=208/300 item=70/100 id=ext_md_070 method=weighted_merge domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[14:23:21] DONE  job=208/300 id=ext_md_070 method=weighted_merge lat=4.59s em=0.00 f1=0.20 sim=0.503 avg/job=4.44s eta=6m48s
+[14:23:21] ANS   id=ext_md_070 method=weighted_merge preview=The product team should prioritize the **strong default contribution with easy o
+[14:23:21] START job=209/300 item=70/100 id=ext_md_070 method=late_layer_injection domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[14:23:25] DONE  job=209/300 id=ext_md_070 method=late_layer_injection lat=4.23s em=0.00 f1=0.18 sim=0.490 avg/job=4.44s eta=6m43s
+[14:23:25] ANS   id=ext_md_070 method=late_layer_injection preview=The product team should prioritize the **strong default contribution with easy o
+[14:23:25] START job=210/300 item=70/100 id=ext_md_070 method=sequential_reverse domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[14:23:30] DONE  job=210/300 id=ext_md_070 method=sequential_reverse lat=4.87s em=0.00 f1=0.20 sim=0.504 avg/job=4.44s eta=6m39s
+[14:23:30] ANS   id=ext_md_070 method=sequential_reverse preview=The product team should prioritize the **strong default contribution with easy o
+[14:23:30] START job=211/300 item=71/100 id=ext_md_071 method=weighted_merge domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[14:23:35] DONE  job=211/300 id=ext_md_071 method=weighted_merge lat=4.69s em=0.00 f1=0.13 sim=0.615 avg/job=4.44s eta=6m35s
+[14:23:35] ANS   id=ext_md_071 method=weighted_merge preview=The main risk/compliance concern for deploying a bedside robot to auto-escalate 
+[14:23:35] START job=212/300 item=71/100 id=ext_md_071 method=late_layer_injection domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[14:23:39] DONE  job=212/300 id=ext_md_071 method=late_layer_injection lat=4.25s em=0.00 f1=0.13 sim=0.605 avg/job=4.44s eta=6m30s
+[14:23:39] ANS   id=ext_md_071 method=late_layer_injection preview=The main risk/compliance concern for deploying a bedside robot to auto-escalate 
+[14:23:39] START job=213/300 item=71/100 id=ext_md_071 method=sequential_reverse domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[14:23:44] DONE  job=213/300 id=ext_md_071 method=sequential_reverse lat=4.90s em=0.00 f1=0.12 sim=0.625 avg/job=4.44s eta=6m26s
+[14:23:44] ANS   id=ext_md_071 method=sequential_reverse preview=The main risk/compliance concern for deploying a bedside robot to auto-escalate 
+[14:23:44] START job=214/300 item=72/100 id=ext_md_072 method=weighted_merge domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[14:23:49] DONE  job=214/300 id=ext_md_072 method=weighted_merge lat=4.58s em=0.00 f1=0.27 sim=0.807 avg/job=4.44s eta=6m22s
+[14:23:49] ANS   id=ext_md_072 method=weighted_merge preview=When choosing between Option A and Option B for on-device key generation on Appl
+[14:23:49] START job=215/300 item=72/100 id=ext_md_072 method=late_layer_injection domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[14:23:53] DONE  job=215/300 id=ext_md_072 method=late_layer_injection lat=4.21s em=0.00 f1=0.25 sim=0.776 avg/job=4.44s eta=6m17s
+[14:23:53] ANS   id=ext_md_072 method=late_layer_injection preview=When choosing between Option A and Option B for on-device key generation on Appl
+[14:23:53] START job=216/300 item=72/100 id=ext_md_072 method=sequential_reverse domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[14:23:58] DONE  job=216/300 id=ext_md_072 method=sequential_reverse lat=4.82s em=0.00 f1=0.25 sim=0.782 avg/job=4.44s eta=6m13s
+[14:23:58] ANS   id=ext_md_072 method=sequential_reverse preview=When choosing between Option A and Option B for on-device key generation on Appl
+[14:23:58] START job=217/300 item=73/100 id=ext_md_073 method=weighted_merge domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[14:24:02] DONE  job=217/300 id=ext_md_073 method=weighted_merge lat=4.52s em=0.00 f1=0.23 sim=0.497 avg/job=4.44s eta=6m08s
+[14:24:02] ANS   id=ext_md_073 method=weighted_merge preview=The compliance problem appears to be related to the documentation of the process
+[14:24:02] START job=218/300 item=73/100 id=ext_md_073 method=late_layer_injection domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[14:24:06] DONE  job=218/300 id=ext_md_073 method=late_layer_injection lat=4.13s em=0.00 f1=0.23 sim=0.477 avg/job=4.44s eta=6m04s
+[14:24:06] ANS   id=ext_md_073 method=late_layer_injection preview=The compliance problem in this scenario is related to the documentation of the p
+[14:24:06] START job=219/300 item=73/100 id=ext_md_073 method=sequential_reverse domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[14:24:11] DONE  job=219/300 id=ext_md_073 method=sequential_reverse lat=4.80s em=0.00 f1=0.23 sim=0.399 avg/job=4.45s eta=6m00s
+[14:24:11] ANS   id=ext_md_073 method=sequential_reverse preview=The compliance problem in this scenario is related to the documentation of the p
+[14:24:11] START job=220/300 item=74/100 id=ext_md_074 method=weighted_merge domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[14:24:16] DONE  job=220/300 id=ext_md_074 method=weighted_merge lat=4.51s em=0.00 f1=0.22 sim=0.767 avg/job=4.45s eta=5m55s
+[14:24:16] ANS   id=ext_md_074 method=weighted_merge preview=When evaluating the ethical safety of the two designs, it's important to conside
+[14:24:16] START job=221/300 item=74/100 id=ext_md_074 method=late_layer_injection domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[14:24:20] DONE  job=221/300 id=ext_md_074 method=late_layer_injection lat=4.17s em=0.00 f1=0.23 sim=0.791 avg/job=4.44s eta=5m51s
+[14:24:20] ANS   id=ext_md_074 method=late_layer_injection preview=When evaluating the ethical safety of the two designs, it's important to conside
+[14:24:20] START job=222/300 item=74/100 id=ext_md_074 method=sequential_reverse domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[14:24:25] DONE  job=222/300 id=ext_md_074 method=sequential_reverse lat=4.82s em=0.00 f1=0.25 sim=0.677 avg/job=4.45s eta=5m46s
+[14:24:25] ANS   id=ext_md_074 method=sequential_reverse preview=When considering the ethical implications of the two designs, **Design B** is ge
+[14:24:25] START job=223/300 item=75/100 id=ext_md_075 method=weighted_merge domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[14:24:29] DONE  job=223/300 id=ext_md_075 method=weighted_merge lat=4.59s em=0.00 f1=0.27 sim=0.709 avg/job=4.45s eta=5m42s
+[14:24:29] ANS   id=ext_md_075 method=weighted_merge preview=The failure mode in this scenario can be attributed to the incorrect handling of
+[14:24:29] START job=224/300 item=75/100 id=ext_md_075 method=late_layer_injection domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[14:24:34] DONE  job=224/300 id=ext_md_075 method=late_layer_injection lat=4.21s em=0.00 f1=0.28 sim=0.693 avg/job=4.45s eta=5m37s
+[14:24:34] ANS   id=ext_md_075 method=late_layer_injection preview=The failure mode in this scenario can be attributed to the incorrect handling of
+[14:24:34] START job=225/300 item=75/100 id=ext_md_075 method=sequential_reverse domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[14:24:39] DONE  job=225/300 id=ext_md_075 method=sequential_reverse lat=4.83s em=0.00 f1=0.27 sim=0.684 avg/job=4.45s eta=5m33s
+[14:24:39] ANS   id=ext_md_075 method=sequential_reverse preview=The failure mode in this scenario can be attributed to the incorrect handling of
+[14:24:39] START job=226/300 item=76/100 id=ext_md_076 method=weighted_merge domains=['MLX_KERNELS', 'ROBOTICS']
+[14:24:43] DONE  job=226/300 id=ext_md_076 method=weighted_merge lat=4.66s em=0.00 f1=0.29 sim=0.560 avg/job=4.45s eta=5m29s
+[14:24:43] ANS   id=ext_md_076 method=weighted_merge preview=To analyze the worst-case loop time, we need to consider all the components invo
+[14:24:43] START job=227/300 item=76/100 id=ext_md_076 method=late_layer_injection domains=['MLX_KERNELS', 'ROBOTICS']
+[14:24:47] DONE  job=227/300 id=ext_md_076 method=late_layer_injection lat=4.22s em=0.00 f1=0.25 sim=0.557 avg/job=4.45s eta=5m24s
+[14:24:47] ANS   id=ext_md_076 method=late_layer_injection preview=To determine the worst-case loop time, we need to consider all the time componen
+[14:24:47] START job=228/300 item=76/100 id=ext_md_076 method=sequential_reverse domains=['MLX_KERNELS', 'ROBOTICS']
+[14:24:52] DONE  job=228/300 id=ext_md_076 method=sequential_reverse lat=5.00s em=0.00 f1=0.25 sim=0.608 avg/job=4.45s eta=5m20s
+[14:24:52] ANS   id=ext_md_076 method=sequential_reverse preview=To determine the worst-case loop time and whether the design meets the deadline,
+[14:24:52] START job=229/300 item=77/100 id=ext_md_077 method=weighted_merge domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[14:24:57] DONE  job=229/300 id=ext_md_077 method=weighted_merge lat=4.60s em=0.00 f1=0.30 sim=0.559 avg/job=4.45s eta=5m16s
+[14:24:57] ANS   id=ext_md_077 method=weighted_merge preview=Yes, the spent mother liquor from the nitration step should be classified as haz
+[14:24:57] START job=230/300 item=77/100 id=ext_md_077 method=late_layer_injection domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[14:25:01] DONE  job=230/300 id=ext_md_077 method=late_layer_injection lat=4.25s em=0.00 f1=0.30 sim=0.538 avg/job=4.45s eta=5m11s
+[14:25:01] ANS   id=ext_md_077 method=late_layer_injection preview=Yes, the spent mother liquor from the nitration step should be classified as haz
+[14:25:01] START job=231/300 item=77/100 id=ext_md_077 method=sequential_reverse domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[14:25:06] DONE  job=231/300 id=ext_md_077 method=sequential_reverse lat=4.94s em=0.00 f1=0.36 sim=0.618 avg/job=4.45s eta=5m07s
+[14:25:06] ANS   id=ext_md_077 method=sequential_reverse preview=Yes, the spent mother liquor from the nitration step should be classified as haz
+[14:25:06] START job=232/300 item=78/100 id=ext_md_078 method=weighted_merge domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[14:25:11] DONE  job=232/300 id=ext_md_078 method=weighted_merge lat=4.51s em=0.00 f1=0.26 sim=0.545 avg/job=4.45s eta=5m02s
+[14:25:11] ANS   id=ext_md_078 method=weighted_merge preview=The Python encryption helper you described is vulnerable to a specific type of a
+[14:25:11] START job=233/300 item=78/100 id=ext_md_078 method=late_layer_injection domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[14:25:15] DONE  job=233/300 id=ext_md_078 method=late_layer_injection lat=4.16s em=0.00 f1=0.17 sim=0.427 avg/job=4.45s eta=4m58s
+[14:25:15] ANS   id=ext_md_078 method=late_layer_injection preview=The Python encryption helper you described is designed to ensure that each messa
+[14:25:15] START job=234/300 item=78/100 id=ext_md_078 method=sequential_reverse domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[14:25:20] DONE  job=234/300 id=ext_md_078 method=sequential_reverse lat=4.81s em=0.00 f1=0.21 sim=0.518 avg/job=4.45s eta=4m54s
+[14:25:20] ANS   id=ext_md_078 method=sequential_reverse preview=The Python encryption helper you described is vulnerable to a specific type of a
+[14:25:20] START job=235/300 item=79/100 id=ext_md_079 method=weighted_merge domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[14:25:22] DONE  job=235/300 id=ext_md_079 method=weighted_merge lat=1.34s em=0.00 f1=0.27 sim=0.584 avg/job=4.44s eta=4m48s
+[14:25:22] ANS   id=ext_md_079 method=weighted_merge preview=Given the temperatures, the X line should be prioritized for detection because i
+[14:25:22] START job=236/300 item=79/100 id=ext_md_079 method=late_layer_injection domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[14:25:23] DONE  job=236/300 id=ext_md_079 method=late_layer_injection lat=1.29s em=0.00 f1=0.32 sim=0.616 avg/job=4.43s eta=4m43s
+[14:25:23] ANS   id=ext_md_079 method=late_layer_injection preview=The X line should be prioritized for detection because it is at a higher energy 
+[14:25:23] START job=237/300 item=79/100 id=ext_md_079 method=sequential_reverse domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[14:25:25] DONE  job=237/300 id=ext_md_079 method=sequential_reverse lat=2.51s em=0.00 f1=0.31 sim=0.731 avg/job=4.42s eta=4m38s
+[14:25:25] ANS   id=ext_md_079 method=sequential_reverse preview=For the strongest line, prioritize X at 4.3 meV above ground, as its population 
+[14:25:25] START job=238/300 item=80/100 id=ext_md_080 method=weighted_merge domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[14:25:30] DONE  job=238/300 id=ext_md_080 method=weighted_merge lat=4.52s em=0.00 f1=0.26 sim=0.773 avg/job=4.42s eta=4m34s
+[14:25:30] ANS   id=ext_md_080 method=weighted_merge preview=To determine which proposal should be prioritized, we need to calculate the impa
+[14:25:30] START job=239/300 item=80/100 id=ext_md_080 method=late_layer_injection domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[14:25:34] DONE  job=239/300 id=ext_md_080 method=late_layer_injection lat=4.13s em=0.00 f1=0.23 sim=0.772 avg/job=4.42s eta=4m29s
+[14:25:34] ANS   id=ext_md_080 method=late_layer_injection preview=To determine which proposal should be prioritized, we need to calculate the impa
+[14:25:34] START job=240/300 item=80/100 id=ext_md_080 method=sequential_reverse domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[14:25:39] DONE  job=240/300 id=ext_md_080 method=sequential_reverse lat=4.81s em=0.00 f1=0.26 sim=0.773 avg/job=4.42s eta=4m25s
+[14:25:39] ANS   id=ext_md_080 method=sequential_reverse preview=To determine which proposal should be prioritized, we need to calculate the impa
+[14:25:39] START job=241/300 item=81/100 id=ext_md_081 method=weighted_merge domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[14:25:43] DONE  job=241/300 id=ext_md_081 method=weighted_merge lat=4.52s em=0.00 f1=0.26 sim=0.674 avg/job=4.42s eta=4m20s
+[14:25:43] ANS   id=ext_md_081 method=weighted_merge preview=The issue you're encountering with NumPy's `gather` operation on Apple GPUs is l
+[14:25:43] START job=242/300 item=81/100 id=ext_md_081 method=late_layer_injection domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[14:25:48] DONE  job=242/300 id=ext_md_081 method=late_layer_injection lat=4.14s em=0.00 f1=0.26 sim=0.607 avg/job=4.42s eta=4m16s
+[14:25:48] ANS   id=ext_md_081 method=late_layer_injection preview=The issue you're encountering with NumPy's `gather` operation on Apple GPUs is l
+[14:25:48] START job=243/300 item=81/100 id=ext_md_081 method=sequential_reverse domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[14:25:52] DONE  job=243/300 id=ext_md_081 method=sequential_reverse lat=4.81s em=0.00 f1=0.27 sim=0.676 avg/job=4.42s eta=4m12s
+[14:25:52] ANS   id=ext_md_081 method=sequential_reverse preview=The issue you're encountering with NumPy on Apple GPUs is likely related to the 
+[14:25:52] START job=244/300 item=82/100 id=ext_md_082 method=weighted_merge domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[14:25:57] DONE  job=244/300 id=ext_md_082 method=weighted_merge lat=4.51s em=0.00 f1=0.20 sim=0.667 avg/job=4.42s eta=4m07s
+[14:25:57] ANS   id=ext_md_082 method=weighted_merge preview=Given the constraints of a resource-constrained program, the better investment w
+[14:25:57] START job=245/300 item=82/100 id=ext_md_082 method=late_layer_injection domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[14:26:01] DONE  job=245/300 id=ext_md_082 method=late_layer_injection lat=4.13s em=0.00 f1=0.20 sim=0.677 avg/job=4.42s eta=4m03s
+[14:26:01] ANS   id=ext_md_082 method=late_layer_injection preview=Given the constraints of a resource-constrained program, the better investment w
+[14:26:01] START job=246/300 item=82/100 id=ext_md_082 method=sequential_reverse domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[14:26:06] DONE  job=246/300 id=ext_md_082 method=sequential_reverse lat=4.73s em=0.00 f1=0.24 sim=0.679 avg/job=4.42s eta=3m58s
+[14:26:06] ANS   id=ext_md_082 method=sequential_reverse preview=Given the constraints of a resource-constrained program, the **higher-accuracy q
+[14:26:06] START job=247/300 item=83/100 id=ext_md_083 method=weighted_merge domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[14:26:07] DONE  job=247/300 id=ext_md_083 method=weighted_merge lat=1.08s em=0.00 f1=0.18 sim=0.649 avg/job=4.41s eta=3m53s
+[14:26:07] ANS   id=ext_md_083 method=weighted_merge preview=The label should specify that the painting is historically accurate in terms of 
+[14:26:07] START job=248/300 item=83/100 id=ext_md_083 method=late_layer_injection domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[14:26:09] DONE  job=248/300 id=ext_md_083 method=late_layer_injection lat=2.17s em=0.00 f1=0.23 sim=0.700 avg/job=4.40s eta=3m48s
+[14:26:09] ANS   id=ext_md_083 method=late_layer_injection preview=The label should specify that the painting is historically accurate in terms of 
+[14:26:09] START job=249/300 item=83/100 id=ext_md_083 method=sequential_reverse domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[14:26:12] DONE  job=249/300 id=ext_md_083 method=sequential_reverse lat=2.52s em=0.00 f1=0.21 sim=0.695 avg/job=4.39s eta=3m44s
+[14:26:12] ANS   id=ext_md_083 method=sequential_reverse preview=The label should specify that the painting is historically accurate in terms of 
+[14:26:12] START job=250/300 item=84/100 id=ext_md_084 method=weighted_merge domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[14:26:16] DONE  job=250/300 id=ext_md_084 method=weighted_merge lat=4.58s em=0.00 f1=0.26 sim=0.673 avg/job=4.39s eta=3m39s
+[14:26:16] ANS   id=ext_md_084 method=weighted_merge preview=The lighter rover with lower compute, more energy-aware routing, and scheduled d
+[14:26:16] START job=251/300 item=84/100 id=ext_md_084 method=late_layer_injection domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[14:26:21] DONE  job=251/300 id=ext_md_084 method=late_layer_injection lat=4.15s em=0.00 f1=0.26 sim=0.680 avg/job=4.39s eta=3m35s
+[14:26:21] ANS   id=ext_md_084 method=late_layer_injection preview=The lighter rover with lower compute, more energy-aware routing, and scheduled d
+[14:26:21] START job=252/300 item=84/100 id=ext_md_084 method=sequential_reverse domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[14:26:25] DONE  job=252/300 id=ext_md_084 method=sequential_reverse lat=4.83s em=0.00 f1=0.25 sim=0.668 avg/job=4.40s eta=3m30s
+[14:26:25] ANS   id=ext_md_084 method=sequential_reverse preview=The lighter rover with lower compute, more energy-aware routing, and scheduled d
+[14:26:25] START job=253/300 item=85/100 id=ext_md_085 method=weighted_merge domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[14:26:30] DONE  job=253/300 id=ext_md_085 method=weighted_merge lat=4.53s em=0.00 f1=0.27 sim=0.776 avg/job=4.40s eta=3m26s
+[14:26:30] ANS   id=ext_md_085 method=weighted_merge preview=One major failure mode of the strategy of translating Classical Sanskrit into ps
+[14:26:30] START job=254/300 item=85/100 id=ext_md_085 method=late_layer_injection domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[14:26:34] DONE  job=254/300 id=ext_md_085 method=late_layer_injection lat=4.14s em=0.00 f1=0.26 sim=0.750 avg/job=4.40s eta=3m22s
+[14:26:34] ANS   id=ext_md_085 method=late_layer_injection preview=One major failure mode of the strategy of translating Classical Sanskrit into ps
+[14:26:34] START job=255/300 item=85/100 id=ext_md_085 method=sequential_reverse domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[14:26:39] DONE  job=255/300 id=ext_md_085 method=sequential_reverse lat=4.80s em=0.00 f1=0.25 sim=0.739 avg/job=4.40s eta=3m17s
+[14:26:39] ANS   id=ext_md_085 method=sequential_reverse preview=One major failure mode of the strategy of translating Classical Sanskrit into ps
+[14:26:39] START job=256/300 item=86/100 id=ext_md_086 method=weighted_merge domains=['PYTHON_LOGIC', 'ROBOTICS']
+[14:26:42] DONE  job=256/300 id=ext_md_086 method=weighted_merge lat=3.26s em=0.00 f1=0.25 sim=0.738 avg/job=4.39s eta=3m13s
+[14:26:42] ANS   id=ext_md_086 method=weighted_merge preview=The current rule of stopping when a yielded point is falsy is causing the robot 
+[14:26:42] START job=257/300 item=86/100 id=ext_md_086 method=late_layer_injection domains=['PYTHON_LOGIC', 'ROBOTICS']
+[14:26:46] DONE  job=257/300 id=ext_md_086 method=late_layer_injection lat=4.19s em=0.00 f1=0.25 sim=0.726 avg/job=4.39s eta=3m08s
+[14:26:46] ANS   id=ext_md_086 method=late_layer_injection preview=The current rule of stopping the robot when a yielded point is falsy is causing 
+[14:26:46] START job=258/300 item=86/100 id=ext_md_086 method=sequential_reverse domains=['PYTHON_LOGIC', 'ROBOTICS']
+[14:26:50] DONE  job=258/300 id=ext_md_086 method=sequential_reverse lat=3.44s em=0.00 f1=0.29 sim=0.749 avg/job=4.39s eta=3m04s
+[14:26:50] ANS   id=ext_md_086 method=sequential_reverse preview=The current rule of stopping when a yielded point is falsy is causing the robot 
+[14:26:50] START job=259/300 item=87/100 id=ext_md_087 method=weighted_merge domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[14:26:54] DONE  job=259/300 id=ext_md_087 method=weighted_merge lat=4.55s em=0.00 f1=0.26 sim=0.647 avg/job=4.39s eta=2m59s
+[14:26:54] ANS   id=ext_md_087 method=weighted_merge preview=The decision to prioritize the isolated-molecule dipole moment from quantum chem
+[14:26:54] START job=260/300 item=87/100 id=ext_md_087 method=late_layer_injection domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[14:26:59] DONE  job=260/300 id=ext_md_087 method=late_layer_injection lat=4.19s em=0.00 f1=0.24 sim=0.593 avg/job=4.39s eta=2m55s
+[14:26:59] ANS   id=ext_md_087 method=late_layer_injection preview=The decision to prioritize the isolated-molecule dipole moment from quantum chem
+[14:26:59] START job=261/300 item=87/100 id=ext_md_087 method=sequential_reverse domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[14:27:04] DONE  job=261/300 id=ext_md_087 method=sequential_reverse lat=4.80s em=0.00 f1=0.25 sim=0.570 avg/job=4.39s eta=2m51s
+[14:27:04] ANS   id=ext_md_087 method=sequential_reverse preview=The decision to prioritize the isolated-molecule dipole moment from quantum chem
+[14:27:04] START job=262/300 item=88/100 id=ext_md_088 method=weighted_merge domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[14:27:06] DONE  job=262/300 id=ext_md_088 method=weighted_merge lat=2.69s em=0.00 f1=0.32 sim=0.709 avg/job=4.38s eta=2m46s
+[14:27:06] ANS   id=ext_md_088 method=weighted_merge preview=The reasoning bug in the reviewer's argument is that they confuse the terms "lin
+[14:27:06] START job=263/300 item=88/100 id=ext_md_088 method=late_layer_injection domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[14:27:10] DONE  job=263/300 id=ext_md_088 method=late_layer_injection lat=3.43s em=0.00 f1=0.28 sim=0.611 avg/job=4.38s eta=2m42s
+[14:27:10] ANS   id=ext_md_088 method=late_layer_injection preview=The reasoning bug in the reviewer's argument lies in the assumption that the mus
+[14:27:10] START job=264/300 item=88/100 id=ext_md_088 method=sequential_reverse domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[14:27:13] DONE  job=264/300 id=ext_md_088 method=sequential_reverse lat=3.71s em=0.00 f1=0.32 sim=0.715 avg/job=4.38s eta=2m37s
+[14:27:13] ANS   id=ext_md_088 method=sequential_reverse preview=The reasoning bug in the reviewer's argument lies in the assumption that the mus
+[14:27:13] START job=265/300 item=89/100 id=ext_md_089 method=weighted_merge domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[14:27:16] DONE  job=265/300 id=ext_md_089 method=weighted_merge lat=2.68s em=0.00 f1=0.31 sim=0.796 avg/job=4.37s eta=2m33s
+[14:27:16] ANS   id=ext_md_089 method=weighted_merge preview=The claim that an undated inscription's Sanskrit form is "obviously classical" i
+[14:27:16] START job=266/300 item=89/100 id=ext_md_089 method=late_layer_injection domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[14:27:19] DONE  job=266/300 id=ext_md_089 method=late_layer_injection lat=2.65s em=0.00 f1=0.30 sim=0.820 avg/job=4.37s eta=2m28s
+[14:27:19] ANS   id=ext_md_089 method=late_layer_injection preview=The claim that an undated inscription's Sanskrit form is "obviously classical" i
+[14:27:19] START job=267/300 item=89/100 id=ext_md_089 method=sequential_reverse domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[14:27:23] DONE  job=267/300 id=ext_md_089 method=sequential_reverse lat=3.95s em=0.00 f1=0.30 sim=0.789 avg/job=4.36s eta=2m23s
+[14:27:23] ANS   id=ext_md_089 method=sequential_reverse preview=The claim that an undated inscription's Sanskrit form is "obviously classical" i
+[14:27:23] START job=268/300 item=90/100 id=ext_md_090 method=weighted_merge domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[14:27:29] DONE  job=268/300 id=ext_md_090 method=weighted_merge lat=6.15s em=0.00 f1=0.32 sim=0.780 avg/job=4.37s eta=2m19s
+[14:27:29] ANS   id=ext_md_090 method=weighted_merge preview=In this scenario, Route A should be prioritized for the first lab trial despite 
+[14:27:29] START job=269/300 item=90/100 id=ext_md_090 method=late_layer_injection domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[14:27:35] DONE  job=269/300 id=ext_md_090 method=late_layer_injection lat=5.77s em=0.00 f1=0.34 sim=0.790 avg/job=4.38s eta=2m15s
+[14:27:35] ANS   id=ext_md_090 method=late_layer_injection preview=In this scenario, Route A should be prioritized for the first lab trial despite 
+[14:27:35] START job=270/300 item=90/100 id=ext_md_090 method=sequential_reverse domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[14:27:42] DONE  job=270/300 id=ext_md_090 method=sequential_reverse lat=6.25s em=0.00 f1=0.37 sim=0.799 avg/job=4.39s eta=2m11s
+[14:27:42] ANS   id=ext_md_090 method=sequential_reverse preview=In this scenario, Route A should be prioritized for the first lab trial despite 
+[14:27:42] START job=271/300 item=91/100 id=ext_md_091 method=weighted_merge domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[14:27:48] DONE  job=271/300 id=ext_md_091 method=weighted_merge lat=5.79s em=0.00 f1=0.24 sim=0.698 avg/job=4.39s eta=2m07s
+[14:27:48] ANS   id=ext_md_091 method=weighted_merge preview=The statement "Molecule X has a very strong IR peak, so its warming impact will 
+[14:27:48] START job=272/300 item=91/100 id=ext_md_091 method=late_layer_injection domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[14:27:52] DONE  job=272/300 id=ext_md_091 method=late_layer_injection lat=4.21s em=0.00 f1=0.27 sim=0.740 avg/job=4.39s eta=2m02s
+[14:27:52] ANS   id=ext_md_091 method=late_layer_injection preview=The statement "Molecule X has a very strong IR peak, so its warming impact will 
+[14:27:52] START job=273/300 item=91/100 id=ext_md_091 method=sequential_reverse domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[14:27:57] DONE  job=273/300 id=ext_md_091 method=sequential_reverse lat=4.77s em=0.00 f1=0.26 sim=0.748 avg/job=4.39s eta=1m58s
+[14:27:57] ANS   id=ext_md_091 method=sequential_reverse preview=The statement "Molecule X has a very strong IR peak, so its warming impact will 
+[14:27:57] START job=274/300 item=92/100 id=ext_md_092 method=weighted_merge domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[14:28:02] DONE  job=274/300 id=ext_md_092 method=weighted_merge lat=4.57s em=0.00 f1=0.24 sim=0.679 avg/job=4.39s eta=1m54s
+[14:28:02] ANS   id=ext_md_092 method=weighted_merge preview=Option A, "like a Renaissance motet with interwoven voices," is the better compa
+[14:28:02] START job=275/300 item=92/100 id=ext_md_092 method=late_layer_injection domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[14:28:06] DONE  job=275/300 id=ext_md_092 method=late_layer_injection lat=4.13s em=0.00 f1=0.22 sim=0.685 avg/job=4.39s eta=1m49s
+[14:28:06] ANS   id=ext_md_092 method=late_layer_injection preview=Option A, "like a Renaissance motet with interwoven voices," is the better compa
+[14:28:06] START job=276/300 item=92/100 id=ext_md_092 method=sequential_reverse domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[14:28:11] DONE  job=276/300 id=ext_md_092 method=sequential_reverse lat=4.78s em=0.00 f1=0.26 sim=0.700 avg/job=4.39s eta=1m45s
+[14:28:11] ANS   id=ext_md_092 method=sequential_reverse preview=Option A, "like a Renaissance motet with interwoven voices," is the better compa
+[14:28:11] START job=277/300 item=93/100 id=ext_md_093 method=weighted_merge domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[14:28:12] DONE  job=277/300 id=ext_md_093 method=weighted_merge lat=1.44s em=0.00 f1=0.24 sim=0.447 avg/job=4.38s eta=1m40s
+[14:28:12] ANS   id=ext_md_093 method=weighted_merge preview=The error in the claim is that it is not clear what the inscription fragment act
+[14:28:12] START job=278/300 item=93/100 id=ext_md_093 method=late_layer_injection domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[14:28:13] DONE  job=278/300 id=ext_md_093 method=late_layer_injection lat=1.34s em=0.00 f1=0.24 sim=0.447 avg/job=4.37s eta=1m36s
+[14:28:13] ANS   id=ext_md_093 method=late_layer_injection preview=The error in the claim is that it is not clear what the inscription fragment act
+[14:28:13] START job=279/300 item=93/100 id=ext_md_093 method=sequential_reverse domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[14:28:15] DONE  job=279/300 id=ext_md_093 method=sequential_reverse lat=1.70s em=0.00 f1=0.24 sim=0.465 avg/job=4.36s eta=1m31s
+[14:28:15] ANS   id=ext_md_093 method=sequential_reverse preview=The error in the claim is that it is not clear what the inscription fragment act
+[14:28:15] START job=280/300 item=94/100 id=ext_md_094 method=weighted_merge domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[14:28:18] DONE  job=280/300 id=ext_md_094 method=weighted_merge lat=2.95s em=0.00 f1=0.39 sim=0.670 avg/job=4.36s eta=1m27s
+[14:28:18] ANS   id=ext_md_094 method=weighted_merge preview=The route-selection note suggests choosing reagent set B because its electrophil
+[14:28:18] START job=281/300 item=94/100 id=ext_md_094 method=late_layer_injection domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[14:28:21] DONE  job=281/300 id=ext_md_094 method=late_layer_injection lat=2.70s em=0.00 f1=0.36 sim=0.641 avg/job=4.35s eta=1m22s
+[14:28:21] ANS   id=ext_md_094 method=late_layer_injection preview=The route-selection note suggests choosing reagent set B because its electrophil
+[14:28:21] START job=282/300 item=94/100 id=ext_md_094 method=sequential_reverse domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[14:28:24] DONE  job=282/300 id=ext_md_094 method=sequential_reverse lat=3.21s em=0.00 f1=0.39 sim=0.665 avg/job=4.35s eta=1m18s
+[14:28:24] ANS   id=ext_md_094 method=sequential_reverse preview=The route-selection note suggests choosing reagent set B because its electrophil
+[14:28:24] START job=283/300 item=95/100 id=ext_md_095 method=weighted_merge domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[14:28:29] DONE  job=283/300 id=ext_md_095 method=weighted_merge lat=4.47s em=0.00 f1=0.30 sim=0.732 avg/job=4.35s eta=1m13s
+[14:28:29] ANS   id=ext_md_095 method=weighted_merge preview=The original Renaissance image program was designed to convey a sense of physica
+[14:28:29] START job=284/300 item=95/100 id=ext_md_095 method=late_layer_injection domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[14:28:33] DONE  job=284/300 id=ext_md_095 method=late_layer_injection lat=4.17s em=0.00 f1=0.28 sim=0.726 avg/job=4.35s eta=1m09s
+[14:28:33] ANS   id=ext_md_095 method=late_layer_injection preview=The original Renaissance image program was designed to convey a sense of physica
+[14:28:33] START job=285/300 item=95/100 id=ext_md_095 method=sequential_reverse domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[14:28:38] DONE  job=285/300 id=ext_md_095 method=sequential_reverse lat=4.74s em=0.00 f1=0.26 sim=0.727 avg/job=4.35s eta=1m05s
+[14:28:38] ANS   id=ext_md_095 method=sequential_reverse preview=The original Renaissance image program was designed to convey a sense of physica
+[14:28:38] START job=286/300 item=96/100 id=ext_md_096 method=weighted_merge domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[14:28:42] DONE  job=286/300 id=ext_md_096 method=weighted_merge lat=4.50s em=0.00 f1=0.18 sim=0.651 avg/job=4.35s eta=1m00s
+[14:28:42] ANS   id=ext_md_096 method=weighted_merge preview=Dear Museum Director,  I appreciate your thoughtful consideration of the role of
+[14:28:42] START job=287/300 item=96/100 id=ext_md_096 method=late_layer_injection domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[14:28:46] DONE  job=287/300 id=ext_md_096 method=late_layer_injection lat=4.16s em=0.00 f1=0.22 sim=0.685 avg/job=4.35s eta=56s
+[14:28:46] ANS   id=ext_md_096 method=late_layer_injection preview=Dear Museum Director,  I appreciate your thoughtful consideration of the role of
+[14:28:46] START job=288/300 item=96/100 id=ext_md_096 method=sequential_reverse domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[14:28:51] DONE  job=288/300 id=ext_md_096 method=sequential_reverse lat=4.80s em=0.00 f1=0.19 sim=0.681 avg/job=4.35s eta=52s
+[14:28:51] ANS   id=ext_md_096 method=sequential_reverse preview=Dear Museum Director,  I appreciate your thoughtful consideration of the role of
+[14:28:51] START job=289/300 item=97/100 id=ext_md_097 method=weighted_merge domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[14:28:56] DONE  job=289/300 id=ext_md_097 method=weighted_merge lat=4.45s em=0.00 f1=0.24 sim=0.746 avg/job=4.35s eta=47s
+[14:28:56] ANS   id=ext_md_097 method=weighted_merge preview=The city operations lead's statement that "Any robot use is climate-positive" is
+[14:28:56] START job=290/300 item=97/100 id=ext_md_097 method=late_layer_injection domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[14:29:00] DONE  job=290/300 id=ext_md_097 method=late_layer_injection lat=4.11s em=0.00 f1=0.26 sim=0.748 avg/job=4.35s eta=43s
+[14:29:00] ANS   id=ext_md_097 method=late_layer_injection preview=The city operations lead's statement that "Any robot use is climate-positive" is
+[14:29:00] START job=291/300 item=97/100 id=ext_md_097 method=sequential_reverse domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[14:29:05] DONE  job=291/300 id=ext_md_097 method=sequential_reverse lat=4.80s em=0.00 f1=0.24 sim=0.755 avg/job=4.35s eta=39s
+[14:29:05] ANS   id=ext_md_097 method=sequential_reverse preview=The city operations lead's statement that "Any robot use is climate-positive" is
+[14:29:05] START job=292/300 item=98/100 id=ext_md_098 method=weighted_merge domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[14:29:09] DONE  job=292/300 id=ext_md_098 method=weighted_merge lat=4.48s em=0.00 f1=0.22 sim=0.821 avg/job=4.35s eta=34s
+[14:29:09] ANS   id=ext_md_098 method=weighted_merge preview=The reasoning that a Sanskrit line should be rendered in faux-old English becaus
+[14:29:09] START job=293/300 item=98/100 id=ext_md_098 method=late_layer_injection domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[14:29:13] DONE  job=293/300 id=ext_md_098 method=late_layer_injection lat=4.10s em=0.00 f1=0.28 sim=0.850 avg/job=4.35s eta=30s
+[14:29:13] ANS   id=ext_md_098 method=late_layer_injection preview=The reasoning that a Sanskrit line should be rendered in faux-old English becaus
+[14:29:13] START job=294/300 item=98/100 id=ext_md_098 method=sequential_reverse domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[14:29:18] DONE  job=294/300 id=ext_md_098 method=sequential_reverse lat=4.73s em=0.00 f1=0.25 sim=0.822 avg/job=4.35s eta=26s
+[14:29:18] ANS   id=ext_md_098 method=sequential_reverse preview=The reasoning that a Sanskrit line should be rendered in faux-old English becaus
+[14:29:18] START job=295/300 item=99/100 id=ext_md_099 method=weighted_merge domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[14:29:21] DONE  job=295/300 id=ext_md_099 method=weighted_merge lat=3.23s em=0.00 f1=0.18 sim=0.402 avg/job=4.35s eta=21s
+[14:29:21] ANS   id=ext_md_099 method=weighted_merge preview=In Indian philosophy, the Sanskrit term "sankalpa" is often left untranslated to
+[14:29:21] START job=296/300 item=99/100 id=ext_md_099 method=late_layer_injection domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[14:29:23] DONE  job=296/300 id=ext_md_099 method=late_layer_injection lat=1.64s em=0.00 f1=0.24 sim=0.384 avg/job=4.34s eta=17s
+[14:29:23] ANS   id=ext_md_099 method=late_layer_injection preview=In Indian philosophy, the Sanskrit term "sankalpa" is often left untranslated to
+[14:29:23] START job=297/300 item=99/100 id=ext_md_099 method=sequential_reverse domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[14:29:25] DONE  job=297/300 id=ext_md_099 method=sequential_reverse lat=2.08s em=0.00 f1=0.21 sim=0.287 avg/job=4.33s eta=13s
+[14:29:25] ANS   id=ext_md_099 method=sequential_reverse preview=In Indian philosophy, the Sanskrit term "sankalpa" sometimes remains untranslate
+[14:29:25] START job=298/300 item=100/100 id=ext_md_100 method=weighted_merge domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[14:29:30] DONE  job=298/300 id=ext_md_100 method=weighted_merge lat=4.45s em=0.00 f1=0.25 sim=0.791 avg/job=4.33s eta=8s
+[14:29:30] ANS   id=ext_md_100 method=weighted_merge preview=As a non-expert product lead, you need to consider the immediate impact on user 
+[14:29:30] START job=299/300 item=100/100 id=ext_md_100 method=late_layer_injection domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[14:29:34] DONE  job=299/300 id=ext_md_100 method=late_layer_injection lat=4.09s em=0.00 f1=0.25 sim=0.796 avg/job=4.33s eta=4s
+[14:29:34] ANS   id=ext_md_100 method=late_layer_injection preview=As a non-expert product lead, you need to consider the accessibility and usabili
+[14:29:34] START job=300/300 item=100/100 id=ext_md_100 method=sequential_reverse domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[14:29:38] DONE  job=300/300 id=ext_md_100 method=sequential_reverse lat=4.72s em=0.00 f1=0.23 sim=0.775 avg/job=4.34s eta=0s
+[14:29:38] ANS   id=ext_md_100 method=sequential_reverse preview=As a non-expert product lead, you need to consider the accessibility and usabili

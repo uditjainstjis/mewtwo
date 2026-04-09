@@ -1,0 +1,215 @@
+{
+  "ollama_host": "http://127.0.0.1:11434",
+  "model": "mistral:7b",
+  "dataset_mtime_iso": "2026-04-08T04:37:56.680768",
+  "dataset_bytes": 48225,
+  "dataset_path": "data/multidomain_eval_external.json",
+  "num_predict": 180,
+  "two_domain_only": true,
+  "n_items": 40,
+  "n_ollama_errors": 0,
+  "mean_similarity": 0.6629314109683037,
+  "mean_latency_s": 14.469395399093628,
+  "items": [
+    {
+      "id": "ext_md_01",
+      "similarity": 0.8237014412879944,
+      "latency": 16.878720998764038
+    },
+    {
+      "id": "ext_md_02",
+      "similarity": 0.7277481555938721,
+      "latency": 16.139925003051758
+    },
+    {
+      "id": "ext_md_03",
+      "similarity": 0.8652617931365967,
+      "latency": 13.596328973770142
+    },
+    {
+      "id": "ext_md_04",
+      "similarity": 0.6311159133911133,
+      "latency": 14.272661924362183
+    },
+    {
+      "id": "ext_md_05",
+      "similarity": 0.6687589883804321,
+      "latency": 18.17619824409485
+    },
+    {
+      "id": "ext_md_06",
+      "similarity": 0.6768578886985779,
+      "latency": 14.069862842559814
+    },
+    {
+      "id": "ext_md_07",
+      "similarity": 0.7339248657226562,
+      "latency": 16.25552797317505
+    },
+    {
+      "id": "ext_md_08",
+      "similarity": 0.6442938446998596,
+      "latency": 18.473865032196045
+    },
+    {
+      "id": "ext_md_09",
+      "similarity": 0.5951520800590515,
+      "latency": 15.801674842834473
+    },
+    {
+      "id": "ext_md_10",
+      "similarity": 0.7187023162841797,
+      "latency": 14.26003885269165
+    },
+    {
+      "id": "ext_md_11",
+      "similarity": 0.6632274389266968,
+      "latency": 14.105553150177002
+    },
+    {
+      "id": "ext_md_12",
+      "similarity": 0.7034716010093689,
+      "latency": 13.027249097824097
+    },
+    {
+      "id": "ext_md_13",
+      "similarity": 0.7165732979774475,
+      "latency": 13.819504022598267
+    },
+    {
+      "id": "ext_md_14",
+      "similarity": 0.7897924184799194,
+      "latency": 12.664093017578125
+    },
+    {
+      "id": "ext_md_15",
+      "similarity": 0.6063899993896484,
+      "latency": 15.334347009658813
+    },
+    {
+      "id": "ext_md_16",
+      "similarity": 0.821097731590271,
+      "latency": 15.253621101379395
+    },
+    {
+      "id": "ext_md_17",
+      "similarity": 0.7164038419723511,
+      "latency": 16.15252709388733
+    },
+    {
+      "id": "ext_md_18",
+      "similarity": 0.5090391635894775,
+      "latency": 13.148024082183838
+    },
+    {
+      "id": "ext_md_19",
+      "similarity": 0.5290107727050781,
+      "latency": 13.316879987716675
+    },
+    {
+      "id": "ext_md_20",
+      "similarity": 0.761818528175354,
+      "latency": 12.823993682861328
+    },
+    {
+      "id": "ext_md_21",
+      "similarity": 0.5099472403526306,
+      "latency": 15.08962893486023
+    },
+    {
+      "id": "ext_md_22",
+      "similarity": 0.4579223394393921,
+      "latency": 13.249066829681396
+    },
+    {
+      "id": "ext_md_23",
+      "similarity": 0.6385587453842163,
+      "latency": 14.467572927474976
+    },
+    {
+      "id": "ext_md_24",
+      "similarity": 0.7328882217407227,
+      "latency": 15.575448036193848
+    },
+    {
+      "id": "ext_md_25",
+      "similarity": 0.6760977506637573,
+      "latency": 16.8973548412323
+    },
+    {
+      "id": "ext_md_26",
+      "similarity": 0.7329294681549072,
+      "latency": 16.28125786781311
+    },
+    {
+      "id": "ext_md_27",
+      "similarity": 0.7157686352729797,
+      "latency": 15.260570287704468
+    },
+    {
+      "id": "ext_md_28",
+      "similarity": 0.559096097946167,
+      "latency": 16.43603205680847
+    },
+    {
+      "id": "ext_md_29",
+      "similarity": 0.6256424188613892,
+      "latency": 17.20419716835022
+    },
+    {
+      "id": "ext_md_30",
+      "similarity": 0.535900354385376,
+      "latency": 13.892169952392578
+    },
+    {
+      "id": "ext_md_31",
+      "similarity": 0.7700587511062622,
+      "latency": 12.78219985961914
+    },
+    {
+      "id": "ext_md_32",
+      "similarity": 0.6858508586883545,
+      "latency": 13.884974956512451
+    },
+    {
+      "id": "ext_md_33",
+      "similarity": 0.5910471081733704,
+      "latency": 13.128016948699951
+    },
+    {
+      "id": "ext_md_34",
+      "similarity": 0.6962038278579712,
+      "latency": 12.323256969451904
+    },
+    {
+      "id": "ext_md_35",
+      "similarity": 0.4452093243598938,
+      "latency": 12.061486721038818
+    },
+    {
+      "id": "ext_md_36",
+      "similarity": 0.8149983882904053,
+      "latency": 12.67003583908081
+    },
+    {
+      "id": "ext_md_37",
+      "similarity": 0.5200808048248291,
+      "latency": 12.63749885559082
+    },
+    {
+      "id": "ext_md_38",
+      "similarity": 0.7750629186630249,
+      "latency": 12.42067813873291
+    },
+    {
+      "id": "ext_md_39",
+      "similarity": 0.5320307612419128,
+      "latency": 12.418564796447754
+    },
+    {
+      "id": "ext_md_40",
+      "similarity": 0.5996203422546387,
+      "latency": 12.525207042694092
+    }
+  ]
+}

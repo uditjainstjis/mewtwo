@@ -1,0 +1,19 @@
+[
+  {
+    "id": "router_00002",
+    "question": "A contract states a penalty of 5% compounded monthly on a $2,000 overdue payment. Is such a penalty clause legally enforceable, and what is the total amount owed after 3 months?",
+    "thinking": [
+      "Penalty enforceability needs legal analysis.",
+      "Compound interest calculation needs math."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

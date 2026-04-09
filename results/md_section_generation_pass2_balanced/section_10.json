@@ -1,0 +1,246 @@
+[
+  {
+    "id": "ext_md_096",
+    "domains": [
+      "RENAISSANCE_ART",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "RENAISSANCE_ART",
+      "PHILOSOPHY"
+    ],
+    "question": "A museum director says, \"If Renaissance art was funded by patrons, it was basically just propaganda, so our wall text should say patrons controlled the meaning.\" Write a short note for the director that explains why that claim is too strong. Use one concrete Renaissance patronage point and one philosophical distinction between influencing a work and determining its meaning.",
+    "reference_answer": "That wording is too absolute. In Renaissance practice, patrons often set constraints such as subject, size, materials, or location, so they clearly influenced what got made. But influence is not the same as fully determining meaning: philosophically, an intention can shape a work without exhausting all valid interpretation. A better wall text would say patrons strongly framed commissions, while meaning also emerged from the artist’s choices, visual form, and later viewers’ understanding.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "patrons could specify constraints such as subject, size, materials, or location",
+        "distinguishes influence or intention from total determination of meaning"
+      ],
+      "must_include_any": [
+        [
+          "artist interpretation",
+          "artist choices"
+        ],
+        [
+          "viewer interpretation",
+          "later audiences"
+        ]
+      ],
+      "must_not_include": [
+        "claims patrons had no influence",
+        "claims patron intention alone fixes meaning"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:56:52.115224+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_097",
+    "domains": [
+      "ROBOTICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "ROBOTICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A city operations lead wants to buy inspection drones and says, \"Any robot use is climate-positive.\" Draft a brief explanation that either supports or rejects that rule for a budget committee. Include one robotics-specific reason and one climate-science reason, and end with a practical decision rule.",
+    "reference_answer": "Reject that rule. From a robotics view, drones can reduce labor time and improve inspection coverage, especially for hard-to-reach assets, but they still require hardware, charging, maintenance, and replacement. From a climate view, impact depends on net emissions across the full use case, including whether flights displace higher-emission truck rolls or add new activity. A practical rule is to approve deployments only where the expected emissions avoided and resilience gains are likely to exceed the system’s operating and lifecycle footprint.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "robotics benefit such as inspection coverage, access, or operational efficiency",
+        "climate impact depends on net or lifecycle emissions rather than robot use alone",
+        "ends with a conditional decision rule"
+      ],
+      "must_include_any": [
+        [
+          "truck rolls",
+          "site visits"
+        ],
+        [
+          "lifecycle footprint",
+          "operating footprint"
+        ]
+      ],
+      "must_not_include": [
+        "states all robot deployments are automatically climate-positive",
+        "ignores emissions from manufacturing or operation"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "usefulness",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:56:52.115224+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_098",
+    "domains": [
+      "SANSKRIT_LINGUISTICS",
+      "ARCHAIC_ENGLISH"
+    ],
+    "required_adapters": [
+      "SANSKRIT_LINGUISTICS",
+      "ARCHAIC_ENGLISH"
+    ],
+    "question": "A localization manager says a Sanskrit line should be rendered in faux-old English because \"both are ancient.\" Explain why this reasoning is buggy. Keep it practical: mention one Sanskrit-specific linguistic issue and one reason archaic English style can mislead users about translation quality.",
+    "reference_answer": "The reasoning confuses source language structure with target-language styling. Sanskrit has issues like sandhi, dense compounds, and flexible word order, so the main translation challenge is preserving meaning and analysis, not making the English sound antique. Faux-old English can mislead users because archaic wording suggests historical equivalence or faithfulness even when it only adds stylistic noise. The safer rule is: translate accurately into clear modern English unless the product explicitly needs a historical-English effect.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "identifies a Sanskrit-specific issue such as sandhi, compounds, or flexible word order",
+        "explains that archaic English style does not guarantee fidelity",
+        "recommends clear modern English unless style is explicitly required"
+      ],
+      "must_include_any": [
+        [
+          "faux-old English",
+          "pseudo-archaic English"
+        ],
+        [
+          "misleading signal",
+          "false impression"
+        ]
+      ],
+      "must_not_include": [
+        "says ancient source texts should automatically use archaic English",
+        "treats style matching as the main criterion of translation accuracy"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:56:52.115224+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_099",
+    "domains": [
+      "SANSKRIT_LINGUISTICS",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "SANSKRIT_LINGUISTICS",
+      "PHILOSOPHY"
+    ],
+    "question": "A product manager needs a two-sentence tooltip for readers of translated Indian philosophy. Explain why one Sanskrit term should sometimes stay untranslated, but avoid sounding academic. Mention semantic range and reader usefulness.",
+    "reference_answer": "Some Sanskrit terms are worth keeping in transliteration when no single English word covers their full semantic range, because a narrow gloss can distort the argument. For readers, the best practice is usually a stable transliterated term with a short plain-language gloss, so they can follow the text without thinking the translation settled every philosophical nuance.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "untranslated Sanskrit term may preserve semantic range",
+        "narrow English equivalent can distort philosophical meaning",
+        "reader-friendly solution uses transliteration plus brief gloss"
+      ],
+      "must_include_any": [
+        [
+          "semantic range",
+          "range of meaning"
+        ],
+        [
+          "transliteration",
+          "romanized term"
+        ]
+      ],
+      "must_not_include": [
+        "claims every Sanskrit term should remain untranslated",
+        "claims one English word always fully captures the term"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:56:52.115224+00:00",
+      "section": "Stakeholder Communication"
+    }
+  },
+  {
+    "id": "ext_md_100",
+    "domains": [
+      "SANSKRIT_LINGUISTICS",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "SANSKRIT_LINGUISTICS",
+      "PHILOSOPHY"
+    ],
+    "question": "Your team can afford only one aid in a philosophy reading app: either add morphological breakdown for Sanskrit terms or add longer English paraphrases. Write a short recommendation for a non-expert product lead. Compare the two mechanisms and pick one for first release.",
+    "reference_answer": "For a first release, prioritize longer English paraphrases. Morphological breakdown helps advanced users inspect how a Sanskrit form is built, but many non-experts still will not know how that maps to the philosophical claim. A good paraphrase more directly supports stakeholder communication because it explains the concept’s role in the argument, not just the word’s internal structure. Add morphology later as a precision feature for learners who want deeper linguistic access.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "compares morphological breakdown with English paraphrase as different mechanisms",
+        "selects one mechanism for first release",
+        "justifies choice in terms of non-expert usefulness for philosophical understanding"
+      ],
+      "must_include_any": [
+        [
+          "argument role",
+          "conceptual role"
+        ],
+        [
+          "advanced users",
+          "expert users"
+        ]
+      ],
+      "must_not_include": [
+        "treats morphology and paraphrase as equivalent",
+        "chooses based only on implementation cost with no user-understanding rationale"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "usefulness",
+        "correctness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:56:52.115224+00:00",
+      "section": "Stakeholder Communication"
+    }
+  }
+]

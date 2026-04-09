@@ -1,0 +1,242 @@
+[
+  {
+    "id": "ext_md_081",
+    "domains": [
+      "PYTHON_LOGIC",
+      "MLX_KERNELS"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "MLX_KERNELS"
+    ],
+    "question": "A team ported a NumPy data-prep step to MLX and now gets intermittent wrong values on Apple GPU with no exception. The code builds gather indices in Python, and some indices can become negative or exceed the row length during rare edge cases. Give the most likely root cause and the safest concise fix for production inference.",
+    "reference_answer": "The likely root cause is assuming NumPy-style index safety after moving to MLX. In MLX kernels, out-of-bounds indexing is undefined rather than reliably raising, so a Python bug in index construction can surface as silent bad reads on GPU. The production fix is to validate or clamp indices in Python before launching the MLX gather, and treat negative indices separately only when they are intentionally allowed. Also add a shape/range assertion on the host side before dispatch.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "out-of-bounds indexing in MLX is undefined behavior",
+        "indices should be validated or clamped before kernel execution"
+      ],
+      "must_include_any": [
+        [
+          "NumPy would raise but MLX may not",
+          "cannot rely on NumPy-style bounds checking"
+        ],
+        [
+          "host-side assertion",
+          "pre-dispatch range check"
+        ]
+      ],
+      "must_not_include": [
+        "the GPU exception will reliably catch it",
+        "negative indices are always invalid in MLX"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:54:14.284488+00:00",
+      "section": "Cross Domain Synthesis"
+    }
+  },
+  {
+    "id": "ext_md_082",
+    "domains": [
+      "QUANTUM_CHEMISTRY",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "QUANTUM_CHEMISTRY",
+      "ASTROPHYSICS"
+    ],
+    "question": "For identifying a newly suspected interstellar molecule from radio telescope data, which is the better near-term investment: one extra observing run with the same instrument, or higher-accuracy quantum-chemical spectroscopy on candidate molecules? Choose one and justify briefly for a resource-constrained program.",
+    "reference_answer": "Choose higher-accuracy quantum-chemical spectroscopy first. In radio astronomy, identification often fails because candidate transition frequencies and rotational constants are not accurate enough to assign crowded lines confidently; better calculations narrow the search space before telescope time is spent. Another observing run helps only if you already know what lines to target, while improved quantum chemistry directly supports line assignment and reduces false matches. A follow-up observation becomes more valuable after the candidate spectrum is better constrained.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "choose higher-accuracy quantum-chemical spectroscopy",
+        "better predicted transition frequencies or rotational constants improve line assignment"
+      ],
+      "must_include_any": [
+        [
+          "crowded spectra",
+          "line confusion"
+        ],
+        [
+          "use telescope time more efficiently",
+          "de-risk follow-up observations"
+        ]
+      ],
+      "must_not_include": [
+        "observing alone can identify any molecule without spectroscopic priors",
+        "quantum chemistry replaces all astronomical observations"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:54:14.284488+00:00",
+      "section": "Cross Domain Synthesis"
+    }
+  },
+  {
+    "id": "ext_md_083",
+    "domains": [
+      "RENAISSANCE_ART",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "RENAISSANCE_ART",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "A museum label says a Renaissance painting is historically faithful because it shows Julius Caesar's triumph with draped standards, antique trophies, and Roman-looking armor. A reviewer objects that the scene is still historically misleading. Diagnose the most plausible problem and rewrite the label in one or two sentences.",
+    "reference_answer": "The likely problem is conflating Renaissance archaeological ambition with literal ancient accuracy. Many Renaissance artists studied Roman coins, reliefs, and texts, but they still reconstructed triumphs through contemporary ideals, selective evidence, and patronal politics rather than direct eyewitness knowledge. Revised label: 'This painting reflects a Renaissance effort to reimagine Caesar's triumph through close study of antiquity. Its details are informed by ancient sources, but the scene remains a period reconstruction rather than a fully reliable record of Roman practice.'",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Renaissance reconstruction is not the same as direct ancient historical record",
+        "the fix should state that the work is informed by antiquity but not fully reliable as evidence of Roman practice"
+      ],
+      "must_include_any": [
+        [
+          "patronage",
+          "political agenda"
+        ],
+        [
+          "selective evidence",
+          "idealization"
+        ]
+      ],
+      "must_not_include": [
+        "Renaissance artists had eyewitness access to Roman triumphs",
+        "Roman-looking costume alone proves full historical accuracy"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:54:14.284488+00:00",
+      "section": "Cross Domain Synthesis"
+    }
+  },
+  {
+    "id": "ext_md_084",
+    "domains": [
+      "ROBOTICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "ROBOTICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "You must choose a field robot design for seasonal wetland monitoring in a region with heat waves, cold mornings, and intermittent cloud cover. Option A is a heavier rover with larger batteries and onboard processing. Option B is a lighter rover with lower compute, more energy-aware routing, and scheduled data uplinks. Which is safer for mission continuity, and why?",
+    "reference_answer": "Option B is safer for mission continuity. Climate variability makes energy availability and battery performance unstable, so a lighter robot with energy-aware routing is more resilient to cold-related capacity loss, heat-related battery stress, and cloudy periods that disrupt charging. The heavier platform may offer more onboard capability, but it increases energy demand and reduces margin when weather shifts. For long deployments, adaptive power management usually beats peak compute.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "choose Option B",
+        "weather variability affects battery performance and available energy"
+      ],
+      "must_include_any": [
+        [
+          "cold reduces usable capacity",
+          "low temperatures hurt battery output"
+        ],
+        [
+          "heat accelerates degradation",
+          "high temperatures stress batteries"
+        ]
+      ],
+      "must_not_include": [
+        "battery performance is climate-independent",
+        "heavier always means more reliable in long autonomous deployment"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:54:14.284488+00:00",
+      "section": "Cross Domain Synthesis"
+    }
+  },
+  {
+    "id": "ext_md_085",
+    "domains": [
+      "SANSKRIT_LINGUISTICS",
+      "ARCHAIC_ENGLISH"
+    ],
+    "required_adapters": [
+      "SANSKRIT_LINGUISTICS",
+      "ARCHAIC_ENGLISH"
+    ],
+    "question": "A localization team wants a solemn 'old scripture' style by translating Classical Sanskrit into pseudo-biblical English with thou/thee and inverted word order. Explain one major failure mode of that strategy for a philologically careful edition.",
+    "reference_answer": "The main failure mode is false archaism that hides grammatical meaning. Sanskrit encodes relations through rich morphology, sandhi, and compounds, while pseudo-biblical English mainly signals age or register; adding thou/thee and inversion can make the text sound old without preserving case, scope, or who modifies whom. That can create ambiguities not present in the Sanskrit and mislead readers into thinking the translation is historically or structurally faithful when it is only stylistically archaized.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "archaic English register does not preserve Sanskrit grammatical structure by itself",
+        "the strategy can introduce or hide ambiguity"
+      ],
+      "must_include_any": [
+        [
+          "sandhi",
+          "compounds"
+        ],
+        [
+          "case relations",
+          "morphology"
+        ]
+      ],
+      "must_not_include": [
+        "thou and thee are sufficient to encode Sanskrit grammar",
+        "archaic English is inherently more literal than modern English"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:54:14.284488+00:00",
+      "section": "Cross Domain Synthesis"
+    }
+  }
+]

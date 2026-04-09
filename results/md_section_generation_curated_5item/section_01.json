@@ -1,0 +1,13 @@
+```json
+[
+  {
+    "id": "ext_md_001",
+    "domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "required_adapters": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "question": "A SaaS provider authenticates customer orders using HMAC-SHA256 and markets this as furnishing legally binding 'electronic signatures.' A dispute arises and the customer denies placing the order. Identify the cryptographic flaw that undermines the provider's non-repudiation argument in court, and state what should replace HMAC-SHA256.",
+    "reference_answer": "HMAC is a symmetric message authentication code: both parties share the same secret key, so either party could have generated any valid tag. A court cannot determine whether the customer or the provider produced the HMAC, making non-repudiation impossible. Under eIDAS and the U.S. ESIGN Act, an electronic signature must be uniquely linkable to the signer—a property HMAC cannot satisfy. The correct replacement is an asymmetric digital signature scheme such as ECDSA or RSA-PSS, where the customer signs with a private key only they hold. The provider retains only the corresponding public key, and any third party can verify authorship without being able to forge a signature, satisfying legal non-repudiation requirements.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["non-repudiation", "shared key", "asymmetric"],
+      "must_include_any": [
+        ["ECDSA", "RSA-PSS", "RSA", "digital signature scheme

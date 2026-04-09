@@ -1,0 +1,134 @@
+[
+  {
+    "id": "router_00001",
+    "question": "Why do patients often skip follow-up appointments even after a serious diagnosis, and how do loss aversion and present bias explain this behavior?",
+    "thinking": [
+      "Diagnosis context needs medical knowledge",
+      "Skipping behavior requires behavioral economics framing"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "When designing an autonomous robot that must decide whether to sacrifice itself to save a human, what implementation approach and philosophical framework should guide that decision logic?",
+    "thinking": [
+      "Robot decision system needs robotics design",
+      "Sacrifice dilemma requires philosophical grounding"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "Can you format a LaTeX compliance checklist for maritime cargo liability clauses under the Hague-Visby Rules?",
+    "thinking": [
+      "Document formatting requires LaTeX expertise",
+      "Clause content requires maritime law knowledge"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "Does using end-to-end encryption in a consumer app satisfy legal obligations for data protection, and are there any design gaps in that approach?",
+    "thinking": [
+      "Data protection obligations need legal analysis",
+      "Encryption design review needs cryptography expertise"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00005",
+    "question": "A contract specifies a penalty that compounds monthly at 3%. Is such a compounding penalty clause legally enforceable, and what is the total after 6 months on a $10,000 breach?",
+    "thinking": [
+      "Enforceability of penalty clause needs legal analysis",
+      "Compound interest calculation needs mathematics"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00006",
+    "question": "Is an oral agreement to split business profits legally binding in the United States?",
+    "thinking": [
+      "Contract enforceability is a core legal question"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00007",
+    "question": "Are there any known Renaissance paintings where the artist intentionally left a section unfinished as part of the compositional message?",
+    "thinking": [
+      "Edge cases of intentional incompleteness are art-historical"
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00008",
+    "question": "How did ancient Egyptians use geometric ratios in pyramid construction, and which mathematical principles do those ratios correspond to?",
+    "thinking": [
+      "Construction methods require ancient history context",
+      "Geometric ratios require mathematics expertise"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

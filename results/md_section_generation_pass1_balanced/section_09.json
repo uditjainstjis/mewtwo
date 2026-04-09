@@ -1,0 +1,244 @@
+[
+  {
+    "id": "ext_md_041",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "A museum label draft says: \"Whoso defaceth this stele curseth the memory of the king.\" The curator wants modern visitor text that preserves the ancient intent without sounding superstitious or archaic. Write a 1-2 sentence interpretation for a general audience.",
+    "reference_answer": "This inscription warns that damaging the stone dishonors the ruler it commemorates and violates the monument's protective message. In ancient contexts, curse language often worked as a public deterrent against tomb or monument desecration, not just as a literal supernatural threat.",
+    "rubric": {
+      "answer_type": "translation",
+      "must_include_all": [
+        "modernizes the archaic wording into plain English",
+        "explains that the curse functions as protection or deterrence for the monument or king's memory"
+      ],
+      "must_include_any": [
+        [
+          "dishonors the ruler",
+          "harms the king's memory"
+        ],
+        [
+          "warning against damage",
+          "deterrent against desecration"
+        ]
+      ],
+      "must_not_include": [
+        "treats the statement only as a magical spell with no social function",
+        "keeps archaic forms like whoso or defaceth"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:45:40.453601+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_042",
+    "domains": [
+      "ASTROPHYSICS",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "ASTROPHYSICS",
+      "PHILOSOPHY"
+    ],
+    "question": "A science center script says: \"We are made of star stuff, so the universe intended life.\" Choose the better correction for a public exhibit and explain why in 2-3 sentences: A) \"Elements in our bodies were forged in stars, but that does not by itself show cosmic purpose.\" B) \"Because heavy elements come from stars, life was the planned goal of the universe.\"",
+    "reference_answer": "A is better. It preserves the astrophysical point that many elements essential to planets and bodies were produced in stars, while avoiding the philosophical leap from origin to intention. The fact that life uses star-forged matter does not, by itself, establish purpose, design, or a planned endpoint.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "selects option A",
+        "distinguishes scientific origin claims from philosophical claims about purpose or intention"
+      ],
+      "must_include_any": [
+        [
+          "heavy elements formed in stars",
+          "elements were forged in stars"
+        ],
+        [
+          "does not imply purpose",
+          "does not prove design"
+        ]
+      ],
+      "must_not_include": [
+        "selects option B",
+        "claims astrophysics alone proves the universe intended life"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:45:40.453601+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_043",
+    "domains": [
+      "LATEX_FORMATTING",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "MUSIC_THEORY"
+    ],
+    "question": "A handout tries to show a ii-V-I in C major as `Dm7 - G7 - Cmaj7` inside math mode, and the PDF renders ugly spacing and italic letters. Give the best compact fix and explain the musical reason it is the right progression label.",
+    "reference_answer": "Set the chord symbols in text mode, not math italics, for example `\\text{Dm7--G7--Cmaj7}` or plain text outside math mode. Musically, ii-V-I in C major is D minor 7 to G dominant 7 to C major 7, because Dm7 functions as the supertonic, G7 as the dominant, and Cmaj7 as the tonic resolution.",
+    "rubric": {
+      "answer_type": "code",
+      "must_include_all": [
+        "moves the chord symbols out of math italics or wraps them in text formatting",
+        "identifies Dm7-G7-Cmaj7 as ii-V-I in C major"
+      ],
+      "must_include_any": [
+        [
+          "\\text{Dm7--G7--Cmaj7}",
+          "plain text outside math mode"
+        ],
+        [
+          "dominant to tonic",
+          "G7 resolves to Cmaj7"
+        ]
+      ],
+      "must_not_include": [
+        "rewrites the progression with incorrect scale degrees",
+        "claims math mode is preferred for chord symbols"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "Dm7.*G7.*Cmaj7"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:45:40.453601+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_044",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "question": "A startup stores user files with client-side encryption but keeps a server-held recovery key so support can restore access after password loss. For a privacy policy sentence, choose the better claim and explain why: A) \"Only you can access your files.\" B) \"Your files are encrypted, but account recovery may allow provider-assisted access under controlled conditions.\"",
+    "reference_answer": "B is the safer claim. If the provider retains a recovery path that can decrypt or re-enable access, the system is not strictly user-exclusive in the legal or technical sense. The policy should describe the qualified protection accurately and avoid an absolute statement that could be misleading to consumers or regulators.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "selects option B",
+        "explains that a provider-held recovery mechanism defeats an absolute only-you-can-access claim"
+      ],
+      "must_include_any": [
+        [
+          "misleading",
+          "deceptive"
+        ],
+        [
+          "qualified access",
+          "provider-assisted access"
+        ]
+      ],
+      "must_not_include": [
+        "selects option A",
+        "claims server-held recovery is still equivalent to exclusive end-to-end access"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:45:40.453601+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_045",
+    "domains": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A shipping manager says, \"That storm was unforeseeable, so the vessel was obviously seaworthy.\" Explain why that reasoning can fail today, in 2-3 sentences, for an internal risk memo.",
+    "reference_answer": "The inference can fail because seaworthiness is not proved merely by calling a storm unexpected; it also depends on whether the ship, route planning, and precautions were reasonably fit for conditions that should have been anticipated. With climate-driven increases in severe weather risk on some routes, relying only on historical expectations may understate what operators should now prepare for.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "states that unforeseeability of one storm does not by itself establish seaworthiness",
+        "connects updated climate risk or changing severe-weather patterns to what should reasonably be anticipated"
+      ],
+      "must_include_any": [
+        [
+          "route planning",
+          "voyage planning"
+        ],
+        [
+          "reasonable precautions",
+          "fit for expected conditions"
+        ]
+      ],
+      "must_not_include": [
+        "equates any storm loss with automatic unseaworthiness",
+        "assumes climate change is legally irrelevant to foreseeability"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:45:40.453601+00:00",
+      "section": "Interpretation"
+    }
+  }
+]

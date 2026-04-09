@@ -1,0 +1,301 @@
+[
+  {
+    "id": "ext_md_026",
+    "domains": [
+      "ANCIENT_HISTORY",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "ANCIENT_HISTORY",
+      "PHILOSOPHY"
+    ],
+    "question": "A museum governance team wants a tie-break rule for a 500-member assembly modeled on classical Athens. Proposal: any option with at least 250 votes should be treated as the assembly’s decision because “majority means half.” In a vote with 250 for exile, 249 against, and 1 abstention, should exile pass under a defensible ancient-democratic rule? Give the decision and a brief justification using both Athenian-style practice and a philosophical distinction between plurality, half, and strict majority.",
+    "reference_answer": "No. Under a defensible rule, exile should not pass because 250 is exactly half of the full 500-member body, not more than half. A strict majority requires 251 or more if the threshold is defined against total membership. Philosophically, the proposal equivocates between “at least half” and “more than half,” which are not the same decision rule. Historically, invoking an Athenian-style assembly supports treating collective decisions as requiring a determinate majority of the relevant voting body rather than a tie-like half split being relabeled as a win.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "exile does not pass",
+        "strict majority of 500 is 251"
+      ],
+      "must_include_any": [
+        [
+          "250 is only half",
+          "250 equals half"
+        ],
+        [
+          "equivocation between half and majority",
+          "distinguishes plurality from majority"
+        ]
+      ],
+      "must_not_include": [
+        "claims 250 is a strict majority",
+        "treats abstention as an automatic vote for exile"
+      ],
+      "numeric_targets": [
+        {
+          "label": "strict_majority_threshold",
+          "value": "251",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "251"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:41:59.413190+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_027",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "MUSIC_THEORY"
+    ],
+    "question": "An editor is preparing a historically flavored choral line: “Singe ye all on o steven.” Performers ask whether “on o steven” implies unison or octave doubling. Assume the ensemble has 12 singers: 7 on C4 and 5 on C5. For billing, the editor must report whether this counts as one pitch-class event or two distinct pitch events. Give the better interpretation and justify it from both archaic wording and music-theory counting.",
+    "reference_answer": "Report it as one pitch-class event but two distinct pitch events. In archaic phrasing, “on o steven” is best read as “with one voice/sound,” which permits coordinated singing without forcing every singer onto the exact same register. In music theory, C4 and C5 are different pitches because they differ by octave, but they share the same pitch class C. So the texture is not literal unison; it is octave doubling of a single pitch class.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "one pitch-class event",
+        "two distinct pitch events"
+      ],
+      "must_include_any": [
+        [
+          "octave doubling",
+          "sung in octaves"
+        ],
+        [
+          "one voice",
+          "one sound"
+        ]
+      ],
+      "must_not_include": [
+        "calls C4 and C5 the same pitch",
+        "claims literal unison"
+      ],
+      "numeric_targets": [
+        {
+          "label": "pitch_class_count",
+          "value": "1",
+          "tolerance": 0.0
+        },
+        {
+          "label": "distinct_pitch_count",
+          "value": "2",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "C4",
+        "C5"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:41:59.413190+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_028",
+    "domains": [
+      "ASTROPHYSICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "ASTROPHYSICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A climate dashboard converts a satellite team’s note into code. The note says: “Incoming solar flux at the top of atmosphere rose by 2 W/m^2; global-mean absorbed forcing is the planetary-average after geometry and albedo.” A developer instead adds the full 2 W/m^2 directly as global forcing. Assume albedo = 0.30. What is the correct absorbed global-mean forcing, and what is the bug in the developer’s reasoning?",
+    "reference_answer": "The correct absorbed global-mean forcing is 0.35 W/m^2. Start with the top-of-atmosphere solar change of 2 W/m^2, average over the sphere by dividing by 4 to get 0.5 W/m^2, then multiply by absorbed fraction 0.70 to get 0.35 W/m^2. The bug is a translation error between astrophysical flux at the illuminated disk and climate forcing expressed as global-mean absorbed energy. The developer skipped both the geometric averaging step and the albedo adjustment.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "0.35 W/m^2",
+        "divide by 4",
+        "multiply by 0.70"
+      ],
+      "must_include_any": [
+        [
+          "geometry",
+          "spherical averaging"
+        ],
+        [
+          "albedo adjustment",
+          "absorbed fraction"
+        ]
+      ],
+      "must_not_include": [
+        "2 W/m^2 as final forcing",
+        "0.5 W/m^2 as final absorbed forcing"
+      ],
+      "numeric_targets": [
+        {
+          "label": "absorbed_global_mean_forcing",
+          "value": "0.35",
+          "tolerance": 0.01
+        }
+      ],
+      "regex_targets": [
+        "2\\s*/\\s*4",
+        "0\\.7"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:41:59.413190+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_029",
+    "domains": [
+      "CRYPTOGRAPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "required_adapters": [
+      "CRYPTOGRAPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "question": "A fintech app must choose one launch message for optional hardware-backed login. Option A: “Cuts account-takeover probability from 4% to 1%.” Option B: “Without this, 3 in 100 extra users may lose access or funds.” Security effect is identical; adoption tests show 30% uptake under A and 45% under B among 200,000 users. In two sentences max, which message should product ship if the goal is total attacks avoided, and why?",
+    "reference_answer": "Ship Option B. With identical cryptographic protection, the higher adoption rate dominates: A protects 60,000 users and avoids about 1,800 expected compromises, while B protects 90,000 users and avoids about 2,700, so B prevents about 900 more; the likely reason is loss framing increases uptake when users perceive security as avoiding losses rather than gaining safety.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Option B",
+        "higher adoption yields more total attacks avoided"
+      ],
+      "must_include_any": [
+        [
+          "2700",
+          "2,700"
+        ],
+        [
+          "loss framing",
+          "loss-framed message"
+        ]
+      ],
+      "must_not_include": [
+        "Option A is better",
+        "claims the cryptographic effect differs between options"
+      ],
+      "numeric_targets": [
+        {
+          "label": "avoided_under_A",
+          "value": "1800",
+          "tolerance": 1.0
+        },
+        {
+          "label": "avoided_under_B",
+          "value": "2700",
+          "tolerance": 1.0
+        },
+        {
+          "label": "difference",
+          "value": "900",
+          "tolerance": 1.0
+        }
+      ],
+      "regex_targets": [
+        "30%",
+        "45%"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:41:59.413190+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  },
+  {
+    "id": "ext_md_030",
+    "domains": [
+      "LATEX_FORMATTING",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "question": "A chemistry SaaS report must fit one line in a narrow PDF column. You may print only one LaTeX expression for dioxygen’s ground-state valence occupancy, and the audience mainly needs to see why O2 is paramagnetic. Choose between a long orbital-by-orbital occupancy string and a compact term-symbol style summary. Which should you print, and what exact compact expression best preserves the key quantitative information?",
+    "reference_answer": "Print the compact term-symbol style summary: \$$^{3}\\Sigma_{g}^{-}\$$. Under the one-line constraint, it communicates the crucial quantitative fact most efficiently: the triplet multiplicity means two unpaired electrons, which is the key reason O2 is paramagnetic. A full occupancy string is more detailed but wastes width and is less useful for the stated reporting goal.",
+    "rubric": {
+      "answer_type": "translation",
+      "must_include_all": [
+        "choose the compact term-symbol summary",
+        "\$$^{3}\\Sigma_{g}^{-}\$$"
+      ],
+      "must_include_any": [
+        [
+          "triplet",
+          "multiplicity 3"
+        ],
+        [
+          "two unpaired electrons",
+          "paramagnetic because of unpaired electrons"
+        ]
+      ],
+      "must_not_include": [
+        "singlet ground state",
+        "claims diamagnetic O2"
+      ],
+      "numeric_targets": [
+        {
+          "label": "unpaired_electrons",
+          "value": "2",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "\\^\\{3\\}\\\\Sigma_\\{g\\}\\^\\{-\\}"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:41:59.413190+00:00",
+      "section": "Quantitative Reasoning"
+    }
+  }
+]

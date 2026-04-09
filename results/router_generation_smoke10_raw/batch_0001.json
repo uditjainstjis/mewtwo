@@ -1,0 +1,86 @@
+[
+  {
+    "id": "router_00006",
+    "question": "Our app stores user passwords using a custom XOR cipher. Does this design meet basic legal data-protection requirements, and is XOR considered cryptographically adequate?",
+    "thinking": [
+      "Legal compliance check on data storage",
+      "Assess cryptographic strength of XOR"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00007",
+    "question": "A contract specifies a penalty of 5% compounded monthly on overdue payments. Is this legally enforceable as written, and what is the effective annual rate?",
+    "thinking": [
+      "Legal enforceability of penalty clause",
+      "Calculate effective annual interest rate"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00008",
+    "question": "What is the symbolic meaning of the light streaming through the window in Jan van Eyck's Arnolfini Portrait?",
+    "thinking": [
+      "Interpret Renaissance iconography",
+      "Single expert domain sufficient"
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00009",
+    "question": "We want to deploy a robot caregiver in a nursing home. What basic motion-planning capabilities does it need, and what ethical considerations should guide its autonomy level?",
+    "thinking": [
+      "Robotics implementation requirements",
+      "Philosophical ethics of autonomous agents"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00010",
+    "question": "How did ancient Egyptians use unit fractions in commerce, and what modern fraction equivalent represents 2/3 in their notation system?",
+    "thinking": [
+      "Historical context of Egyptian mathematics",
+      "Convert ancient notation to modern math"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

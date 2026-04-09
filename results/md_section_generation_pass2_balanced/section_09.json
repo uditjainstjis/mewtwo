@@ -1,0 +1,249 @@
+[
+  {
+    "id": "ext_md_091",
+    "domains": [
+      "QUANTUM_CHEMISTRY",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "QUANTUM_CHEMISTRY",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A climate-tech memo says: \"Molecule X has a very strong IR peak, so its warming impact will scale directly with peak intensity.\" Interpret this for a product manager deciding whether to fund atmospheric testing. Explain what this statement gets wrong using quantum-level reasoning and climate relevance, and state the best next check before claiming high warming impact.",
+    "reference_answer": "The memo overstates what a strong IR peak means. Quantum-chemically, warming depends on which vibrational transitions are IR-active and where they absorb, not just raw peak height. Climate relevance also depends on overlap with Earth’s thermal IR window, saturation in already-opaque bands, and atmospheric lifetime. So a strong laboratory absorption feature does not by itself imply proportionally larger radiative forcing. The best next check is a radiative-forcing screen using the molecule’s full absorption spectrum in atmospheric conditions, plus an estimate of persistence.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "peak intensity alone does not determine warming impact",
+        "must consider spectral location or overlap with Earth thermal infrared",
+        "must consider atmospheric lifetime or persistence",
+        "recommend radiative forcing assessment using the full spectrum"
+      ],
+      "must_include_any": [
+        [
+          "IR-active vibrational mode",
+          "dipole-changing vibrational transition"
+        ],
+        [
+          "saturation",
+          "already-opaque band"
+        ]
+      ],
+      "must_not_include": [
+        "warming scales directly with peak intensity",
+        "symmetric stretch alone proves high forcing"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:52.395903+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_092",
+    "domains": [
+      "RENAISSANCE_ART",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "RENAISSANCE_ART",
+      "MUSIC_THEORY"
+    ],
+    "question": "A museum app needs one audio concept for a gallery label about a balanced Florentine painting with symmetry, idealized figures, and calm sacred mood. Choose the better comparison: Option A, \"like a Renaissance motet with interwoven voices,\" or Option B, \"like a virtuoso solo cadenza.\" Pick one and justify it in plain language for visitors.",
+    "reference_answer": "Option A is better. The painting’s balance, idealization, and calm order match the Renaissance motet’s layered, coordinated polyphony, where multiple lines work together into a unified whole. That is a closer analogy to symmetrical composition and harmonious spatial arrangement. A virtuoso cadenza suggests individual display, dramatic interruption, and personal flair, which clashes with the stable, communal, and devotional character described here.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Option A",
+        "links visual balance or symmetry to coordinated multiple parts",
+        "states that Option B implies display or dramatic individuality and is less suitable"
+      ],
+      "must_include_any": [
+        [
+          "polyphony",
+          "interwoven voices"
+        ],
+        [
+          "harmony",
+          "unified whole"
+        ]
+      ],
+      "must_not_include": [
+        "Option B is better",
+        "cadenza represents calm collective balance"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:52.395903+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_093",
+    "domains": [
+      "SANSKRIT_LINGUISTICS",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "SANSKRIT_LINGUISTICS",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "An analyst summarizes an inscription fragment as: \"This proves a pan-Indian Sanskrit state in 1500 BCE because the text is polished praise poetry.\" Diagnose the error and rewrite the claim cautiously. Your fix must use both linguistic and historical reasoning, not just say \"more evidence needed.\"",
+    "reference_answer": "The claim is wrong for two reasons. Linguistically, polished Sanskrit praise style does not by itself date a text to 1500 BCE; inscriptional Sanskrit appears much later than early Vedic composition, and elite poetic register can be adopted long after the language tradition begins. Historically, one laudatory inscription cannot prove a pan-Indian state, because praśasti language is often local, political, and exaggerative. A cautious rewrite is: \"The fragment may reflect a later Sanskrit prestige tradition and regional rulership ideology, but it does not by itself establish a 1500 BCE date or a unified pan-Indian state.\"",
+    "rubric": {
+      "answer_type": "diagnose_and_fix",
+      "must_include_all": [
+        "distinguishes language tradition from inscription date",
+        "rejects inference of a pan-Indian state from one praise inscription",
+        "provides a cautious rewritten claim"
+      ],
+      "must_include_any": [
+        [
+          "praśasti",
+          "eulogistic inscription"
+        ],
+        [
+          "later inscriptional Sanskrit",
+          "inscriptions in Sanskrit are much later"
+        ]
+      ],
+      "must_not_include": [
+        "proves 1500 BCE",
+        "proves pan-Indian empire"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:52.395903+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_094",
+    "domains": [
+      "QUANTUM_CHEMISTRY",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "required_adapters": [
+      "QUANTUM_CHEMISTRY",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "question": "A route-selection note says: \"Choose reagent set B because its electrophile has the lower LUMO, so the desired bond formation will be more selective.\" Interpret this for a process chemist choosing between two scalable routes. Is lower LUMO alone enough? State the better decision rule in one short paragraph.",
+    "reference_answer": "No. A lower electrophile LUMO can make reaction easier by reducing the HOMO-LUMO gap, but selectivity is not determined by that number alone. The route choice should also consider orbital coefficients at the reacting site, steric approach, competing pathways, solvent and leaving-group effects, and whether the conditions favor the desired kinetic outcome. The better rule is: choose the route whose frontier-orbital match supports the target site and trajectory under practical conditions, not simply the one with the globally lowest LUMO.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "lower LUMO alone is insufficient",
+        "mentions HOMO-LUMO gap or reactivity",
+        "mentions site-specific orbital coefficients or reacting-site distribution",
+        "mentions practical selectivity factors beyond orbital energy"
+      ],
+      "must_include_any": [
+        [
+          "sterics",
+          "approach geometry"
+        ],
+        [
+          "solvent",
+          "leaving group"
+        ]
+      ],
+      "must_not_include": [
+        "lowest LUMO always gives best selectivity",
+        "ignore competing pathways"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:52.395903+00:00",
+      "section": "Interpretation"
+    }
+  },
+  {
+    "id": "ext_md_095",
+    "domains": [
+      "RENAISSANCE_ART",
+      "PHILOSOPHY"
+    ],
+    "required_adapters": [
+      "RENAISSANCE_ART",
+      "PHILOSOPHY"
+    ],
+    "question": "A design team wants to reuse a Renaissance image program built around ideal proportion and ascent from physical beauty to higher truth, but they remove all symbolic hierarchy and keep only anatomical realism. Explain why the original message would likely fail under this rewrite.",
+    "reference_answer": "The message would likely collapse because the original program depends on more than realistic bodies. In a Renaissance philosophical frame, ideal proportion, ordered composition, and symbolic hierarchy guide the viewer from sensory beauty toward intellectual or spiritual meaning. If anatomy remains but the hierarchy is removed, the image may still look skillful, yet it loses the structure that converts beauty into a claim about truth, virtue, or transcendence. What remains is description, not the intended ascent.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "realism alone is not enough",
+        "symbolic hierarchy or ordered composition is needed to convey ascent to higher meaning",
+        "loss of philosophical message about truth, virtue, or transcendence"
+      ],
+      "must_include_any": [
+        [
+          "Neoplatonic",
+          "ascent from beauty"
+        ],
+        [
+          "ideal proportion",
+          "ordered composition"
+        ]
+      ],
+      "must_not_include": [
+        "anatomical realism fully preserves the original message",
+        "symbolism is irrelevant"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:52.395903+00:00",
+      "section": "Interpretation"
+    }
+  }
+]

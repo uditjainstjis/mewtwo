@@ -1,0 +1,199 @@
+```json
+[
+  {
+    "id": "ext_md_016",
+    "domains": ["MATHEMATICS", "ASTROPHYSICS"],
+    "required_adapters": ["MATHEMATICS", "ASTROPHYSICS"],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "edge_case_handling",
+    "task_style": "map_formal_rule_to_application",
+    "question": "A pipeline computing stellar luminosity from parallax measurements uses the distance modulus m − M = 5 log₁₀(d/10 pc). A star returns a negative parallax from Gaia due to measurement noise, making d undefined. Outline a concise implementation plan to handle this edge case robustly without discarding the measurement entirely.",
+    "reference_answer": "1. Flag negative-parallax entries rather than dropping them. 2. Apply a Bayesian prior (e.g., exponentially decreasing space density prior from Bailer-Jones) to infer a posterior distance estimate even when the raw parallax is negative or near zero. 3. Propagate the asymmetric distance uncertainty through the distance modulus using Monte Carlo sampling rather than simple error propagation, since the log transform is nonlinear. 4. Cap output luminosity confidence intervals and mark them as 'prior-dominated' in metadata so downstream consumers know the estimate is prior-sensitive. This preserves the data point while correctly representing its low information content.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Bayesian prior or posterior distance estimate",
+        "do not discard / flag rather than drop",
+        "nonlinear propagation or Monte Carlo uncertainty"
+      ],
+      "must_include_any": [
+        ["distance modulus", "5 log"],
+        ["Bailer-Jones", "exponential prior", "space density prior"]
+      ],
+      "must_not_include": [
+        "discard all negative parallax",
+        "set distance to zero",
+        "ignore uncertainty"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_017",
+    "domains": ["MATHEMATICS", "QUANTUM_CHEMISTRY"],
+    "required_adapters": ["MATHEMATICS", "QUANTUM_CHEMISTRY"],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "formalization",
+    "task_style": "justify_decision",
+    "question": "A team is implementing a Hartree–Fock SCF solver and must choose between diagonalizing the Fock matrix directly versus using the conjugate gradient method at each iteration. Given that the basis set has N = 800 functions and the system is a closed-shell molecule, justify which linear-algebra strategy to use and identify the mathematical condition under which the other strategy becomes preferable.",
+    "reference_answer": "For N = 800, direct diagonalization (e.g., LAPACK dsyev) costs O(N³) ≈ 5 × 10⁸ FLOPs per SCF cycle, which is tractable and produces all eigenvalues and eigenvectors needed to build the density matrix — making it the right choice here. Conjugate gradient (iterative) methods are preferable when N is large (typically N > 10³–10⁴) and only the lowest few occupied orbitals are needed, reducing cost to O(N²) per iteration with sparse integral screening. The crossover condition is roughly when the number of required eigenpairs k ≪ N and the Fock matrix is sparse enough that matrix-vector products are cheap. For a dense 800-function basis with all occupied orbitals needed, direct diagonalization is justified.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "O(N³) cost for direct diagonalization",
+        "direct diagonalization preferred at N=800",
+        "iterative / conjugate gradient preferred for larger N or sparse systems"
+      ],
+      "must_include_any": [
+        ["density matrix", "occupied orbitals"],
+        ["LAPACK", "dsyev", "eigenvalue solver"]
+      ],
+      "must_not_include": [
+        "conjugate gradient is always better",
+        "direct diagonalization scales as O(N²)"
+      ],
+      "numeric_targets": [
+        {
+          "label": "scaling exponent for direct diagonalization",
+          "value": "3",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": ["O\\(N\\^?3\\)|O\\(N³\\)"],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_018",
+    "domains": ["MATHEMATICS", "CLIMATE_SCIENCE"],
+    "required_adapters": ["MATHEMATICS", "CLIMATE_SCIENCE"],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "translation_constraints",
+    "task_style": "analyze_buggy_reasoning",
+    "question": "A climate analyst fits a linear trend to global mean surface temperature anomalies over 1980–2023 using ordinary least squares (OLS) and reports the slope as the warming rate. A reviewer flags the approach as statistically flawed. Identify the specific mathematical assumption OLS violates in this context and describe how the implementation should be corrected.",
+    "reference_answer": "OLS assumes residuals are independent and identically distributed (i.i.d.). Temperature anomaly time series exhibit positive autocorrelation (persistence), violating this assumption. Consequence: OLS underestimates standard errors, making the trend appear more statistically significant than it is. Correction: use a GLS or ARIMA-based regression that models the autocorrelation structure (e.g., AR(1) residuals), or apply a Newey–West (HAC) covariance estimator to obtain autocorrelation-consistent standard errors. The slope estimate itself may be similar, but confidence intervals and p-values will be correctly wider. The analyst should also check for structural breaks (e.g., volcanic forcing in 1991) that violate the assumption of a single linear trend.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "autocorrelation or serial correlation in residuals",
+        "OLS underestimates standard errors",
+        "GLS or Newey-West or ARIMA correction"
+      ],
+      "must_include_any": [
+        ["i.i.d. assumption", "independence assumption"],
+        ["confidence interval", "p-value", "significance"]
+      ],
+      "must_not_include": [
+        "OLS is unbiased for the slope in all cases",
+        "autocorrelation does not affect OLS"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "hallucination", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_019",
+    "domains": ["MATHEMATICS", "MUSIC_THEORY"],
+    "required_adapters": ["MATHEMATICS", "MUSIC_THEORY"],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "stakeholder_usefulness",
+    "task_style": "summarize_with_constraints",
+    "question": "A developer is building a tool that detects chord quality (major, minor, diminished, augmented) from a set of MIDI pitch values. Explain to a non-specialist product manager, in plain language with minimal jargon, how interval arithmetic over pitch-class sets maps onto chord classification, and what the implementation must handle correctly to avoid misclassification.",
+    "reference_answer": "Every MIDI note has a pitch class (its note name modulo 12 semitones). A chord is classified by measuring the gaps — intervals — between its pitch classes after sorting them. Major triads have gaps of 4 then 3 semitones; minor triads have 3 then 4; diminished has 3 then 3; augmented has 4 then 4. The tool computes these sorted interval patterns and matches them to a lookup table. Key implementation requirements: (1) reduce all pitches modulo 12 to remove octave duplicates; (2) try all rotations of the interval pattern to handle chord inversions; (3) handle 'enharmonic' inputs where the same pitch class appears twice. Without rotation-checking, an inverted C major chord would be misclassified.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "modulo 12 or pitch class reduction",
+        "inversions or rotations of interval pattern",
+        "interval gaps: major=4,3 minor=3,4 diminished=3,3 augmented=4,4"
+      ],
+      "must_include_any": [
+        ["lookup table", "pattern matching"],
+        ["duplicate pitch class", "enharmonic", "octave removal"]
+      ],
+      "must_not_include": [
+        "absolute pitch values without modulo reduction",
+        "no need to handle inversions"
+      ],
+      "numeric_targets": [
+        { "label": "semitones in major third", "value": "4", "tolerance": 0.0 },
+        { "label": "semitones in minor third", "value": "3", "tolerance": 0.0 }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_020",
+    "domains": ["MATHEMATICS", "LATEX_FORMATTING"],
+    "required_adapters": ["MATHEMATICS", "LATEX_FORMATTING"],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "mechanism_comparison",
+    "task_style": "prioritize_under_constraints",
+    "question": "A technical author must typeset a piecewise-defined function with three cases and an alignment constraint: the function symbol should appear only once (left-aligned), the conditions should align on their 'if' keywords, and the output must compile in both pdflatex and lualatex. Compare the `cases` environment against a manual `array` approach, and recommend which to use under these constraints.",
+    "reference_answer": "The `cases` environment (from `amsmath`) typesets piecewise functions compactly with a single left brace, placing the function body in the first column and the condition in the second. It satisfies the single-symbol and basic condition-alignment requirements out of the box and compiles under both pdflatex and lualatex. However, `cases` does not support aligning on an arbitrary keyword like 'if' — it left-aligns the condition column as a whole. A manual `array` inside `\\left\\{` with explicit column spec (e.g., `r @{\\quad} l`) gives full alignment control and also compiles under both engines. Recommendation: use `array` with `\\left\\{ ... \\right.` since the 'if'-keyword alignment constraint cannot be satisfied by `cases` alone. The verbosity cost is minimal for three cases.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "cases environment from amsmath",
+        "array environment with \\left\\{ for full alignment control",
+        "recommend array due to 'if'-keyword alignment requirement"
+      ],
+      "must_include_any": [
+        ["compiles under pdflatex and lualatex", "compatible with both engines"],
+        ["column spec", "alignment column", "@{\\quad}"]
+      ],
+      "must_not_include": [
+        "cases supports arbitrary keyword alignment",
+        "requires a package incompatible with lualatex"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["\\\\left\\\\\\{", "\\\\begin\\{array\\}|array"],
+      "judge_focus": ["correctness", "usefulness", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  }
+]
+```

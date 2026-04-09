@@ -1,0 +1,336 @@
+[
+  {
+    "id": "router_00001",
+    "question": "How many paintings did Leonardo da Vinci complete during the Italian Renaissance, and what fraction of his known works are religious in theme?",
+    "thinking": [
+      "Requires counting Renaissance artworks",
+      "Needs domain knowledge of da Vinci's catalogue"
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "A patient presents with fatigue, weight gain, cold intolerance, and dry skin. What is the most likely diagnosis and what initial tests should be ordered?",
+    "thinking": [
+      "Symptom cluster points to endocrine disorder",
+      "Requires clinical diagnostic reasoning"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "Draft a LaTeX-formatted compliance checklist summarizing the key liability provisions under SOLAS maritime law for cargo vessels.",
+    "thinking": [
+      "Needs LaTeX formatting skills",
+      "Requires maritime law compliance knowledge"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "What happens to time dilation near a neutron star's surface compared to flat spacetime, and are there edge cases where general relativity predictions break down?",
+    "thinking": [
+      "Involves relativistic astrophysics edge cases",
+      "Requires neutron star physics knowledge"
+    ],
+    "experts": [
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00005",
+    "question": "Review this system design: we want to encode a secret message inside a MIDI file by mapping cipher bits to musical note intervals. Is this approach cryptographically and musically sound?",
+    "thinking": [
+      "Needs cryptographic strength evaluation",
+      "Requires music theory for interval encoding review"
+    ],
+    "experts": [
+      "CRYPTOGRAPHY",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00006",
+    "question": "How did ancient Roman bread distribution (the annona) reflect behavioral economics principles like loss aversion and default bias in public policy?",
+    "thinking": [
+      "Requires ancient Roman history context",
+      "Needs behavioral economics concept mapping"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00007",
+    "question": "Studies show patients often skip medications due to present bias. How does this behavioral tendency quantitatively affect treatment adherence rates in chronic disease management?",
+    "thinking": [
+      "Links behavioral bias to adherence numbers",
+      "Requires medical and economics reasoning"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00008",
+    "question": "Ancient Egyptians used unit fractions for calculations. How does their mathematical system compare to modern fraction notation, and which is more practical for land surveying decisions?",
+    "thinking": [
+      "Needs ancient Egyptian math history",
+      "Requires mathematical comparison for decision support"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00009",
+    "question": "What are the key legal risks a startup faces when collecting user data under GDPR, and how should it structure its privacy policy to remain compliant?",
+    "thinking": [
+      "Involves data privacy compliance risk",
+      "Requires legal analysis of GDPR obligations"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00010",
+    "question": "If an autonomous delivery robot causes property damage while operating on a public sidewalk, who bears legal liability \u2014 the manufacturer, operator, or owner?",
+    "thinking": [
+      "Requires tort and product liability analysis",
+      "Needs robotics context for autonomous agent behavior"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00011",
+    "question": "I want to build a Python nudge system that sends timely reminders to users based on behavioral economics principles like loss framing. How should I design and implement it?",
+    "thinking": [
+      "Needs Python implementation planning",
+      "Requires behavioral economics nudge design"
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00012",
+    "question": "How would you explain end-to-end encryption to a non-technical executive audience so they understand why it matters for protecting company communications?",
+    "thinking": [
+      "Needs clear stakeholder-friendly communication",
+      "Requires cryptography conceptual knowledge"
+    ],
+    "experts": [
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00013",
+    "question": "How would you interpret the output of an MLX kernel running a molecular orbital energy computation \u2014 specifically what the eigenvalue results mean chemically?",
+    "thinking": [
+      "Needs MLX kernel output understanding",
+      "Requires quantum chemistry eigenvalue interpretation"
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00014",
+    "question": "How should a museum communicate to the public the legal ownership dispute over ancient Greek artifacts currently held by a foreign institution?",
+    "thinking": [
+      "Needs legal framing for cultural property",
+      "Requires ancient history context for artifact provenance"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00015",
+    "question": "A contract specifies a penalty of 0.5% per day on a $200,000 project delayed by 14 days. Is this penalty clause legally enforceable, and what is the total amount owed?",
+    "thinking": [
+      "Needs penalty clause legal enforceability analysis",
+      "Requires arithmetic calculation of total penalty"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00016",
+    "question": "A cargo ship is stranded in Arctic waters due to sudden sea ice caused by unusual climate patterns. What maritime salvage laws apply, and how does climate science explain the ice formation?",
+    "thinking": [
+      "Requires maritime salvage law analysis",
+      "Needs climate science explanation of Arctic ice events"
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00017",
+    "question": "Review our proposed design of storing encrypted user tokens in JWTs \u2014 are there legal data protection concerns and cryptographic weaknesses we should address?",
+    "thinking": [
+      "Needs cryptographic JWT security review",
+      "Requires legal analysis of token storage compliance"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00018",
+    "question": "What does the phrase 'Hark thee, lest thine heart be beguiled by the serpent's cozen'd tongue' mean in modern English?",
+    "thinking": [
+      "Requires archaic English interpretation",
+      "Needs translation of Early Modern English phrasing"
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00019",
+    "question": "In an edge case where a warehouse robot misreads a human gesture as a task command, how do behavioral economics concepts like ambiguity aversion help us design better fallback protocols?",
+    "thinking": [
+      "Needs robotics edge case scenario analysis",
+      "Requires behavioral economics for fallback design"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00020",
+    "question": "When planning an autonomous robot to make decisions that affect human welfare, what philosophical frameworks should guide its implementation to ensure ethical behavior?",
+    "thinking": [
+      "Needs robotics implementation planning context",
+      "Requires philosophy for ethical decision framework"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

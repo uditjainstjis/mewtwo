@@ -1,0 +1,347 @@
+{
+  "dataset": "data/multidomain_eval_claude_external_v2_100.json",
+  "overall": {
+    "weighted_merge": {
+      "n": 100,
+      "semantic_sim": 0.6592,
+      "token_f1": 0.2719,
+      "exact_match": 0.0,
+      "latency_s": 4.263,
+      "rubric_coverage": 0.1261,
+      "rubric_critical_error_rate": 0.0,
+      "rubric_pass": 0.0
+    },
+    "late_layer_injection": {
+      "n": 100,
+      "semantic_sim": 0.6594,
+      "token_f1": 0.2715,
+      "exact_match": 0.0,
+      "latency_s": 3.89,
+      "rubric_coverage": 0.123,
+      "rubric_critical_error_rate": 0.005,
+      "rubric_pass": 0.0
+    },
+    "sequential_reverse": {
+      "n": 100,
+      "semantic_sim": 0.6623,
+      "token_f1": 0.2734,
+      "exact_match": 0.0,
+      "latency_s": 4.605,
+      "rubric_coverage": 0.1338,
+      "rubric_critical_error_rate": 0.0,
+      "rubric_pass": 0.0
+    },
+    "mistral": {
+      "n": 100,
+      "semantic_sim": 0.6907,
+      "token_f1": 0.2917,
+      "exact_match": 0.0,
+      "latency_s": 10.654,
+      "rubric_coverage": 0.1683,
+      "rubric_critical_error_rate": 0.005,
+      "rubric_pass": 0.01
+    }
+  },
+  "section_summary": {
+    "Cross Domain Synthesis": {
+      "weighted_merge": {
+        "semantic_sim": 0.6993,
+        "token_f1": 0.2521,
+        "latency_s": 3.952,
+        "rubric_coverage": 0.1086,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.7233,
+        "token_f1": 0.2597,
+        "latency_s": 3.743,
+        "rubric_coverage": 0.1229,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.691,
+        "token_f1": 0.2532,
+        "latency_s": 4.346,
+        "rubric_coverage": 0.0543,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.7485,
+        "token_f1": 0.2726,
+        "latency_s": 10.513,
+        "rubric_coverage": 0.1229,
+        "rubric_pass": 0.0
+      }
+    },
+    "Decision Support": {
+      "weighted_merge": {
+        "semantic_sim": 0.692,
+        "token_f1": 0.2723,
+        "latency_s": 4.512,
+        "rubric_coverage": 0.295,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.697,
+        "token_f1": 0.2809,
+        "latency_s": 4.502,
+        "rubric_coverage": 0.2867,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6992,
+        "token_f1": 0.2743,
+        "latency_s": 5.257,
+        "rubric_coverage": 0.2817,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.7228,
+        "token_f1": 0.2946,
+        "latency_s": 9.686,
+        "rubric_coverage": 0.4133,
+        "rubric_pass": 0.1
+      }
+    },
+    "Design Review": {
+      "weighted_merge": {
+        "semantic_sim": 0.5974,
+        "token_f1": 0.2647,
+        "latency_s": 4.865,
+        "rubric_coverage": 0.0343,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6182,
+        "token_f1": 0.2478,
+        "latency_s": 4.409,
+        "rubric_coverage": 0.031,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.5942,
+        "token_f1": 0.2547,
+        "latency_s": 4.881,
+        "rubric_coverage": 0.0343,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6347,
+        "token_f1": 0.285,
+        "latency_s": 11.209,
+        "rubric_coverage": 0.0367,
+        "rubric_pass": 0.0
+      }
+    },
+    "Diagnosis": {
+      "weighted_merge": {
+        "semantic_sim": 0.6985,
+        "token_f1": 0.3202,
+        "latency_s": 4.75,
+        "rubric_coverage": 0.0933,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.7106,
+        "token_f1": 0.3181,
+        "latency_s": 4.456,
+        "rubric_coverage": 0.1217,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6998,
+        "token_f1": 0.3165,
+        "latency_s": 5.317,
+        "rubric_coverage": 0.1217,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.7051,
+        "token_f1": 0.3259,
+        "latency_s": 12.576,
+        "rubric_coverage": 0.1843,
+        "rubric_pass": 0.0
+      }
+    },
+    "Edge Cases": {
+      "weighted_merge": {
+        "semantic_sim": 0.6646,
+        "token_f1": 0.2861,
+        "latency_s": 3.591,
+        "rubric_coverage": 0.08,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6507,
+        "token_f1": 0.2931,
+        "latency_s": 3.189,
+        "rubric_coverage": 0.06,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6798,
+        "token_f1": 0.3049,
+        "latency_s": 4.153,
+        "rubric_coverage": 0.1,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6952,
+        "token_f1": 0.301,
+        "latency_s": 9.373,
+        "rubric_coverage": 0.085,
+        "rubric_pass": 0.0
+      }
+    },
+    "Implementation Planning": {
+      "weighted_merge": {
+        "semantic_sim": 0.6463,
+        "token_f1": 0.2877,
+        "latency_s": 4.539,
+        "rubric_coverage": 0.1343,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6431,
+        "token_f1": 0.2702,
+        "latency_s": 4.06,
+        "rubric_coverage": 0.0976,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6646,
+        "token_f1": 0.2911,
+        "latency_s": 5.001,
+        "rubric_coverage": 0.1462,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6583,
+        "token_f1": 0.2807,
+        "latency_s": 11.951,
+        "rubric_coverage": 0.131,
+        "rubric_pass": 0.0
+      }
+    },
+    "Interpretation": {
+      "weighted_merge": {
+        "semantic_sim": 0.6271,
+        "token_f1": 0.2754,
+        "latency_s": 4.378,
+        "rubric_coverage": 0.125,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6399,
+        "token_f1": 0.2616,
+        "latency_s": 3.645,
+        "rubric_coverage": 0.105,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.658,
+        "token_f1": 0.2802,
+        "latency_s": 4.441,
+        "rubric_coverage": 0.125,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6887,
+        "token_f1": 0.2977,
+        "latency_s": 8.668,
+        "rubric_coverage": 0.105,
+        "rubric_pass": 0.0
+      }
+    },
+    "Quantitative Reasoning": {
+      "weighted_merge": {
+        "semantic_sim": 0.6249,
+        "token_f1": 0.2821,
+        "latency_s": 3.757,
+        "rubric_coverage": 0.1069,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6082,
+        "token_f1": 0.2827,
+        "latency_s": 3.412,
+        "rubric_coverage": 0.0917,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6474,
+        "token_f1": 0.282,
+        "latency_s": 4.215,
+        "rubric_coverage": 0.1917,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6938,
+        "token_f1": 0.3123,
+        "latency_s": 11.058,
+        "rubric_coverage": 0.2129,
+        "rubric_pass": 0.0
+      }
+    },
+    "Risk And Compliance": {
+      "weighted_merge": {
+        "semantic_sim": 0.696,
+        "token_f1": 0.2662,
+        "latency_s": 4.49,
+        "rubric_coverage": 0.2035,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6904,
+        "token_f1": 0.265,
+        "latency_s": 4.122,
+        "rubric_coverage": 0.2035,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6789,
+        "token_f1": 0.2617,
+        "latency_s": 4.793,
+        "rubric_coverage": 0.2235,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6771,
+        "token_f1": 0.2782,
+        "latency_s": 11.802,
+        "rubric_coverage": 0.2258,
+        "rubric_pass": 0.0
+      }
+    },
+    "Stakeholder Communication": {
+      "weighted_merge": {
+        "semantic_sim": 0.646,
+        "token_f1": 0.2119,
+        "latency_s": 3.801,
+        "rubric_coverage": 0.08,
+        "rubric_pass": 0.0
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6127,
+        "token_f1": 0.2356,
+        "latency_s": 3.366,
+        "rubric_coverage": 0.11,
+        "rubric_pass": 0.0
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6101,
+        "token_f1": 0.2156,
+        "latency_s": 3.642,
+        "rubric_coverage": 0.06,
+        "rubric_pass": 0.0
+      },
+      "mistral": {
+        "semantic_sim": 0.6828,
+        "token_f1": 0.2689,
+        "latency_s": 9.702,
+        "rubric_coverage": 0.1667,
+        "rubric_pass": 0.0
+      }
+    }
+  }
+}

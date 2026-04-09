@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ext_01",
+    "domains": ["LEGAL_ANALYSIS", "PYTHON_LOGIC"],
+    "required_adapters": ["LEGAL_ANALYSIS", "PYTHON_LOGIC"],
+    "question": "Replace this with a question drafted by an external model (e.g. Claude via Perplexity proxy) so it is not self-similar to Qwen's training distribution.",
+    "reference_answer": "Replace with a human-expert or externally verified answer. Optional: run an LLM-as-judge rubric and store scores in provenance.",
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "human_domain_expert",
+      "judge_model": "optional: gpt-4o or local judge",
+      "judge_notes": "optional free text",
+      "created_utc": "2026-04-08T00:00:00Z"
+    }
+  }
+]

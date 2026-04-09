@@ -1,0 +1,13 @@
+[11:24:50] Dataset=data/multidomain_eval_claude_external_v2_10_stratified.json items=10 methods=['tcar_collaborative'] jobs=10
+[11:24:50] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[11:25:03] Qwen engine loaded in 3.73s
+[11:25:10] TCAR collaborative pipeline ready (parallel_workers=1, max_experts=2, router_adapter=/Users/uditjain/Desktop/adapter/router_adapters/router_reasoning_sft_5000_mpsfix, router_samples=4, temp=0.7, top_p=0.9)
+[11:25:10] START job=1/10 item=1/10 id=ext_md_001 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[11:27:04] DONE  job=1/10 id=ext_md_001 method=tcar_collaborative lat=92.78s em=0.00 f1=0.29 sim=0.675 router=8.55s branches=24.39s verifier=1.55s avg/job=113.72s eta=17m03s
+[11:27:04] START job=2/10 item=2/10 id=ext_md_006 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[11:28:38] DONE  job=2/10 id=ext_md_006 method=tcar_collaborative lat=78.98s em=0.00 f1=0.38 sim=0.756 router=5.54s branches=21.80s verifier=0.68s avg/job=104.19s eta=13m53s
+[11:28:38] START job=3/10 item=3/10 id=ext_md_011 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[11:30:10] DONE  job=3/10 id=ext_md_011 method=tcar_collaborative lat=79.61s em=0.00 f1=0.22 sim=0.621 router=7.91s branches=20.68s verifier=1.46s avg/job=99.93s eta=11m39s
+[11:30:10] START job=4/10 item=4/10 id=ext_md_016 method=tcar_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[11:31:36] DONE  job=4/10 id=ext_md_016 method=tcar_collaborative lat=64.04s em=0.00 f1=0.23 sim=0.608 router=3.13s branches=32.99s verifier=0.64s avg/job=96.43s eta=9m38s
+[11:31:36] START job=5/10 item=5/10 id=ext_md_021 method=tcar_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']

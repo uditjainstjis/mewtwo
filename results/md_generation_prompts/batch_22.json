@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ext_claude_022",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "MATHEMATICS"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "MATHEMATICS"
+    ],
+    "question": "A manuscript says: \"Take a number and his moiety; abate 4 from the whole; the residue is equal to the root of the first number.\" Two modern readings are proposed: A) x + x/2 - 4 = sqrt(x) and B) sqrt(x + x/2 - 4) = x. Which reading is better, and what real solution follows? Explain briefly using both the wording and the algebra.",
+    "reference_answer": "Reading A is better. In older usage, \"moiety\" means half, and \"abate 4 from the whole\" means subtract 4 from the accumulated quantity, so the residue itself—not its square root—is said to equal the root of the original number. Let y = sqrt(x) with y >= 0; then x = y^2 and y^2 + y^2/2 - 4 = y, so 3y^2 - 2y - 8 = 0. The admissible root is y = 2, hence x = 4; reading B gives 2x^2 - 3x + 8 = 0, which has no real solution.",
+    "answer_type": "mixed",
+    "difficulty": "hard",
+    "required_facts": [
+      "\"moiety\" means one-half",
+      "\"abate 4\" means subtract 4 from the current total",
+      "Option A matches the syntax because the residue equals the root",
+      "The correct real solution is x = 4, while option B has no real solution"
+    ],
+    "critical_errors": [
+      "Treats moiety as anything other than one-half",
+      "Places the square root on the residue instead of the original number",
+      "Claims a different real solution or says option B has a real root"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "lexically interpret moiety and abate",
+        "justify why option A fits the sentence structure",
+        "compute and state the real solution"
+      ],
+      "nice_to_have": [
+        "uses y = sqrt(x) or an equivalent substitution",
+        "explains that option B fails because its quadratic has negative discriminant"
+      ],
+      "automatic_checks": [
+        "mentions half",
+        "includes x = 4",
+        "states that option B has no real solution"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "The item genuinely requires both domains because \"moiety\" denotes half and \"abate\" signals subtraction, so archaic parsing is needed before the algebra is even well-posed."[1][2]
+    }
+  }
+]

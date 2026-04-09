@@ -1,0 +1,368 @@
+{
+  "summary": {
+    "late_layer_injection": {
+      "n": 10,
+      "semantic_sim": 0.6804,
+      "token_f1": 0.2696,
+      "latency_s": 3.5773,
+      "exact_match": 0.0
+    },
+    "mistral": {
+      "n": 10,
+      "semantic_sim": 0.7067,
+      "token_f1": 0.2971,
+      "latency_s": 10.7177,
+      "exact_match": 0.0
+    },
+    "sequential_reverse": {
+      "n": 10,
+      "semantic_sim": 0.6583,
+      "token_f1": 0.2964,
+      "latency_s": 4.4147,
+      "exact_match": 0.0
+    },
+    "tcar_collaborative": {
+      "n": 10,
+      "semantic_sim": 0.6797,
+      "token_f1": 0.2682,
+      "latency_s": 18.8588,
+      "exact_match": 0.0
+    },
+    "tcar_oracle_collaborative": {
+      "n": 10,
+      "semantic_sim": 0.6939,
+      "token_f1": 0.2921,
+      "latency_s": 23.1086,
+      "exact_match": 0.0
+    },
+    "weighted_merge": {
+      "n": 10,
+      "semantic_sim": 0.6311,
+      "token_f1": 0.2603,
+      "latency_s": 4.0086,
+      "exact_match": 0.0
+    }
+  },
+  "per_item": {
+    "ext_md_001": {
+      "weighted_merge": {
+        "semantic_sim": 0.7541,
+        "token_f1": 0.3223,
+        "latency_s": 7.11
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.7727,
+        "token_f1": 0.2711,
+        "latency_s": 6.535
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6419,
+        "token_f1": 0.315,
+        "latency_s": 7.208
+      },
+      "mistral": {
+        "semantic_sim": 0.8596,
+        "token_f1": 0.379,
+        "latency_s": 22.033
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.7162,
+        "token_f1": 0.3621,
+        "latency_s": 35.196
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.7223,
+        "token_f1": 0.3636,
+        "latency_s": 27.227
+      }
+    },
+    "ext_md_006": {
+      "weighted_merge": {
+        "semantic_sim": 0.6253,
+        "token_f1": 0.2812,
+        "latency_s": 4.697
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.719,
+        "token_f1": 0.3087,
+        "latency_s": 4.285
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.7051,
+        "token_f1": 0.3014,
+        "latency_s": 5.022
+      },
+      "mistral": {
+        "semantic_sim": 0.6934,
+        "token_f1": 0.2625,
+        "latency_s": 10.58
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.7224,
+        "token_f1": 0.2963,
+        "latency_s": 28.6
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.7739,
+        "token_f1": 0.3354,
+        "latency_s": 27.849
+      }
+    },
+    "ext_md_011": {
+      "weighted_merge": {
+        "semantic_sim": 0.7314,
+        "token_f1": 0.2257,
+        "latency_s": 5.832
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.7589,
+        "token_f1": 0.251,
+        "latency_s": 4.508
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.7205,
+        "token_f1": 0.2529,
+        "latency_s": 5.131
+      },
+      "mistral": {
+        "semantic_sim": 0.6984,
+        "token_f1": 0.3291,
+        "latency_s": 10.852
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.7126,
+        "token_f1": 0.252,
+        "latency_s": 17.945
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.6939,
+        "token_f1": 0.2301,
+        "latency_s": 26.228
+      }
+    },
+    "ext_md_016": {
+      "weighted_merge": {
+        "semantic_sim": 0.5388,
+        "token_f1": 0.2476,
+        "latency_s": 4.986
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.5649,
+        "token_f1": 0.2241,
+        "latency_s": 4.887
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.5912,
+        "token_f1": 0.2667,
+        "latency_s": 6.373
+      },
+      "mistral": {
+        "semantic_sim": 0.5797,
+        "token_f1": 0.2252,
+        "latency_s": 12.039
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.4701,
+        "token_f1": 0.233,
+        "latency_s": 26.409
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.5936,
+        "token_f1": 0.2884,
+        "latency_s": 34.825
+      }
+    },
+    "ext_md_021": {
+      "weighted_merge": {
+        "semantic_sim": 0.7101,
+        "token_f1": 0.2768,
+        "latency_s": 4.508
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.7198,
+        "token_f1": 0.296,
+        "latency_s": 4.147
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.7415,
+        "token_f1": 0.3193,
+        "latency_s": 4.765
+      },
+      "mistral": {
+        "semantic_sim": 0.6943,
+        "token_f1": 0.3333,
+        "latency_s": 12.403
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.7332,
+        "token_f1": 0.2917,
+        "latency_s": 21.399
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.7417,
+        "token_f1": 0.355,
+        "latency_s": 26.917
+      }
+    },
+    "ext_md_026": {
+      "weighted_merge": {
+        "semantic_sim": 0.6442,
+        "token_f1": 0.3049,
+        "latency_s": 4.61
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.7101,
+        "token_f1": 0.4279,
+        "latency_s": 4.247
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6809,
+        "token_f1": 0.3565,
+        "latency_s": 5.237
+      },
+      "mistral": {
+        "semantic_sim": 0.6975,
+        "token_f1": 0.3455,
+        "latency_s": 11.945
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.6577,
+        "token_f1": 0.2768,
+        "latency_s": 17.866
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.5957,
+        "token_f1": 0.2857,
+        "latency_s": 22.223
+      }
+    },
+    "ext_md_031": {
+      "weighted_merge": {
+        "semantic_sim": 0.8067,
+        "token_f1": 0.2286,
+        "latency_s": 4.145
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.8067,
+        "token_f1": 0.2286,
+        "latency_s": 3.796
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.8519,
+        "token_f1": 0.2752,
+        "latency_s": 4.553
+      },
+      "mistral": {
+        "semantic_sim": 0.8313,
+        "token_f1": 0.2564,
+        "latency_s": 11.881
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.8315,
+        "token_f1": 0.2767,
+        "latency_s": 15.652
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.7934,
+        "token_f1": 0.2667,
+        "latency_s": 16.469
+      }
+    },
+    "ext_md_036": {
+      "weighted_merge": {
+        "semantic_sim": 0.4561,
+        "token_f1": 0.2796,
+        "latency_s": 1.301
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6593,
+        "token_f1": 0.3678,
+        "latency_s": 1.16
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.6194,
+        "token_f1": 0.4112,
+        "latency_s": 2.044
+      },
+      "mistral": {
+        "semantic_sim": 0.7452,
+        "token_f1": 0.3433,
+        "latency_s": 6.955
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.5462,
+        "token_f1": 0.25,
+        "latency_s": 9.568
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.6199,
+        "token_f1": 0.2062,
+        "latency_s": 17.0
+      }
+    },
+    "ext_md_041": {
+      "weighted_merge": {
+        "semantic_sim": 0.7255,
+        "token_f1": 0.3733,
+        "latency_s": 1.779
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.6275,
+        "token_f1": 0.2222,
+        "latency_s": 1.175
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.7255,
+        "token_f1": 0.3733,
+        "latency_s": 2.355
+      },
+      "mistral": {
+        "semantic_sim": 0.5475,
+        "token_f1": 0.1754,
+        "latency_s": 2.607
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.6617,
+        "token_f1": 0.1702,
+        "latency_s": 7.462
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.6644,
+        "token_f1": 0.3291,
+        "latency_s": 20.438
+      }
+    },
+    "ext_md_046": {
+      "weighted_merge": {
+        "semantic_sim": 0.3185,
+        "token_f1": 0.0635,
+        "latency_s": 1.118
+      },
+      "late_layer_injection": {
+        "semantic_sim": 0.4651,
+        "token_f1": 0.0984,
+        "latency_s": 1.033
+      },
+      "sequential_reverse": {
+        "semantic_sim": 0.3048,
+        "token_f1": 0.0923,
+        "latency_s": 1.459
+      },
+      "mistral": {
+        "semantic_sim": 0.7203,
+        "token_f1": 0.321,
+        "latency_s": 5.882
+      },
+      "tcar_collaborative": {
+        "semantic_sim": 0.7453,
+        "token_f1": 0.2737,
+        "latency_s": 8.491
+      },
+      "tcar_oracle_collaborative": {
+        "semantic_sim": 0.7397,
+        "token_f1": 0.2609,
+        "latency_s": 11.91
+      }
+    }
+  }
+}

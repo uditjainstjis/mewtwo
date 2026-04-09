@@ -9,6 +9,79 @@
 
 ---
 
+## April 2026 Update / Correction
+
+This file originally summarized the project at the point where the strongest evidence was still internal.
+
+Since then, we added:
+
+- a new externally authored 100-item MD benchmark
+- full 100-item head-to-head runs for Qwen variants and Mistral
+- a 30-item stratified blind pairwise judging pass
+
+Those newer results materially change the final conclusion.
+
+### Corrected final external numbers
+
+| System | Semantic Sim | Token F1 | Latency | Rubric Coverage |
+| --- | ---: | ---: | ---: | ---: |
+| weighted_merge | 0.6592 | 0.2719 | 4.263s | 0.1261 |
+| late_layer_injection | 0.6594 | 0.2715 | 3.890s | 0.1230 |
+| sequential_reverse | 0.6623 | 0.2734 | 4.605s | 0.1338 |
+| mistral | 0.6907 | 0.2917 | 10.654s | 0.1683 |
+
+### Corrected blind-judge numbers vs Mistral
+
+| Qwen Method | Qwen Wins | Mistral Wins | Ties |
+| --- | ---: | ---: | ---: |
+| weighted_merge | 6 | 23 | 1 |
+| late_layer_injection | 4 | 26 | 0 |
+| sequential_reverse | 4 | 25 | 1 |
+
+### What this correction means
+
+- The earlier internal `+5.7%` advantage over Mistral should **not** be treated as the final project conclusion.
+- The latest external blind evaluation favors Mistral on answer quality.
+- The strongest remaining Synapta advantage is **latency, modularity, and controllable expert composition**, not externally proven superiority in final-answer correctness.
+
+For the corrected consolidated view, see [FINAL_EXPERIMENT_REPORT_2026_04.md](/Users/uditjain/Desktop/adapter/FINAL_EXPERIMENT_REPORT_2026_04.md) and [results/md_external_v2_blind_report.md](/Users/uditjain/Desktop/adapter/results/md_external_v2_blind_report.md).
+
+Follow-on inference-time-scaling work is documented in [results/tcar_pilot_10_report.md](/Users/uditjain/Desktop/adapter/results/tcar_pilot_10_report.md). The short version is: the collaborative branch-and-refine idea looks directionally better under oracle experts, but the current natural-language router is too inaccurate to realize that gain end to end.
+
+The next router-improvement phase is documented in [docs/ROUTER_SFT_DPO_PLAN_2026_04.md](/Users/uditjain/Desktop/adapter/docs/ROUTER_SFT_DPO_PLAN_2026_04.md) and the execution log at [results/router_upgrade_execution_log_2026_04_08.md](/Users/uditjain/Desktop/adapter/results/router_upgrade_execution_log_2026_04_08.md). That phase adds synthetic routing data generation, dedicated router SFT, DPO, and direct trained-router integration back into TCAR.
+
+## April 2026 DPO / TCAR Final Update
+
+The router-upgrade phase is now closed out with a full 100-item external TCAR rerun.
+
+### Router holdout result
+
+| Router | Exact Match | Partial Overlap | Mean Overlap F1 | Mean Latency |
+| --- | ---: | ---: | ---: | ---: |
+| SFT router | 0.85 | 1.00 | 0.9450 | 1.079s |
+| DPO router | 0.42 | 0.75 | 0.6333 | 1.697s |
+
+This means the DPO phase **regressed routing accuracy**, even though it completed cleanly on MPS with correct response-only masking.
+
+### Final TCAR 100-item result
+
+| System | Semantic Sim | Token F1 | Latency |
+| --- | ---: | ---: | ---: |
+| TCAR + DPO router | 0.6900 | 0.2712 | 24.198s |
+| Mistral | 0.6907 | 0.2917 | 10.654s |
+| Best old Qwen blend (`sequential_reverse`) | 0.6623 | 0.2734 | 4.605s |
+
+### What this means
+
+- TCAR materially improves semantic quality over the old Qwen weight-blending family.
+- TCAR + DPO **nearly matches** Mistral on semantic similarity.
+- TCAR + DPO still **does not beat** Mistral on token F1 or latency.
+- The biggest systems issue is now latency tails, not average quality alone.
+
+Detailed final report: [results/tcar_dpo_final_100_report_2026_04_09.md](/Users/uditjain/Desktop/adapter/results/tcar_dpo_final_100_report_2026_04_09.md)
+
+---
+
 ## Table of Contents
 
 1. [Motivation — Why This Project Exists](#1-motivation--why-this-project-exists)
@@ -563,4 +636,3 @@ wc -l results/v2_md_routing_ablation.jsonl   # Should be 120
 ### The one-sentence summary:
 
 > Multi-adapter LoRA composition on edge hardware with Autonomous Confidence Gating completely bypasses generative routing bottlenecks, securely navigating between single and multi-adapter domains to empirically outperform dense 7B parameters natively utilizing 75% less unified memory.
-

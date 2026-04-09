@@ -1,0 +1,216 @@
+```json
+[
+  {
+    "id": "ext_md_001",
+    "domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "required_adapters": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A SaaS company's terms of service state that user data is 'encrypted at rest using industry-standard AES.' During litigation, opposing counsel argues this clause is legally unenforceable as a security warranty because it is too vague. Separately, a security auditor flags that the deployment uses AES-128 in ECB mode. Identify the primary legal vulnerability in the clause and the primary cryptographic failure, and explain how each independently undermines the company's position.",
+    "reference_answer": "Legal vulnerability: The phrase 'industry-standard AES' is a vague representations clause, not a precise warranty. Courts (e.g., under UCC or common law misrepresentation) require specificity for a security promise to be enforceable or defensible; the clause neither specifies key length nor mode, making it ambiguous and potentially misleading to consumers, which could trigger FTC unfairness or deceptive practice liability.\n\nCryptographic failure: ECB mode encrypts identical plaintext blocks to identical ciphertext blocks, leaking data patterns regardless of key length. AES-128-ECB provides no semantic security for structured data. This means even if the legal clause were specific, the actual implementation fails to meet any reasonable 'industry standard,' exposing the company to breach-of-contract and negligence claims if data is compromised.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "ECB mode leaks patterns / no semantic security",
+        "vague or ambiguous warranty / unenforceable clause",
+        "FTC or misrepresentation or consumer protection liability"
+      ],
+      "must_include_any": [
+        ["AES-128", "key length unspecified"],
+        ["ECB", "Electronic Codebook"],
+        ["industry standard not defined", "lacks specificity"]
+      ],
+      "must_not_include": [
+        "AES-256 is required by law",
+        "ECB is compliant",
+        "the clause is enforceable as written"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_002",
+    "domains": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A consumer lending startup is deciding between two opt-out designs for arbitration clauses: (A) a single pre-checked checkbox labeled 'I agree to arbitration' during sign-up, or (B) a separate follow-up email sent 30 days after sign-up with a 14-day opt-out window. From both a legal enforceability standpoint and a behavioral economics standpoint, which design is more defensible and why? Identify the main failure mode of the weaker option.",
+    "reference_answer": "Option B is more defensible on both dimensions.\n\nLegal: U.S. courts (Ninth Circuit and others post-Concepcion) have increasingly scrutinized pre-checked boxes as failing mutual assent — the consumer never affirmatively manifests agreement. Option B's opt-out window, while still adhesive, has been upheld when adequately noticed (cf. Notify requirements under CFPB guidelines).\n\nBehavioral economics: Pre-checked boxes exploit default bias and present bias — users accept defaults without processing. Option B, though imperfect, reduces present bias exploitation at point-of-sale and gives an informed cooling-off window. However, B still exploits status quo bias (inertia to opt out).\n\nMain failure mode of Option A: It conflates scrolling past a form with informed consent, creating an unconscionability risk — courts may void the clause entirely, eliminating arbitration protection the company relies on.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B is more defensible",
+        "default bias or status quo bias",
+        "mutual assent / unconscionability risk for Option A"
+      ],
+      "must_include_any": [
+        ["pre-checked box fails assent", "no affirmative consent"],
+        ["cooling-off period", "opt-out window"],
+        ["present bias", "inertia"]
+      ],
+      "must_not_include": [
+        "Option A is legally safer",
+        "pre-checked boxes are universally enforceable",
+        "behavioral economics is irrelevant to enforceability"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_003",
+    "domains": ["LEGAL_ANALYSIS", "MARITIME_LAW"],
+    "required_adapters": ["LEGAL_ANALYSIS", "MARITIME_LAW"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A cargo owner files a claim after goods are damaged during a voyage. The bill of lading contains a clause paramount incorporating the Hague Rules and a jurisdiction clause selecting English courts. The carrier's lawyer files a motion to dismiss in a U.S. federal court, arguing forum non conveniens. The motion is denied. Diagnose the most likely reason the motion failed, referencing both the applicable maritime law framework and the general legal doctrine at play.",
+    "reference_answer": "The motion likely failed for two compounding reasons.\n\nMaritime law: Under the Carriage of Goods by Sea Act (COGSA), which applies to foreign trade to/from U.S. ports and incorporates Hague Rules principles, U.S. courts have held that a clause paramount does not automatically override mandatory U.S. statutory rights. If the cargo was loaded or discharged at a U.S. port, COGSA's application may be non-waivable, weakening the foreign jurisdiction clause's force.\n\nGeneral legal doctrine: Forum non conveniens requires the movant to show an adequate alternative forum and that private/public interest factors strongly favor dismissal (Gulf Oil Corp. v. Gilbert). If the plaintiff's chosen forum (U.S.) has a substantial connection to the claim — e.g., U.S. port of discharge, U.S. cargo owner — courts grant high deference to that choice, and the carrier failed to overcome that presumption.\n\nFix: Carrier should have sought transfer under 28 U.S.C. § 1404(a) or argued COGSA's one-year limitation bar instead.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "COGSA applies to U.S. port shipments",
+        "forum non conveniens requires adequate alternative forum",
+        "deference to plaintiff's chosen forum"
+      ],
+      "must_include_any": [
+        ["Gulf Oil v. Gilbert", "private and public interest factors"],
+        ["clause paramount", "Hague Rules incorporation"],
+        ["§ 1404", "transfer as alternative"]
+      ],
+      "must_not_include": [
+        "forum selection clause is always binding",
+        "Hague-Visby automatically displaces COGSA",
+        "motion should have succeeded"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_004",
+    "domains": ["LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A hospital's AI-assisted radiology tool flags a chest CT as low-probability for malignancy (score: 0.18). The radiologist, trusting the tool, does not escalate. Six months later the patient is diagnosed with early-stage lung cancer. The hospital's legal team must decide between two defense postures: (A) argue the AI output was a decision-support tool, not a diagnostic device, shifting liability to the radiologist; or (B) argue the standard of care was met because the 0.18 score was below published clinical thresholds. Identify the stronger defense and the key failure mode of the weaker one.",
+    "reference_answer": "Defense B is stronger in most U.S. jurisdictions.\n\nMedical: A score of 0.18 on a well-validated model is objectively below typical clinical action thresholds (e.g., Lung-RADS category 3 starts at moderate suspicion). If the hospital can show the threshold was evidence-based and consistently applied, the radiologist's decision aligns with accepted practice, satisfying the Bolam/reasonable-physician standard.\n\nLegal: Defense A is the weaker posture. Arguing the tool is 'decision-support only' may backfire if the hospital marketed or deployed it in a way that integrated it into the diagnostic workflow — courts and the FDA may treat it as a Software as a Medical Device (SaMD), and the hospital could face dual liability (negligent tool selection + negligent supervision) rather than deflecting to the radiologist.\n\nKey failure mode of A: It creates a paper trail of institutional responsibility while simultaneously undermining the radiologist's defense, potentially exposing both parties.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Defense B is stronger",
+        "standard of care / reasonable physician standard",
+        "SaMD or FDA classification risk for Defense A"
+      ],
+      "must_include_any": [
+        ["Lung-RADS", "published threshold", "clinical action threshold"],
+        ["dual liability", "institutional liability"],
+        ["decision-support characterization backfires", "marketing or deployment context"]
+      ],
+      "must_not_include": [
+        "Defense A eliminates hospital liability",
+        "0.18 score is automatically negligent",
+        "AI tools cannot be used in radiology"
+      ],
+      "numeric_targets": [
+        {
+          "label": "AI malignancy score cited in question",
+          "value": "0.18",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_005",
+    "domains": ["LEGAL_ANALYSIS", "ROBOTICS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "ROBOTICS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "An autonomous warehouse robot operating under a shared-autonomy framework collides with a worker. Logs show the robot's collision-avoidance module received valid lidar data but a high-latency CAN bus message caused the brake command to arrive 220 ms late — beyond the system's 150 ms safety threshold. The manufacturer claims the worker was in a restricted zone, invoking contributory negligence. Explain the primary technical failure mode and why the contributory negligence defense is likely to be weak in a strict-liability jurisdiction.",
+    "reference_answer": "Technical failure: The root cause is a deterministic timing violation on the CAN bus. At 220 ms actuation latency versus a 150 ms safety envelope, the system violated its own validated safety threshold — a design-level fault, not a sensor fault. In safety-critical robotics (ISO 10218, IEC 62061), timing guarantees for safety functions must be met under worst-case load; if CAN bus congestion was foreseeable, the architecture failed to prioritize safety-critical messages (e.g., via message scheduling or a dedicated safety bus).\n\nLegal: In strict-liability jurisdictions (products liability under Restatement Third of Torts § 2), the manufacturer is liable for defective design regardless of user conduct if the product deviated from its own safety specification. Contributory negligence is largely irrelevant under strict liability unless the plaintiff's conduct was the sole proximate cause. The worker being in a restricted zone does not extinguish the manufacturer's liability for a documented timing defect — it may only reduce damages under comparative fault, not bar the claim.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "CAN bus latency exceeded 150 ms safety threshold",
+        "design defect / timing violation",
+        "strict liability bars contributory negligence as full defense"
+      ],
+      "must_include_any": [
+        ["ISO 10218", "IEC 62061", "safety-critical timing standard"],
+        ["Restatement Third", "products liability", "defective design"],
+        ["comparative fault reduces damages", "does not bar claim"]
+      ],
+      "must_not_include": [
+        "lidar sensor was faulty",
+        "contributory negligence fully bars recovery under strict liability",
+        "220 ms is within acceptable tolerance"
+      ],
+      "numeric_targets": [
+        {
+          "label": "Actual CAN bus latency (ms)",
+          "value": "220",
+          "tolerance": 0.0
+        },
+        {
+          "label": "System safety threshold (ms)",
+          "value": "150",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "hallucination", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  }
+]
+```

@@ -1,0 +1,373 @@
+[] === autopilot_watch_2h start ROOT=/Users/uditjain/Desktop/adapter ticks=12 interval=600s ===
+[] tail -f /Users/uditjain/Desktop/adapter/results/autopilot_watch_20260408_060648.log
+[] 
+[] ========== TICK 1/12 ==========
+[] uptime:  6:06  up 7 hrs, 1 user, load averages: 6.28 10.35 10.35
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                3367.
+Pages active:                             22545.
+Pages inactive:                           19989.
+Pages speculative:                         1761.
+[] processes (eval-related):
+uditjain         92186   0.0  0.0 437280624   2416 s009  S+    5:59AM   0:10.60 /opt/homebrew/Cellar/python@3.14/3.14.2_1/Frameworks/Python.framework/Versions/3.14/Resources/Python.app/Contents/MacOS/Python backend/mistral_eval_md.py --data data/multidomain_eval_external.json --num-predict 180 --output results/mistral_track_b.json
+uditjain         89751   0.0  0.0 436870016    624   ??  S     5:38AM   0:06.39 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3936
+-rw-r--r--@ 1 uditjain  staff    1300 Apr  8 06:06 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff    1062 Apr  8 06:06 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    4156 Apr  8 06:06 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+-rw-r--r--@ 1 uditjain  staff   90408 Apr  8 05:35 showcase_pipeline_run.log
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • mistral_eval_md.py still running — wait for Saved: in mistral_eval_last_run.log
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=0.0
+[]   • last 3 lines mistral_eval_last_run.log:
+    [27/40] id=ext_md_27 Querying: How does Daniel Kahneman's dual-process theory (Sy...
+        - Sim: 0.716 | Lat: 15.26s
+    [28/40] id=ext_md_28 Querying: How did Marsilio Ficino's Neoplatonist philosophy ...
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 2/12 ==========
+[] uptime:  6:16  up  7:11, 1 user, load averages: 3.74 4.90 7.38
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                               22221.
+Pages active:                            130315.
+Pages inactive:                          134391.
+Pages speculative:                         2100.
+[] processes (eval-related):
+uditjain         89751   0.0  0.2 436870016  17312   ??  S     5:38AM   0:07.32 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3936
+-rw-r--r--@ 1 uditjain  staff    3274 Apr  8 06:16 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff    2696 Apr  8 06:16 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 3/12 ==========
+[] uptime:  7:20  up  8:14, 1 user, load averages: 2.44 3.04 5.09
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                               10991.
+Pages active:                            157758.
+Pages inactive:                          156254.
+Pages speculative:                          869.
+[] processes (eval-related):
+uditjain         89751   0.0  0.2 436869456  17120   ??  S     5:38AM   0:07.36 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3952
+-rw-r--r--@ 1 uditjain  staff    5387 Apr  8 07:20 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff    4469 Apr  8 07:20 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 4/12 ==========
+[] uptime:  7:46  up  8:40, 1 user, load averages: 1.22 1.68 3.29
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                               11762.
+Pages active:                            145961.
+Pages inactive:                          146082.
+Pages speculative:                          516.
+[] processes (eval-related):
+uditjain         89751   0.0  0.1 436869456  12032   ??  S     5:38AM   0:07.41 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3952
+-rw-r--r--@ 1 uditjain  staff    7500 Apr  8 07:46 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff    6242 Apr  8 07:46 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 5/12 ==========
+[] uptime:  8:03  up  8:57, 1 user, load averages: 1.52 1.41 2.31
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                               21736.
+Pages active:                            140269.
+Pages inactive:                          131823.
+Pages speculative:                         7516.
+[] processes (eval-related):
+uditjain         89751   0.0  0.1 436869456  11648   ??  S     5:38AM   0:07.45 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3960
+-rw-r--r--@ 1 uditjain  staff    9613 Apr  8 08:03 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff    8015 Apr  8 08:03 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 6/12 ==========
+[] uptime:  8:47  up  9:41, 1 user, load averages: 3.21 2.93 2.69
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                3901.
+Pages active:                             88986.
+Pages inactive:                           86981.
+Pages speculative:                         1178.
+[] processes (eval-related):
+uditjain         89751   0.0  0.1 436869456   6864   ??  S     5:38AM   0:07.61 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3888
+-rw-r--r--@ 1 uditjain  staff   11726 Apr  8 08:47 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff    9788 Apr  8 08:47 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 7/12 ==========
+[] uptime:  9:24  up 10:18, 1 user, load averages: 3.55 4.29 3.72
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                7440.
+Pages active:                             88078.
+Pages inactive:                           86871.
+Pages speculative:                          508.
+[] processes (eval-related):
+uditjain         89751   0.0  0.1 436869456  10832   ??  S     5:38AM   0:07.78 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3896
+-rw-r--r--@ 1 uditjain  staff   13839 Apr  8 09:24 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff   11561 Apr  8 09:24 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 8/12 ==========
+[] uptime:  9:34  up 10:28, 1 user, load averages: 4.78 3.57 3.43
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                3563.
+Pages active:                             89240.
+Pages inactive:                           82228.
+Pages speculative:                         5884.
+[] processes (eval-related):
+uditjain          6458   4.5  0.1 435303120   5232   ??  S     9:34AM   0:00.02 /Library/Developer/CommandLineTools/usr/bin/git add -- backend/adversarial_protocols.py backend/agent_cluster.py backend/benchmark_v3.py backend/data_expert_v3/LEGAL_ANALYSIS/train.jsonl backend/data_expert_v3/LEGAL_ANALYSIS/valid.jsonl backend/data_expert_v3/MEDICAL_DIAGNOSIS/train.jsonl backend/data_expert_v3/MEDICAL_DIAGNOSIS/valid.jsonl backend/data_expert_v3/PYTHON_LOGIC/train.jsonl backend/data_expert_v3/PYTHON_LOGIC/valid.jsonl backend/expert_adapters_v3/LEGAL_ANALYSIS/adapter_config.json backend/expert_adapters_v3/MEDICAL_DIAGNOSIS/adapter_config.json backend/expert_adapters_v3/PYTHON_LOGIC/adapter_config.json backend/expert_benchmark_v3.json backend/proxy_bridge.py backend/quality_constitution.py backend/setup_synapta_v3.py backend/trajectory_search.py backend/verifiers.py data/multidomain_eval_external.example.json data/multidomain_eval_external.json docs/FINAL_EXPERIMENT_MD.md docs/SHOWCASE_PROGRESS_DRAFT.md models/Qwen3.5-0.8B/.gitattributes models/Qwen3.5-0.8B/LICENSE models/Qwen3.5-0.8B/README.md models/Qwen3.5-0.8B/chat_template.jinja models/Qwen3.5-0.8B/config.json models/Qwen3.5-0.8B/merges.txt models/Qwen3.5-0.8B/model.safetensors.index.json models/Qwen3.5-0.8B/preprocessor_config.json models/Qwen3.5-0.8B/tokenizer.json models/Qwen3.5-0.8B/tokenizer_config.json models/Qwen3.5-0.8B/video_preprocessor_config.json models/Qwen3.5-0.8B/vocab.json results/autopilot_watch_20260408_060648.log results/autopilot_watch_nohup.txt results/injection_hypotheses_eval.jsonl results/injection_hypotheses_eval_full_20260408.jsonl results/injection_hypotheses_full_run.log results/injection_track_a.jsonl results/injection_track_b.jsonl results/mistral_eval_last_run.log results/mistral_rerun_track_a.log results/mistral_track_a.json results/mistral_track_b.json results/sats_eval.jsonl results/showcase_pipeline_run.log results/showcase_pipeline_summary.json results/showcase_pipeline_summary.txt scripts/autopilot_watch_2h.sh src/eval/aggregate_eval_jsonl.py src/eval/aggregate_injection_jsonl.py src/eval/check_eval_environment.py src/eval/draft_external_md_item.py src/eval/md_dataset.py src/eval/run_eval_cluster_strict.py src/eval/run_eval_injection_hypotheses.py src/eval/run_eval_sats.py src/eval/run_full_showcase_pipeline.py
+uditjain         89751   0.0  0.0 436869456    880   ??  S     5:38AM   0:07.90 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3912
+-rw-r--r--@ 1 uditjain  staff   18290 Apr  8 09:34 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff   15672 Apr  8 09:34 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+[]   • Qwen injection eval running
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 9/12 ==========
+[] uptime:  9:44  up 10:38, 1 user, load averages: 3.66 3.89 3.57
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                4195.
+Pages active:                            109418.
+Pages inactive:                          108531.
+Pages speculative:                          214.
+[] processes (eval-related):
+uditjain         89751   0.0  0.0 436869456   1296   ??  S     5:38AM   0:07.99 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3920
+-rw-r--r--@ 1 uditjain  staff   20474 Apr  8 09:44 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff   17482 Apr  8 09:44 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 10/12 ==========
+[] uptime:  9:54  up 10:48, 1 user, load averages: 3.03 3.68 3.62
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                3621.
+Pages active:                            105057.
+Pages inactive:                          104603.
+Pages speculative:                          479.
+[] processes (eval-related):
+uditjain         89751   0.0  0.0 436869456   3216   ??  S     5:38AM   0:08.08 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3928
+-rw-r--r--@ 1 uditjain  staff   22588 Apr  8 09:54 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff   19256 Apr  8 09:54 autopilot_watch_20260408_060648.log
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+-rw-r--r--@ 1 uditjain  staff    2413 Apr  8 05:36 showcase_pipeline_summary.txt
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 11/12 ==========
+[] uptime: 10:04  up 10:58, 1 user, load averages: 2.20 2.70 3.09
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                               18563.
+Pages active:                            118491.
+Pages inactive:                          114989.
+Pages speculative:                         2554.
+[] processes (eval-related):
+uditjain         89751   0.0  0.0 436869456   3216   ??  S     5:38AM   0:08.15 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3944
+-rw-r--r--@ 1 uditjain  staff   24702 Apr  8 10:04 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff   21030 Apr  8 10:04 autopilot_watch_20260408_060648.log
+drwxr-xr-x@ 3 uditjain  staff      96 Apr  8 09:57 md_generation_prompts
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---
+[] sleeping 600s until next tick...
+[] 
+[] ========== TICK 12/12 ==========
+[] uptime: 10:14  up 11:08, 2 users, load averages: 11.11 4.86 3.76
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                4108.
+Pages active:                             89933.
+Pages inactive:                           81104.
+Pages speculative:                         8082.
+[] processes (eval-related):
+uditjain         89751   0.0  0.0 436869456    880   ??  S     5:38AM   0:08.25 /Applications/Ollama.app/Contents/Resources/ollama serve
+[] disk results/:
+total 3944
+-rw-r--r--@ 1 uditjain  staff   26810 Apr  8 10:14 autopilot_watch_nohup.txt
+-rw-r--r--@ 1 uditjain  staff   22798 Apr  8 10:14 autopilot_watch_20260408_060648.log
+drwxr-xr-x@ 4 uditjain  staff     128 Apr  8 10:09 md_generation_prompts
+-rw-r--r--@ 1 uditjain  staff    5980 Apr  8 06:09 mistral_eval_last_run.log
+-rw-r--r--@ 1 uditjain  staff    4936 Apr  8 06:09 mistral_track_b.json
+-rw-r--r--@ 1 uditjain  staff    5871 Apr  8 05:58 mistral_rerun_track_a.log
+-rw-r--r--@ 1 uditjain  staff    4686 Apr  8 05:58 mistral_track_a.json
+[] --- AUTO_NEXT (machine hints, not interactive) ---
+[]   • no mistral_eval_md.py process (finished or not started)
+  • mistral_track_b.json: n_items=40 n_errors=0 mean_lat=14.469395399093628
+  • Suggested next (when you want Qwen on same data):
+    PYTHONUNBUFFERED=1 python3 src/eval/run_eval_injection_hypotheses.py --real --extra --more \
+      --data data/multidomain_eval_external.json --output results/injection_track_b.jsonl
+[]   • last 3 lines mistral_eval_last_run.log:
+    SYNAPTA PERFORMANCE ON MD VS MISTRAL: -1.6%
+    
+    Saved: /Users/uditjain/Desktop/adapter/results/mistral_track_b.json
+[] --- end AUTO_NEXT ---

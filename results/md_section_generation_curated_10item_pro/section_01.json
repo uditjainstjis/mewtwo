@@ -1,0 +1,155 @@
+```json
+[
+  {
+    "id": "ext_md_001",
+    "domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "required_adapters": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A SaaS company stores user-signed contracts using AES-128-ECB encryption, then presents these encrypted blobs as legally binding records in arbitration. Opposing counsel challenges their evidentiary value. Identify the cryptographic flaw in this scheme and explain why it undermines the legal enforceability of the records as tamper-evident documents.",
+    "reference_answer": "AES-128-ECB is deterministic and stateless: identical plaintext blocks always produce identical ciphertext blocks, producing no authentication tag, no integrity check, and no protection against block-reordering or substitution attacks. This means the encrypted blob cannot prove the document was not altered after signing. Legally, tamper-evident storage requires demonstrable integrity assurance — typically a cryptographic hash or MAC bound to a trusted timestamp. Without it, the records fail the authentication and best-evidence requirements under rules like FRE 901/902 (US) or equivalent civil procedure standards. The fix is to replace ECB with an authenticated encryption scheme (e.g., AES-256-GCM) and apply a keyed HMAC or digital signature tied to the signer's identity, producing a verifiable chain of custody.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["ECB", "integrity", "authentication", "tamper"],
+      "must_include_any": [
+        ["deterministic", "identical blocks", "block repetition"],
+        ["AES-GCM", "HMAC", "digital signature", "authenticated encryption"],
+        ["FRE 901", "best evidence", "authentication requirement", "evidentiary"]
+      ],
+      "must_not_include": ["ECB is secure", "AES-128 is illegal", "encryption alone proves integrity"],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:10:14.759707+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_002",
+    "domains": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A consumer-lending startup is choosing between two disclosure designs for its loan agreements: (A) a single dense page listing all fees and APR in small print, or (B) a summary box with APR prominently displayed first, followed by detailed terms. Both are technically TILA-compliant. From a behavioral economics standpoint and a legal risk standpoint, which design better protects the company, and why does the other option create residual liability?",
+    "reference_answer": "Design B is superior on both dimensions. Behaviorally, presenting APR first exploits salience and reduces information overload — borrowers are more likely to read and retain material terms, reducing post-hoc claims of deception. Design A exploits present bias and attention scarcity; regulators (CFPB) treat such layouts as constructively deceptive even when technically compliant, exposing the company to unfair, deceptive, or abusive acts or practices (UDAAP) enforcement. Legally, courts applying the 'reasonable consumer' standard have found dense disclosures inadequate when material terms are buried. Design A's residual liability stems from UDAAP risk, state UDAP statutes, and potential class action exposure for misleading omission by presentation. Design B reduces this by demonstrating good-faith disclosure aligned with how consumers actually process information.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": ["UDAAP", "salience", "APR", "reasonable consumer"],
+      "must_include_any": [
+        ["CFPB", "Consumer Financial Protection Bureau", "federal regulator"],
+        ["present bias", "attention", "information overload", "behavioral"],
+        ["TILA", "Truth in Lending", "disclosure requirement"]
+      ],
+      "must_not_include": ["both designs are equally risky", "behavioral economics is irrelevant to compliance"],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:10:14.759707+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_003",
+    "domains": ["LEGAL_ANALYSIS", "MARITIME_LAW"],
+    "required_adapters": ["LEGAL_ANALYSIS", "MARITIME_LAW"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A cargo owner files suit in US federal district court for damage to goods aboard a container vessel. Their attorney pleads the claim purely under state commercial law, seeking consequential damages beyond the cargo's market value. The shipowner moves to dismiss. What is the legal error in the cargo owner's pleading strategy, and what is the correct framework they should have invoked?",
+    "reference_answer": "The error is failure to plead under the Carmack Amendment or, for ocean carriage, the Carriage of Goods by Sea Act (COGSA). COGSA preempts state law claims for international ocean cargo damage, limiting the carrier's liability to $500 per package unless a higher value is declared. By pleading under state commercial law, the cargo owner opens the door to dismissal because federal maritime law and COGSA occupy the field, precluding consequential damages beyond the statutory cap. The fix is to re-plead under COGSA (46 U.S.C. § 30701 note), invoking admiralty jurisdiction under 28 U.S.C. § 1333, and either accept the per-package limitation or argue the limitation is inapplicable due to carrier deviation, unreasonable deck stowage, or failure to issue a conforming bill of lading.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["COGSA", "preemption", "$500 per package", "admiralty jurisdiction"],
+      "must_include_any": [
+        ["46 U.S.C.", "COGSA statutory reference", "Carriage of Goods by Sea Act"],
+        ["28 U.S.C. § 1333", "admiralty jurisdiction", "federal maritime"],
+        ["deviation", "bill of lading", "package limitation exception"]
+      ],
+      "must_not_include": ["state law governs ocean cargo", "consequential damages are freely available under COGSA"],
+      "numeric_targets": [
+        {
+          "label": "COGSA per-package liability cap",
+          "value": "500",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": ["\\$500 per package", "COGSA"],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:10:14.759707+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_004",
+    "domains": ["LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "MEDICAL_DIAGNOSIS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A hospital's AI triage tool flags patients as low-risk and routes them to a delayed-care queue. Three patients flagged low-risk later deteriorated — two had sepsis, one had NSTEMI. Legal counsel must advise whether to (A) retain the tool with additional physician override requirements, or (B) suspend the tool pending recalibration. Which option better limits liability, and what clinical-legal reasoning supports it?",
+    "reference_answer": "Option B (suspension) better limits liability in the short term. Clinically, missed sepsis and NSTEMI are time-critical, high-mortality conditions where algorithmic under-triage creates a foreseeable pattern of harm — three events constitutes a signal, not noise. Legally, continuing to deploy a known-defective tool after documented adverse outcomes establishes constructive knowledge of risk, which elevates negligence to potential gross negligence or reckless disregard. Under corporate negligence doctrine (Darling v. Charleston), hospitals have a non-delegable duty to ensure competent care systems. Physician override requirements do not break the causal chain if the tool's output anchors clinician judgment (automation bias). Suspension, documentation of the pattern, and root-cause recalibration demonstrate reasonable corrective action, substantially reducing punitive damages exposure and supporting a due-diligence defense.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": ["gross negligence", "corporate negligence", "automation bias", "constructive knowledge"],
+      "must_include_any": [
+        ["sepsis", "NSTEMI", "time-critical", "deterioration pattern"],
+        ["Darling v. Charleston", "non-delegable duty", "hospital liability doctrine"],
+        ["suspension", "recalibration", "corrective action"]
+      ],
+      "must_not_include": ["override requirements fully eliminate liability", "three events is insufficient signal"],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:10:14.759707+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_005",
+    "domains": ["LEGAL_ANALYSIS", "ROBOTICS"],
+    "required_adapters": ["LEGAL_ANALYSIS", "ROBOTICS"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "An autonomous warehouse robot collides with a worker, causing injury. The robot's manufacturer claims the deployment configuration was modified by the integrator, voiding product liability. The integrator claims it followed the manufacturer's integration guide exactly. Identify the most likely legal failure mode in this dispute and explain which party bears primary exposure under current product liability doctrine.",
+    "reference_answer": "The central failure mode is an unresolved responsibility gap in the distribution chain between manufacturer and integrator — a recurring problem in multi-party robotic deployments. Under strict product liability, the manufacturer is liable if the robot was defective in design or if the integration guide itself was defective (inadequate instructions constitute a warning defect). The integrator faces negligence exposure if it deviated from safe deployment standards even while following the guide. The key diagnostic question is whether the integration guide adequately specified safety-critical operational constraints (e.g., speed limits in```json
+[
+  {
+    "id": "ext_md_001",
+    "domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "required_adapters": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A SaaS company signs contracts with EU customers using electronic signatures backed only by symmetric AES-256 keys shared over email. A dispute arises and the counterparty denies signing. Identify the cryptographic flaw that undermines the contract's enforceability and explain the legal consequence under eIDAS.",
+    "reference_answer": "The flaw is that symmetric encryption provides no non-repudiation: both parties hold the same key, so either could have produced the signature, making it impossible to prove who signed. eIDAS distinguishes between simple, advanced, and qualified electronic signatures. An advanced electronic signature (AdES) requires a signature uniquely linked to and capable of identifying the signatory, created using data under the signatory's sole control — properties only asymmetric (public-key) cryptography satisfies. A symmetric scheme fails the 'sole control' requirement. Consequently, the signature cannot qualify as AdES or QES under eIDAS Article 26, and a court is unlikely to treat it as legally equivalent to a handwritten signature.

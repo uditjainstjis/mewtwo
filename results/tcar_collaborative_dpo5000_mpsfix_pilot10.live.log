@@ -1,0 +1,24 @@
+[09:27:16] Dataset=data/multidomain_eval_claude_external_v2_10_stratified.json items=10 methods=['tcar_collaborative'] jobs=10
+[09:27:16] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[09:27:23] Qwen engine loaded in 3.00s
+[09:27:27] TCAR collaborative pipeline ready (parallel_workers=1, max_experts=2, router_adapter=/Users/uditjain/Desktop/adapter/router_adapters/router_reasoning_dpo_5000_mpsfix)
+[09:27:27] START job=1/10 item=1/10 id=ext_md_001 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[09:27:56] DONE  job=1/10 id=ext_md_001 method=tcar_collaborative lat=22.53s em=0.00 f1=0.33 sim=0.753 router=5.40s branches=7.02s refiner=10.10s avg/job=28.85s eta=4m19s
+[09:27:56] START job=2/10 item=2/10 id=ext_md_006 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[09:28:17] DONE  job=2/10 id=ext_md_006 method=tcar_collaborative lat=20.68s em=0.00 f1=0.34 sim=0.735 router=3.89s branches=6.74s refiner=10.03s avg/job=24.89s eta=3m19s
+[09:28:17] START job=3/10 item=3/10 id=ext_md_011 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[09:28:41] DONE  job=3/10 id=ext_md_011 method=tcar_collaborative lat=24.17s em=0.00 f1=0.29 sim=0.643 router=1.47s branches=12.44s refiner=10.25s avg/job=24.71s eta=2m52s
+[09:28:41] START job=4/10 item=4/10 id=ext_md_016 method=tcar_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[09:28:59] DONE  job=4/10 id=ext_md_016 method=tcar_collaborative lat=17.79s em=0.00 f1=0.25 sim=0.618 router=1.36s branches=6.34s refiner=10.08s avg/job=23.03s eta=2m18s
+[09:28:59] START job=5/10 item=5/10 id=ext_md_021 method=tcar_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[09:29:24] DONE  job=5/10 id=ext_md_021 method=tcar_collaborative lat=24.44s em=0.00 f1=0.32 sim=0.759 router=1.86s branches=12.31s refiner=10.26s avg/job=23.36s eta=1m56s
+[09:29:24] START job=6/10 item=6/10 id=ext_md_026 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[09:29:49] DONE  job=6/10 id=ext_md_026 method=tcar_collaborative lat=24.99s em=0.00 f1=0.31 sim=0.666 router=2.06s branches=12.50s refiner=10.43s avg/job=23.67s eta=1m34s
+[09:29:49] START job=7/10 item=7/10 id=ext_md_031 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[09:30:13] DONE  job=7/10 id=ext_md_031 method=tcar_collaborative lat=23.35s em=0.00 f1=0.23 sim=0.803 router=1.61s branches=11.22s refiner=10.51s avg/job=23.67s eta=1m11s
+[09:30:13] START job=8/10 item=8/10 id=ext_md_036 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[09:30:32] DONE  job=8/10 id=ext_md_036 method=tcar_collaborative lat=19.33s em=0.00 f1=0.26 sim=0.720 router=4.85s branches=8.83s refiner=5.64s avg/job=23.19s eta=46s
+[09:30:32] START job=9/10 item=9/10 id=ext_md_041 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[09:30:44] DONE  job=9/10 id=ext_md_041 method=tcar_collaborative lat=10.94s em=0.00 f1=0.34 sim=0.542 router=2.58s branches=5.54s refiner=2.81s avg/job=21.87s eta=21s
+[09:30:44] START job=10/10 item=10/10 id=ext_md_046 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[09:30:52] DONE  job=10/10 id=ext_md_046 method=tcar_collaborative lat=8.21s em=0.00 f1=0.37 sim=0.794 router=1.81s branches=3.21s refiner=3.19s avg/job=20.51s eta=0s

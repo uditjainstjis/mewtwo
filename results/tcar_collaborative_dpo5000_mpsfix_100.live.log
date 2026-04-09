@@ -1,0 +1,204 @@
+[09:56:31] Dataset=data/multidomain_eval_claude_external_v2_100.json items=100 methods=['tcar_collaborative'] jobs=100
+[09:56:31] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[09:56:38] Qwen engine loaded in 2.88s
+[09:56:43] TCAR collaborative pipeline ready (parallel_workers=1, max_experts=2, router_adapter=/Users/uditjain/Desktop/adapter/router_adapters/router_reasoning_dpo_5000_mpsfix)
+[09:56:43] START job=1/100 item=1/100 id=ext_md_001 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[09:57:13] DONE  job=1/100 id=ext_md_001 method=tcar_collaborative lat=23.40s em=0.00 f1=0.33 sim=0.753 router=5.57s branches=7.87s refiner=9.95s avg/job=29.79s eta=49m09s
+[09:57:13] START job=2/100 item=2/100 id=ext_md_002 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[09:57:41] DONE  job=2/100 id=ext_md_002 method=tcar_collaborative lat=27.39s em=0.00 f1=0.20 sim=0.617 router=4.56s branches=12.44s refiner=10.39s avg/job=28.71s eta=46m53s
+[09:57:41] START job=3/100 item=3/100 id=ext_md_003 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[09:57:52] DONE  job=3/100 id=ext_md_003 method=tcar_collaborative lat=11.15s em=0.00 f1=0.24 sim=0.627 router=2.44s branches=5.32s refiner=3.38s avg/job=22.91s eta=37m02s
+[09:57:52] START job=4/100 item=4/100 id=ext_md_004 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[09:58:16] DONE  job=4/100 id=ext_md_004 method=tcar_collaborative lat=23.15s em=0.00 f1=0.38 sim=0.722 router=5.14s branches=11.09s refiner=6.92s avg/job=23.05s eta=36m52s
+[09:58:16] START job=5/100 item=5/100 id=ext_md_005 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[09:58:32] DONE  job=5/100 id=ext_md_005 method=tcar_collaborative lat=16.62s em=0.00 f1=0.32 sim=0.729 router=3.06s branches=7.34s refiner=6.21s avg/job=21.79s eta=34m29s
+[09:58:32] START job=6/100 item=6/100 id=ext_md_006 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[09:58:45] DONE  job=6/100 id=ext_md_006 method=tcar_collaborative lat=12.02s em=0.00 f1=0.34 sim=0.735 router=2.35s branches=3.77s refiner=5.89s avg/job=20.19s eta=31m37s
+[09:58:45] START job=7/100 item=7/100 id=ext_md_007 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[09:59:01] DONE  job=7/100 id=ext_md_007 method=tcar_collaborative lat=16.47s em=0.00 f1=0.25 sim=0.698 router=2.56s branches=7.70s refiner=6.20s avg/job=19.68s eta=30m30s
+[09:59:01] START job=8/100 item=8/100 id=ext_md_008 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[09:59:15] DONE  job=8/100 id=ext_md_008 method=tcar_collaborative lat=13.38s em=0.00 f1=0.28 sim=0.512 router=0.88s branches=7.45s refiner=5.04s avg/job=18.91s eta=28m59s
+[09:59:15] START job=9/100 item=9/100 id=ext_md_009 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'CLIMATE_SCIENCE']
+[09:59:26] DONE  job=9/100 id=ext_md_009 method=tcar_collaborative lat=11.46s em=0.00 f1=0.29 sim=0.851 router=1.44s branches=3.98s refiner=6.03s avg/job=18.10s eta=27m27s
+[09:59:26] START job=10/100 item=10/100 id=ext_md_010 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[09:59:39] DONE  job=10/100 id=ext_md_010 method=tcar_collaborative lat=12.33s em=0.00 f1=0.26 sim=0.810 router=2.59s branches=3.73s refiner=6.00s avg/job=17.54s eta=26m18s
+[09:59:39] START job=11/100 item=11/100 id=ext_md_011 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[09:59:53] DONE  job=11/100 id=ext_md_011 method=tcar_collaborative lat=14.43s em=0.00 f1=0.29 sim=0.643 router=0.86s branches=7.32s refiner=6.24s avg/job=17.27s eta=25m36s
+[09:59:53] START job=12/100 item=12/100 id=ext_md_012 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[10:00:10] DONE  job=12/100 id=ext_md_012 method=tcar_collaborative lat=16.07s em=0.00 f1=0.34 sim=0.840 router=2.58s branches=7.32s refiner=6.16s avg/job=17.18s eta=25m11s
+[10:00:10] START job=13/100 item=13/100 id=ext_md_013 method=tcar_collaborative domains=['PYTHON_LOGIC', 'ROBOTICS']
+[10:00:24] DONE  job=13/100 id=ext_md_013 method=tcar_collaborative lat=14.29s em=0.00 f1=0.21 sim=0.518 router=0.85s branches=7.25s refiner=6.18s avg/job=16.97s eta=24m35s
+[10:00:24] START job=14/100 item=14/100 id=ext_md_014 method=tcar_collaborative domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[10:00:36] DONE  job=14/100 id=ext_md_014 method=tcar_collaborative lat=12.33s em=0.00 f1=0.27 sim=0.796 router=2.60s branches=3.77s refiner=5.95s avg/job=16.64s eta=23m51s
+[10:00:36] START job=15/100 item=15/100 id=ext_md_015 method=tcar_collaborative domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[10:00:51] DONE  job=15/100 id=ext_md_015 method=tcar_collaborative lat=14.21s em=0.00 f1=0.36 sim=0.711 router=0.83s branches=7.22s refiner=6.16s avg/job=16.49s eta=23m21s
+[10:00:51] START job=16/100 item=16/100 id=ext_md_016 method=tcar_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[10:01:02] DONE  job=16/100 id=ext_md_016 method=tcar_collaborative lat=10.84s em=0.00 f1=0.25 sim=0.618 router=0.78s branches=3.76s refiner=6.29s avg/job=16.15s eta=22m36s
+[10:01:02] START job=17/100 item=17/100 id=ext_md_017 method=tcar_collaborative domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[10:01:19] DONE  job=17/100 id=ext_md_017 method=tcar_collaborative lat=16.69s em=0.00 f1=0.31 sim=0.742 router=2.74s branches=7.63s refiner=6.32s avg/job=16.19s eta=22m23s
+[10:01:19] START job=18/100 item=18/100 id=ext_md_018 method=tcar_collaborative domains=['MATHEMATICS', 'CLIMATE_SCIENCE']
+[10:01:34] DONE  job=18/100 id=ext_md_018 method=tcar_collaborative lat=15.15s em=0.00 f1=0.31 sim=0.735 router=0.96s branches=7.45s refiner=6.74s avg/job=16.15s eta=22m04s
+[10:01:34] START job=19/100 item=19/100 id=ext_md_019 method=tcar_collaborative domains=['MATHEMATICS', 'MUSIC_THEORY']
+[10:01:46] DONE  job=19/100 id=ext_md_019 method=tcar_collaborative lat=12.09s em=0.00 f1=0.26 sim=0.673 router=0.88s branches=4.53s refiner=6.67s avg/job=15.95s eta=21m32s
+[10:01:46] START job=20/100 item=20/100 id=ext_md_020 method=tcar_collaborative domains=['MATHEMATICS', 'LATEX_FORMATTING']
+[10:02:03] DONE  job=20/100 id=ext_md_020 method=tcar_collaborative lat=16.64s em=0.00 f1=0.30 sim=0.802 router=2.83s branches=7.52s refiner=6.28s avg/job=16.00s eta=21m19s
+[10:02:03] START job=21/100 item=21/100 id=ext_md_021 method=tcar_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[10:02:19] DONE  job=21/100 id=ext_md_021 method=tcar_collaborative lat=15.21s em=0.00 f1=0.32 sim=0.759 router=1.16s branches=7.46s refiner=6.58s avg/job=15.97s eta=21m01s
+[10:02:19] START job=22/100 item=22/100 id=ext_md_022 method=tcar_collaborative domains=['MLX_KERNELS', 'ROBOTICS']
+[10:02:34] DONE  job=22/100 id=ext_md_022 method=tcar_collaborative lat=14.88s em=0.00 f1=0.28 sim=0.694 router=0.97s branches=7.66s refiner=6.24s avg/job=15.93s eta=20m42s
+[10:02:34] START job=23/100 item=23/100 id=ext_md_023 method=tcar_collaborative domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[10:02:50] DONE  job=23/100 id=ext_md_023 method=tcar_collaborative lat=16.10s em=0.00 f1=0.30 sim=0.812 router=2.64s branches=7.26s refiner=6.20s avg/job=15.94s eta=20m27s
+[10:02:50] START job=24/100 item=24/100 id=ext_md_024 method=tcar_collaborative domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[10:03:06] DONE  job=24/100 id=ext_md_024 method=tcar_collaborative lat=16.12s em=0.00 f1=0.32 sim=0.756 router=2.59s branches=7.33s refiner=6.20s avg/job=15.95s eta=20m12s
+[10:03:06] START job=25/100 item=25/100 id=ext_md_025 method=tcar_collaborative domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[10:03:14] DONE  job=25/100 id=ext_md_025 method=tcar_collaborative lat=7.16s em=0.00 f1=0.25 sim=0.786 router=0.77s branches=3.10s refiner=3.29s avg/job=15.60s eta=19m30s
+[10:03:14] START job=26/100 item=26/100 id=ext_md_026 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[10:03:29] DONE  job=26/100 id=ext_md_026 method=tcar_collaborative lat=14.92s em=0.00 f1=0.31 sim=0.666 router=1.25s branches=7.38s refiner=6.29s avg/job=15.58s eta=19m13s
+[10:03:29] START job=27/100 item=27/100 id=ext_md_027 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[10:03:52] DONE  job=27/100 id=ext_md_027 method=tcar_collaborative lat=22.81s em=0.00 f1=0.26 sim=0.711 router=0.99s branches=11.47s refiner=10.34s avg/job=15.87s eta=19m18s
+[10:03:52] START job=28/100 item=28/100 id=ext_md_028 method=tcar_collaborative domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[10:04:17] DONE  job=28/100 id=ext_md_028 method=tcar_collaborative lat=25.26s em=0.00 f1=0.34 sim=0.841 router=4.62s branches=12.63s refiner=8.01s avg/job=16.21s eta=19m27s
+[10:04:17] START job=29/100 item=29/100 id=ext_md_029 method=tcar_collaborative domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[10:04:45] DONE  job=29/100 id=ext_md_029 method=tcar_collaborative lat=27.39s em=0.00 f1=0.14 sim=0.595 router=4.57s branches=12.45s refiner=10.37s avg/job=16.60s eta=19m38s
+[10:04:45] START job=30/100 item=30/100 id=ext_md_030 method=tcar_collaborative domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[10:05:08] DONE  job=30/100 id=ext_md_030 method=tcar_collaborative lat=22.56s em=0.00 f1=0.16 sim=0.478 router=4.56s branches=7.79s refiner=10.21s avg/job=16.81s eta=19m36s
+[10:05:08] START job=31/100 item=31/100 id=ext_md_031 method=tcar_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[10:05:31] DONE  job=31/100 id=ext_md_031 method=tcar_collaborative lat=23.30s em=0.00 f1=0.23 sim=0.803 router=1.66s branches=11.24s refiner=10.40s avg/job=17.03s eta=19m34s
+[10:05:31] START job=32/100 item=32/100 id=ext_md_032 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'MUSIC_THEORY']
+[10:05:50] DONE  job=32/100 id=ext_md_032 method=tcar_collaborative lat=18.95s em=0.00 f1=0.34 sim=0.691 router=1.54s branches=9.66s refiner=7.74s avg/job=17.09s eta=19m22s
+[10:05:50] START job=33/100 item=33/100 id=ext_md_033 method=tcar_collaborative domains=['ASTROPHYSICS', 'CLIMATE_SCIENCE']
+[10:05:59] DONE  job=33/100 id=ext_md_033 method=tcar_collaborative lat=8.13s em=0.00 f1=0.29 sim=0.646 router=1.33s branches=3.65s refiner=3.14s avg/job=16.83s eta=18m47s
+[10:05:59] START job=34/100 item=34/100 id=ext_md_034 method=tcar_collaborative domains=['CRYPTOGRAPHY', 'BEHAVIORAL_ECONOMICS']
+[10:06:21] DONE  job=34/100 id=ext_md_034 method=tcar_collaborative lat=21.52s em=0.00 f1=0.22 sim=0.807 router=4.55s branches=10.43s refiner=6.54s avg/job=16.97s eta=18m40s
+[10:06:21] START job=35/100 item=35/100 id=ext_md_035 method=tcar_collaborative domains=['LATEX_FORMATTING', 'QUANTUM_CHEMISTRY']
+[10:06:38] DONE  job=35/100 id=ext_md_035 method=tcar_collaborative lat=17.25s em=0.00 f1=0.27 sim=0.720 router=2.73s branches=7.84s refiner=6.69s avg/job=16.99s eta=18m24s
+[10:06:38] START job=36/100 item=36/100 id=ext_md_036 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[10:06:49] DONE  job=36/100 id=ext_md_036 method=tcar_collaborative lat=11.15s em=0.00 f1=0.26 sim=0.720 router=2.71s branches=5.14s refiner=3.30s avg/job=16.83s eta=17m57s
+[10:06:49] START job=37/100 item=37/100 id=ext_md_037 method=tcar_collaborative domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[10:07:01] DONE  job=37/100 id=ext_md_037 method=tcar_collaborative lat=11.12s em=0.00 f1=0.41 sim=0.722 router=0.90s branches=6.71s refiner=3.50s avg/job=16.68s eta=17m31s
+[10:07:01] START job=38/100 item=38/100 id=ext_md_038 method=tcar_collaborative domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[10:07:09] DONE  job=38/100 id=ext_md_038 method=tcar_collaborative lat=7.95s em=0.00 f1=0.36 sim=0.761 router=1.05s branches=3.77s refiner=3.12s avg/job=16.46s eta=17m00s
+[10:07:09] START job=39/100 item=39/100 id=ext_md_039 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[10:07:21] DONE  job=39/100 id=ext_md_039 method=tcar_collaborative lat=11.83s em=0.00 f1=0.20 sim=0.512 router=3.17s branches=2.31s refiner=6.34s avg/job=16.34s eta=16m36s
+[10:07:21] START job=40/100 item=40/100 id=ext_md_040 method=tcar_collaborative domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[10:07:42] DONE  job=40/100 id=ext_md_040 method=tcar_collaborative lat=20.66s em=0.00 f1=0.14 sim=0.504 router=0.99s branches=11.90s refiner=7.76s avg/job=16.46s eta=16m27s
+[10:07:42] START job=41/100 item=41/100 id=ext_md_041 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[10:07:49] DONE  job=41/100 id=ext_md_041 method=tcar_collaborative lat=6.59s em=0.00 f1=0.34 sim=0.542 router=1.53s branches=3.31s refiner=1.74s avg/job=16.23s eta=15m57s
+[10:07:49] START job=42/100 item=42/100 id=ext_md_042 method=tcar_collaborative domains=['ASTROPHYSICS', 'PHILOSOPHY']
+[10:08:09] DONE  job=42/100 id=ext_md_042 method=tcar_collaborative lat=20.45s em=0.00 f1=0.21 sim=0.640 router=0.97s branches=9.96s refiner=9.52s avg/job=16.34s eta=15m47s
+[10:08:09] START job=43/100 item=43/100 id=ext_md_043 method=tcar_collaborative domains=['LATEX_FORMATTING', 'MUSIC_THEORY']
+[10:08:38] DONE  job=43/100 id=ext_md_043 method=tcar_collaborative lat=27.73s em=0.00 f1=0.28 sim=0.656 router=4.49s branches=12.51s refiner=10.73s avg/job=16.61s eta=15m46s
+[10:08:38] START job=44/100 item=44/100 id=ext_md_044 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[10:09:06] DONE  job=44/100 id=ext_md_044 method=tcar_collaborative lat=28.29s em=0.00 f1=0.22 sim=0.542 router=4.99s branches=13.01s refiner=10.29s avg/job=16.88s eta=15m45s
+[10:09:06] START job=45/100 item=45/100 id=ext_md_045 method=tcar_collaborative domains=['MARITIME_LAW', 'CLIMATE_SCIENCE']
+[10:09:23] DONE  job=45/100 id=ext_md_045 method=tcar_collaborative lat=16.61s em=0.00 f1=0.21 sim=0.718 router=1.37s branches=6.53s refiner=8.71s avg/job=16.89s eta=15m28s
+[10:09:23] START job=46/100 item=46/100 id=ext_md_046 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[10:09:32] DONE  job=46/100 id=ext_md_046 method=tcar_collaborative lat=8.19s em=0.00 f1=0.37 sim=0.794 router=1.79s branches=3.18s refiner=3.21s avg/job=16.70s eta=15m01s
+[10:09:32] START job=47/100 item=47/100 id=ext_md_047 method=tcar_collaborative domains=['LATEX_FORMATTING', 'ASTROPHYSICS']
+[10:09:57] DONE  job=47/100 id=ext_md_047 method=tcar_collaborative lat=25.56s em=0.00 f1=0.18 sim=0.678 router=4.60s branches=11.99s refiner=8.96s avg/job=16.90s eta=14m55s
+[10:09:57] START job=48/100 item=48/100 id=ext_md_048 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[10:10:15] DONE  job=48/100 id=ext_md_048 method=tcar_collaborative lat=17.51s em=0.00 f1=0.17 sim=0.639 router=1.22s branches=6.30s refiner=9.98s avg/job=16.91s eta=14m39s
+[10:10:15] START job=49/100 item=49/100 id=ext_md_049 method=tcar_collaborative domains=['MATHEMATICS', 'MUSIC_THEORY']
+[10:10:31] DONE  job=49/100 id=ext_md_049 method=tcar_collaborative lat=15.18s em=0.00 f1=0.22 sim=0.521 router=1.20s branches=6.36s refiner=7.61s avg/job=16.88s eta=14m20s
+[10:10:31] START job=50/100 item=50/100 id=ext_md_050 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'ORGANIC_SYNTHESIS']
+[10:10:58] DONE  job=50/100 id=ext_md_050 method=tcar_collaborative lat=27.63s em=0.00 f1=0.24 sim=0.786 router=4.53s branches=12.36s refiner=10.73s avg/job=17.10s eta=14m15s
+[10:10:58] START job=51/100 item=51/100 id=ext_md_051 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[10:11:10] DONE  job=51/100 id=ext_md_051 method=tcar_collaborative lat=11.58s em=0.00 f1=0.34 sim=0.524 router=1.66s branches=4.83s refiner=5.08s avg/job=17.00s eta=13m52s
+[10:11:10] START job=52/100 item=52/100 id=ext_md_052 method=tcar_collaborative domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[10:11:31] DONE  job=52/100 id=ext_md_052 method=tcar_collaborative lat=21.04s em=0.00 f1=0.27 sim=0.746 router=4.55s branches=6.46s refiner=10.02s avg/job=17.08s eta=13m39s
+[10:11:31] START job=53/100 item=53/100 id=ext_md_053 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'MEDICAL_DIAGNOSIS']
+[10:11:59] DONE  job=53/100 id=ext_md_053 method=tcar_collaborative lat=27.43s em=0.00 f1=0.28 sim=0.759 router=4.50s branches=12.51s refiner=10.41s avg/job=17.28s eta=13m32s
+[10:11:59] START job=54/100 item=54/100 id=ext_md_054 method=tcar_collaborative domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[10:12:17] DONE  job=54/100 id=ext_md_054 method=tcar_collaborative lat=17.55s em=0.00 f1=0.24 sim=0.521 router=1.22s branches=6.31s refiner=10.01s avg/job=17.29s eta=13m15s
+[10:12:17] START job=55/100 item=55/100 id=ext_md_055 method=tcar_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[10:12:41] DONE  job=55/100 id=ext_md_055 method=tcar_collaborative lat=24.29s em=0.00 f1=0.22 sim=0.578 router=1.52s branches=12.39s refiner=10.37s avg/job=17.42s eta=13m03s
+[10:12:41] START job=56/100 item=56/100 id=ext_md_056 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[10:12:58] DONE  job=56/100 id=ext_md_056 method=tcar_collaborative lat=16.37s em=0.00 f1=0.41 sim=0.848 router=4.46s branches=7.97s refiner=3.93s avg/job=17.41s eta=12m46s
+[10:12:58] START job=57/100 item=57/100 id=ext_md_057 method=tcar_collaborative domains=['LATEX_FORMATTING', 'SANSKRIT_LINGUISTICS']
+[10:13:12] DONE  job=57/100 id=ext_md_057 method=tcar_collaborative lat=13.27s em=0.00 f1=0.18 sim=0.574 router=2.96s branches=4.01s refiner=6.30s avg/job=17.34s eta=12m25s
+[10:13:12] START job=58/100 item=58/100 id=ext_md_058 method=tcar_collaborative domains=['LEGAL_ANALYSIS', 'ROBOTICS']
+[10:13:19] DONE  job=58/100 id=ext_md_058 method=tcar_collaborative lat=7.20s em=0.00 f1=0.31 sim=0.726 router=0.70s branches=3.91s refiner=2.58s avg/job=17.17s eta=12m01s
+[10:13:19] START job=59/100 item=59/100 id=ext_md_059 method=tcar_collaborative domains=['MARITIME_LAW', 'ANCIENT_HISTORY']
+[10:13:26] DONE  job=59/100 id=ext_md_059 method=tcar_collaborative lat=6.08s em=0.00 f1=0.34 sim=0.760 router=0.82s branches=2.94s refiner=2.31s avg/job=16.99s eta=11m36s
+[10:13:26] START job=60/100 item=60/100 id=ext_md_060 method=tcar_collaborative domains=['MATHEMATICS', 'QUANTUM_CHEMISTRY']
+[10:13:35] DONE  job=60/100 id=ext_md_060 method=tcar_collaborative lat=9.06s em=0.00 f1=0.33 sim=0.627 router=2.14s branches=4.39s refiner=2.53s avg/job=16.86s eta=11m14s
+[10:13:35] START job=61/100 item=61/100 id=ext_md_061 method=tcar_collaborative domains=['ARCHAIC_ENGLISH', 'RENAISSANCE_ART']
+[10:13:50] DONE  job=61/100 id=ext_md_061 method=tcar_collaborative lat=15.32s em=0.00 f1=0.20 sim=0.569 router=1.25s branches=7.58s refiner=6.47s avg/job=16.84s eta=10m56s
+[10:13:50] START job=62/100 item=62/100 id=ext_md_062 method=tcar_collaborative domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[10:14:04] DONE  job=62/100 id=ext_md_062 method=tcar_collaborative lat=13.87s em=0.00 f1=0.35 sim=0.835 router=0.85s branches=7.62s refiner=5.40s avg/job=16.79s eta=10m38s
+[10:14:04] START job=63/100 item=63/100 id=ext_md_063 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[10:14:20] DONE  job=63/100 id=ext_md_063 method=tcar_collaborative lat=15.51s em=0.00 f1=0.26 sim=0.573 router=2.73s branches=7.56s refiner=5.21s avg/job=16.77s eta=10m20s
+[10:14:20] START job=64/100 item=64/100 id=ext_md_064 method=tcar_collaborative domains=['MLX_KERNELS', 'ASTROPHYSICS']
+[10:14:38] DONE  job=64/100 id=ext_md_064 method=tcar_collaborative lat=17.30s em=0.00 f1=0.21 sim=0.554 router=2.83s branches=7.83s refiner=6.63s avg/job=16.78s eta=10m04s
+[10:14:38] START job=65/100 item=65/100 id=ext_md_065 method=tcar_collaborative domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[10:14:53] DONE  job=65/100 id=ext_md_065 method=tcar_collaborative lat=15.16s em=0.00 f1=0.23 sim=0.581 router=2.84s branches=7.75s refiner=4.56s avg/job=16.76s eta=9m46s
+[10:14:53] START job=66/100 item=66/100 id=ext_md_066 method=tcar_collaborative domains=['MARITIME_LAW', 'CRYPTOGRAPHY']
+[10:15:08] DONE  job=66/100 id=ext_md_066 method=tcar_collaborative lat=15.09s em=0.00 f1=0.33 sim=0.583 router=0.87s branches=7.75s refiner=6.45s avg/job=16.74s eta=9m29s
+[10:15:08] START job=67/100 item=67/100 id=ext_md_067 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'PYTHON_LOGIC']
+[10:15:21] DONE  job=67/100 id=ext_md_067 method=tcar_collaborative lat=12.28s em=0.00 f1=0.46 sim=0.864 router=0.95s branches=7.56s refiner=3.77s avg/job=16.68s eta=9m10s
+[10:15:21] START job=68/100 item=68/100 id=ext_md_068 method=tcar_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[10:15:31] DONE  job=68/100 id=ext_md_068 method=tcar_collaborative lat=10.46s em=0.00 f1=0.21 sim=0.658 router=1.60s branches=3.88s refiner=4.96s avg/job=16.59s eta=8m50s
+[10:15:31] START job=69/100 item=69/100 id=ext_md_069 method=tcar_collaborative domains=['ORGANIC_SYNTHESIS', 'CLIMATE_SCIENCE']
+[10:15:46] DONE  job=69/100 id=ext_md_069 method=tcar_collaborative lat=15.00s em=0.00 f1=0.28 sim=0.814 router=1.93s branches=6.63s refiner=6.43s avg/job=16.56s eta=8m33s
+[10:15:46] START job=70/100 item=70/100 id=ext_md_070 method=tcar_collaborative domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[10:15:54] DONE  job=70/100 id=ext_md_070 method=tcar_collaborative lat=7.89s em=0.00 f1=0.17 sim=0.523 router=1.10s branches=3.29s refiner=3.49s avg/job=16.44s eta=8m13s
+[10:15:54] START job=71/100 item=71/100 id=ext_md_071 method=tcar_collaborative domains=['MEDICAL_DIAGNOSIS', 'ROBOTICS']
+[10:16:06] DONE  job=71/100 id=ext_md_071 method=tcar_collaborative lat=11.14s em=0.00 f1=0.19 sim=0.776 router=1.04s branches=3.93s refiner=6.17s avg/job=16.37s eta=7m54s
+[10:16:06] START job=72/100 item=72/100 id=ext_md_072 method=tcar_collaborative domains=['MLX_KERNELS', 'CRYPTOGRAPHY']
+[10:16:20] DONE  job=72/100 id=ext_md_072 method=tcar_collaborative lat=14.38s em=0.00 f1=0.32 sim=0.778 router=2.71s branches=7.45s refiner=4.22s avg/job=16.34s eta=7m37s
+[10:16:20] START job=73/100 item=73/100 id=ext_md_073 method=tcar_collaborative domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[10:16:33] DONE  job=73/100 id=ext_md_073 method=tcar_collaborative lat=12.81s em=0.00 f1=0.23 sim=0.379 router=2.62s branches=3.94s refiner=6.24s avg/job=16.30s eta=7m20s
+[10:16:33] START job=74/100 item=74/100 id=ext_md_074 method=tcar_collaborative domains=['PHILOSOPHY', 'BEHAVIORAL_ECONOMICS']
+[10:16:50] DONE  job=74/100 id=ext_md_074 method=tcar_collaborative lat=16.81s em=0.00 f1=0.23 sim=0.645 router=2.72s branches=7.62s refiner=6.46s avg/job=16.31s eta=7m03s
+[10:16:50] START job=75/100 item=75/100 id=ext_md_075 method=tcar_collaborative domains=['PYTHON_LOGIC', 'LATEX_FORMATTING']
+[10:17:03] DONE  job=75/100 id=ext_md_075 method=tcar_collaborative lat=12.98s em=0.00 f1=0.20 sim=0.500 router=2.78s branches=4.04s refiner=6.16s avg/job=16.26s eta=6m46s
+[10:17:03] START job=76/100 item=76/100 id=ext_md_076 method=tcar_collaborative domains=['MLX_KERNELS', 'ROBOTICS']
+[10:17:21] DONE  job=76/100 id=ext_md_076 method=tcar_collaborative lat=17.18s em=0.00 f1=0.26 sim=0.556 router=2.89s branches=7.74s refiner=6.55s avg/job=16.28s eta=6m30s
+[10:17:21] START job=77/100 item=77/100 id=ext_md_077 method=tcar_collaborative domains=['ORGANIC_SYNTHESIS', 'LEGAL_ANALYSIS']
+[10:17:36] DONE  job=77/100 id=ext_md_077 method=tcar_collaborative lat=15.82s em=0.00 f1=0.29 sim=0.645 router=1.50s branches=7.76s refiner=6.55s avg/job=16.27s eta=6m14s
+[10:17:36] START job=78/100 item=78/100 id=ext_md_078 method=tcar_collaborative domains=['PYTHON_LOGIC', 'CRYPTOGRAPHY']
+[10:17:52] DONE  job=78/100 id=ext_md_078 method=tcar_collaborative lat=15.04s em=0.00 f1=0.23 sim=0.578 router=0.88s branches=7.68s refiner=6.47s avg/job=16.26s eta=5m57s
+[10:17:52] START job=79/100 item=79/100 id=ext_md_079 method=tcar_collaborative domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[10:17:59] DONE  job=79/100 id=ext_md_079 method=tcar_collaborative lat=7.72s em=0.00 f1=0.28 sim=0.546 router=0.83s branches=1.54s refiner=5.34s avg/job=16.15s eta=5m39s
+[10:17:59] START job=80/100 item=80/100 id=ext_md_080 method=tcar_collaborative domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[10:18:46] DONE  job=80/100 id=ext_md_080 method=tcar_collaborative lat=45.95s em=0.00 f1=0.21 sim=0.792 router=1.15s branches=7.72s refiner=37.08s avg/job=16.53s eta=5m30s
+[10:18:46] START job=81/100 item=81/100 id=ext_md_081 method=tcar_collaborative domains=['PYTHON_LOGIC', 'MLX_KERNELS']
+[10:19:04] DONE  job=81/100 id=ext_md_081 method=tcar_collaborative lat=18.29s em=0.00 f1=0.27 sim=0.771 router=1.17s branches=11.16s refiner=5.95s avg/job=16.55s eta=5m14s
+[10:19:04] START job=82/100 item=82/100 id=ext_md_082 method=tcar_collaborative domains=['QUANTUM_CHEMISTRY', 'ASTROPHYSICS']
+[10:21:06] DONE  job=82/100 id=ext_md_082 method=tcar_collaborative lat=121.56s em=0.00 f1=0.17 sim=0.648 router=80.75s branches=34.70s refiner=6.11s avg/job=17.84s eta=5m21s
+[10:21:06] START job=83/100 item=83/100 id=ext_md_083 method=tcar_collaborative domains=['RENAISSANCE_ART', 'ANCIENT_HISTORY']
+[10:22:32] DONE  job=83/100 id=ext_md_083 method=tcar_collaborative lat=85.90s em=0.00 f1=0.27 sim=0.751 router=0.85s branches=3.76s refiner=81.28s avg/job=18.66s eta=5m17s
+[10:22:32] START job=84/100 item=84/100 id=ext_md_084 method=tcar_collaborative domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[10:23:13] DONE  job=84/100 id=ext_md_084 method=tcar_collaborative lat=41.40s em=0.00 f1=0.26 sim=0.763 router=1.73s branches=33.63s refiner=6.03s avg/job=18.93s eta=5m02s
+[10:23:13] START job=85/100 item=85/100 id=ext_md_085 method=tcar_collaborative domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[10:24:26] DONE  job=85/100 id=ext_md_085 method=tcar_collaborative lat=72.47s em=0.00 f1=0.24 sim=0.740 router=1.11s branches=58.09s refiner=13.27s avg/job=19.56s eta=4m53s
+[10:24:26] START job=86/100 item=86/100 id=ext_md_086 method=tcar_collaborative domains=['PYTHON_LOGIC', 'ROBOTICS']
+[10:24:38] DONE  job=86/100 id=ext_md_086 method=tcar_collaborative lat=11.50s em=0.00 f1=0.27 sim=0.692 router=0.95s branches=7.38s refiner=3.16s avg/job=19.47s eta=4m32s
+[10:24:38] START job=87/100 item=87/100 id=ext_md_087 method=tcar_collaborative domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[10:25:17] DONE  job=87/100 id=ext_md_087 method=tcar_collaborative lat=38.48s em=0.00 f1=0.31 sim=0.716 router=0.98s branches=29.07s refiner=8.42s avg/job=19.69s eta=4m15s
+[10:25:17] START job=88/100 item=88/100 id=ext_md_088 method=tcar_collaborative domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[10:26:02] DONE  job=88/100 id=ext_md_088 method=tcar_collaborative lat=45.12s em=0.00 f1=0.28 sim=0.791 router=0.90s branches=18.43s refiner=25.78s avg/job=19.98s eta=3m59s
+[10:26:02] START job=89/100 item=89/100 id=ext_md_089 method=tcar_collaborative domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[10:27:50] DONE  job=89/100 id=ext_md_089 method=tcar_collaborative lat=108.13s em=0.00 f1=0.36 sim=0.824 router=0.97s branches=5.47s refiner=101.69s avg/job=20.97s eta=3m50s
+[10:27:50] START job=90/100 item=90/100 id=ext_md_090 method=tcar_collaborative domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[10:28:25] DONE  job=90/100 id=ext_md_090 method=tcar_collaborative lat=34.97s em=0.00 f1=0.32 sim=0.835 router=2.33s branches=26.63s refiner=6.01s avg/job=21.13s eta=3m31s
+[10:28:25] START job=91/100 item=91/100 id=ext_md_091 method=tcar_collaborative domains=['QUANTUM_CHEMISTRY', 'CLIMATE_SCIENCE']
+[10:30:21] DONE  job=91/100 id=ext_md_091 method=tcar_collaborative lat=115.56s em=0.00 f1=0.29 sim=0.791 router=90.69s branches=7.03s refiner=17.83s avg/job=22.17s eta=3m19s
+[10:30:21] START job=92/100 item=92/100 id=ext_md_092 method=tcar_collaborative domains=['RENAISSANCE_ART', 'MUSIC_THEORY']
+[10:31:47] DONE  job=92/100 id=ext_md_092 method=tcar_collaborative lat=86.06s em=0.00 f1=0.25 sim=0.693 router=0.82s branches=52.37s refiner=32.86s avg/job=22.87s eta=3m02s
+[10:31:47] START job=93/100 item=93/100 id=ext_md_093 method=tcar_collaborative domains=['SANSKRIT_LINGUISTICS', 'ANCIENT_HISTORY']
+[10:32:02] DONE  job=93/100 id=ext_md_093 method=tcar_collaborative lat=15.15s em=0.00 f1=0.39 sim=0.780 router=0.85s branches=9.93s refiner=4.36s avg/job=22.79s eta=2m39s
+[10:32:02] START job=94/100 item=94/100 id=ext_md_094 method=tcar_collaborative domains=['QUANTUM_CHEMISTRY', 'ORGANIC_SYNTHESIS']
+[10:33:10] DONE  job=94/100 id=ext_md_094 method=tcar_collaborative lat=67.32s em=0.00 f1=0.28 sim=0.737 router=2.50s branches=58.77s refiner=6.04s avg/job=23.26s eta=2m19s
+[10:33:10] START job=95/100 item=95/100 id=ext_md_095 method=tcar_collaborative domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[10:33:43] DONE  job=95/100 id=ext_md_095 method=tcar_collaborative lat=33.30s em=0.00 f1=0.27 sim=0.783 router=0.70s branches=3.63s refiner=28.96s avg/job=23.37s eta=1m56s
+[10:33:43] START job=96/100 item=96/100 id=ext_md_096 method=tcar_collaborative domains=['RENAISSANCE_ART', 'PHILOSOPHY']
+[10:34:22] DONE  job=96/100 id=ext_md_096 method=tcar_collaborative lat=26.73s em=0.00 f1=0.20 sim=0.741 router=2.50s branches=18.12s refiner=6.11s avg/job=23.53s eta=1m34s
+[10:34:22] START job=97/100 item=97/100 id=ext_md_097 method=tcar_collaborative domains=['ROBOTICS', 'CLIMATE_SCIENCE']
+[10:34:47] DONE  job=97/100 id=ext_md_097 method=tcar_collaborative lat=24.60s em=0.00 f1=0.21 sim=0.685 router=1.87s branches=16.69s refiner=6.03s avg/job=23.54s eta=1m10s
+[10:34:47] START job=98/100 item=98/100 id=ext_md_098 method=tcar_collaborative domains=['SANSKRIT_LINGUISTICS', 'ARCHAIC_ENGLISH']
+[10:35:27] DONE  job=98/100 id=ext_md_098 method=tcar_collaborative lat=40.07s em=0.00 f1=0.26 sim=0.847 router=3.10s branches=30.88s refiner=6.09s avg/job=23.71s eta=47s
+[10:35:27] START job=99/100 item=99/100 id=ext_md_099 method=tcar_collaborative domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[10:37:03] DONE  job=99/100 id=ext_md_099 method=tcar_collaborative lat=96.22s em=0.00 f1=0.28 sim=0.557 router=2.60s branches=90.61s refiner=3.00s avg/job=24.44s eta=24s
+[10:37:03] START job=100/100 item=100/100 id=ext_md_100 method=tcar_collaborative domains=['SANSKRIT_LINGUISTICS', 'PHILOSOPHY']
+[10:37:41] DONE  job=100/100 id=ext_md_100 method=tcar_collaborative lat=37.35s em=0.00 f1=0.23 sim=0.811 router=2.46s branches=28.83s refiner=6.05s avg/job=24.57s eta=0s

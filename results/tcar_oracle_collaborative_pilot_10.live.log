@@ -1,0 +1,34 @@
+[18:55:13] Dataset=data/multidomain_eval_claude_external_v2_10_stratified.json items=10 methods=['tcar_oracle_collaborative'] jobs=10
+[18:55:13] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[18:55:20] Qwen engine loaded in 2.84s
+[18:55:20] TCAR collaborative pipeline ready (parallel_workers=2, max_experts=2)
+[18:55:20] START job=1/10 item=1/10 id=ext_md_001 method=tcar_oracle_collaborative domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[18:55:57] DONE  job=1/10 id=ext_md_001 method=tcar_oracle_collaborative lat=27.23s em=0.00 f1=0.36 sim=0.722 avg/job=37.65s eta=5m38s
+[18:55:57] ANS   id=ext_md_001 method=tcar_oracle_collaborative preview=The primary legal vulnerability in the clause is its vagueness, which makes it unenforceable under the U.S. Federal Trade Commission's (FTC)
+[18:55:57] START job=2/10 item=2/10 id=ext_md_006 method=tcar_oracle_collaborative domains=['MEDICAL_DIAGNOSIS', 'MATHEMATICS']
+[18:56:27] DONE  job=2/10 id=ext_md_006 method=tcar_oracle_collaborative lat=27.85s em=0.00 f1=0.34 sim=0.774 avg/job=33.59s eta=4m28s
+[18:56:27] ANS   id=ext_md_006 method=tcar_oracle_collaborative preview=The clinician's decision to begin aggressive treatment immediately based on a positive test result is not justified. The patient's positive 
+[18:56:27] START job=3/10 item=3/10 id=ext_md_011 method=tcar_oracle_collaborative domains=['PYTHON_LOGIC', 'MATHEMATICS']
+[18:56:55] DONE  job=3/10 id=ext_md_011 method=tcar_oracle_collaborative lat=26.23s em=0.00 f1=0.23 sim=0.694 avg/job=31.72s eta=3m42s
+[18:56:55] ANS   id=ext_md_011 method=tcar_oracle_collaborative preview=**Mathematical Strength:** - **Efficiency**: Newton's method converges quickly to the root, making it suitable for applications where speed 
+[18:56:55] START job=4/10 item=4/10 id=ext_md_016 method=tcar_oracle_collaborative domains=['MATHEMATICS', 'ASTROPHYSICS']
+[18:57:32] DONE  job=4/10 id=ext_md_016 method=tcar_oracle_collaborative lat=34.83s em=0.00 f1=0.29 sim=0.594 avg/job=33.03s eta=3m18s
+[18:57:32] ANS   id=ext_md_016 method=tcar_oracle_collaborative preview=**Implementation Plan to Handle Negative Parallax Robustly:**  1. **Data Validation**: Ensure that the parallax value is within a reasonable
+[18:57:32] START job=5/10 item=5/10 id=ext_md_021 method=tcar_oracle_collaborative domains=['MLX_KERNELS', 'MATHEMATICS']
+[18:58:00] DONE  job=5/10 id=ext_md_021 method=tcar_oracle_collaborative lat=26.92s em=0.00 f1=0.35 sim=0.742 avg/job=32.08s eta=2m40s
+[18:58:00] ANS   id=ext_md_021 method=tcar_oracle_collaborative preview=The precise mathematical source of the rounding error in summing 1024 fp16 partial products is related to the precision of the floating-poin
+[18:58:00] START job=6/10 item=6/10 id=ext_md_026 method=tcar_oracle_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[18:58:24] DONE  job=6/10 id=ext_md_026 method=tcar_oracle_collaborative lat=22.22s em=0.00 f1=0.29 sim=0.596 avg/job=30.73s eta=2m02s
+[18:58:24] ANS   id=ext_md_026 method=tcar_oracle_collaborative preview=The decision to grant exile under the proposed tie-break rule involves a nuanced application of ancient Athenian democratic principles. Here
+[18:58:24] START job=7/10 item=7/10 id=ext_md_031 method=tcar_oracle_collaborative domains=['ANCIENT_HISTORY', 'PHILOSOPHY']
+[18:58:42] DONE  job=7/10 id=ext_md_031 method=tcar_oracle_collaborative lat=16.47s em=0.00 f1=0.27 sim=0.793 avg/job=28.85s eta=1m26s
+[18:58:42] ANS   id=ext_md_031 method=tcar_oracle_collaborative preview=Stoicism became particularly attractive to elite decision-makers in the Hellenistic and Roman worlds due to its emphasis on self-control, ra
+[18:58:42] START job=8/10 item=8/10 id=ext_md_036 method=tcar_oracle_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[18:59:00] DONE  job=8/10 id=ext_md_036 method=tcar_oracle_collaborative lat=17.00s em=0.00 f1=0.21 sim=0.620 avg/job=27.59s eta=55s
+[18:59:00] ANS   id=ext_md_036 method=tcar_oracle_collaborative preview=Yes, the sentence should pass. The style guide allows second-person archaic pronouns when they are grammatically correct and historically no
+[18:59:00] START job=9/10 item=9/10 id=ext_md_041 method=tcar_oracle_collaborative domains=['ARCHAIC_ENGLISH', 'ANCIENT_HISTORY']
+[18:59:23] DONE  job=9/10 id=ext_md_041 method=tcar_oracle_collaborative lat=20.44s em=0.00 f1=0.33 sim=0.664 avg/job=26.98s eta=26s
+[18:59:23] ANS   id=ext_md_041 method=tcar_oracle_collaborative preview=The inscription on the stele warns against defacing it, invoking the memory of the king to ensure its preservation. In a modern context, thi
+[18:59:23] START job=10/10 item=10/10 id=ext_md_046 method=tcar_oracle_collaborative domains=['ARCHAIC_ENGLISH', 'PHILOSOPHY']
+[18:59:35] DONE  job=10/10 id=ext_md_046 method=tcar_oracle_collaborative lat=11.91s em=0.00 f1=0.26 sim=0.740 avg/job=25.53s eta=0s
+[18:59:35] ANS   id=ext_md_046 method=tcar_oracle_collaborative preview=**Practical Meaning:** "Set not thy heart upon that which Fortune turneth" from a 17th-century pamphlet warns against placing too much hope 

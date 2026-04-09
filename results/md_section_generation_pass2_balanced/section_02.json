@@ -1,0 +1,244 @@
+[
+  {
+    "id": "ext_md_056",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "RENAISSANCE_ART"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "RENAISSANCE_ART"
+    ],
+    "question": "A museum shop wants a gift-card tagline for a Renaissance portrait exhibition. Option A: \"Behold ye the master's craft.\" Option B: \"Behold the master's craft.\" House rule: use archaic wording only if it is historically defensible and does not create a grammar error obvious to informed visitors. Which option should they choose, and why?",
+    "reference_answer": "Choose B. \"Behold\" already works as an imperative, so adding \"ye\" after it is not needed here and reads like fake-archaic English. For a Renaissance art audience, the safer line is \"Behold the master's craft\": it keeps a period flavor without introducing a distracting pronoun error. That better fits a polished exhibition message about portrait workmanship.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Option B",
+        "\"ye\" is unnecessary or grammatically wrong after imperative \"behold\""
+      ],
+      "must_include_any": [
+        [
+          "fake archaic",
+          "pseudo-archaic"
+        ],
+        [
+          "Renaissance portrait exhibition",
+          "museum audience"
+        ]
+      ],
+      "must_not_include": [
+        "Option A is more authentic",
+        "\"ye\" means \"the\""
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:50:24.488563+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_057",
+    "domains": [
+      "LATEX_FORMATTING",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "question": "A linguistics editor must choose one inline form for a beginner-facing PDF: Option A: \"saṃskṛta\" typed directly in Unicode. Option B: \"sa\\={m}sk\\d{r}ta\" using LaTeX diacritics. Constraint: the file will be revised by mixed-skill collaborators and may pass through older LaTeX setups. Which option is safer, and why?",
+    "reference_answer": "Choose B. The LaTeX-diacritic form is more portable across mixed environments, especially when collaborators may not have fully reliable Unicode handling. It also makes the Sanskrit phonological distinctions explicit in source form, so editors can inspect long vowels and retroflex signs even if fonts or encoding become an issue. Unicode input is cleaner visually in the source, but under the stated constraint the macro form is the safer production choice.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B",
+        "older or mixed LaTeX environments make Unicode less reliable"
+      ],
+      "must_include_any": [
+        [
+          "portable",
+          "more robust"
+        ],
+        [
+          "diacritics",
+          "macros"
+        ]
+      ],
+      "must_not_include": [
+        "Option A is safer because all LaTeX engines treat Unicode identically",
+        "Sanskrit distinctions are unaffected by missing diacritics"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "sa\\\\=\\{m\\}sk\\\\d\\{r\\}ta"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:50:24.488563+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_058",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "question": "A warehouse uses mobile robots that can reroute around people and log sensor data. A manager says: \"Because the robot chose its own path, liability shifts to the robot vendor, so we do not need detailed audit logs.\" Review that reasoning and decide the better compliance priority for next quarter: faster autonomy rollout or auditability upgrades.",
+    "reference_answer": "Prioritize auditability upgrades. The manager's reasoning is faulty because autonomous path planning does not by itself transfer legal responsibility away from the operator or deployer; liability can still be shared or disputed based on design, supervision, maintenance, and use. For robots moving around workers, detailed logs support incident reconstruction, safety review, and defensible compliance. Rolling out autonomy faster without that evidence trail increases legal and operational risk.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "prioritize auditability upgrades",
+        "autonomy does not automatically shift liability to the vendor"
+      ],
+      "must_include_any": [
+        [
+          "operator",
+          "deployer"
+        ],
+        [
+          "incident reconstruction",
+          "evidence trail"
+        ]
+      ],
+      "must_not_include": [
+        "robots can hold legal liability independently in this scenario",
+        "logs are unnecessary once routing is autonomous"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:50:24.488563+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_059",
+    "domains": [
+      "MARITIME_LAW",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "MARITIME_LAW",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "A documentary producer wants a one-sentence note for viewers about a late Bronze Age shipwreck carrying mixed cargo. Draft either Option A or B. A: \"Its cargo proves a modern legal title chain.\" B: \"Its cargo can suggest trade networks, but modern ownership and salvage rights depend on present-day maritime law, not ancient possession alone.\" Which option is fit for release?",
+    "reference_answer": "Choose B. A shipwreck's cargo can inform ancient exchange patterns and historical context, but it does not by itself establish a modern chain of title. Questions about ownership, recovery, and salvage are determined under current legal frameworks, so B is accurate and useful for a public-facing documentary note. Option A overstates what archaeological evidence can prove in law.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Option B",
+        "ancient cargo evidence does not by itself prove modern legal ownership"
+      ],
+      "must_include_any": [
+        [
+          "trade networks",
+          "historical context"
+        ],
+        [
+          "salvage rights",
+          "ownership"
+        ]
+      ],
+      "must_not_include": [
+        "Option A",
+        "ancient possession alone determines modern title"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:50:24.488563+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_060",
+    "domains": [
+      "MATHEMATICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "question": "A compute-limited chemistry team must choose one approximation for quick ranking of two candidate conformers. Method A lowers the variational energy by enlarging the basis modestly. Method B keeps the basis fixed but uses a non-variational correction that is sometimes more accurate overall. For a screening stage where false confidence from unstable estimates is the main risk, which should they prioritize?",
+    "reference_answer": "Prioritize Method A. In a screening setting focused on reliability, a variational improvement is safer because the energy estimate changes in a controlled direction as the basis is enlarged, giving a more stable ordering signal. A non-variational correction can be very useful, and sometimes more accurate, but it carries more risk of erratic behavior or overinterpretation when resources are tight. The best choice here is the method with the more predictable mathematical guarantee.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Method A",
+        "variational or controlled directional guarantee is the reason"
+      ],
+      "must_include_any": [
+        [
+          "basis enlargement",
+          "larger basis"
+        ],
+        [
+          "non-variational",
+          "no variational guarantee"
+        ]
+      ],
+      "must_not_include": [
+        "Method B because non-variational always means safer",
+        "variational methods can raise the ground-state energy estimate when improved"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:50:24.488563+00:00",
+      "section": "Decision Support"
+    }
+  }
+]

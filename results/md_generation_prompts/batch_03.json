@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ext_claude_003",
+    "domains": ["MEDICAL_DIAGNOSIS", "RENAISSANCE_ART"],
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "RENAISSANCE_ART"],
+    "question": "A medical humanities essay argues: 'Rogier van der Weyden's Descent from the Cross (c. 1435) documents proto-clinical insight into vasovagal syncope: the Virgin Mary's pallor, limpness, and downward gaze mirror the diagnostic triad of reflex syncope, suggesting Northern Renaissance painters functioned as empirical proto-diagnosticians.' Identify the primary diagnostic error and the primary art-historical error in this argument, and explain what the Virgin's swoon actually signifies in each domain.",
+    "reference_answer": "The diagnostic error is treating static visual cues—pallor and limpness—as sufficient for vasovagal (reflex) syncope. Clinical diagnosis requires prodromal symptoms (nausea, diaphoresis, tunnel vision), a precipitating trigger, and documented spontaneous recovery; none can be inferred from a panel painting. Pallor and limpness are consistent with dozens of conditions and with artistic idealization alike. The art-historical error is misreading a codified theological motif as empirical observation. The Virgin's swoon is the Compassio Virginis—a devotional iconographic convention rooted in Byzantine affective theology and formalized in 13th–14th century Northern European altarpieces before van der Weyden. It represents Mary's spiritual co-suffering with Christ, not a witnessed medical event. Van der Weyden reproduced and refined an inherited prototype rather than recording bedside experience. The argument conflates iconographic citation with clinical documentation, which are epistemically incompatible sources.",
+    "answer_type": "analysis",
+    "difficulty": "hard",
+    "required_facts": [
+      "Vasovagal syncope diagnosis requires prodromal symptoms, a precipitating trigger, and spontaneous recovery—not pallor and limpness alone",
+      "The Virgin's swoon is the Compassio Virginis, a named iconographic convention with Byzantine theological roots predating van der Weyden",
+      "Pallor and limpness in a static painting are diagnostically non-specific and consistent with artistic idealization",
+      "Northern Renaissance painters reproduced inherited devotional prototypes for the swooning Madonna rather than clinical observation"
+    ],
+    "critical_errors": [
+      "Accepting pallor and limpness in a static painting as clinically sufficient for vasovagal syncope diagnosis",
+      "Failing to identify the Compassio Virginis as a named, pre-existing Marian iconographic tradition",
+      "Treating devotional iconographic citation as equivalent to empirical proto-clinical documentation"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Vasovagal syncope requires prodromal and contextual diagnostic criteria absent from visual evidence alone",
+        "The swooning Virgin is a codified Marian motif (Compassio Virginis) predating van der Weyden",
+        "Theological iconographic convention and clinical empirical observation are epistemically distinct sources"
+      ],
+      "nice_to_have": [
+        "Named Byzantine or 13th–14th century precursors to the Compassio Virginis motif",
+        "At least one alternative differential for the depicted signs such as emotional theatrical collapse or artistic idealization"
+      ],
+      "automatic_checks": [
+        "Answer contains 'Compassio Virginis' or 'Virgin Swoon' or a clear equivalent description of the named tradition",
+        "Answer names at least one specific diagnostic criterion missing from the visual evidence (prodrome, trigger, or recovery)",
+        "Answer explicitly distinguishes the iconographic source of the pose from clinical observation"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Both domains are load-bearing: MEDICAL_DIAGNOSIS is needed to identify the missing clinical criteria for vasovagal syncope and the non-specificity of visual signs, while RENAISSANCE_ART is needed to identify the Compassio Virginis by name and explain its Byzantine-derived theological function. Neither domain alone can correctly evaluate both errors in the essay's argument."
+    }
+  }
+]

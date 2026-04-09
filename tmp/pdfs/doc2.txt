@@ -1,0 +1,904 @@
+Synapta Architecture Audit and
+Breakthrough Hypothesis Report
+Part 1: Brutal Audit of Synapta
+An exhaustive architectural and empirical audit of the Synapta multi-adapter inference
+framework reveals fundamental flaws in its composition mechanisms, routing architecture, and
+evaluation protocols. While the deployment of 20+ memory-mapped adapters on a Unified
+Memory Architecture (UMA) presents a highly efficient engineering feat 1, the underlying
+machine learning assumptions regarding parameter-space composition and prompt-level
+routing are conceptually naive and heavily contradicted by recent literature.2 The following
+analysis dismantles the core premises of the system through rigorous chain-of-thought
+reasoning, identifying what must be discarded and what can be salvaged.
+
+Fundamental Architectural Weaknesses
+1. The "Representation Collapse" and Single-Domain Noise Phenomenon
+The empirical observation that
+
+composition degrades single-domain performance (
+
+) is not an anomaly of evaluation design; it is a known structural failure of naive
+adapter composition.1 Why does activating two adapters degrade performance rather than
+defaulting to the dominant one, and why does this happen even with clamping? The gating
+mechanism and RoutedLoRALinear layer fail to learn or enforce orthogonal parameter
+subspaces. When multiple Low-Rank Adaptation (LoRA) updates (
+) are fine-tuned
+independently on distinct datasets, they invariably update overlapping parameters in the
+pre-trained weight matrices.2
+Adding these overlapping weight matrices directly in the activation space (
+) acts as structured adversarial noise. Because the underlying
+architecture does not structurally encourage task-specific updates to reside in orthogonal or
+non-overlapping parameter subspaces, the secondary adapter disrupts the latent feature
+extraction of the primary adapter.2 The norm-ratio clamp 1 cannot fix this because it merely
+bounds the overall magnitude (energy) of the combined vector, leaving the destructive
+directional interference (cosine distance shifting) entirely unresolved.5 Why this and not a
+structural deficiency in the base model? Because models like Qwen2.5-1.5B possess sufficient
+capacity to route knowledge if the inputs are linearly separable; the degradation proves the
+parameter updates are destructively interfering in the same subspace.
+2. The Fallacy of Naive Weighted-Sum Composition
+Synapta's core composition mechanism operates via a naive weighted sum of LoRA deltas:
+
+. Why is this the incorrect inductive bias, and what
+methods are superior? Naive summation inherently accumulates magnitude and disrupts the
+pre-trained model's carefully balanced distribution.6 The literature explicitly shows that
+heterogeneous updates accumulate magnitude rather than averaging out, yielding a combined
+task vector that disrupts the base model.6
+Superior composition operators actively resolve sign conflicts and enforce sparsity. Methods
+such as TIES-Merging (TRIM, ELECT SIGN & MERGE) 7 and DARE (Drop And Rescale) 5
+demonstrate that interference can be systematically reduced. TIES prunes low-magnitude
+weights and resolves sign conflicts by only averaging parameters that share the dominant
+sign.8 DARE randomly drops up to 90% of redundant delta parameters and rescales the
+remainder, effectively removing the overlapping subspaces that cause the exact noise Synapta
+experienced during
+single-domain inference.5 By ignoring parameter-level conflict
+resolution, Synapta guarantees sub-optimal multi-task performance. Why rely on TIES or DARE
+instead of learning optimal weights? Because learned weights cannot untangle parameters that
+possess fundamentally opposing gradient directions; structural pruning is required before
+summation.
+3. The Suboptimality of Three-Signal Prompt-Level Routing
+Synapta employs a disjointed three-signal routing system: embedding cosine similarity, a
+lightweight MLP domain classifier, and a keyword heuristic, aggregated into a GatedRouter.1
+Why is this suboptimal compared to end-to-end learned routing? The primary flaw is that it
+executes at the prompt level rather than the token level.9
+Complex, multi-domain reasoning (e.g., solving a physics problem using Python code) requires
+rapid context switching. The model may need the physics expert for the first 50 tokens to
+formulate the equation, and the Python expert for the next 100 tokens to implement it.
+Prompt-level routing forces a static mixture across the entire generation sequence, creating an
+unresolvable bottleneck.9 State-of-the-art frameworks such as X-LoRA 3 and MoE-LoRA 4
+employ end-to-end trained, token-level routing using the model's internal hidden states.
+Hidden-state routing inherently captures the evolving semantic context of the sequence,
+outperforming prompt-level embedding similarities that only capture the static surface-level
+phrasing of the initial query.11 Furthermore, the hard-coded thresholds in Synapta's
+GatedRouter (tau_single=0.7, tau_multi=0.25) are mathematically brittle and fail to calibrate to
+the model's actual confidence, leading to severe misrouting under distribution shifts.12 Why
+token-level routing and not sentence-level? Because linguistic reasoning boundaries do not
+map cleanly to punctuation; syntactic structures shift dynamically within single clauses,
+requiring immediate expert activation.
+4. The Inadequacy of "Semantic Similarity" for Evaluating Reasoning
+Synapta relies on all-MiniLM-L6-v2 semantic similarity as its primary evaluation metric.1 Why is
+
+this critically flawed? Semantic similarity models calculate the cosine distance of dense vector
+representations, which primarily capture topical and lexical overlap.13 A rigorous evaluator
+would instantly reject this metric for complex benchmarks because it cannot distinguish
+between logical correctness and hallucinated semantic proximity.14 For example, the statement
+"The mathematical limit converges to 0" and "The mathematical limit converges to infinity"
+share nearly identical sentence embeddings (cosine similarity > 0.95), yet one represents a
+catastrophic reasoning failure.
+The reliance on semantic similarity masks the base model's reasoning deficiencies. A valid
+evaluation suite must utilize exact-match accuracy, functional correctness (e.g., Pass@1 for
+code), and established hard-reasoning benchmarks such as MMLU, MATH, and BBH.15 Utilizing
+semantic similarity on a tiny set of 40 synthetic questions renders the claim of "+5.7%
+outperformance over Mistral-7B" epistemologically invalid for true reasoning tasks.1 Why
+exact-match over LLM-as-a-judge? Because LLM-as-a-judge inherently suffers from positional
+bias and verbosity bias, whereas mathematical and algorithmic reasoning possess objective,
+verifiable ground truths.18
+5. Novelty Assessment vs. Existing Literature
+When compared to the current state-of-the-art, Synapta sits in a heavily populated and
+superseded design space.
+●​ Reinvention: The prompt-level embedding routing is essentially a reinvention of early
+adapter retrieval mechanisms seen in AdapterSoup 19 and LoRA-Retriever.21
+weighted sum) has
+●​ Obsolete Approach: The linear weight-space combination (
+already been systematically dismantled by the literature advocating for TIES and DARE.5
+●​ Genuine Novelty: The sole genuinely novel element in Synapta is the per-layer activation
+norm-ratio clamp ( ) designed to prevent unbounded energy growth during
+multi-adapter injection.1 However, as the pre-registered study honestly noted, this
+mechanism was empirically inactive at rank 16 because adapter activations are too small
+relative to base model activations to trigger the constraint.1
+
+Part 2: Comprehensive Literature Survey (2023–2025)
+The field of Parameter-Efficient Fine-Tuning (PEFT) and adapter composition has evolved
+rapidly. The following survey isolates the optimal current methods, their limitations, and the
+specific unsolved gaps realistic for research utilizing an NVIDIA RTX 5090 (32GB VRAM, ~1.79
+TB/s memory bandwidth).24
+
+Research Area
+
+Best Current
+
+Known Limitations
+
+Unsolved Open
+
+Method
+
+Problem
+
+LoRA Adapter
+Composition &
+Merging
+
+DARE-TIES
+Merging 5:
+Randomly drops
+redundant delta
+parameters,
+rescales the
+remainder, and
+merges using
+sign-consensus.
+
+Static merging. Fails
+to dynamically
+adapt weights to
+individual inputs at
+inference time;
+cannot handle
+highly contradictory
+domains
+effectively.8
+
+Dynamic,
+input-aware
+TIES-merging at
+inference time
+without requiring
+the complete
+recompilation of
+the base weights
+per token.
+
+Mixture-of-Expert
+s (MoE) for
+Adapters
+
+X-LoRA 3 /
+MoE-LoRA 4:
+Employs layer-wise,
+token-level soft
+routing of hidden
+states to multiple
+LoRA experts
+simultaneously.
+
+Massive
+computational
+overhead. Routing
+
+Highly sparse,
+deterministic
+rank-allocation MoE
+where the router
+selects orthogonal
+subspaces rather
+than full parameter
+matrices.
+
+LoRAuter 19: Routes
+queries via task
+embeddings
+derived from
+validation sets
+rather than adapter
+heuristics.
+
+Prompt-level
+routing limits
+mid-sequence
+domain shifts. Still
+relies on semantic
+boundaries rather
+than logical
+capabilities.19
+
+Dynamic Adapter
+Selection / Routing
+
+SLM Specialization
+(<3B Params)
+
+HydraLoRA 27:
+Asymmetric
+architecture sharing
+a global
+down-projection
+
+to
+experts per
+token
+memory-bounds
+inference and
+negates the latency
+benefits of small
+models.4
+
+The shared
+matrix assumes all
+domains share a
+common input
+subspace, which
+
+Creating a
+zero-shot,
+token-level router
+that scales
+with
+
+adapters,
+
+avoiding the
+dot-products
+required by current
+MoE gates.
+Determining the
+theoretical limits of
+capacity transfer in
+<2B parameter
+models when
+
+matrix with
+task-specific
+up-projection
+matrices.28
+
+fails for highly
+disjoint domains
+(e.g., Arabic poetry
+vs. Python).28
+
+highly disparate
+task vectors are
+compressed.
+
+Continual
+Learning with
+Adapters
+
+Brainstacks /
+CL-LoRA 4: Freezes
+previous adapters
+and projects new
+updates into the
+orthogonal null
+space of prior
+activations.
+
+Null-space
+projection becomes
+computationally
+intractable as the
+number of tasks
+grows, severely
+limiting the
+maximum number
+of domains.4
+
+Efficient Inference
+(Hardware-Aware)
+
+vLLM / S-LoRA 30:
+Uses unified paging
+and batched
+adapter loading to
+serve thousands of
+adapters
+concurrently.
+
+Optimized for cloud
+orchestration, not
+for on-device,
+single-batch,
+multi-adapter
+sequential
+reasoning.30
+
+Kernel-level fusion
+of token-routing
+and adapter
+injection specifically
+tailored for the RTX
+5090's GDDR7
+bandwidth
+capabilities.25
+
+Router Confidence
+Calibration
+
+Self-REF / RACER
+12
+: Introduces
+confidence tokens
+during training or
+uses finite-sample
+concentration
+bounds to calibrate
+risk.12
+
+High complexity in
+training data
+generation; requires
+maintaining nested
+model sets which
+drains VRAM during
+inference.12
+
+A lightweight,
+parameter-free
+confidence
+calibration metric
+for token-level MoE
+routers that
+perfectly aligns with
+generation
+accuracy.
+
+Benchmarking
+Multi-Adapter
+Systems
+
+MMLU-Pro /
+MATH500 /
+SWE-Bench 33:
+Evaluates deep
+reasoning,
+multi-step
+
+Existing
+benchmarks do not
+explicitly test rapid
+cross-domain
+context switching
+(e.g., bridging legal
+
+Development of a
+unified, verifiable
+evaluation
+framework
+specifically testing
+the interference
+
+An
+constant-memory
+continual learning
+operator for LoRA
+that mathematically
+guarantees zero
+catastrophic
+forgetting across
+100+ tasks.
+
+derivation, and
+functional
+correctness.33
+
+logic with
+cryptographic
+math).35
+
+boundary of
+active
+adapters.
+
+The Ultimate Unsolved Gap for the RTX 5090
+The RTX 5090 possesses 32GB of VRAM and staggering GDDR7 bandwidth (~1.79 TB/s).24 For a
+1.5B parameter model (consuming <4GB VRAM at FP16), the GPU is entirely compute-bound,
+leaving massive memory bandwidth untapped. The critical unsolved gap is Token-Level
+MoE-LoRA with Orthogonal Subspace Resolution. Existing methods either suffer from
+parameter interference (naive weighted sum) or prohibitive inference latency (calculating full
+TIES/SVD merges on the fly). A system that uses the 5090's bandwidth to cache orthogonalized
+adapter matrices and routes them at the token level via hidden states would shatter current
+SLM limitations.
+
+Part 3: Breakthrough Hypothesis Generation
+To achieve a
+improvement on hard benchmarks (MATH, MMLU, BBH) using a
+Qwen2.5-1.5B base model, the architecture must transition from prompt-level naive
+summation to token-level, interference-free composition.
+
+Hypothesis 1: Token-Level Orthogonal Subspace Routing (TOSR)
+A. STATE THE HYPOTHESIS
+Replacing prompt-level summation with token-level, hidden-state-driven routing over
+DARE-sparsified LoRA experts will improve multi-domain reasoning accuracy by
+MATH500 and MMLU by eliminating intra-sequence parameter interference.
+
+on
+
+●​ Theoretical Grounding: Prompt-level routing forces a single adapter mixture across an
+entire generation sequence, failing on complex reasoning tasks that require shifting from
+linguistic comprehension to mathematical computation mid-sentence.9 Furthermore,
+naive weighted summation of LoRA adapters accumulates magnitude and disrupts the
+base model's feature space.6 DARE enforces sparsity (dropping up to 90% of delta
+parameters), physically ensuring that adapter matrices occupy non-interfering,
+orthogonal subspaces.5
+●​ Why would this work when naive approaches don't? By routing at the token level using
+the layer's internal hidden states
+, the model selects adapters based on the immediate
+latent semantic requirement of the exact token being generated, fundamentally
+bypassing the prompt-level "K=2 single-domain noise" problem.1 DARE mathematically
+prevents parameters with opposing gradients from canceling each other out or artificially
+
+inflating the activation energy.5 Why DARE and not TIES? Because TIES requires a base
+reference sign to resolve conflicts, which limits dynamic inference-time flexibility,
+whereas DARE's random pruning allows independent sparsification.
+●​ Strongest Counterargument: Token-level routing to 20 adapters requires 20 additional
+forward passes per layer per token, obliterating inference speed and bottlenecking the
+GPU.4
+●​ Answer / Mitigation: The RTX 5090's massive memory bandwidth allows for the
+implementation of Top-1 token-level routing coupled with a shared down-projection
+matrix (HydraLoRA style).28 By only calculating the router gate and a single
+up-projection per token, the computational overhead remains bounded at
+relative
+to the number of experts, perfectly leveraging the 5090's VRAM.
+●​ Has anyone tried this? X-LoRA does token-level routing 3, and DARE performs
+sparsification.7 No existing framework combines dynamic token-level routing with
+inference-time DARE sparsification specifically tuned for a sharedarchitecture. The
+advantage lies in bypassing the training complexity of X-LoRA while achieving the
+non-interference guarantees of DARE.
+B. EXPERIMENTAL DESIGN
+●​ Exact Training Setup: Migrate the Synapta logic to PyTorch and the HuggingFace PEFT
+ecosystem to leverage optimized CUDA operations. Extract the
+matrices from the 20
+existing Synapta adapters, compute their singular value decomposition (SVD) to initialize
+a single, frozen Sharedrescale by
+
+matrix.28 Apply DARE sparsification (drop 70% of weights,
+
+) to the 20 domain-specific
+
+matrices offline to render them sparse
+
+and orthogonal. Initialize a linear routing head
+transformer layer. Freeze the base model and the
+
+at each
+/
+
+matrices. Only train the
+
+parameters using a standard next-token prediction cross-entropy loss,
+augmented with a load-balancing penalty to prevent expert collapse (ensuring all 20
+domains are utilized). The learning rate schedule should follow a cosine decay with a
+linear warmup over the first 10% of steps.
+●​ Why train our own components vs. off-the-shelf? Off-the-shelf PEFT MoE wrappers
+(like standard MixLoRA) do not allow for the shared/ specializedasymmetric
+architecture, which is critical for maintaining cross-domain commonalities while
+specializing.28 Furthermore, standard wrappers cannot dynamically ingest
+DARE-sparsified matrices without triggering dense recompilations.
+●​ Exact Data: A curated mixture of 100k highly rigorous reasoning traces from OpenOrca
+
+and MetaMathQA.36 Why this size? 100k sequences represent the optimal trade-off
+between exposing the router to diverse syntactic structures and remaining within the
+4-week compute budget.
+●​ Hardware Plan for RTX 5090 32GB: This easily fits on a single RTX 5090. A 1.5B model in
+bfloat16 consumes roughly 3GB of VRAM. The 20
+matrices at rank 16 take
+MB. Batch sizes of 32-64 can be processed rapidly without gradient checkpointing.25
+●​ Fallback Path: If 70% sparsity degrades accuracy, perform a grid search over sparsity
+factors (
+) to find the optimal Pareto frontier of interference vs. capacity. If
+token-level routing remains too slow, fall back to sentence-level routing (updating the
+routing weights only at punctuation markers).
+C. EVALUATION PROTOCOL
+●​ Primary Benchmarks: Execute evaluation on MATH500, MMLU (specifically analyzing
+the STEM and Humanities splits to observe domain switching), and BBH.
+●​ Why NOT use semantic similarity? As established in the audit, semantic similarity
+evaluates lexical overlap, not mathematical truth or logical validity. A model generating
+will have a 99% semantic similarity to
+but represents a 0%
+13
+accuracy rate on reasoning. Exact-match and functional correctness are
+non-negotiable for reasoning evaluation.
+●​ Ablations: Must ablate Token-Level vs Prompt-Level routing. Must ablate Dense
+matrices vs DARE-sparsified
+matrices. This isolates the contribution of
+orthogonalization from the contribution of routing granularity.
+●​ Rejection Preemption: A reviewer at ICLR would reject this if inference latency is
+ignored. Latency must be reported in tokens/second and shown to be within 15% of the
+baseline model, proving that the
+scaling claim holds in practice.
+●​ Pre-registration Plan: Explicitly pre-register the expectation that single-domain
+performance will remain unchanged (non-inferiority) while multi-domain performance
+will drive the
+
+gain. Any latency regressions exceeding 15% must be reported.
+
+Hypothesis 2: Contrastive Dual-Space Routing (CDSR) with
+Confidence Penalty
+A. STATE THE HYPOTHESIS
+Training the gating module using a contrastive Self-REF objective against adapter centroids will
+perfectly calibrate
+
+vs
+
+selection, boosting MMLU and BBH performance by
+
+by entirely eliminating single-domain noise injection.
+●​ Theoretical Grounding: Synapta's current gating utilizes arbitrary, hard-coded thresholds
+(tau_single=0.7). Self-REF 32 and RACER 12 demonstrate that training a model to predict its
+own confidence via specialized tokens or contrastive bounds drastically reduces
+misrouting.
+●​ Why would this work when naive approaches don't? Hard-coded thresholds fail under
+distribution shifts.12 A contrastively trained router actively pushes the hidden-state
+representation of single-domain queries away from multi-domain compositions, creating
+mathematically rigorous decision boundaries rather than heuristic ones. Why contrastive
+loss instead of standard cross-entropy? Because contrastive loss directly optimizes the
+cosine margin between expert representations, which is necessary to trigger the
+isolation explicitly.
+●​ Strongest Counterargument: Contrastive training requires complex data pairing
+(positive/negative expert combinations) and is notoriously unstable to train.
+●​ Answer / Mitigation: Generate synthetic positive/negative pairs using the base LLM itself.
+The RTX 5090 can easily generate 50k contrastive pairs in a matter of hours.
+●​ Has anyone tried this? Self-REF introduces confidence tokens 32, but it has not been
+applied to parameter-efficient adapter routing gates. The advantage lies in applying this
+calibration specifically to the
+
+selection mechanism.
+
+B. EXPERIMENTAL DESIGN
+●​ Exact Training Setup: Retain the prompt-level RoutedLoRALinear architecture. Replace
+the heuristic GatedRouter with an MLP trained via contrastive loss. The loss function
+penalizes the router when it activates
+
+●​
+●​
+●​
+●​
+
+for single-domain inputs (verified via a
+
+held-out validation set) and rewards it when it activates
+for multi-domain inputs.
+Freeze everything except this MLP.
+Why train our own components? No off-the-shelf PEFT library contains contrastive
+gating modules calibrated for multi-adapter selection.
+Exact Data: 50k synthetically generated pairs of single-domain and multi-domain
+prompts.
+Hardware Plan: The RTX 5090 will be utilized primarily for high-throughput synthetic
+data generation and subsequent rapid MLP training.
+Fallback: If contrastive loss diverges, fall back to standard binary cross-entropy for
+vs
+
+classification.
+
+C. EVALUATION PROTOCOL
+●​ Primary Benchmarks: MMLU and the original 40-question Synapta multi-domain
+evaluation to provide a direct comparison to the pre-registered study.
+
+●​ Ablations: Contrastive Router vs. Heuristic GatedRouter.
+●​ Rejection Preemption: Reviewers may question the generalizability of the synthetic
+training data. The evaluation must include completely out-of-distribution (OOD)
+reasoning benchmarks to prove zero-shot transfer.
+
+Hypothesis 3: Dynamic Rank Allocation via Router Entropy (DR-ARE)
+A. STATE THE HYPOTHESIS
+Scaling adapter rank dynamically per-token based on the router's normalized entropy will yield
+a 3x efficiency throughput gain without accuracy regression by allocating computational
+budget strictly to dominant semantic features.
+●​ Theoretical Grounding: Synapta forces all domains into a rank-16 bottleneck. However,
+complex domains (Math) require higher ranks than simple domains (Formatting).
+Furthermore, activating a rank-16 secondary adapter when confidence is low injects
+unnecessary noise and latency.37
+●​ Why would this work when naive approaches don't? By allowing the rank
+
+of adapter
+
+at layer to scale dynamically based on the router's confidence score, the system
+gracefully degrades the influence of secondary adapters by truncating their singular
+values, rather than scaling them down linearly (which retains noise).38 Why singular value
+truncation over weight scaling? Because truncating singular values physically removes
+the least important feature dimensions, reducing compute, whereas scaling preserves all
+dimensions but suppresses their magnitude.
+●​ Strongest Counterargument: Dynamic rank slicing at inference time requires computing
+Singular Value Decompositions (SVD) on the fly, which is computationally prohibitive.
+●​ Answer / Mitigation: The SVD is computed once offline. The adapter matrices are stored
+in their factorized
+
+format. The dynamic router simply selects the top
+
+indices
+
+of the diagonal matrix
+based on the confidence score, resulting in minimal latency
+overhead during the forward pass.
+●​ Has anyone tried this? DR-LoRA 37 explores dynamic rank allocation, but tying it
+specifically to the normalized entropy of a prompt-level router is novel.
+B. EXPERIMENTAL DESIGN
+●​ Exact Training Setup: Factorize the 20 existing Synapta adapters using SVD offline.
+Modify the GatedRouter so that instead of a binary
+or
+decision, it
+outputs a continuous rank budget allocation based on its entropy calculation. For a total
+budget of
+, a low entropy (high confidence) score allocates rank 32 to one
+adapter; a high entropy score allocates rank 16 to two adapters. No model training is
+
+●​
+●​
+●​
+●​
+
+required.
+Why train our own components? The dynamic slicing of SVD-factorized adapters based
+on an external entropy heuristic requires custom PyTorch module implementations.
+Exact Data: Use the existing Synapta test splits for zero-shot evaluation.
+Hardware Plan: Fully compatible with RTX 5090. SVD factorization of 20 MB adapters
+takes milliseconds.
+Fallback: If dynamic rank indexing causes memory fragmentation in PyTorch, fall back to
+block-wise rank allocation (e.g., allocating ranks in fixed chunks of 8).
+
+C. EVALUATION PROTOCOL
+●​ Primary Benchmarks: BBH and inference throughput (tokens/second).
+●​ Ablations: Dynamic rank vs. fixed rank (with identical parameter counts).
+●​ Rejection Preemption: Ensure that the evaluation explicitly measures VRAM
+consumption to validate the 3x efficiency claim.
+
+D. Risk Assessment (For All Hypotheses)
+●​ Probability of Literature Solve: Hypothesis 1 (TOSR) carries a low risk (10%) of being
+completely solved. While token-level routing (X-LoRA) and DARE sparsification exist
+independently, their fusion within a sharedconstraint for zero-interference
+multi-adapter reasoning remains unaddressed.3 Hypothesis 3 carries a higher risk (40%)
+due to recent work in DR-LoRA.37
+●​ Compute Budget Sufficiency: The RTX 5090 (32GB) is exceptionally well-suited for
+these tasks. Training a lightweight routing head on a frozen 1.5B model using 100k
+sequences will require less than 24 hours of continuous compute.24 The 4-week timeline
+is highly realistic.
+●​ Most Likely Failure Mode: The most significant risk across all hypotheses is Router
+Collapse, where the newly trained token-level router defaults to a single "generalist"
+expert for all tokens, effectively ignoring the MoE architecture.
+) during router
+●​ Mitigation: Implement a rigorous auxiliary load-balancing loss (
+training to penalize the over-utilization of any single expert, forcing the distribution of
+tokens across the entire 20-adapter registry.
+
+E. Priority Ranking
+1.​ Highest Expected Value: Hypothesis 1 (Token-Level Orthogonal Subspace Routing TOSR)
+architecture
+○​ Novelty: Extremely high. Adapting token-level routing to a sharedspecifically optimized for local consumer hardware (RTX 5090) bridges the gap
+between monolithic cloud scaling and edge-device PEFT.
+○​ Feasibility: Highly feasible. 32GB VRAM allows for extensive batching and rapid
+
+experimental iteration on a 1.5B model.
+○​ Publication Impact: Solves the fundamental flaw of prompt-level routing and
+parameter interference. ICLR/NeurIPS publication-worthy as it directly addresses
+the reasoning bottleneck in SLMs.
+2.​ Second: Hypothesis 2 (Contrastive Dual-Space Routing)
+○​ Novelty: Moderate. Contrastive calibration is known 12, but its application to
+selection is valuable.
+○​ Feasibility: Exceptional. Requires minimal training compute.
+○​ Impact: High impact for deployment stability, but mathematically less
+groundbreaking than the architectural shift of H1.
+3.​ Third: Hypothesis 3 (Dynamic Rank Allocation)
+○​ Novelty: Low. DR-LoRA and AdaLoRA are already well-documented.37
+○​ Feasibility: High, but implementation requires careful custom CUDA kernel writing to
+avoid memory fragmentation when dynamically indexing tensors.
+○​ Impact: Likely to yield marginal efficiency gains rather than the massive >30%
+reasoning breakthrough demanded.
+
+Part 4: Execution Blueprint for the Top Hypothesis
+(TOSR)
+The execution will focus exclusively on Hypothesis 1: Token-Level Orthogonal Subspace
+Routing (TOSR), migrating the codebase from MLX to a PyTorch + HuggingFace PEFT
+environment to leverage native CUDA optimizations and the RTX 5090's capabilities.
+
+Week-by-Week Research Plan (4-Week Timeline)
+Timeline
+
+Execution Focus
+
+Milestones & Deliverables
+
+Week 1
+
+Framework Migration &
+Sparsification
+
+Convert the 20 Synapta
+adapters from MLX
+.safetensors to PyTorch
+formats. Extract the
+matrices, compute their SVD to
+initialize a single, frozen
+Sharedmatrix. Apply DARE
+sparsification (drop 70%,
+
+rescale) to the 20
+offline.
+
+Week 2
+
+Architectural Surgery
+
+matrices
+
+Implement the
+TokenLevelMoELoRALinear
+class in PyTorch. Initialize the
+linear routing head
+at
+each transformer layer.
+Integrate with HuggingFace
+PEFT.
+
+Week 3
+
+Router Training
+
+Freeze the base model and
+matrices. Train
+on 100k
+OpenOrca/MetaMathQA
+sequences using next-token
+cross-entropy and
+load-balancing loss. Utilize
+bfloat16 and batch size 64 on
+the RTX 5090.
+
+Week 4
+
+Evaluation & Ablation
+
+Execute MATH500, MMLU, and
+BBH benchmarks. Perform
+ablations (Token vs. Prompt
+routing, Dense vs. DARE
+matrices). Format results and
+draft the arXiv manuscript.
+
+Codebase Structure Modifications
+●​ Discard: The EmbeddingRouter, GatedRouter, and the three-signal heuristics must be
+entirely deleted. They are conceptually obsolete.
+●​ Modify: The RoutedLoRALinear must be rebuilt as TokenLevelMoELoRALinear inheriting
+
+from torch.nn.Module. It must intercept the hidden states
+
+, pass them through
+
+to obtain a softmax distribution, and multiply this distribution against the 20
+sparse
+matrices prior to the down-projection via the Sharedmatrix.
+●​ Leverage: Utilize HuggingFace peft and transformers for the base Qwen2.5-1.5B model
+management. Utilize vLLM for the final inference benchmarking to measure true token
+throughput.30
+
+Checkpoint Validation
+At the end of Week 2, a critical validation checkpoint must be passed: observing the routing
+distribution during a dummy sequence generation. If the router outputs a static distribution
+(e.g., constantly selecting adapter 3 for every token), the architecture is suffering from router
+collapse. If this occurs, the pivot strategy is to immediately increase the weight of the
+penalty and reduce the learning rate. The system is only on track if the routing distribution
+visibly shifts token-by-token (e.g., selecting the LINGUISTICS expert for syntactic structure and
+the MATH expert for numbers).
+
+The 30% Improvement Claim
+To declare empirical success, the system must demonstrate a strict
+relative
+improvement on MATH500. If the baseline Qwen2.5-1.5B model achieves ~35% accuracy on
+MATH500 34, the TOSR composition must achieve an absolute accuracy of
+
+(
+
+). Furthermore, the system must completely reverse the Synapta Phase 1 failure,
+proving that multi-adapter composition does not degrade single-domain queries, achieving a
+on single-domain benchmarks.
+
+Paper Contribution Framing (arXiv Submission)
+"We introduce Token-Level Orthogonal Subspace Routing (TOSR), a parameter-efficient
+multi-adapter inference framework that replaces static prompt-level linear composition with
+dynamic, hidden-state-driven expert switching; operating within the strict memory constraints
+of consumer hardware, TOSR effectively eliminates parameter interference through
+inference-time DARE sparsification, yielding a 30% improvement in complex mathematical
+reasoning over prompt-level routing baselines."
+
+Works cited
+1.​ Synapta_Paper_Main.docx
+2.​ NeurIPS Poster FlyLoRA: Boosting Task Decoupling and Parameter Efficiency via
+
+Implicit Rank-Wise Mixture-of-Experts, accessed on April 7, 2026,
+https://neurips.cc/virtual/2025/poster/116152
+
+3.​ (PDF) X-LoRA: Mixture of low-rank adapter experts, a flexible framework for large
+
+language models with applications in protein mechanics and molecular design ResearchGate, accessed on April 7, 2026,
+https://www.researchgate.net/publication/380851173_X-LoRA_Mixture_of_low-ra
+nk_adapter_experts_a_flexible_framework_for_large_language_models_with_app
+lications_in_protein_mechanics_and_molecular_design
+4.​ Brainstacks: Cross-Domain Cognitive Capabilities via Frozen MoE-LoRA Stacks
+for Continual LLM Learning - arXiv, accessed on April 7, 2026,
+https://arxiv.org/html/2604.01152v1
+5.​ From Task-Specific Models to Unified Systems: A Review of Model Merging
+Approaches, accessed on April 7, 2026, https://arxiv.org/html/2503.08998v1
+6.​ A Systematic Study of In-the-Wild Model Merging for Large Language Models arXiv, accessed on April 7, 2026, https://arxiv.org/html/2511.21437v2
+7.​ fdaudens/hf-blog-posts · Datasets at Hugging Face, accessed on April 7, 2026,
+https://huggingface.co/datasets/fdaudens/hf-blog-posts/viewer
+8.​ Model merging with SVD to tie the Knots - arXiv, accessed on April 7, 2026,
+https://arxiv.org/html/2410.19735v1
+9.​ TARo: Token-level Adaptive Routing for LLM Test-time Alignment - arXiv,
+accessed on April 7, 2026, https://arxiv.org/html/2603.18411v1
+10.​PEFT A2Z: Parameter-Efficient Fine-Tuning Survey for Large Language and Vision
+Models, accessed on April 7, 2026, https://arxiv.org/html/2504.14117v1
+11.​ TARo: Token-level Adaptive Routing for LLM Test-time Alignment - arXiv,
+accessed on April 7, 2026,
+https://arxiv.org/pdf/2603.18411v1?ref=taaft&utm_source=taaft&utm_medium=ref
+erral
+12.​RACER: Risk-Aware Calibrated Efficient Routing for Large Language Models arXiv, accessed on April 7, 2026, https://arxiv.org/html/2603.06616v1
+13.​How Small Transformation Expose the Weakness of Semantic Similarity Measures
+- arXiv, accessed on April 7, 2026, https://arxiv.org/html/2509.09714v1
+14.​LegalEval-Q: A New Benchmark for The Quality Evaluation of LLM-Generated
+Legal Text - arXiv, accessed on April 7, 2026, https://arxiv.org/html/2505.24826v2
+15.​Mapping Overlaps in Benchmarks through Perplexity in the Wild - arXiv, accessed
+on April 7, 2026, https://arxiv.org/html/2509.23488v2
+16.​ReasonerRank: Redefining Language Model Evaluation with Ground-Truth-Free
+Ranking Frameworks - ACL Anthology, accessed on April 7, 2026,
+https://aclanthology.org/2025.findings-acl.700.pdf
+17.​Line Goes Up? Inherent Limitations of Benchmarks for Evaluating Large Language
+Models, accessed on April 7, 2026, https://arxiv.org/html/2502.14318v1
+18.​Evaluating the Effectiveness of LLM-Evaluators (aka LLM-as-Judge) - Eugene Yan,
+accessed on April 7, 2026, https://eugeneyan.com/writing/llm-evaluators/
+19.​Effective LoRA Adapter Routing using Task Representations - arXiv, accessed on
+April 7, 2026, https://arxiv.org/html/2601.21795v1
+20.​LoraRetriever: Input-Aware LoRA Retrieval and Composition for Mixed Tasks in
+the Wild - ACL Anthology, accessed on April 7, 2026,
+https://aclanthology.org/2024.findings-acl.263.pdf
+
+21.​1 Introduction - arXiv, accessed on April 7, 2026,
+
+https://arxiv.org/html/2601.21795v2
+22.​Beyond Adapter Retrieval: Latent Geometry-Preserving Composition via Sparse
+Task Projection - AAAI Publications, accessed on April 7, 2026,
+https://ojs.aaai.org/index.php/AAAI/article/view/39400/43361
+23.​Preference-Aligned LoRA Merging: Preserving Subspace Coverage and
+Addressing Directional Anisotropy - arXiv, accessed on April 7, 2026,
+https://arxiv.org/html/2603.26299v1
+24.​Benchmarking Nvidia RTX 5090 - Computer Vision Lab, accessed on April 7, 2026,
+https://nikolasent.github.io/hardware/deeplearning/benchmark/2025/02/17/RTX50
+90-Benchmark.html
+25.​Nvidia RTX 5090 Review: Specs, VRAM, Benchmarks, and AI Performance Runpod, accessed on April 7, 2026,
+https://www.runpod.io/articles/guides/nvidia-rtx-5090
+26.​Brainstacks: Cross-Domain Cognitive Capabilities via Frozen MoE-LoRA Stacks
+for Continual LLM Learning - arXiv, accessed on April 7, 2026,
+https://arxiv.org/pdf/2604.01152
+27.​Less is More: Resource-Efficient Low-Rank Adaptation - arXiv, accessed on April
+7, 2026, https://arxiv.org/html/2512.00878v1
+28.​LESS IS MORE: RESOURCE-EFFICIENT LOW-RANK ADAPTATION - OpenReview,
+accessed on April 7, 2026,
+https://openreview.net/pdf/827a777686f64e44fbfdc3dc6da422dc5f5e6ebd.pdf
+29.​CL-LoRA: Continual Low-Rank Adaptation for Rehearsal-Free Class-Incremental
+Learning - CVF Open Access, accessed on April 7, 2026,
+https://openaccess.thecvf.com/content/CVPR2025/papers/He_CL-LoRA_Continua
+l_Low-Rank_Adaptation_for_Rehearsal-Free_Class-Incremental_Learning_CVPR_
+2025_paper.pdf
+30.​Private LLM Inference on Consumer Blackwell GPUs: A Practical Guide for
+Cost-Effective Local Deployment in SMEs - arXiv, accessed on April 7, 2026,
+https://arxiv.org/html/2601.09527
+31.​ICML Poster Compress then Serve: Serving Thousands of LoRA Adapters with
+Little Overhead, accessed on April 7, 2026,
+https://icml.cc/virtual/2025/poster/46530
+32.​ICML Poster Learning to Route LLMs with Confidence Tokens, accessed on April 7,
+2026, https://icml.cc/virtual/2025/poster/45145
+33.​Large Language Model Evaluation in '26: 10+ Metrics & Methods - AIMultiple,
+accessed on April 7, 2026,
+https://aimultiple.com/large-language-model-evaluation
+34.​Base Models Know How to Reason, Thinking Models Learn When - arXiv,
+accessed on April 7, 2026, https://arxiv.org/html/2510.07364v2
+35.​Benchmarking Reasoning Robustness in Large Language Models - arXiv,
+accessed on April 7, 2026, https://arxiv.org/html/2503.04550v1
+36.​GRAD: Generative Retrieval-Aligned Demonstration Sampler for Efficient
+Few-Shot Reasoning - ACL Anthology, accessed on April 7, 2026,
+https://aclanthology.org/2025.findings-emnlp.1047.pdf
+
+37.​DR-LoRA: Dynamic Rank LoRA for Mixture-of-Experts Adaptation - arXiv,
+
+accessed on April 7, 2026, https://arxiv.org/html/2601.04823v1
+38.​L1RA: Dynamic Rank Assignment in LoRA Fine-Tuning - ACL Anthology, accessed
+on April 7, 2026, https://aclanthology.org/2025.icnlsp-1.35.pdf
+
+

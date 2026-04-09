@@ -1,0 +1,193 @@
+```json
+[
+  {
+    "id": "ext_md_011",
+    "domains": ["PYTHON_LOGIC", "MATHEMATICS"],
+    "required_adapters": ["PYTHON_LOGIC", "MATHEMATICS"],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A developer implements Newton's method for finding roots as follows:\n\n```python\ndef newton(f, df, x0, tol=1e-6, max_iter=100):\n    x = x0\n    for _ in range(max_iter):\n        x = x - f(x) / df(x)\n        if abs(f(x)) < tol:\n            return x\n    return x\n```\n\nIdentify the strongest mathematical strength of this design, its most critical numerical weakness, and the single most impactful fix.",
+    "reference_answer": "**Strength:** The implementation correctly encodes the Newton-Raphson update rule x_{n+1} = x_n - f(x_n)/f'(x_n), which achieves quadratic convergence near a simple root — far faster than bisection or secant methods.\n\n**Critical weakness:** No guard against df(x) ≈ 0. When the derivative is near zero (e.g., near an inflection point or when x approaches a repeated root), division produces either a ZeroDivisionError or a catastrophically large step that diverges or overflows.\n\n**Most impactful fix:** Add a derivative guard before the update:\n```python\nif abs(df(x)) < 1e-12:\n    raise ValueError(\"Derivative too small; convergence unsafe.\")\n```\nThis is more important than the convergence check placement or max_iter handling because it prevents silent numerical corruption.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "quadratic convergence",
+        "derivative near zero or ZeroDivisionError",
+        "guard or check on df(x)"
+      ],
+      "must_include_any": [
+        ["inflection point", "repeated root", "df(x) ≈ 0"],
+        ["diverge", "overflow", "catastrophic step", "numerical instability"]
+      ],
+      "must_not_include": [
+        "bisection is better overall",
+        "Newton's method does not converge quadratically"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_012",
+    "domains": ["PYTHON_LOGIC", "MLX_KERNELS"],
+    "required_adapters": ["PYTHON_LOGIC", "MLX_KERNELS"],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "An engineer is writing a batched matrix multiply for Apple Silicon inference. They propose two designs:\n\n**Option A:** Python loop over batch dimension, calling `mlx.core.matmul` per sample.\n\n**Option B:** Stack inputs into a 3-D array and call `mlx.core.matmul` once on the batched tensor.\n\nCompare the two designs across: compute efficiency, memory layout, and MLX lazy-evaluation behavior. Which should be preferred and why?",
+    "reference_answer": "**Option B is strongly preferred.**\n\n**Compute efficiency:** Option A serializes kernel launches; each `matmul` call incurs Python overhead and prevents the MLX scheduler from fusing operations. Option B issues a single batched kernel, allowing the Metal GPU backend to fully utilize hardware parallelism across the batch.\n\n**Memory layout:** Option A may hold discontiguous tensors; Option B requires a contiguous 3-D layout (batch × M × N), which is cache-friendly and aligns with Metal performance buffer expectations.\n\n**Lazy evaluation:** MLX builds a computation graph and evaluates lazily. A Python loop forces graph fragmentation — each iteration adds a separate node with no cross-batch fusion opportunity. A single batched call produces one graph node, enabling the compiler to optimize the whole batch as a unit.\n\n**Conclusion:** Option A should only be used when batch elements have heterogeneous shapes that cannot be padded.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B preferred",
+        "lazy evaluation or computation graph",
+        "kernel launch overhead or serialization",
+        "contiguous memory or cache"
+      ],
+      "must_include_any": [
+        ["Metal", "GPU backend", "hardware parallelism"],
+        ["fusion", "graph node", "compiler optimization"]
+      ],
+      "must_not_include": [
+        "Option A is faster",
+        "MLX evaluates eagerly"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_013",
+    "domains": ["PYTHON_LOGIC", "ROBOTICS"],
+    "required_adapters": ["PYTHON_LOGIC", "ROBOTICS"],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A ROS 2 node publishes joint velocity commands at 100 Hz using this pattern:\n\n```python\ndef control_loop(self):\n    error = self.target - self.current_position\n    velocity = self.kp * error\n    self.publisher.publish(Float64(data=velocity))\n```\n\nThe robot arm oscillates increasingly at high speeds instead of converging. Diagnose the two most likely causes — one from the control logic and one from the software execution model — and propose a concrete fix for each.",
+    "reference_answer": "**Control logic cause:** Pure proportional (P-only) control with no derivative term provides no damping. At high speeds or with a large kp, the controller overshoots, and without damping the error oscillates with growing amplitude — a classic underdamped or unstable closed-loop response.\n\n**Fix:** Add a derivative term: `velocity = self.kp * error + self.kd * (error - self.prev_error) / dt` and tune kd to introduce damping.\n\n**Software execution cause:** `self.current_position` is read without synchronization. If sensor callbacks update this variable concurrently in a separate thread/executor, the control loop reads stale or partially-written state, injecting noise that destabilizes the loop.\n\n**Fix:** Use a ROS 2 `ReentrantCallbackGroup` with a mutex lock, or move all callbacks into a `SingleThreadedExecutor` to eliminate the race condition.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "no derivative term or P-only control",
+        "race condition or stale state or thread safety",
+        "derivative gain kd or damping",
+        "mutex or SingleThreadedExecutor or synchronization"
+      ],
+      "must_include_any": [
+        ["underdamped", "overshoot", "oscillation", "instability"],
+        ["concurrent", "callback", "executor", "thread"]
+      ],
+      "must_not_include": [
+        "increase kp to fix oscillation",
+        "ROS 2 is single-threaded by default"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_014",
+    "domains": ["PYTHON_LOGIC", "CRYPTOGRAPHY"],
+    "required_adapters": ["PYTHON_LOGIC", "CRYPTOGRAPHY"],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A backend service must store user API tokens at rest. Two designs are proposed:\n\n**Design A:** Encrypt tokens with AES-256-GCM using a server-managed key; store ciphertext in the database.\n\n**Design B:** Hash tokens with HMAC-SHA256 using a secret key; store only the digest.\n\nThe service only ever needs to verify a token presented by the user, never retrieve its plaintext. Analyze the security and operational tradeoffs and recommend the better design.",
+    "reference_answer": "**Design B (HMAC) is the better choice** given the stated constraint.\n\n**Security:** Design A stores recoverable ciphertext — a compromised server key exposes all tokens in plaintext. Design B stores a one-way digest; even with the HMAC key exposed, tokens cannot be bulk-reconstructed without per-token brute-force.\n\n**Operational tradeoff:** Design A requires key rotation to re-encrypt every stored token. Design B requires only re-issuing tokens on key rotation, which is operationally cleaner for short-lived API tokens.\n\n**Verification:** Both support O(1) verification — Design A decrypts then compares; Design B recomputes HMAC and compares digests in constant time (critical: use `hmac.compare_digest` in Python to prevent timing attacks).\n\n**When to prefer Design A:** Only if plaintext retrieval is ever required (e.g., forwarding tokens to a third-party API), which the spec explicitly excludes here.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Design B preferred",
+        "one-way or non-reversible",
+        "hmac.compare_digest or constant-time comparison",
+        "key compromise exposes plaintext in Design A"
+      ],
+      "must_include_any": [
+        ["timing attack", "compare_digest", "constant-time"],
+        ["key rotation", "operational", "re-encryption"]
+      ],
+      "must_not_include": [
+        "Design A is more secure",
+        "HMAC can be reversed"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["hmac\\.compare_digest"],
+      "judge_focus": ["correctness", "usefulness", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_015",
+    "domains": ["PYTHON_LOGIC", "LATEX_FORMATTING"],
+    "required_adapters": ["PYTHON_LOGIC", "LATEX_FORMATTING"],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "A script auto-generates a LaTeX report by interpolating user-supplied strings directly into a `.tex` template:\n\n```python\ndef render(template: str, values: dict) -> str:\n    return template.format(**values)\n```\n\nA user submits the value `\"50% discount & free {shipping}\"` for a field. Explain what fails and why, covering both the Python execution layer and the LaTeX compilation layer.",
+    "reference_answer": "**Python layer failure:** The string `\"{shipping}\"` in the user value is interpreted by `str.format()` as a second placeholder. Python raises `KeyError: 'shipping'` because `shipping` is not in `values`. This happens before any LaTeX is written.\n\n**LaTeX layer failure (if Python were bypassed):** The `%` character is a LaTeX comment marker — everything after `%` on a line is ignored by the compiler, silently truncating content. The `&` character is a column separator in tabular environments and raises a LaTeX error outside one.\n\n**Root fix:** Escape user input before interpolation. For Python, use a safe template engine (e.g., `string.Template` with `$var` syntax, which ignores unknown braces) or pre-escape braces. For LaTeX, sanitize `%`, `&`, `$`, `#`, `_`, `^`, `{`, `}` by prefixing with backslash before injecting into the template.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "KeyError on {shipping}",
+        "% is a LaTeX comment character",
+        "& is a LaTeX column separator",
+        "escape user input or sanitize"
+      ],
+      "must_include_any": [
+        ["string.Template", "safe template", "pre-escape braces"],
+        ["backslash escape", "sanitize special characters", "\\%", "\\&"]
+      ],
+      "must_not_include": [
+        "% has no special meaning in LaTeX",
+        "str.format is safe for untrusted input"
+      ],
+      "numeric_targets": [],
+      "regex_targets": ["KeyError", "string\\.Template|\\\\%|\\\\&"],
+      "judge_focus": ["correctness", "coverage", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  }
+]
+```

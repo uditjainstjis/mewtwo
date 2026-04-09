@@ -1,0 +1,670 @@
+[
+  {
+    "id": "router_00001",
+    "question": "Good master, how should I tell a patron that a proposed reagent is unlikely to bind the target, in noble early-modern English?",
+    "thinking": [
+      "Requires ornate wording and molecular reasoning.",
+      "Needs both style and chemistry."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "Which nearby star systems would be the best first targets for a low-budget exoplanet survey mission?",
+    "thinking": [
+      "Needs astrophysical mission prioritization.",
+      "No extra domain needed."
+    ],
+    "experts": [
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "How can I write a Python script that predicts whether people will adopt a subscription if I change the trial length and price framing?",
+    "thinking": [
+      "Needs code structure and behavioral assumptions.",
+      "Combines simulation with choice behavior."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "How do I estimate the compensation owed when cargo is delayed after a collision under maritime rules?",
+    "thinking": [
+      "Needs ship-law interpretation and damages logic.",
+      "Maritime legal judgment only."
+    ],
+    "experts": [
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00005",
+    "question": "How should a clinic estimate no-show rates if it shortens appointment reminders from two days to one?",
+    "thinking": [
+      "Needs medical workflow implications.",
+      "Needs behavior-driven attendance effects."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00006",
+    "question": "How can a hospital design secure patient-result sharing with encrypted QR codes for discharge papers?",
+    "thinking": [
+      "Needs clinical workflow design.",
+      "Needs secure encoding choices."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00007",
+    "question": "Can you help me write a curator note explaining why a Renaissance portrait uses symbolic gesture and unusual perspective?",
+    "thinking": [
+      "Needs art-historical reading.",
+      "Needs audience-friendly explanation."
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00008",
+    "question": "Should we deploy a warehouse robot if its navigation software may violate safety compliance requirements?",
+    "thinking": [
+      "Needs legal risk framing.",
+      "Needs robotics deployment judgment."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00009",
+    "question": "How should I explain to a client why an ancient property dispute is relevant to a modern contract issue?",
+    "thinking": [
+      "Needs legal framing.",
+      "Uses historical analogy."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00010",
+    "question": "Can you rewrite this warning about a forbidden interval and unresolved cadence in formal archaic English?",
+    "thinking": [
+      "Needs old-style wording.",
+      "Needs music-theory constraint handling."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00011",
+    "question": "Does this memo sound suitably formal if I want it to read like a seventeenth-century notice?",
+    "thinking": [
+      "Needs stylistic review.",
+      "Archaic diction is the focus."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00012",
+    "question": "How can I code a function that handles edge-case molecular charge states when estimating reaction feasibility?",
+    "thinking": [
+      "Needs robust conditional logic.",
+      "Uses chemistry-specific edge cases."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00013",
+    "question": "What does this contract clause mean about termination rights and notice periods?",
+    "thinking": [
+      "Needs legal interpretation.",
+      "Clause meaning is the task."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00014",
+    "question": "How can I design a music-notation app that stores score data without exposing user secrets?",
+    "thinking": [
+      "Needs secure storage design.",
+      "Needs score representation constraints."
+    ],
+    "experts": [
+      "CRYPTOGRAPHY",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00015",
+    "question": "What steps should I follow to program a basic indoor robot while also considering whether its behavior is ethically acceptable?",
+    "thinking": [
+      "Needs robot build planning.",
+      "Needs ethics-guided implementation."
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00016",
+    "question": "How should I interpret this Sanskrit legal phrase in a 19th-century treaty text?",
+    "thinking": [
+      "Needs language-level interpretation.",
+      "Needs legal meaning in context."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00017",
+    "question": "How can I use symmetry and ratios to explain why a puzzle has only one valid arrangement?",
+    "thinking": [
+      "Needs mathematical reasoning.",
+      "Cross-domain framing only."
+    ],
+    "experts": [
+      "MATHEMATICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00018",
+    "question": "Why did ancient tax systems sometimes succeed at compliance even with weak enforcement?",
+    "thinking": [
+      "Needs historical context.",
+      "Needs incentive interpretation."
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00019",
+    "question": "What does this reaction scheme mean when it says the product is formed under mild conditions?",
+    "thinking": [
+      "Needs reaction interpretation.",
+      "Organic chemistry only."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00020",
+    "question": "What does this MLX kernel trace mean if a chemistry simulation suddenly slows down?",
+    "thinking": [
+      "Needs kernel-log interpretation.",
+      "Needs chemistry computation context."
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00021",
+    "question": "How should I choose conditions for synthesizing this molecule after predicting its electronic stability?",
+    "thinking": [
+      "Needs synthesis planning.",
+      "Uses quantum insight for route choice."
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00022",
+    "question": "Would a lower port fine improve compliance more than a higher one, and how might shipowners react?",
+    "thinking": [
+      "Needs law plus incentives.",
+      "Maritime policy choice."
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00023",
+    "question": "Can you estimate how many synthesis steps I need if I want to express an old English recipe in modern lab terms?",
+    "thinking": [
+      "Needs step counting.",
+      "Combines archaic wording with synthesis."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00024",
+    "question": "Is a coastal city likely to need a new shipping rule because sea levels and storm surges are rising?",
+    "thinking": [
+      "Needs climate risk judgment.",
+      "Needs maritime regulatory impact."
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00025",
+    "question": "How do I handle floating-point corner cases in Python when proving a formula about probabilities?",
+    "thinking": [
+      "Needs program edge cases.",
+      "Needs mathematical proof handling."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00026",
+    "question": "What diagnosis fits a patient with fever, rash, and joint pain after returning from travel?",
+    "thinking": [
+      "Needs symptom-based medical reasoning.",
+      "Single clinical assessment."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00027",
+    "question": "How should I explain the causes of the Peloponnesian War to a classroom in simple terms?",
+    "thinking": [
+      "Needs historical explanation.",
+      "Audience-friendly communication."
+    ],
+    "experts": [
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00028",
+    "question": "What formatting rules should I follow so my equations render correctly in a formal paper?",
+    "thinking": [
+      "Needs typesetting compliance.",
+      "LaTeX formatting only."
+    ],
+    "experts": [
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00029",
+    "question": "Why might someone keep delaying an important decision even when they say it matters a lot?",
+    "thinking": [
+      "Needs motivational diagnosis.",
+      "Uses choice behavior concepts."
+    ],
+    "experts": [
+      "PHILOSOPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00030",
+    "question": "How should I evaluate whether a telescope platform on a ship can stay stable during launch operations?",
+    "thinking": [
+      "Needs space systems reasoning.",
+      "Needs maritime constraints."
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00031",
+    "question": "Should this secure messaging app use one legal consent flow or another to reduce liability?",
+    "thinking": [
+      "Needs legal design review.",
+      "Needs encryption design review."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00032",
+    "question": "Could a statute be invalid if its deadline calculation contradicts the arithmetic in the text?",
+    "thinking": [
+      "Needs legal interpretation.",
+      "Needs numeric consistency check."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00033",
+    "question": "How do I implement a simple key-exchange protocol in Python for a class project?",
+    "thinking": [
+      "Needs code planning.",
+      "Needs cryptographic implementation."
+    ],
+    "experts": [
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00034",
+    "question": "Is this Sanskrit verb form an exception to the usual sandhi rule?",
+    "thinking": [
+      "Needs linguistic edge-case handling.",
+      "Sanskrit morphology focus."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00035",
+    "question": "Should I pick a mathematically optimal route between two museums if one has a much richer history?",
+    "thinking": [
+      "Needs numeric choice aid.",
+      "Blends optimization with history."
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00036",
+    "question": "Should we choose a synthesis pathway that is easier to encrypt for confidential lab sharing?",
+    "thinking": [
+      "Needs route selection.",
+      "Combines synthesis and security."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00037",
+    "question": "How can I ensure my dissertation uses consistent equation notation while also meeting shipping-contract citation rules?",
+    "thinking": [
+      "Needs formatting compliance.",
+      "Needs maritime citation constraints."
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00038",
+    "question": "What security and safety risks should I check before connecting a robot to an encrypted control channel?",
+    "thinking": [
+      "Needs security review.",
+      "Needs robotic safety review."
+    ],
+    "experts": [
+      "CRYPTOGRAPHY",
+      "ROBOTICS"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00039",
+    "question": "How can I write Python code to compute a spacecraft trajectory from gravitational equations?",
+    "thinking": [
+      "Needs implementation logic.",
+      "Needs astrophysical calculation."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00040",
+    "question": "What if a robot gets rewarded for doing the wrong thing because people keep praising the easiest behavior?",
+    "thinking": [
+      "Needs edge-case behavior analysis.",
+      "Combines robotics with incentives."
+    ],
+    "experts": [
+      "ROBOTICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

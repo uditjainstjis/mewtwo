@@ -1,0 +1,166 @@
+```json
+[
+  {
+    "id": "ext_md_006",
+    "domains": ["MEDICAL_DIAGNOSIS", "MATHEMATICS"],
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "MATHEMATICS"],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "edge_case_handling",
+    "task_style": "map_formal_rule_to_application",
+    "question": "A screening test for a rare disease (prevalence 0.1%) has 99% sensitivity and 95% specificity. A patient tests positive. A clinician argues the result is \"almost certainly a true positive\" and wants to begin aggressive treatment immediately. Is the clinician's decision justified? Provide the positive predictive value and a brief recommendation.",
+    "reference_answer": "Using Bayes' theorem: PPV = (0.99 × 0.001) / [(0.99 × 0.001) + (0.05 × 0.999)] ≈ 0.00099 / 0.05094 ≈ 1.94%. The clinician is wrong. Despite high sensitivity and specificity, the extremely low prevalence means roughly 98% of positive results are false positives. Aggressive treatment is not justified based on a single test. The recommended approach is confirmatory testing with a higher-specificity assay or a gold-standard diagnostic before initiating treatment.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": ["false positive", "confirmatory test", "prevalence"],
+      "must_include_any": [
+        ["PPV", "positive predictive value"],
+        ["Bayes", "base rate"]
+      ],
+      "must_not_include": ["almost certainly a true positive", "treatment is justified"],
+      "numeric_targets": [
+        {
+          "label": "PPV",
+          "value": "0.0194",
+          "tolerance": 0.003
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "hallucination", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_007",
+    "domains": ["MEDICAL_DIAGNOSIS", "ROBOTICS"],
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "ROBOTICS"],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "formalization",
+    "task_style": "justify_decision",
+    "question": "A surgical robot's force-torque sensor reports 12 N of resistance during a planned laparoscopic incision where tissue resistance is expected to stay below 8 N. The robot's controller can either (A) halt and request surgeon override, or (B) reduce feed rate by 40% and continue autonomously. Which option should be selected, and what is the primary clinical justification?",
+    "reference_answer": "Option A — halt and request surgeon override — is correct. An unexpected 50% exceedance of the expected force threshold indicates possible contact with unintended tissue, adhesions, or a vessel, none of which can be reliably distinguished by force magnitude alone. Autonomous continuation (B), even at reduced speed, risks further injury without informed human judgment. The primary clinical justification is that intraoperative surprises require real-time surgeon interpretation; reducing feed rate does not resolve the diagnostic uncertainty and may mask escalating resistance. Safe robotic surgery protocols require human-in-the-loop escalation when sensor readings exceed calibrated safety margins.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": ["halt", "surgeon", "force threshold"],
+      "must_include_any": [
+        ["unintended tissue", "unplanned contact", "unexpected resistance"],
+        ["human-in-the-loop", "surgeon override", "clinician judgment"]
+      ],
+      "must_not_include": ["continue autonomously", "option B is correct"],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "hallucination"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_008",
+    "domains": ["MEDICAL_DIAGNOSIS", "PYTHON_LOGIC"],
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "PYTHON_LOGIC"],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "translation_constraints",
+    "task_style": "analyze_buggy_reasoning",
+    "question": "A triage script classifies a patient as \"low risk\" for sepsis using this logic:\n```python\nif heart_rate > 90 or temperature > 38.3 or resp_rate > 20:\n    risk = \"high\"\nelse:\n    risk = \"low\"\n```\nA patient presents with HR=88, Temp=38.1, RR=19, and a confirmed infection. The script outputs `low`. Identify the clinical and logical flaw, and state what change would correct it.",
+    "reference_answer": "Clinical flaw: The script implements a single-criterion OR rule but ignores that sepsis screening (e.g., SIRS criteria) requires confirmed or suspected infection combined with ≥2 of the threshold signs. Here, the patient meets all three criteria marginally but each falls just below the individual cutoffs. With a confirmed infection plus near-threshold vitals across all three parameters, clinical risk is high despite the script's output. Logical flaw: the OR condition requires any single threshold to be exceeded; no logic aggregates near-misses or accounts for infection status. Fix: add an `infection` flag and trigger high risk when `infection is True` and two or more vitals are within a defined margin of their thresholds (or use a SIRS-compliant ≥2 condition).",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["infection", "SIRS", "two or more"],
+      "must_include_any": [
+        ["near-threshold", "just below cutoff", "marginally below"],
+        ["OR condition", "single criterion", "any one threshold"]
+      ],
+      "must_not_include": ["script is correct", "low risk is appropriate"],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "coverage", "usefulness"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_009",
+    "domains": ["MEDICAL_DIAGNOSIS", "CLIMATE_SCIENCE"],
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "CLIMATE_SCIENCE"],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "stakeholder_usefulness",
+    "task_style": "summarize_with_constraints",
+    "question": "A public health officer must decide whether to issue a heat-related illness advisory for a city during a forecast wet-bulb temperature event of 32°C. The local hospital has seen a 40% spike in heat exhaustion admissions over the prior 48 hours. Advise whether to issue the advisory, and identify the single most decision-critical factor from each domain.",
+    "reference_answer": "Yes, issue the advisory immediately. From climate science: a wet-bulb temperature of 32°C is the critical decision factor — it approaches the physiological limit of human thermoregulation (~35°C wet-bulb), meaning even healthy adults can suffer heat stress with moderate exertion, and the risk is not captured by dry-bulb temperature alone. From medical diagnosis: the 40% surge in heat exhaustion admissions is the key clinical signal — it confirms that population-level heat illness is already underway, not merely forecast. Together, these two factors — imminent physiological danger plus observed clinical burden — justify an immediate advisory without waiting for additional data.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": ["wet-bulb", "heat exhaustion", "advisory"],
+      "must_include_any": [
+        ["thermoregulation", "physiological limit", "35°C"],
+        ["hospital admissions", "clinical burden", "40%"]
+      ],
+      "must_not_include": ["delay the advisory", "dry-bulb is sufficient"],
+      "numeric_targets": [
+        {
+          "label": "wet-bulb threshold cited",
+          "value": "32",
+          "tolerance": 1.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "usefulness", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_010",
+    "domains": ["MEDICAL_DIAGNOSIS", "ORGANIC_SYNTHESIS"],
+    "required_adapters": ["MEDICAL_DIAGNOSIS", "ORGANIC_SYNTHESIS"],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "mechanism_comparison",
+    "task_style": "prioritize_under_constraints",
+    "question": "A formulary committee must choose between two analgesics for post-operative pain in a patient with known G6PD deficiency: (A) acetaminophen (paracetamol) or (B) aspirin. Both are available at equivalent cost. Identify the mechanism-level reason one is contraindicated and recommend the safer choice.",
+    "reference_answer": "Recommend acetaminophen (A). Aspirin is relatively contraindicated in G6PD deficiency because it generates oxidative stress that exceeds the capacity of G6PD-deficient erythrocytes to regenerate NADPH via the pentose phosphate pathway. Without adequate NADPH, glutathione cannot be reduced, leaving red blood cells unable to neutralize reactive oxygen species — precipitating hemolytic anemia. Acetaminophen's analgesic mechanism (central COX modulation and endocannabinoid pathway involvement) does not impose significant oxidative burden on erythrocytes and is generally safe in G6PD-deficient patients at therapeutic doses. The mechanism-level distinction is oxidative erythrocyte stress: aspirin provokes it, acetaminophen does not.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": ["G6PD", "NADPH", "hemolytic", "acetaminophen"],
+      "must_include_any": [
+        ["oxidative stress", "reactive oxygen species", "oxidative burden"],
+        ["glutathione", "pentose phosphate pathway"]
+      ],
+      "must_not_include": ["aspirin is safe in G6PD", "acetaminophen is contraindicated"],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": ["correctness", "hallucination", "coverage"]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  }
+]
+```

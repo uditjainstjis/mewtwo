@@ -1,0 +1,254 @@
+[
+  {
+    "id": "ext_md_061",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "RENAISSANCE_ART"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "RENAISSANCE_ART"
+    ],
+    "question": "A museum plans an interactive label system for a Renaissance altarpiece: every label is written in heavy pseudo-Tudor English (“thou beholdest…”) to create period atmosphere. Review this design. What is its strongest benefit, its biggest weakness, and the key tradeoff the curator should decide?",
+    "reference_answer": "The strongest benefit is atmosphere: mildly period-shaped phrasing can reinforce the work’s historical setting and patronage context. The biggest weakness is false authenticity. A Tudor-sounding voice is not the original voice of an Italian Renaissance commission, and excessive archaism can obstruct basic interpretation for visitors. The key tradeoff is immersion versus clarity and scholarly honesty. The best revision is modern explanatory text with only brief, clearly signposted archaic quotations or terms where they illuminate workshop practice, devotion, or patron intent.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "identifies immersion or historical atmosphere as the main strength",
+        "identifies readability or false authenticity as the main weakness",
+        "states the central tradeoff as immersion versus clarity/accuracy"
+      ],
+      "must_include_any": [
+        [
+          "pseudo-archaic",
+          "fake archaism",
+          "invented old-fashioned language"
+        ],
+        [
+          "patronage",
+          "commission context",
+          "devotional function"
+        ]
+      ],
+      "must_not_include": [
+        "claim that Tudor English is the authentic original language of Italian Renaissance altarpieces"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:11.238715+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_062",
+    "domains": [
+      "MARITIME_LAW",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "MARITIME_LAW",
+      "CRYPTOGRAPHY"
+    ],
+    "question": "A shipping platform must issue transferable electronic bills of lading. Option A stores signed PDFs in a central registry with operator-controlled title transfer. Option B uses a distributed ledger with private-key control by holders. Which design is legally safer today for cross-border trade, and what critical weakness remains even in the better option?",
+    "reference_answer": "Option A is usually legally safer today because control of transfer and singularity can be embedded in a rulebook and recognized operational process, which better matches current trade practice and document-of-title expectations. Option B may improve tamper resistance, but legal recognition of holder status, transfer mechanics, and enforcement can still vary by jurisdiction even if the cryptography is strong. The critical weakness in the better option is legal interoperability: secure records do not automatically guarantee that courts, carriers, and banks will treat possession or control as equivalent to lawful title everywhere.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "selects the central-registry/rulebook design as legally safer today",
+        "distinguishes cryptographic security from legal recognition of title/control",
+        "identifies cross-jurisdiction recognition or enforceability as the remaining weakness"
+      ],
+      "must_include_any": [
+        [
+          "singularity",
+          "exclusive control",
+          "single authoritative record"
+        ],
+        [
+          "holder status",
+          "lawful holder",
+          "document of title"
+        ]
+      ],
+      "must_not_include": [
+        "claim that stronger cryptography alone makes the ledger option legally superior everywhere"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:11.238715+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_063",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "MATHEMATICS"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "MATHEMATICS"
+    ],
+    "question": "A triage tool flags sepsis when a biomarker exceeds one fixed cutoff and reports “95% accurate,” regardless of prevalence. Clinicians say it overcalls disease in low-risk wards and misses early cases in ICU. Diagnose the design error and propose the most important fix.",
+    "reference_answer": "The core error is treating test accuracy as context-free. A single cutoff and a single headline accuracy number ignore prevalence, different error costs, and the fact that predictive value changes across wards. In low-prevalence settings this inflates false positives, while in ICU the same threshold may miss patients if the action threshold should be lower. The key fix is to move to Bayesian or threshold-based decision support: estimate pretest probability by setting, update with the biomarker’s likelihood ratio, and use ward-specific action thresholds rather than one universal cutoff.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "explains that prevalence/base rate affects predictive value",
+        "identifies the single fixed cutoff as a design flaw",
+        "recommends Bayesian updating or ward-specific decision thresholds"
+      ],
+      "must_include_any": [
+        [
+          "pretest probability",
+          "prior probability",
+          "base rate"
+        ],
+        [
+          "likelihood ratio",
+          "posterior probability",
+          "predictive value"
+        ]
+      ],
+      "must_not_include": [
+        "claim that sensitivity and specificity alone determine clinical usefulness independent of prevalence"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "Bayes|bayesian|posterior|likelihood"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:11.238715+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_064",
+    "domains": [
+      "MLX_KERNELS",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "ASTROPHYSICS"
+    ],
+    "question": "A team is building an Apple-silicon MLX kernel for real-time exoplanet transit detection. Design A fuses detrending, normalization, and matched filtering into one low-precision kernel. Design B keeps separate kernels, preserves higher precision through detrending, and fuses only the final scoring step. Which design is better, and why?",
+    "reference_answer": "Design B is better. Transit detection depends on preserving very small flux dips against instrumental and stellar noise, so early aggressive fusion with low precision risks washing out the signal or baking numerical bias into preprocessing. The strongest point for Design A is speed and reduced memory traffic, but the scientific cost can be missed shallow transits or distorted significance estimates. The critical tradeoff is throughput versus numerical fidelity; fuse late, after the operations most sensitive to precision and baseline estimation.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "chooses Design B",
+        "explains that tiny transit signals are vulnerable to precision loss during preprocessing",
+        "identifies speed/memory savings as the main advantage of Design A"
+      ],
+      "must_include_any": [
+        [
+          "numerical fidelity",
+          "precision preservation",
+          "signal integrity"
+        ],
+        [
+          "memory bandwidth",
+          "memory traffic",
+          "kernel fusion efficiency"
+        ]
+      ],
+      "must_not_include": [
+        "claim that maximum fusion is always preferable for scientific detection pipelines"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:11.238715+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_065",
+    "domains": [
+      "ORGANIC_SYNTHESIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "ORGANIC_SYNTHESIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A company redesigns a solvent-intensive synthesis by replacing a high-yield chlorinated route with a bio-based solvent route that lowers direct plant emissions but adds two extra purification steps and cold-chain feedstock transport. Explain the most likely failure mode in their “greener process” claim.",
+    "reference_answer": "The likely failure mode is narrow accounting. The redesign may cut on-site emissions yet still raise total climate impact if extra separations increase energy demand and refrigerated transport adds upstream emissions. In synthesis terms, more unit operations can erase the benefit of a cleaner solvent, especially when yield drops or solvent recovery is poor. The critical review point is life-cycle tradeoff: assess cradle-to-gate emissions, energy for purification, transport, and waste intensity rather than judging the route only by solvent origin or stack emissions.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "identifies life-cycle or cradle-to-gate accounting as the missing lens",
+        "notes that extra purification/energy use can offset direct emissions gains",
+        "notes that transport or feedstock logistics can offset the claimed benefit"
+      ],
+      "must_include_any": [
+        [
+          "unit operations",
+          "separation steps",
+          "purification burden"
+        ],
+        [
+          "bio-based does not automatically mean lower emissions",
+          "renewable solvent is not automatically greener",
+          "solvent origin alone is insufficient"
+        ]
+      ],
+      "must_not_include": [
+        "claim that a bio-based solvent automatically guarantees lower overall climate impact"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:51:11.238715+00:00",
+      "section": "Design Review"
+    }
+  }
+]

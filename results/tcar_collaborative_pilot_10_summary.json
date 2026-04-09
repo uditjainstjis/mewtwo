@@ -1,0 +1,51 @@
+{
+  "subset_ids": [
+    "ext_md_001",
+    "ext_md_006",
+    "ext_md_011",
+    "ext_md_016",
+    "ext_md_021",
+    "ext_md_026",
+    "ext_md_031",
+    "ext_md_036",
+    "ext_md_041",
+    "ext_md_046"
+  ],
+  "summary": {
+    "late_layer_injection": {
+      "n": 10,
+      "semantic_sim": 0.6804,
+      "token_f1": 0.2696,
+      "latency_s": 3.5773,
+      "exact_match": 0.0
+    },
+    "mistral": {
+      "n": 10,
+      "semantic_sim": 0.7067,
+      "token_f1": 0.2971,
+      "latency_s": 10.7177,
+      "exact_match": 0.0
+    },
+    "sequential_reverse": {
+      "n": 10,
+      "semantic_sim": 0.6583,
+      "token_f1": 0.2964,
+      "latency_s": 4.4147,
+      "exact_match": 0.0
+    },
+    "tcar_collaborative": {
+      "n": 10,
+      "semantic_sim": 0.6797,
+      "token_f1": 0.2682,
+      "latency_s": 18.8588,
+      "exact_match": 0.0
+    },
+    "weighted_merge": {
+      "n": 10,
+      "semantic_sim": 0.6311,
+      "token_f1": 0.2603,
+      "latency_s": 4.0086,
+      "exact_match": 0.0
+    }
+  }
+}

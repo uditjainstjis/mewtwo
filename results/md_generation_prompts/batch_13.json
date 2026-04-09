@@ -1,0 +1,44 @@
+[
+  {
+    "id": "ext_claude_013",
+    "domains": ["LATEX_FORMATTING", "MEDICAL_DIAGNOSIS"],
+    "required_adapters": ["LATEX_FORMATTING", "MEDICAL_DIAGNOSIS"],
+    "question": "A clinical pharmacology manuscript includes the following LaTeX snippet typesetting the Cockcroft–Gault creatinine clearance formula:\n\n\\begin{equation*}\\label{eq:crcl}\n  \\mathrm{CrCl} = \\frac{(140 + \\mathrm{age}) \\times \\mathrm{weight}}{72 \\times \\mathrm{SCr}} \\times 0.75\n  \\quad \\text{(apply if female)}\n\\end{equation*}\n...\nEquation~\\eqref{eq:crcl} predicts renal clearance and guides drug dosing.\n\nIdentify every error in this snippet — both typesetting and clinical — and state the correct form of each. Do not rewrite the full snippet; name each error and give its fix.",
+    "reference_answer": "There are two LaTeX errors and two clinical errors. First, `equation*` is the unnumbered starred variant; `\\label` inside it is silently ignored, so `\\eqref{eq:crcl}` on the following line renders as `(??)`. The fix is to use `\\begin{equation}` (unstarred) to produce a numbered, referenceable equation. Second, `\\eqref` is defined by the `amsmath` package; if that package is not loaded, the command is undefined and compilation fails with an error. Clinically, the numerator must be `(140 - age)`, not `(140 + age)`: creatinine clearance declines with age, so an additive age term would absurdly predict higher clearance in elderly patients. Additionally, the female sex-correction multiplier is `0.85`, not `0.75`; the lower value systematically underestimates renal clearance in women, risking toxic accumulation of renally cleared drugs dosed by this formula.",
+    "answer_type": "analysis",
+    "difficulty": "hard",
+    "required_facts": [
+      "The starred `equation*` environment suppresses numbering, making `\\label` a no-op and causing `\\eqref` to render as `(??)`",
+      "`\\eqref` requires the `amsmath` package; absence causes an undefined-command compilation error",
+      "Cockcroft–Gault numerator factor is `(140 - age)`, not `(140 + age)`, because CrCl decreases with age",
+      "The female sex-correction multiplier in Cockcroft–Gault is 0.85, not 0.75"
+    ],
+    "critical_errors": [
+      "Failing to identify the starred environment as the root cause of the broken `\\label`/`\\eqref` pairing",
+      "Accepting 0.75 as a valid or approximately correct female correction factor",
+      "Accepting `(140 + age)` as clinically plausible or treating the sign as a stylistic choice"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Starred equation environment invalidates the `\\label` and breaks the `\\eqref` cross-reference",
+        "Numerator sign must be subtraction: `(140 - age)`",
+        "Female correction multiplier must be 0.85"
+      ],
+      "nice_to_have": [
+        "Explicit mention that `\\eqref` depends on `amsmath` being loaded",
+        "Clinical consequence of using 0.75 (underestimation of clearance, risk of toxic drug accumulation)"
+      ],
+      "automatic_checks": [
+        "Answer references `equation*` or 'starred environment' in the context of the label failure",
+        "Answer contains '0.85' as the correct female factor",
+        "Answer contains '140 - age' or '140 minus age' as the corrected numerator"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Both domains are fully load-bearing: LaTeX expertise is required to diagnose why the starred environment silently breaks the label/cross-reference pair and why amsmath is needed; medical pharmacology expertise is required to identify the sign inversion and the incorrect sex-correction constant in Cockcroft–Gault, errors that carry direct patient-safety implications."
+    }
+  }
+]

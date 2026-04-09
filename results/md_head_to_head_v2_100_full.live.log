@@ -1,0 +1,37 @@
+[14:03:23] Dataset=data/multidomain_eval_claude_external_v2_100.json items=100 methods=['weighted_merge', 'late_layer_injection', 'sequential_reverse', 'mistral'] jobs=400
+[14:03:23] MLX backend note: Qwen path uses MLX GPU backend by default on Apple Silicon.
+[14:03:28] Qwen engine loaded in 2.69s
+[14:03:28] START job=1/400 item=1/100 id=ext_md_001 method=weighted_merge domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:03:42] DONE  job=1/400 id=ext_md_001 method=weighted_merge lat=7.09s em=0.00 f1=0.32 sim=0.754 avg/job=13.18s eta=1h27m40s
+[14:03:42] ANS   id=ext_md_001 method=weighted_merge preview=The primary legal vulnerability in the clause is that it is too vague to be enforceable. The clause 
+[14:03:42] START job=2/400 item=1/100 id=ext_md_001 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:03:48] DONE  job=2/400 id=ext_md_001 method=late_layer_injection lat=6.76s em=0.00 f1=0.27 sim=0.773 avg/job=10.00s eta=1h06m21s
+[14:03:48] ANS   id=ext_md_001 method=late_layer_injection preview=The primary legal vulnerability in the clause is that it is too vague to be enforceable. The clause 
+[14:03:48] START job=3/400 item=1/100 id=ext_md_001 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:03:56] DONE  job=3/400 id=ext_md_001 method=sequential_reverse lat=7.65s em=0.00 f1=0.32 sim=0.642 avg/job=9.24s eta=1h01m08s
+[14:03:56] ANS   id=ext_md_001 method=sequential_reverse preview=The primary legal vulnerability in the clause is that it is too vague to be enforceable. The clause 
+[14:03:56] START job=4/400 item=1/100 id=ext_md_001 method=mistral domains=['LEGAL_ANALYSIS', 'CRYPTOGRAPHY']
+[14:05:15] DONE  job=4/400 id=ext_md_001 method=mistral lat=76.97s em=0.00 f1=0.40 sim=0.818 avg/job=26.63s eta=2h55m44s
+[14:05:15] ANS   id=ext_md_001 method=mistral preview=The primary legal vulnerability in the clause is its vagueness, as argued by opposing counsel. The t
+[14:05:15] START job=5/400 item=2/100 id=ext_md_002 method=weighted_merge domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:05:26] DONE  job=5/400 id=ext_md_002 method=weighted_merge lat=11.13s em=0.00 f1=0.24 sim=0.656 avg/job=23.56s eta=2h35m05s
+[14:05:26] ANS   id=ext_md_002 method=weighted_merge preview=To determine which opt-out design is more defensible, we need to consider both the legal enforceabil
+[14:05:26] START job=6/400 item=2/100 id=ext_md_002 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:05:33] DONE  job=6/400 id=ext_md_002 method=late_layer_injection lat=6.52s em=0.00 f1=0.22 sim=0.680 avg/job=20.73s eta=2h16m06s
+[14:05:33] ANS   id=ext_md_002 method=late_layer_injection preview=To determine which opt-out design is more defensible, we need to consider both the legal enforceabil
+[14:05:33] START job=7/400 item=2/100 id=ext_md_002 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:05:40] DONE  job=7/400 id=ext_md_002 method=sequential_reverse lat=7.49s em=0.00 f1=0.20 sim=0.704 avg/job=18.85s eta=2h03m26s
+[14:05:40] ANS   id=ext_md_002 method=sequential_reverse preview=To determine which opt-out design is more defensible, we need to consider both legal enforceability 
+[14:05:40] START job=8/400 item=2/100 id=ext_md_002 method=mistral domains=['LEGAL_ANALYSIS', 'BEHAVIORAL_ECONOMICS']
+[14:06:44] DONE  job=8/400 id=ext_md_002 method=mistral lat=62.28s em=0.00 f1=0.26 sim=0.616 avg/job=24.40s eta=2h39m24s
+[14:06:44] ANS   id=ext_md_002 method=mistral preview=From a legal enforceability standpoint, both designs (A and B) could potentially be considered valid
+[14:06:44] START job=9/400 item=3/100 id=ext_md_003 method=weighted_merge domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:06:52] DONE  job=9/400 id=ext_md_003 method=weighted_merge lat=8.46s em=0.00 f1=0.32 sim=0.625 avg/job=22.66s eta=2h27m38s
+[14:06:52] ANS   id=ext_md_003 method=weighted_merge preview=The motion to dismiss failed because the U.S. federal court's jurisdiction is not limited by the for
+[14:06:52] START job=10/400 item=3/100 id=ext_md_003 method=late_layer_injection domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:06:58] DONE  job=10/400 id=ext_md_003 method=late_layer_injection lat=6.10s em=0.00 f1=0.31 sim=0.704 avg/job=21.01s eta=2h16m32s
+[14:06:58] ANS   id=ext_md_003 method=late_layer_injection preview=The motion to dismiss failed because the U.S. federal court's jurisdiction is not limited by the for
+[14:06:58] START job=11/400 item=3/100 id=ext_md_003 method=sequential_reverse domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']
+[14:07:03] DONE  job=11/400 id=ext_md_003 method=sequential_reverse lat=4.77s em=0.00 f1=0.35 sim=0.627 avg/job=19.53s eta=2h06m38s
+[14:07:03] ANS   id=ext_md_003 method=sequential_reverse preview=The motion to dismiss failed because the U.S. federal court's jurisdiction is not limited by the for
+[14:07:03] START job=12/400 item=3/100 id=ext_md_003 method=mistral domains=['LEGAL_ANALYSIS', 'MARITIME_LAW']

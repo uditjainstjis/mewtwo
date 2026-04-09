@@ -1,0 +1,247 @@
+[
+  {
+    "id": "ext_md_071",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "ROBOTICS"
+    ],
+    "question": "A hospital wants a bedside robot to auto-escalate sepsis alerts. It combines vitals, lactate, and nurse-entered symptoms, then physically navigates to the room and prompts staff if risk is high. In pilots, the model catches many cases early but also triggers on post-op inflammation and occasionally blocks hallway traffic during urgent care. Identify the main risk/compliance concern and explain the safest deployment stance.",
+    "reference_answer": "The core concern is not just diagnostic accuracy but a coupled patient-safety hazard: false-positive sepsis classification can drive unnecessary escalation, while robot motion creates operational interference during time-critical care. The safest stance is decision support only, with clinician confirmation before any sepsis alert is acted on, plus constrained navigation rules such as yielding, geofencing around acute-care corridors, and fail-safe stop behavior. Validation must cover both clinical performance on confounders like post-op inflammation and human-factors/traffic safety in real workflows.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "false positives or misclassification from post-op inflammation",
+        "robot mobility or workflow obstruction as a patient-safety risk",
+        "clinician confirmation or human-in-the-loop deployment"
+      ],
+      "must_include_any": [
+        [
+          "decision support only",
+          "advisory only"
+        ],
+        [
+          "navigation constraints",
+          "geofencing or yield rules"
+        ]
+      ],
+      "must_not_include": [
+        "fully autonomous treatment is acceptable",
+        "accuracy alone resolves the risk"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:52:42.846963+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_072",
+    "domains": [
+      "MLX_KERNELS",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "CRYPTOGRAPHY"
+    ],
+    "question": "A team is shipping on-device key generation on Apple Silicon. Option A uses a highly optimized custom MLX kernel with data-dependent memory access to speed big-integer arithmetic. Option B is slower but uses fixed-pattern loads/stores and avoids secret-dependent branching. Which option is safer for production, and why?",
+    "reference_answer": "Option B is safer. In cryptography, secret-dependent branches or memory access patterns can leak key material through timing, cache, or other side channels, so a faster kernel can still be unacceptable if it is not constant-time in practice. The MLX-specific performance gain does not outweigh leakage risk for key generation. Production should prefer the slower implementation unless the custom kernel is redesigned and verified to avoid secret-dependent control flow and memory access.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Option B",
+        "side-channel leakage risk",
+        "secret-dependent memory access or branching is unsafe"
+      ],
+      "must_include_any": [
+        [
+          "constant-time",
+          "fixed-pattern execution"
+        ],
+        [
+          "timing leak",
+          "cache leak"
+        ]
+      ],
+      "must_not_include": [
+        "choose the faster kernel because it is on-device",
+        "encryption alone removes side channels"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:52:42.846963+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_073",
+    "domains": [
+      "ORGANIC_SYNTHESIS",
+      "LEGAL_ANALYSIS"
+    ],
+    "required_adapters": [
+      "ORGANIC_SYNTHESIS",
+      "LEGAL_ANALYSIS"
+    ],
+    "question": "Company counsel approved a process memo describing a new plant route as a 'non-isolated intermediate sequence' to reduce documentation burden. In practice, the team cools, filters, dries, and drums one intermediate for two weeks before the next step because the downstream reactor is bottlenecked. Diagnose the compliance problem and propose the cleanest fix.",
+    "reference_answer": "The label no longer matches the chemistry operation. Once the intermediate is filtered, dried, drummed, and stored for weeks, it is functioning as an isolated intermediate, so treating it as continuously carried forward is hard to defend. The cleanest fix is to reclassify the material and update the documentation, controls, and handling obligations accordingly; the alternative is to redesign operations so the material truly remains in-process without substantive isolation or storage.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "the intermediate is effectively isolated",
+        "the memo or classification is inaccurate",
+        "reclassify or redesign the process"
+      ],
+      "must_include_any": [
+        [
+          "stored",
+          "drummed"
+        ],
+        [
+          "documentation update",
+          "controls and obligations update"
+        ]
+      ],
+      "must_not_include": [
+        "two-week storage is still non-isolated by default",
+        "only the legal label matters, not the process facts"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:52:42.846963+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_074",
+    "domains": [
+      "PHILOSOPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "required_adapters": [
+      "PHILOSOPHY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "question": "A retirement app for hourly workers is choosing between two defaults. Design A auto-enrolls users into a savings plan with a small opt-out link. Design B asks users to actively choose, but highlights projected losses from inaction using vivid framing. Which design is ethically safer under risk/compliance review, and why?",
+    "reference_answer": "Design B is ethically safer if the choice is clear and balanced. Auto-enrollment with a hard-to-see opt-out leans toward manipulation because it exploits inertia while weakening meaningful consent. Framing future losses can still be influence, but it is easier to justify when users make an explicit choice and the presentation is accurate, non-deceptive, and not coercively one-sided. The key principle is preserving agency while using behavioral guidance transparently.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Design B",
+        "meaningful or explicit choice",
+        "concern about manipulation or autonomy"
+      ],
+      "must_include_any": [
+        [
+          "inertia",
+          "status quo bias"
+        ],
+        [
+          "transparent framing",
+          "non-deceptive framing"
+        ]
+      ],
+      "must_not_include": [
+        "small opt-out link is ethically safer because it increases savings",
+        "any nudge is automatically unethical"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:52:42.846963+00:00",
+      "section": "Risk And Compliance"
+    }
+  },
+  {
+    "id": "ext_md_075",
+    "domains": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "question": "An automated compliance-report pipeline fills a LaTeX template from Python. A developer changed validation so any field containing backslashes is rejected as 'unsafe'. Months later, the legal team says equations, section refs, and escaped percent signs disappeared from approved reports, while no exploit was ever demonstrated. Explain the failure mode and the better control.",
+    "reference_answer": "The pipeline confused LaTeX syntax with malicious input. Backslashes are essential for valid commands such as equations, references, and escaped characters, so the validator created false positives that silently stripped legitimate content and degraded the report. The better control is context-aware escaping and allowlisting: treat plain text, numeric fields, and trusted LaTeX fragments differently, compile in non-interactive mode with errors surfaced, and block dangerous primitives rather than banning all backslashes.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "backslashes are required for legitimate LaTeX",
+        "the validator caused false positives or content loss",
+        "use context-aware escaping or allowlisting instead of blanket rejection"
+      ],
+      "must_include_any": [
+        [
+          "equations",
+          "references"
+        ],
+        [
+          "non-interactive compile",
+          "surface compile errors"
+        ]
+      ],
+      "must_not_include": [
+        "all backslashes are unsafe",
+        "the fix is to remove LaTeX support entirely"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:52:42.846963+00:00",
+      "section": "Risk And Compliance"
+    }
+  }
+]

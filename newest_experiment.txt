@@ -1,0 +1,54 @@
+Architectural Evaluation and Experimental Blueprint for Core-Space Multi-Adapter Composition
+1. Phase I: The Linear Composition Fallacy (Synapta)
+The Hypothesis: We initially hypothesized that independently trained LoRA adapters could be linearly composed at the prompt level to synthesize multi-domain reasoning on constrained edge hardware (Apple Silicon UMA). We implemented a RoutedLoRALinear module with weight-cap and norm-ratio bounding mechanisms to prevent representation collapse.
+The Execution & Results:
+
+Single-domain queries degraded significantly (Δ 
+SIM
+​
+ =−0.011).
+
+Multi-domain oracle routing showed marginal gains (Δ 
+SIM
+​
+ =+0.017) but failed to cross the pre-registered +0.03 threshold.
+
+The norm-ratio clamp was entirely inactive because, at rank-16, the adapter activation magnitudes were infinitesimally small relative to the base model's residual stream.
+The Deduction: Weight-space arithmetic is fundamentally flawed for logical reasoning. Because LoRA updates exist in unaligned sub-manifolds, adding them together superimposes "intruder dimensions" that cause destructive geometric interference rather than capability synthesis.
+
+2. Phase II: Activation-Space Deliberation (Collaborative TCAR)
+The Hypothesis: If weight-blending causes interference, we must shift to Test-Time Scaling (TTS). By using the base model as a natural-language router to spawn independent, parallel expert branches, and then aggregating them with a Generative Refiner, we can simulate System 2 deliberation without parameter interference.
+The Execution & Results:
+
+Real Router TCAR: Semantic Sim 0.6797, Token F1 0.2682, Latency 18.86s. The zero-shot router was a massive bottleneck, achieving only 10% exact-match accuracy.
+
+Oracle TCAR: Semantic Sim 0.6939, Token F1 0.2921, Latency 23.11s.
+The Deduction: The architectural ceiling for multi-agent branching on a 1.5B model is high enough to match Mistral-7B, but the base model lacks the zero-shot capability to route properly, and the branching latency (23 seconds) destroys the edge-device advantage.
+
+3. Phase III: Router Evolution (SFT) and The DPO Collapse
+The Hypothesis: We can cure the 10% routing accuracy by training a dedicated Router LoRA via Supervised Fine-Tuning (SFT) on 5,000 synthetic traces, followed by Direct Preference Optimization (DPO) to penalize hallucinations.
+The Execution & Results:
+
+SFT Success: Exact-match accuracy skyrocketed to 85%. The downstream TCAR pipeline achieved an F1 of 0.2874, beating the Oracle F1 (0.2774).
+
+DPO Collapse: DPO caused catastrophic regression. Exact-match accuracy plummeted to 42%, and the latency tail exploded to 85 seconds (p95).
+The Deduction: We empirically encountered "Router Shift." Applying standard DPO to Mixture-of-Experts (MoE) routing distributions causes severe off-policy mismatch. Because experts change dynamically, importance-ratio signals become highly volatile, leading to bursty clipping and immediate training collapse.
+
+4. Phase IV: The Verifier Trap and DES Latency Wall
+The Hypothesis: To fix the massive latency of the Generative Refiner (9.26s), we replaced it with a Discriminative Verifier (Best-of-N) that simply scores the branches. To fix the F1 drop caused by the SFT router's greediness, we implemented Dynamic Expert Search (DES) via stochastic sampling to force diversity.
+The Execution & Results:
+
+Verifier + SFT: Latency dropped beautifully to 4.42s, but F1 cratered to 0.2459 because the SFT router proposed identical paths (lacking diversity).
+
+DES Stochastic Sampling: Latency exploded to 78.85s per query to achieve a 0.2776 F1.
+The Deduction: Test-Time Scaling via generative branching (like DES) is a data-center paradigm. On an Apple UMA machine, computing multiple full-dimensional forward passes per query linearly multiplies latency, rendering it completely unviable for edge deployment.
+
+5. Phase V: The Final Breakthrough Architecture (LoRI + CoMoL)
+The Hypothesis: We must return to parameter-space merging to keep latency at 4 seconds, but we must solve the geometric interference of Phase I and the coarse prompt-level routing. We combine two 2025/2026 frontier techniques: LoRI (for orthogonality) and CoMoL (for token-level dynamic latency).
+The Mechanism:
+
+LoRI (Low-Rank Interference Reduction): We extract our adapters, freeze the down-projection matrices (A) as random Gaussian projections, and aggressively sparsify the up-projections (B). This mathematically forces the domain experts into approximately orthogonal subspaces via the Johnson-Lindenstrauss lemma, eliminating cross-task interference.   
+
+CoMoL (Core Space Mixture of LoRA): Instead of multiplying high-dimensional matrices, we project the token's hidden state into a tiny r×r Core Space. The router assigns probabilities, and we dynamically blend the tiny r×r core matrices before doing the heavy expansion back to the residual stream.
+The Deduction: This architecture achieves token-level dynamic routing and strict domain isolation, but limits the computational overhead to the exact same FLOPs as a standard single LoRA pass. It is the ultimate synthesis of intelligence density and edge-device efficiency.   
+

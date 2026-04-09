@@ -1,0 +1,1638 @@
+[
+  {
+    "id": "router_03501",
+    "question": "Plan a robotic system to autonomously plant trees in drought-affected regions, optimizing for climate resilience.",
+    "thinking": [
+      "Robotics for implementation planning.",
+      "Climate science for environmental optimization."
+    ],
+    "experts": [
+      "ROBOTICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03502",
+    "question": "How might ancient Roman aqueducts have fared under modern climate extremes like prolonged droughts?",
+    "thinking": [
+      "Ancient history for aqueduct context.",
+      "Climate science for modern impact."
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03503",
+    "question": "Interpret this archaic English medical text: 'The humours be imbalanced, with black bile predominant,' for today's diagnostic terms.",
+    "thinking": [
+      "Archaic English for text decoding.",
+      "Medical diagnosis for modern interpretation."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03504",
+    "question": "Quantify ethical trade-offs in designing MLX kernels for philosophical decision paradoxes like the trolley problem.",
+    "thinking": [
+      "MLX kernels for computation.",
+      "Philosophy for ethical quantification."
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03505",
+    "question": "Interpret recent Arctic ice melt data to predict global sea level impacts over the next decade.",
+    "thinking": [
+      "Climate science for data interpretation."
+    ],
+    "experts": [
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03506",
+    "question": "Diagnose liability under maritime law for a ship's damage from an unprecedented climate-driven storm.",
+    "thinking": [
+      "Maritime law for legal diagnosis.",
+      "Climate science for event attribution."
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03507",
+    "question": "What edge cases arise in maritime law for salvage rights on ghost ships adrift indefinitely?",
+    "thinking": [
+      "Maritime law edge cases."
+    ],
+    "experts": [
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03508",
+    "question": "Should I restore a faded Renaissance fresco using modern pigments, or stick to historical methods?",
+    "thinking": [
+      "Renaissance art for decision support."
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03509",
+    "question": "Review a Sanskrit mantra app design: does it accurately convey behavioral incentives from ancient texts?",
+    "thinking": [
+      "Sanskrit linguistics for accuracy.",
+      "Behavioral economics for incentives."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03510",
+    "question": "Draft a stakeholder email explaining how ancient historical precedents inform modern legal contract disputes.",
+    "thinking": [
+      "Legal analysis and ancient history collaboration."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03511",
+    "question": "Interpret the philosophical implications of recent astrophysics findings on black hole information paradoxes.",
+    "thinking": [
+      "Astrophysics for science.",
+      "Philosophy for implications."
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03512",
+    "question": "Synthesize archaic English proverbs with modern philosophical dilemmas on free will.",
+    "thinking": [
+      "Archaic English and philosophy synthesis."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03513",
+    "question": "Plan implementation of a cryptography puzzle encoded in Shakespearean sonnets.",
+    "thinking": [
+      "Archaic English decoding.",
+      "Cryptography implementation."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03514",
+    "question": "Write Python logic to model philosophical sorites paradoxes quantitatively.",
+    "thinking": [
+      "Python for logic.",
+      "Philosophy for paradox modeling."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03515",
+    "question": "Calculate reaction yields for synthesizing organic compounds mimicking musical chord progressions.",
+    "thinking": [
+      "Organic synthesis calculations.",
+      "Music theory mappings."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03516",
+    "question": "Interpret a ship's log describing symptoms of scurvy under maritime quarantine rules.",
+    "thinking": [
+      "Medical diagnosis.",
+      "Maritime law interpretation."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03517",
+    "question": "Deeply analyze satellite data on permafrost thaw and its cascading ecosystem effects.",
+    "thinking": [
+      "Climate science deep interpretation."
+    ],
+    "experts": [
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03518",
+    "question": "Interpret mathematical patterns in Bach's fugues as fractal geometries.",
+    "thinking": [
+      "Math and music interpretation."
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03519",
+    "question": "Assess compliance risks of MLX kernels simulating climate models for regulatory approval.",
+    "thinking": [
+      "MLX for tech risks.",
+      "Climate science compliance."
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03520",
+    "question": "Review security design of a Renaissance-inspired cryptographic art installation.",
+    "thinking": [
+      "Art design.",
+      "Cryptography review."
+    ],
+    "experts": [
+      "RENAISSANCE_ART",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03521",
+    "question": "Plan implementation of blockchain-secured medical records with patient privacy protocols.",
+    "thinking": [
+      "Medical data handling.",
+      "Cryptography planning."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03522",
+    "question": "Plan a Python diagnostic tool for predicting disease outbreaks from epidemiological data.",
+    "thinking": [
+      "Medical diagnosis logic.",
+      "Python implementation."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "PYTHON_LOGIC"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03523",
+    "question": "Interpret Sanskrit terms in a LaTeX-formatted quantum physics paper.",
+    "thinking": [
+      "LaTeX formatting.",
+      "Sanskrit linguistics."
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03524",
+    "question": "Quantify patient adherence rates to treatments using behavioral economics models.",
+    "thinking": [
+      "Medical diagnosis data.",
+      "Behavioral econ quantification."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03525",
+    "question": "Edge cases in robotic crowd control under behavioral economic panic models.",
+    "thinking": [
+      "Robotics edges.",
+      "Behavioral economics models."
+    ],
+    "experts": [
+      "ROBOTICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03526",
+    "question": "Deep decision support: authenticate a disputed Leonardo da Vinci drawing.",
+    "thinking": [
+      "Renaissance art deep analysis."
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03527",
+    "question": "Diagnose failure in an organic synthesis yielding unexpected isomers.",
+    "thinking": [
+      "Organic synthesis diagnosis."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03528",
+    "question": "Diagnose philosophical misinterpretations in Upanishadic texts.",
+    "thinking": [
+      "Sanskrit linguistics.",
+      "Philosophy diagnosis."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03529",
+    "question": "Decide ethical use of cryptography in philosophical thought experiments.",
+    "thinking": [
+      "Cryptography decisions.",
+      "Philosophy ethics."
+    ],
+    "experts": [
+      "CRYPTOGRAPHY",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03530",
+    "question": "Communicate Python logic flaws to non-technical stakeholders clearly.",
+    "thinking": [
+      "Python logic communication."
+    ],
+    "experts": [
+      "PYTHON_LOGIC"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03531",
+    "question": "Diagnose legal vulnerabilities in a complex international contract.",
+    "thinking": [
+      "Legal analysis diagnosis."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03532",
+    "question": "Explain Python recursion limits to project managers simply.",
+    "thinking": [
+      "Python logic communication."
+    ],
+    "experts": [
+      "PYTHON_LOGIC"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03533",
+    "question": "Interpret organic reaction mechanisms through Aristotelian philosophy lenses.",
+    "thinking": [
+      "Organic synthesis.",
+      "Philosophy interpretation."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03534",
+    "question": "Diagnose bugs in Python code simulating maritime collision scenarios.",
+    "thinking": [
+      "Python logic.",
+      "Maritime law diagnosis."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03535",
+    "question": "Quantify asteroid impact probabilities using ancient Mayan calendar data.",
+    "thinking": [
+      "Astrophysics quantities.",
+      "Ancient history data."
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03536",
+    "question": "Deep review MLX kernel optimizations for molecular dynamics simulations.",
+    "thinking": [
+      "MLX kernels.",
+      "Organic synthesis review."
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03537",
+    "question": "Risks of Python errors in LaTeX-generated financial reports.",
+    "thinking": [
+      "Python logic risks.",
+      "LaTeX compliance."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03538",
+    "question": "Synthesize quantum molecular models with behavioral economic predictions.",
+    "thinking": [
+      "Quantum chemistry.",
+      "Behavioral economics synthesis."
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03539",
+    "question": "Interpret legal clauses citing Sanskrit philosophical concepts.",
+    "thinking": [
+      "Legal analysis.",
+      "Sanskrit linguistics."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03540",
+    "question": "Edge cases for robotic swarms in behavioral economic auction simulations.",
+    "thinking": [
+      "Robotics edges.",
+      "Behavioral economics."
+    ],
+    "experts": [
+      "ROBOTICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03541",
+    "question": "Diagnose MLX kernel failures in Sanskrit text pattern recognition.",
+    "thinking": [
+      "MLX kernels.",
+      "Sanskrit linguistics diagnosis."
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "SANSKRIT_LINGUISTICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03542",
+    "question": "Deep diagnosis of nudge failures in healthcare policy adoption.",
+    "thinking": [
+      "Legal analysis.",
+      "Behavioral economics."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03543",
+    "question": "Edge cases in Python implementations of mathematical game theory proofs.",
+    "thinking": [
+      "Python logic edges.",
+      "Mathematics."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03544",
+    "question": "Decide between quantum catalysts for climate mitigation strategies.",
+    "thinking": [
+      "Quantum chemistry.",
+      "Climate science support."
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03545",
+    "question": "Quantify security of a simple Caesar cipher variant.",
+    "thinking": [
+      "Cryptography quantification."
+    ],
+    "experts": [
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03546",
+    "question": "Communicate cosmic radiation health risks to astronauts' families.",
+    "thinking": [
+      "Medical diagnosis.",
+      "Astrophysics communication."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03547",
+    "question": "Plan deep restoration project for Renaissance paintings using robotic precision.",
+    "thinking": [
+      "Renaissance art planning.",
+      "Philosophy integration."
+    ],
+    "experts": [
+      "RENAISSANCE_ART",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03548",
+    "question": "Interpret medical consent forms under evolving legal standards.",
+    "thinking": [
+      "Legal and medical interpretation."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03549",
+    "question": "Deep compliance risks in licensing Beethoven scores for legal apps.",
+    "thinking": [
+      "Legal analysis.",
+      "Music theory compliance."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03550",
+    "question": "Deep edge cases in MLX kernels for edge device deployments.",
+    "thinking": [
+      "MLX kernels edges."
+    ],
+    "experts": [
+      "MLX_KERNELS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "deep",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03551",
+    "question": "Synthesize Python algorithms with harmonic progression theories.",
+    "thinking": [
+      "Python logic.",
+      "Music theory synthesis."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03552",
+    "question": "Synthesize legal precedents with organic reaction pathway analogies.",
+    "thinking": [
+      "Legal shallow.",
+      "Organic synthesis."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03553",
+    "question": "Medium compliance issues in quantum simulations for drug patents.",
+    "thinking": [
+      "Quantum chemistry compliance."
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03554",
+    "question": "Quantify philosophical arguments using maritime salvage probability models.",
+    "thinking": [
+      "Maritime law.",
+      "Philosophy quantification."
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03555",
+    "question": "Quantify monsoon predictions from Vedic Sanskrit climate texts.",
+    "thinking": [
+      "Sanskrit linguistics.",
+      "Climate science quantities."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03556",
+    "question": "Deep synthesis of Sanskrit etymologies with quantum bonding theories.",
+    "thinking": [
+      "Sanskrit and quantum cross-synthesis."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03557",
+    "question": "Shallow stakeholder update on ancient artifact repatriation laws.",
+    "thinking": [
+      "Legal and history communication."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03558",
+    "question": "Deep decision on Sanskrit maritime treaty interpretations.",
+    "thinking": [
+      "Sanskrit linguistics.",
+      "Maritime law support."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03559",
+    "question": "Plan shallow astrophysics data encryption pipeline with cryptography.",
+    "thinking": [
+      "Astrophysics planning.",
+      "Cryptography implementation."
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03560",
+    "question": "Quantify legal precedents through philosophical utility calculations.",
+    "thinking": [
+      "Legal analysis.",
+      "Philosophy quantities."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03561",
+    "question": "Plan medium Python tool for automated medical triage logic.",
+    "thinking": [
+      "Medical diagnosis.",
+      "Python planning."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "PYTHON_LOGIC"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03562",
+    "question": "Deep design review of AI-assisted surgical protocols.",
+    "thinking": [
+      "Medical diagnosis review."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03563",
+    "question": "Medium design review for swarm robotics in warehouse automation.",
+    "thinking": [
+      "Robotics design."
+    ],
+    "experts": [
+      "ROBOTICS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03564",
+    "question": "Deep interpretation of malpractice laws in telemedicine cases.",
+    "thinking": [
+      "Legal and medical deep interp."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03565",
+    "question": "Deep diagnosis of stalled organic multi-step synthesis pathway.",
+    "thinking": [
+      "Organic synthesis diagnosis."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03566",
+    "question": "Deep synthesis of patent law with synthetic biology techniques.",
+    "thinking": [
+      "Legal analysis.",
+      "Organic synthesis."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03567",
+    "question": "Deep decision support for drone delivery under product liability laws.",
+    "thinking": [
+      "Legal and robotics."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03568",
+    "question": "Deep stakeholder report on Roman law influences in modern contracts.",
+    "thinking": [
+      "Legal deep communication.",
+      "Ancient history."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03569",
+    "question": "Shallow decision: overlap between admiralty and coastal property law.",
+    "thinking": [
+      "Maritime and legal basics."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03570",
+    "question": "Medium edge cases in copyright for sea shanty remixes.",
+    "thinking": [
+      "Maritime law.",
+      "Music theory edges."
+    ],
+    "experts": [
+      "MARITIME_LAW",
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03571",
+    "question": "Medium design review of MLX-accelerated drug discovery pipelines.",
+    "thinking": [
+      "MLX kernels.",
+      "Organic synthesis."
+    ],
+    "experts": [
+      "MLX_KERNELS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03572",
+    "question": "Medium interpretation of reaction byproducts via Platonic forms.",
+    "thinking": [
+      "Organic synthesis.",
+      "Philosophy interp."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "medium",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03573",
+    "question": "Shallow diagnosis of impurity in aspirin synthesis.",
+    "thinking": [
+      "Organic synthesis basics."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03574",
+    "question": "Shallow plan for Python nudge experiments in user interfaces.",
+    "thinking": [
+      "Python implementation.",
+      "Behavioral economics."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03575",
+    "question": "Deep cross-domain synthesis of Stoic ethics with quantum indeterminacy.",
+    "thinking": [
+      "Philosophy synthesis."
+    ],
+    "experts": [
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03576",
+    "question": "Shallow edge cases in parsing Middle English with Python NLP.",
+    "thinking": [
+      "Python logic.",
+      "Archaic English."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03577",
+    "question": "Shallow quantification of golden ratio in Raphael's paintings.",
+    "thinking": [
+      "Mathematics.",
+      "Renaissance art."
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03578",
+    "question": "Medium risks of asteroid mining under behavioral economic incentives.",
+    "thinking": [
+      "Astrophysics.",
+      "Behavioral economics compliance."
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03579",
+    "question": "Shallow synthesis of tort law with enzyme kinetics analogies.",
+    "thinking": [
+      "Legal analysis.",
+      "Organic synthesis."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03580",
+    "question": "Shallow plan for climate sonification using musical scales.",
+    "thinking": [
+      "Music theory.",
+      "Climate science."
+    ],
+    "experts": [
+      "MUSIC_THEORY",
+      "CLIMATE_SCIENCE"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03581",
+    "question": "Medium quantification of dissonant chord complexities.",
+    "thinking": [
+      "Music theory quantities."
+    ],
+    "experts": [
+      "MUSIC_THEORY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03582",
+    "question": "Shallow communication of diagnosis via formatted medical reports.",
+    "thinking": [
+      "Medical and LaTeX."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03583",
+    "question": "Shallow synthesis of Kantian imperatives across disciplines.",
+    "thinking": [
+      "Philosophy cross-domain."
+    ],
+    "experts": [
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03584",
+    "question": "Medium diagnosis of stereoisomer separation issues.",
+    "thinking": [
+      "Organic synthesis diagnosis."
+    ],
+    "experts": [
+      "ORGANIC_SYNTHESIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03585",
+    "question": "Shallow implementation plan for A/B nudge testing framework.",
+    "thinking": [
+      "Behavioral economics planning."
+    ],
+    "experts": [
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03586",
+    "question": "Medium compliance review of ancient Sanskrit trade edicts.",
+    "thinking": [
+      "Sanskrit linguistics.",
+      "Ancient history."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03587",
+    "question": "Shallow quantification of syllogism validity in code.",
+    "thinking": [
+      "Python logic.",
+      "Philosophy."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03588",
+    "question": "Shallow design review for humanoid robot ethics module.",
+    "thinking": [
+      "Robotics design."
+    ],
+    "experts": [
+      "ROBOTICS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03589",
+    "question": "Medium cross-synthesis using LaTeX for interdisciplinary papers.",
+    "thinking": [
+      "LaTeX formatting synthesis."
+    ],
+    "experts": [
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03590",
+    "question": "Deep plan for encrypting astrophysical simulation data.",
+    "thinking": [
+      "Astrophysics.",
+      "Cryptography planning."
+    ],
+    "experts": [
+      "ASTROPHYSICS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03591",
+    "question": "Shallow risks in Python-LaTeX integration for theses.",
+    "thinking": [
+      "Python logic.",
+      "LaTeX risks."
+    ],
+    "experts": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03592",
+    "question": "Shallow compliance in translating Chaucer for modern contracts.",
+    "thinking": [
+      "Archaic English compliance."
+    ],
+    "experts": [
+      "ARCHAIC_ENGLISH"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03593",
+    "question": "Shallow decision support for quantum key ethics.",
+    "thinking": [
+      "Cryptography.",
+      "Philosophy support."
+    ],
+    "experts": [
+      "CRYPTOGRAPHY",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03594",
+    "question": "Medium decision: robotic replication of Michelangelo sculptures.",
+    "thinking": [
+      "Renaissance art.",
+      "Robotics decisions."
+    ],
+    "experts": [
+      "RENAISSANCE_ART",
+      "ROBOTICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03595",
+    "question": "Medium design review for diagnostic wearable algorithms.",
+    "thinking": [
+      "Medical diagnosis design."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03596",
+    "question": "Shallow decision support for Botticelli provenance disputes.",
+    "thinking": [
+      "Renaissance art decisions."
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "hard",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03597",
+    "question": "Shallow decision between quantum vs classical models for star formation.",
+    "thinking": [
+      "Quantum chemistry.",
+      "Astrophysics support."
+    ],
+    "experts": [
+      "QUANTUM_CHEMISTRY",
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03598",
+    "question": "Deep diagnosis of Vedantic concept misapplications.",
+    "thinking": [
+      "Sanskrit linguistics.",
+      "Philosophy diagnosis."
+    ],
+    "experts": [
+      "SANSKRIT_LINGUISTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "deep",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03599",
+    "question": "Medium design review for telemedicine protocols.",
+    "thinking": [
+      "Medical diagnosis design."
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_03600",
+    "question": "Medium quantification of quantum effects in legal probability models.",
+    "thinking": [
+      "Legal analysis.",
+      "Quantum chemistry."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "medium",
+    "difficulty": "medium",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

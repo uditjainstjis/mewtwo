@@ -1,0 +1,76 @@
+{
+  "started_utc": "2026-04-07T23:07:56.679852+00:00",
+  "finished_utc": "2026-04-08T00:05:57.648460+00:00",
+  "track_b_data": "data/multidomain_eval_external.json",
+  "steps": [
+    {
+      "step": "bootstrap_track_b",
+      "mode": "clone_v2",
+      "n": 40
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/uditjain/Desktop/adapter/backend/mistral_eval_md.py",
+        "--num-predict",
+        "180",
+        "--data",
+        "data/multidomain_eval_v2.json",
+        "--output",
+        "results/mistral_track_a.json"
+      ],
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/uditjain/Desktop/adapter/backend/mistral_eval_md.py",
+        "--num-predict",
+        "180",
+        "--data",
+        "data/multidomain_eval_external.json",
+        "--output",
+        "results/mistral_track_b.json"
+      ],
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/uditjain/Desktop/adapter/src/eval/run_eval_injection_hypotheses.py",
+        "--real",
+        "--extra",
+        "--more",
+        "--data",
+        "data/multidomain_eval_v2.json",
+        "--output",
+        "results/injection_track_a.jsonl"
+      ],
+      "returncode": 0,
+      "ok": true
+    },
+    {
+      "argv": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "/Users/uditjain/Desktop/adapter/src/eval/run_eval_injection_hypotheses.py",
+        "--real",
+        "--extra",
+        "--more",
+        "--data",
+        "data/multidomain_eval_external.json",
+        "--output",
+        "results/injection_track_b.jsonl"
+      ],
+      "returncode": 0,
+      "ok": true
+    }
+  ],
+  "artifacts": {
+    "mistral_a": "results/mistral_track_a.json",
+    "mistral_b": "results/mistral_track_b.json",
+    "injection_a": "results/injection_track_a.jsonl",
+    "injection_b": "results/injection_track_b.jsonl"
+  }
+}

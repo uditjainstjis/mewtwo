@@ -1,0 +1,41 @@
+{
+  "items": 100,
+  "sections": {
+    "Diagnosis": 10,
+    "Decision Support": 10,
+    "Design Review": 10,
+    "Implementation Planning": 10,
+    "Risk And Compliance": 10,
+    "Quantitative Reasoning": 10,
+    "Cross Domain Synthesis": 10,
+    "Edge Cases": 10,
+    "Interpretation": 10,
+    "Stakeholder Communication": 10
+  },
+  "domain_counts": {
+    "ANCIENT_HISTORY": 10,
+    "ARCHAIC_ENGLISH": 10,
+    "ASTROPHYSICS": 12,
+    "BEHAVIORAL_ECONOMICS": 6,
+    "CLIMATE_SCIENCE": 12,
+    "CRYPTOGRAPHY": 10,
+    "LATEX_FORMATTING": 11,
+    "LEGAL_ANALYSIS": 12,
+    "MARITIME_LAW": 8,
+    "MATHEMATICS": 13,
+    "MEDICAL_DIAGNOSIS": 11,
+    "MLX_KERNELS": 10,
+    "MUSIC_THEORY": 8,
+    "ORGANIC_SYNTHESIS": 8,
+    "PHILOSOPHY": 12,
+    "PYTHON_LOGIC": 11,
+    "QUANTUM_CHEMISTRY": 10,
+    "RENAISSANCE_ART": 8,
+    "ROBOTICS": 10,
+    "SANSKRIT_LINGUISTICS": 8
+  },
+  "domain_min": 6,
+  "domain_max": 13,
+  "pair_unique": 52,
+  "pair_max_repeat": 2
+}

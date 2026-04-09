@@ -1,0 +1,35 @@
+[
+  {
+    "id": "router_00003",
+    "question": "What steps should a small business owner take to implement a basic employee non-disclosure agreement policy?",
+    "thinking": [
+      "NDA implementation is purely a legal planning task.",
+      "No other domain needed."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "A contractor claims he worked 47.5 hours at $32/hour but the client says the agreed cap was 40 hours \u2014 who is legally owed what amount?",
+    "thinking": [
+      "Wage dispute requires legal contract analysis.",
+      "Hour and pay calculations need basic math."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

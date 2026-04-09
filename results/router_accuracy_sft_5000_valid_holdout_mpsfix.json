@@ -1,0 +1,1735 @@
+{
+  "summary": {
+    "n": 100,
+    "exact_match_rate": 0.85,
+    "partial_overlap_rate": 1.0,
+    "mean_overlap_f1": 0.945,
+    "mean_latency_s": 1.079
+  },
+  "rows": [
+    {
+      "id": "router_01384",
+      "question": "What compliance checks ensure that quantum simulation outputs adhere to energy conservation rules?",
+      "gold_experts": [
+        "QUANTUM_CHEMISTRY"
+      ],
+      "pred_experts": [
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Quantum chemistry for simulation accuracy\n- Energy law for conservation",
+      "router_raw_text": "<thinking>\n- Quantum chemistry for simulation accuracy\n- Energy law for conservation\n</thinking>\n<experts>[QUANTUM_CHEMISTRY],[ENERGY_THEORY]</experts><|im_end|>",
+      "latency_s": 2.9398
+    },
+    {
+      "id": "router_01882",
+      "question": "Edge case: copyright on sea shanty melodies under maritime treaties.",
+      "gold_experts": [
+        "MARITIME_LAW",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Law shallow edges.\n- Music theory hard.",
+      "router_raw_text": "<thinking>\n- Law shallow edges.\n- Music theory hard.\n</thinking>\n<experts>[MARITIME_LAW],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 1.2438
+    },
+    {
+      "id": "router_04902",
+      "question": "How should I typeset Kant's categorical imperative in LaTeX for a philosophy journal submission, ensuring the symbolic notation and prose formatting meet publication standards?",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "PHILOSOPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Needs precise LaTeX syntax for philosophical text\n- Requires understanding of Kantian formalism",
+      "router_raw_text": "<thinking>\n- Needs precise LaTeX syntax for philosophical text\n- Requires understanding of Kantian formalism\n</thinking>\n<experts>[LATEX_FORMATTING],[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 2.2123
+    },
+    {
+      "id": "router_01525",
+      "question": "Diagnose Python bug in maritime law database query.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "MARITIME_LAW"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium code-law diag.\n- Easy fix.",
+      "router_raw_text": "<thinking>\n- Medium code-law diag.\n- Easy fix.\n</thinking>\n<experts>[PYTHON_LOGIC],[MARITIME_LAW]</experts><|im_end|>",
+      "latency_s": 1.4919
+    },
+    {
+      "id": "router_04655",
+      "question": "Deep review of SLAM algorithm for cluttered warehouse navigation.",
+      "gold_experts": [
+        "ROBOTICS"
+      ],
+      "pred_experts": [
+        "ROBOTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep robotics design critique.\n- Medium complexity.",
+      "router_raw_text": "<thinking>\n- Deep robotics design critique.\n- Medium complexity.\n</thinking>\n<experts>[ROBOTICS]</experts><|im_end|>",
+      "latency_s": 1.1965
+    },
+    {
+      "id": "router_00961",
+      "question": "Shallow quant: Mona Lisa smile asymmetry in diagnostics.",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Art shallow.\n- Medium hard.",
+      "router_raw_text": "<thinking>\n- Art shallow.\n- Medium hard.\n</thinking>\n<experts>[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 1.1607
+    },
+    {
+      "id": "router_00432",
+      "question": "Quantify climate model accuracy using basic mathematical error metrics.",
+      "gold_experts": [
+        "MATHEMATICS",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "MATHEMATICS",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Math for quant.\n- Climate data.",
+      "router_raw_text": "<thinking>\n- Math for quant.\n- Climate data.\n</thinking>\n<experts>[MATHEMATICS],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 1.2861
+    },
+    {
+      "id": "router_00377",
+      "question": "How can robotic actuators be designed to handle measurement sensitivity at quantum scales?",
+      "gold_experts": [
+        "QUANTUM_CHEMISTRY",
+        "ROBOTICS"
+      ],
+      "pred_experts": [
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Applies mechanical design principles\n- Requires quantum sensing understanding",
+      "router_raw_text": "<thinking>\n- Applies mechanical design principles\n- Requires quantum sensing understanding\n</thinking>\n<experts>[MECHANICAL_ANALYSIS],[QUANTUM_CHEMISTRY]</experts><|im_end|>",
+      "latency_s": 1.5643
+    },
+    {
+      "id": "router_00298",
+      "question": "Shallow astrophysics plan for solar flare monitoring.",
+      "gold_experts": [
+        "ASTROPHYSICS"
+      ],
+      "pred_experts": [
+        "ASTROPHYSICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Shallow astro planning.\n- Medium details.",
+      "router_raw_text": "<thinking>\n- Shallow astro planning.\n- Medium details.\n</thinking>\n<experts>[ASTROPHYSICS]</experts><|im_end|>",
+      "latency_s": 1.1884
+    },
+    {
+      "id": "router_00717",
+      "question": "Diagnose legal issues in climate science litigation.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Legal-climate diagnosis.\n- Medium deep.",
+      "router_raw_text": "<thinking>\n- Legal-climate diagnosis.\n- Medium deep.\n</thinking>\n<experts>[LEGAL_ANALYSIS],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 1.3453
+    },
+    {
+      "id": "router_03988",
+      "question": "Quantify diagnostic utility of nudge trials in epidemics.",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Behavioral econ quant.",
+      "router_raw_text": "<thinking>\n- Behavioral econ quant.\n</thinking>\n<experts>[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 1.0982
+    },
+    {
+      "id": "router_01335",
+      "question": "Deep communication: Sanskrit etymology of karma for executives.",
+      "gold_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Linguistics deep comm.",
+      "router_raw_text": "<thinking>\n- Linguistics deep comm.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS]</experts><|im_end|>",
+      "latency_s": 1.1249
+    },
+    {
+      "id": "router_01174",
+      "question": "Medium synthesize LaTeX quantum reports.",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Easy formatting cross-domain.",
+      "router_raw_text": "<thinking>\n- Easy formatting cross-domain.\n</thinking>\n<experts>[LATEX_FORMATTING],[QUANTUM_CHEMISTRY]</experts><|im_end|>",
+      "latency_s": 1.2933
+    },
+    {
+      "id": "router_01860",
+      "question": "Draft email explaining Python loop bug to non-tech stakeholders clearly.",
+      "gold_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Python logic communication.",
+      "router_raw_text": "<thinking>\n- Python logic communication.\n</thinking>\n<experts>[PYTHON_LOGIC]</experts><|im_end|>",
+      "latency_s": 0.8522
+    },
+    {
+      "id": "router_04176",
+      "question": "Interpret archaic English medical manuscript describing symptom patterns for diagnosis of historical disease outbreaks.",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "ARCHAIC_ENGLISH"
+      ],
+      "pred_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "ARCHAIC_ENGLISH"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medical diagnosis interpretation requires archaic English language expertise.\n- Historical context analysis involves understanding archaic medical terminology.",
+      "router_raw_text": "<thinking>\n- Medical diagnosis interpretation requires archaic English language expertise.\n- Historical context analysis involves understanding archaic medical terminology.\n</thinking>\n<experts>[MEDICAL_DIAGNOSIS],[ARCHAIC_ENGLISH]</experts><|im_end|>",
+      "latency_s": 1.8416
+    },
+    {
+      "id": "router_04183",
+      "question": "Synthesize across Sanskrit linguistic patterns and quantum chemistry molecular symmetry classifications.",
+      "gold_experts": [
+        "SANSKRIT_LINGUISTICS",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep cross-domain linguistics synthesis.\n- Hard interdisciplinary analysis.",
+      "router_raw_text": "<thinking>\n- Deep cross-domain linguistics synthesis.\n- Hard interdisciplinary analysis.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS],[QUANTUM_CHEMISTRY]</experts><|im_end|>",
+      "latency_s": 1.6655
+    },
+    {
+      "id": "router_01251",
+      "question": "Review medium-difficulty diagnostic protocol design.",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS"
+      ],
+      "pred_experts": [
+        "MEDICAL_DIAGNOSIS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medical diag review.",
+      "router_raw_text": "<thinking>\n- Medical diag review.\n</thinking>\n<experts>[MEDICAL_DIAGNOSIS]</experts><|im_end|>",
+      "latency_s": 0.9894
+    },
+    {
+      "id": "router_03162",
+      "question": "Why does a failed Grignard reaction suggest moisture contamination rather than reagent instability in aromatic alcohol synthesis?",
+      "gold_experts": [
+        "ORGANIC_SYNTHESIS"
+      ],
+      "pred_experts": [
+        "ORGANIC_SYNTHESIS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires understanding of organic reaction mechanisms\n- Needs molecular structure interpretation",
+      "router_raw_text": "<thinking>\n- Requires understanding of organic reaction mechanisms\n- Needs molecular structure interpretation\n</thinking>\n<experts>[ORGANIC_SYNTHESIS]</experts><|im_end|>",
+      "latency_s": 1.308
+    },
+    {
+      "id": "router_01779",
+      "question": "Stakeholder report: quantum effects in medical molecule synthesis.",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "pred_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medical chemistry deep.\n- Easy stakeholder.",
+      "router_raw_text": "<thinking>\n- Medical chemistry deep.\n- Easy stakeholder.\n</thinking>\n<experts>[MEDICAL_DIAGNOSIS],[QUANTUM_CHEMISTRY]</experts><|im_end|>",
+      "latency_s": 1.3411
+    },
+    {
+      "id": "router_04857",
+      "question": "How might celestial alignment theories from astrophysics influence Renaissance artists\u2019 depiction of divine light in their works?",
+      "gold_experts": [
+        "ASTROPHYSICS",
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "ASTROPHYSICS",
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Links astro imagery with art interpretation\n- Requires cross-domain knowledge",
+      "router_raw_text": "<thinking>\n- Links astro imagery with art interpretation\n- Requires cross-domain knowledge\n</thinking>\n<experts>[ASTROPHYSICS],[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 1.5847
+    },
+    {
+      "id": "router_02230",
+      "question": "Edge case: archaic code in Python parser.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "ARCHAIC_ENGLISH"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "ARCHAIC_ENGLISH"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium lang-com edge.\n- Easy syntax.",
+      "router_raw_text": "<thinking>\n- Medium lang-com edge.\n- Easy syntax.\n</thinking>\n<experts>[PYTHON_LOGIC],[ARCHAIC_ENGLISH]</experts><|im_end|>",
+      "latency_s": 1.2428
+    },
+    {
+      "id": "router_04889",
+      "question": "What flaws commonly occur in diagnostic equipment designs that interpret skin lesion imaging results?",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS"
+      ],
+      "pred_experts": [
+        "MEDICAL_DIAGNOSIS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Identify design errors\n- Apply medical diagnosis logic",
+      "router_raw_text": "<thinking>\n- Identify design errors\n- Apply medical diagnosis logic\n</thinking>\n<experts>[MEDICAL_DIAGNOSIS]</experts><|im_end|>",
+      "latency_s": 1.1383
+    },
+    {
+      "id": "router_00166",
+      "question": "How does maritime law address liability when autonomous ships collide without direct human control?",
+      "gold_experts": [
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Applies legal framework for autonomous systems\n- Requires deep understanding of maritime liability rules",
+      "router_raw_text": "<thinking>\n- Applies legal framework for autonomous systems\n- Requires deep understanding of maritime liability rules\n</thinking>\n<experts>[MARITIME_LAW]</experts><|im_end|>",
+      "latency_s": 1.3354
+    },
+    {
+      "id": "router_02981",
+      "question": "Medium easy quantitative climate math models.",
+      "gold_experts": [
+        "MATHEMATICS",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "MATHEMATICS",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium easy quant.\n- Climate math.",
+      "router_raw_text": "<thinking>\n- Medium easy quant.\n- Climate math.\n</thinking>\n<experts>[MATHEMATICS],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 1.1978
+    },
+    {
+      "id": "router_04532",
+      "question": "Deep risks: Nash equilibria in Shakespearean contract disputes.",
+      "gold_experts": [
+        "MATHEMATICS",
+        "ARCHAIC_ENGLISH"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS",
+        "ARCHAIC_ENGLISH"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.5,
+      "router_thinking": "- Deep hard compliance deep.\n- Hard legal analysis.",
+      "router_raw_text": "<thinking>\n- Deep hard compliance deep.\n- Hard legal analysis.\n</thinking>\n<experts>[LEGAL_ANALYSIS],[ARCHAIC_ENGLISH]</experts><|im_end|>",
+      "latency_s": 1.2679
+    },
+    {
+      "id": "router_01089",
+      "question": "Shallow quantitative maritime law ancient trade volumes.",
+      "gold_experts": [
+        "MARITIME_LAW",
+        "ANCIENT_HISTORY"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW",
+        "ANCIENT_HISTORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Law shallow.\n- History quant.",
+      "router_raw_text": "<thinking>\n- Law shallow.\n- History quant.\n</thinking>\n<experts>[MARITIME_LAW],[ANCIENT_HISTORY]</experts><|im_end|>",
+      "latency_s": 1.1299
+    },
+    {
+      "id": "router_04545",
+      "question": "Easy medium: Sanskrit art provenance compliance under Hague.",
+      "gold_experts": [
+        "SANSKRIT_LINGUISTICS",
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS",
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Linguistics + art risks.\n- Medium easy.",
+      "router_raw_text": "<thinking>\n- Linguistics + art risks.\n- Medium easy.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS],[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 1.4403
+    },
+    {
+      "id": "router_02721",
+      "question": "How can lattice-based cryptography be quantitatively analyzed for computational hardness under realistic adversarial models?",
+      "gold_experts": [
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Applies cryptographic security metrics\n- Requires quantitative reasoning in crypto theory",
+      "router_raw_text": "<thinking>\n- Applies cryptographic security metrics\n- Requires quantitative reasoning in crypto theory\n</thinking>\n<experts>[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 1.1779
+    },
+    {
+      "id": "router_00810",
+      "question": "Could you review the mechanical design of a bipedal robot intended for uneven terrain adaptability?",
+      "gold_experts": [
+        "ROBOTICS"
+      ],
+      "pred_experts": [
+        "ROBOTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Focuses on robotics engineering review.\n- Needs deep understanding of robotic design principles.",
+      "router_raw_text": "<thinking>\n- Focuses on robotics engineering review.\n- Needs deep understanding of robotic design principles.\n</thinking>\n<experts>[ROBOTICS]</experts><|im_end|>",
+      "latency_s": 1.264
+    },
+    {
+      "id": "router_00834",
+      "question": "How can Python exception messages mimic archaic English phrasing for a themed text adventure game?",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "ARCHAIC_ENGLISH"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "ARCHAIC_ENGLISH"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Combines code logic with linguistic style adaptation.\n- Requires understanding of both languages.",
+      "router_raw_text": "<thinking>\n- Combines code logic with linguistic style adaptation.\n- Requires understanding of both languages.\n</thinking>\n<experts>[PYTHON_LOGIC],[ARCHAIC_ENGLISH]</experts><|im_end|>",
+      "latency_s": 1.5446
+    },
+    {
+      "id": "router_01663",
+      "question": "Shallow design: Astro maritime platforms.",
+      "gold_experts": [
+        "ASTROPHYSICS",
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "ASTROPHYSICS",
+        "MARITIME_LAW"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Shallow astro-law\n- Easy rules",
+      "router_raw_text": "<thinking>\n- Shallow astro-law\n- Easy rules\n</thinking>\n<experts>[ASTROPHYSICS],[MARITIME_LAW]</experts><|im_end|>",
+      "latency_s": 1.3018
+    },
+    {
+      "id": "router_04517",
+      "question": "Solve the 3x3 Rubik's cube parity error mathematically.",
+      "gold_experts": [
+        "MATHEMATICS"
+      ],
+      "pred_experts": [
+        "MATHEMATICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep math problem.\n- Easy solution.",
+      "router_raw_text": "<thinking>\n- Deep math problem.\n- Easy solution.\n</thinking>\n<experts>[MATHEMATICS]</experts><|im_end|>",
+      "latency_s": 1.0109
+    },
+    {
+      "id": "router_02334",
+      "question": "Synthesize ancient history influences on modern music theory.",
+      "gold_experts": [
+        "ANCIENT_HISTORY",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "ANCIENT_HISTORY",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- History-music synthesis.\n- Deep medium cross-domain.",
+      "router_raw_text": "<thinking>\n- History-music synthesis.\n- Deep medium cross-domain.\n</thinking>\n<experts>[ANCIENT_HISTORY],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 1.2298
+    },
+    {
+      "id": "router_01447",
+      "question": "Medium decision support for Renaissance art authentication.",
+      "gold_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Art medium hard.",
+      "router_raw_text": "<thinking>\n- Art medium hard.\n</thinking>\n<experts>[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 0.8942
+    },
+    {
+      "id": "router_03884",
+      "question": "Shallow planning: Python behavioral nudge simulations.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Code-econ shallow.\n- Medium planning.",
+      "router_raw_text": "<thinking>\n- Code-econ shallow.\n- Medium planning.\n</thinking>\n<experts>[PYTHON_LOGIC],[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 1.3105
+    },
+    {
+      "id": "router_03208",
+      "question": "Which factor most influenced the fall of the Roman Republic according to leading historical sources?",
+      "gold_experts": [
+        "ANCIENT_HISTORY"
+      ],
+      "pred_experts": [
+        "ANCIENT_HISTORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires understanding of ancient history data\n- Needs deep interpretation of historical facts",
+      "router_raw_text": "<thinking>\n- Requires understanding of ancient history data\n- Needs deep interpretation of historical facts\n</thinking>\n<experts>[ANCIENT_HISTORY]</experts><|im_end|>",
+      "latency_s": 1.2399
+    },
+    {
+      "id": "router_00999",
+      "question": "Medium interpret MLX kernel as counterpoint.",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium tech interp.\n- Easy examples.",
+      "router_raw_text": "<thinking>\n- Medium tech interp.\n- Easy examples.\n</thinking>\n<experts>[MLX_KERNELS],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 1.1622
+    },
+    {
+      "id": "router_00372",
+      "question": "What mathematical model best explains diminishing marginal utility in consumption?",
+      "gold_experts": [
+        "MATHEMATICS"
+      ],
+      "pred_experts": [
+        "MATHEMATICS",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Requires understanding of economic concepts\n- Needs quantitative modeling skills",
+      "router_raw_text": "<thinking>\n- Requires understanding of economic concepts\n- Needs quantitative modeling skills\n</thinking>\n<experts>[MATHEMATICS],[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 1.4526
+    },
+    {
+      "id": "router_00016",
+      "question": "How many semitone steps are there in two octaves, and why does that number matter in scales?",
+      "gold_experts": [
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Quantify musical intervals\n- Explain scale structure",
+      "router_raw_text": "<thinking>\n- Quantify musical intervals\n- Explain scale structure\n</thinking>\n<experts>[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 1.0915
+    },
+    {
+      "id": "router_01079",
+      "question": "Medium edge cases in Python robotics control logic.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "ROBOTICS"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "ROBOTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium code edges.\n- Easy scenarios.",
+      "router_raw_text": "<thinking>\n- Medium code edges.\n- Easy scenarios.\n</thinking>\n<experts>[PYTHON_LOGIC],[ROBOTICS]</experts><|im_end|>",
+      "latency_s": 1.0817
+    },
+    {
+      "id": "router_02472",
+      "question": "How can MLX kernels generate LaTeX-ready output plots for inclusion in research manuscripts?",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "LATEX_FORMATTING"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "LATEX_FORMATTING"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires kernel design logic\n- Applies formatting requirements",
+      "router_raw_text": "<thinking>\n- Requires kernel design logic\n- Applies formatting requirements\n</thinking>\n<experts>[MLX_KERNELS],[LATEX_FORMATTING]</experts><|im_end|>",
+      "latency_s": 1.2724
+    },
+    {
+      "id": "router_02773",
+      "question": "How should a blockchain-based voting system comply with international data protection laws?",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS",
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Applies legal framework for digital voting systems\n- Requires understanding of cryptographic security protocols",
+      "router_raw_text": "<thinking>\n- Applies legal framework for digital voting systems\n- Requires understanding of cryptographic security protocols\n</thinking>\n<experts>[LEGAL_ANALYSIS],[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 1.3913
+    },
+    {
+      "id": "router_04387",
+      "question": "Can vibrational energy states of molecules model harmonic relationship patterns in modal music scales?",
+      "gold_experts": [
+        "QUANTUM_CHEMISTRY",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "QUANTUM_CHEMISTRY",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Relate molecular vibrations to musical intervals\n- Apply quantum chemistry theory to sound structure",
+      "router_raw_text": "<thinking>\n- Relate molecular vibrations to musical intervals\n- Apply quantum chemistry theory to sound structure\n</thinking>\n<experts>[QUANTUM_CHEMISTRY],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 1.5933
+    },
+    {
+      "id": "router_03903",
+      "question": "Compute the key length needed for AES to resist brute-force attacks over 100 years.",
+      "gold_experts": [
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Math for crypto resistance.\n- Deep hard computation.",
+      "router_raw_text": "<thinking>\n- Math for crypto resistance.\n- Deep hard computation.\n</thinking>\n<experts>[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 1.0435
+    },
+    {
+      "id": "router_01348",
+      "question": "Shallow planning: Python scripts for econ simulations.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Shallow code-econ planning.\n- Medium complexity.",
+      "router_raw_text": "<thinking>\n- Shallow code-econ planning.\n- Medium complexity.\n</thinking>\n<experts>[PYTHON_LOGIC],[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 1.4517
+    },
+    {
+      "id": "router_00696",
+      "question": "What is the mathematical relationship between harmonic intervals and perceived consonance ratios?",
+      "gold_experts": [
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Applies music theory concepts\n- Requires quantitative reasoning",
+      "router_raw_text": "<thinking>\n- Applies music theory concepts\n- Requires quantitative reasoning\n</thinking>\n<experts>[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 1.2344
+    },
+    {
+      "id": "router_01917",
+      "question": "Does salvage rights apply to sunken treasure in international waters?",
+      "gold_experts": [
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Legal deep analysis.\n- Maritime law expertise.",
+      "router_raw_text": "<thinking>\n- Legal deep analysis.\n- Maritime law expertise.\n</thinking>\n<experts>[MARITIME_LAW]</experts><|im_end|>",
+      "latency_s": 1.186
+    },
+    {
+      "id": "router_04099",
+      "question": "Simple compliance: MLX in climate models.",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- MLX-climate risks.\n- Easy shallow.",
+      "router_raw_text": "<thinking>\n- MLX-climate risks.\n- Easy shallow.\n</thinking>\n<experts>[MLX_KERNELS],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 0.8912
+    },
+    {
+      "id": "router_02312",
+      "question": "Diagnose why Renaissance ship painting violates maritime law depictions.",
+      "gold_experts": [
+        "MARITIME_LAW",
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW",
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Art legal diagnosis.\n- Deep medium analysis.",
+      "router_raw_text": "<thinking>\n- Art legal diagnosis.\n- Deep medium analysis.\n</thinking>\n<experts>[MARITIME_LAW],[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 0.7867
+    },
+    {
+      "id": "router_00934",
+      "question": "Explain Rigveda meter to poets in accessible terms.",
+      "gold_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Sanskrit linguistics.\n- Medium communication.",
+      "router_raw_text": "<thinking>\n- Sanskrit linguistics.\n- Medium communication.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS]</experts><|im_end|>",
+      "latency_s": 0.7288
+    },
+    {
+      "id": "router_00631",
+      "question": "How should a complex cryptographic protocol documentation be formatted in LaTeX to minimize encoding errors in mathematical environments?",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires formatting for technical content\n- Needs understanding of LaTeX syntax for math",
+      "router_raw_text": "<thinking>\n- Requires formatting for technical content\n- Needs understanding of LaTeX syntax for math\n</thinking>\n<experts>[LATEX_FORMATTING],[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 0.8555
+    },
+    {
+      "id": "router_03993",
+      "question": "Interpret Fibonacci in nautilus spirals.",
+      "gold_experts": [
+        "MATHEMATICS"
+      ],
+      "pred_experts": [
+        "MATHEMATICS",
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Math shallow interp.\n- Medium art.",
+      "router_raw_text": "<thinking>\n- Math shallow interp.\n- Medium art.\n</thinking>\n<experts>[MATHEMATICS],[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 0.7238
+    },
+    {
+      "id": "router_01851",
+      "question": "How many unique characters were used in the Caesar cipher as adapted by Julius Caesar in ancient Rome?",
+      "gold_experts": [
+        "CRYPTOGRAPHY",
+        "ANCIENT_HISTORY"
+      ],
+      "pred_experts": [
+        "CRYPTOGRAPHY",
+        "ANCIENT_HISTORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires understanding of historical context\n- Needs character recognition expertise",
+      "router_raw_text": "<thinking>\n- Requires understanding of historical context\n- Needs character recognition expertise\n</thinking>\n<experts>[CRYPTOGRAPHY],[ANCIENT_HISTORY]</experts><|im_end|>",
+      "latency_s": 0.7602
+    },
+    {
+      "id": "router_00156",
+      "question": "How can a composer accurately represent complex chord progressions and rhythmic polyrhythms in LaTeX sheet music notation?",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires deep musical theory design expertise\n- Needs precise LaTeX formatting control",
+      "router_raw_text": "<thinking>\n- Requires deep musical theory design expertise\n- Needs precise LaTeX formatting control\n</thinking>\n<experts>[LATEX_FORMATTING],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 0.8949
+    },
+    {
+      "id": "router_02885",
+      "question": "Deep synthesis quantum ontology debates.",
+      "gold_experts": [
+        "QUANTUM_CHEMISTRY",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "QUANTUM_CHEMISTRY",
+        "PHILOSOPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep chem philosophy hard.",
+      "router_raw_text": "<thinking>\n- Deep chem philosophy hard.\n</thinking>\n<experts>[QUANTUM_CHEMISTRY],[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 0.7513
+    },
+    {
+      "id": "router_01669",
+      "question": "Deep Python comm to stakeholders hard.",
+      "gold_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep code comms.",
+      "router_raw_text": "<thinking>\n- Deep code comms.\n</thinking>\n<experts>[PYTHON_LOGIC]</experts><|im_end|>",
+      "latency_s": 0.5235
+    },
+    {
+      "id": "router_00493",
+      "question": "Deep hard diagnosis of Sanskrit MLX translation errors.",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Linguistics deep.\n- Medium diag.",
+      "router_raw_text": "<thinking>\n- Linguistics deep.\n- Medium diag.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS],[MLX_KERNELS]</experts><|im_end|>",
+      "latency_s": 0.8231
+    },
+    {
+      "id": "router_04756",
+      "question": "Shallow music econ pitch.",
+      "gold_experts": [
+        "MUSIC_THEORY",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Music-econ shallow.\n- Easy support.",
+      "router_raw_text": "<thinking>\n- Music-econ shallow.\n- Easy support.\n</thinking>\n<experts>[MUSIC_THEORY],[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 0.8048
+    },
+    {
+      "id": "router_02624",
+      "question": "Hard shallow edges: Salvage rights for ghost ships in Arctic ice.",
+      "gold_experts": [
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Law deep edges.",
+      "router_raw_text": "<thinking>\n- Law deep edges.\n</thinking>\n<experts>[MARITIME_LAW]</experts><|im_end|>",
+      "latency_s": 0.5408
+    },
+    {
+      "id": "router_01195",
+      "question": "Deep quantify philosophical logic paradoxes.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "PHILOSOPHY"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Philosophy deep quant.",
+      "router_raw_text": "<thinking>\n- Philosophy deep quant.\n</thinking>\n<experts>[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 0.5367
+    },
+    {
+      "id": "router_01182",
+      "question": "Medium communicate MLX crypto optimizations.",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- MLX crypto comm.",
+      "router_raw_text": "<thinking>\n- MLX crypto comm.\n</thinking>\n<experts>[MLX_KERNELS],[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 0.619
+    },
+    {
+      "id": "router_04884",
+      "question": "Which visual cues best support decision-making when curating a Renaissance art exhibit around patrons\u2019 thematic preferences?",
+      "gold_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Art design requires understanding themes and style\n- Decision support relies on aesthetic judgment",
+      "router_raw_text": "<thinking>\n- Art design requires understanding themes and style\n- Decision support relies on aesthetic judgment\n</thinking>\n<experts>[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 0.8079
+    },
+    {
+      "id": "router_04708",
+      "question": "Should I buy this da Vinci sketch replica?",
+      "gold_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "RENAISSANCE_ART"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Art decision support.\n- Medium easy.",
+      "router_raw_text": "<thinking>\n- Art decision support.\n- Medium easy.\n</thinking>\n<experts>[RENAISSANCE_ART]</experts><|im_end|>",
+      "latency_s": 0.6199
+    },
+    {
+      "id": "router_03565",
+      "question": "Deep diagnosis of stalled organic multi-step synthesis pathway.",
+      "gold_experts": [
+        "ORGANIC_SYNTHESIS"
+      ],
+      "pred_experts": [
+        "ORGANIC_SYNTHESIS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Organic deep diag.",
+      "router_raw_text": "<thinking>\n- Organic deep diag.\n</thinking>\n<experts>[ORGANIC_SYNTHESIS]</experts><|im_end|>",
+      "latency_s": 0.5639
+    },
+    {
+      "id": "router_04591",
+      "question": "Medium deep edges: pandemic models in drought forecasts.",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medical deep.\n- Climate deep.",
+      "router_raw_text": "<thinking>\n- Medical deep.\n- Climate deep.\n</thinking>\n<experts>[MEDICAL_DIAGNOSIS],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 0.746
+    },
+    {
+      "id": "router_01760",
+      "question": "Diagnose errors in Sanskrit text processed by MLX tensor kernels.",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Linguistics diagnosis.\n- Deep medium analysis.",
+      "router_raw_text": "<thinking>\n- Linguistics diagnosis.\n- Deep medium analysis.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS]</experts><|im_end|>",
+      "latency_s": 0.7289
+    },
+    {
+      "id": "router_03839",
+      "question": "Deep LaTeX synthesis for multilingual equation sets.",
+      "gold_experts": [
+        "LATEX_FORMATTING"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep formatting synthesis.\n- Easy cross-domain.",
+      "router_raw_text": "<thinking>\n- Deep formatting synthesis.\n- Easy cross-domain.\n</thinking>\n<experts>[LATEX_FORMATTING]</experts><|im_end|>",
+      "latency_s": 0.6383
+    },
+    {
+      "id": "router_04487",
+      "question": "How can behavioral economics principles help structure a social incentive implementation plan in microfinance systems?",
+      "gold_experts": [
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Applies economic theory for planning\n- Focuses on behavioral design aspects",
+      "router_raw_text": "<thinking>\n- Applies economic theory for planning\n- Focuses on behavioral design aspects\n</thinking>\n<experts>[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 0.8115
+    },
+    {
+      "id": "router_00019",
+      "question": "What is the ethical argument for limiting surveillance even when the law allows it?",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS",
+        "PHILOSOPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Focuses on legal limits vs. ethics\n- Needs deep legal analysis of privacy rights",
+      "router_raw_text": "<thinking>\n- Focuses on legal limits vs. ethics\n- Needs deep legal analysis of privacy rights\n</thinking>\n<experts>[LEGAL_ANALYSIS],[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 0.9085
+    },
+    {
+      "id": "router_02150",
+      "question": "Could machine learning kernel optimization aid in early detection of cardiac abnormalities using medical datasets?",
+      "gold_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "MLX_KERNELS"
+      ],
+      "pred_experts": [
+        "MEDICAL_DIAGNOSIS",
+        "MLX_KERNELS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medical diagnosis data\n- Kernel performance evaluation",
+      "router_raw_text": "<thinking>\n- Medical diagnosis data\n- Kernel performance evaluation\n</thinking>\n<experts>[MEDICAL_DIAGNOSIS],[MLX_KERNELS]</experts><|im_end|>",
+      "latency_s": 0.7715
+    },
+    {
+      "id": "router_02622",
+      "question": "Deep plan: Ethical robot implementation inspired by Aristotelian virtue.",
+      "gold_experts": [
+        "ROBOTICS",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "PHILOSOPHY"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Deep philosophy planning.\n- Hard integration.",
+      "router_raw_text": "<thinking>\n- Deep philosophy planning.\n- Hard integration.\n</thinking>\n<experts>[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 0.6249
+    },
+    {
+      "id": "router_02582",
+      "question": "Quantify shallow quantum chemistry metrics using music theory scales.",
+      "gold_experts": [
+        "QUANTUM_CHEMISTRY",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "QUANTUM_CHEMISTRY",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Chem-music quant.\n- Easy shallow calc.",
+      "router_raw_text": "<thinking>\n- Chem-music quant.\n- Easy shallow calc.\n</thinking>\n<experts>[QUANTUM_CHEMISTRY],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 0.8127
+    },
+    {
+      "id": "router_04683",
+      "question": "Quantify beat frequency synchronization in robotic orchestra.",
+      "gold_experts": [
+        "MUSIC_THEORY",
+        "ROBOTICS"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY",
+        "ROBOTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Music quant.\n- Robotics hard.",
+      "router_raw_text": "<thinking>\n- Music quant.\n- Robotics hard.\n</thinking>\n<experts>[MUSIC_THEORY],[ROBOTICS]</experts><|im_end|>",
+      "latency_s": 0.6628
+    },
+    {
+      "id": "router_01741",
+      "question": "We found 19th\u2011century British engineering notes describing a \u2018most subtile calculus\u2019 for machine errors; can you interpret that archaic phrasing and suggest how to map it onto modern MLX kernel error\u2011analysis concepts?",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "ARCHAIC_ENGLISH"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "ARCHAIC_ENGLISH"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Requires understanding of historical English language\n- Applies MLX kernel concept interpretation",
+      "router_raw_text": "<thinking>\n- Requires understanding of historical English language\n- Applies MLX kernel concept interpretation\n</thinking>\n<experts>[MLX_KERNELS],[ARCHAIC_ENGLISH]</experts><|im_end|>",
+      "latency_s": 0.9792
+    },
+    {
+      "id": "router_01454",
+      "question": "Debug this Python loop for stakeholders: for i in range(10): if i%2==0: print(i) else: break.",
+      "gold_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Identify Python logic issues.\n- Plan stakeholder communication.",
+      "router_raw_text": "<thinking>\n- Identify Python logic issues.\n- Plan stakeholder communication.\n</thinking>\n<experts>[PYTHON_LOGIC]</experts><|im_end|>",
+      "latency_s": 0.6677
+    },
+    {
+      "id": "router_04242",
+      "question": "Deep quantitative analysis of atonal music chord progressions.",
+      "gold_experts": [
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep music quant.",
+      "router_raw_text": "<thinking>\n- Deep music quant.\n</thinking>\n<experts>[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 0.5207
+    },
+    {
+      "id": "router_04447",
+      "question": "Shallow plan music climate impact study.",
+      "gold_experts": [
+        "MUSIC_THEORY",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Music-climate shallow.\n- Easy planning.",
+      "router_raw_text": "<thinking>\n- Music-climate shallow.\n- Easy planning.\n</thinking>\n<experts>[MUSIC_THEORY],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 0.7904
+    },
+    {
+      "id": "router_04766",
+      "question": "Shallow legal cipher design.",
+      "gold_experts": [
+        "LEGAL_ANALYSIS",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "LEGAL_ANALYSIS",
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Legal-crypto shallow.\n- Medium hard.",
+      "router_raw_text": "<thinking>\n- Legal-crypto shallow.\n- Medium hard.\n</thinking>\n<experts>[LEGAL_ANALYSIS],[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 0.6876
+    },
+    {
+      "id": "router_03769",
+      "question": "What is the simplest way to explain the control flow of a recursive Python function to non\u2011technical stakeholders?",
+      "gold_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Focuses on clarity for non\u2011code experts.\n- Needs basic recursion logic explanation.",
+      "router_raw_text": "<thinking>\n- Focuses on clarity for non\u2011code experts.\n- Needs basic recursion logic explanation.\n</thinking>\n<experts>[PYTHON_LOGIC]</experts><|im_end|>",
+      "latency_s": 0.7891
+    },
+    {
+      "id": "router_01200",
+      "question": "Medium compliance for MLX climate models.",
+      "gold_experts": [
+        "MLX_KERNELS",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "MLX_KERNELS",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium MLX-climate risks.\n- Easy rules.",
+      "router_raw_text": "<thinking>\n- Medium MLX-climate risks.\n- Easy rules.\n</thinking>\n<experts>[MLX_KERNELS],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 0.7953
+    },
+    {
+      "id": "router_01618",
+      "question": "Compliance risks translating archaic English hymnals into modern music theory.",
+      "gold_experts": [
+        "ARCHAIC_ENGLISH",
+        "MUSIC_THEORY"
+      ],
+      "pred_experts": [
+        "ARCHAIC_ENGLISH",
+        "MUSIC_THEORY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Archaic English translation.\n- Music theory compliance.",
+      "router_raw_text": "<thinking>\n- Archaic English translation.\n- Music theory compliance.\n</thinking>\n<experts>[ARCHAIC_ENGLISH],[MUSIC_THEORY]</experts><|im_end|>",
+      "latency_s": 0.7929
+    },
+    {
+      "id": "router_00239",
+      "question": "Edge cases in Sanskrit encryption methods vs modern cryptography.",
+      "gold_experts": [
+        "SANSKRIT_LINGUISTICS",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS",
+        "CRYPTOGRAPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Linguistics shallow.\n- Crypto edges.",
+      "router_raw_text": "<thinking>\n- Linguistics shallow.\n- Crypto edges.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS],[CRYPTOGRAPHY]</experts><|im_end|>",
+      "latency_s": 0.7898
+    },
+    {
+      "id": "router_02437",
+      "question": "When a ship crosses an exclusive economic zone for rescue, what maritime law exceptions protect it?",
+      "gold_experts": [
+        "MARITIME_LAW"
+      ],
+      "pred_experts": [
+        "MARITIME_LAW"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Applies legal framework rules\n- Requires deep jurisdiction knowledge",
+      "router_raw_text": "<thinking>\n- Applies legal framework rules\n- Requires deep jurisdiction knowledge\n</thinking>\n<experts>[MARITIME_LAW]</experts><|im_end|>",
+      "latency_s": 0.6927
+    },
+    {
+      "id": "router_04847",
+      "question": "How should stoichiometric equations be mathematically balanced when reviewing synthesis workflows for efficiency optimization?",
+      "gold_experts": [
+        "MATHEMATICS",
+        "ORGANIC_SYNTHESIS"
+      ],
+      "pred_experts": [
+        "QUANTUM_CHEMISTRY",
+        "ORGANIC_SYNTHESIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.5,
+      "router_thinking": "- Requires understanding of chemical reaction balance\n- Applies quantitative reasoning in chemistry design",
+      "router_raw_text": "<thinking>\n- Requires understanding of chemical reaction balance\n- Applies quantitative reasoning in chemistry design\n</thinking>\n<experts>[QUANTUM_CHEMISTRY],[ORGANIC_SYNTHESIS]</experts><|im_end|>",
+      "latency_s": 0.9611
+    },
+    {
+      "id": "router_03122",
+      "question": "How can LaTeX integrate formatted pseudocode and math expressions seamlessly in academic paper templates?",
+      "gold_experts": [
+        "LATEX_FORMATTING"
+      ],
+      "pred_experts": [
+        "MATHEMATICS",
+        "LATEX_FORMATTING"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Requires formatting alignment\n- Applies mathematical notation",
+      "router_raw_text": "<thinking>\n- Requires formatting alignment\n- Applies mathematical notation\n</thinking>\n<experts>[LATEX_FORMATTING],[MATHEMATICS]</experts><|im_end|>",
+      "latency_s": 0.7582
+    },
+    {
+      "id": "router_01604",
+      "question": "How do I format a chemical equation with nested subscripts and superscripts in LaTeX for a research paper?",
+      "gold_experts": [
+        "LATEX_FORMATTING"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "ORGANIC_SYNTHESIS"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Needs LaTeX syntax for equations.\n- Requires understanding of chemical notation structure.",
+      "router_raw_text": "<thinking>\n- Needs LaTeX syntax for equations.\n- Requires understanding of chemical notation structure.\n</thinking>\n<experts>[LATEX_FORMATTING],[ORGANIC_SYNTHESIS]</experts><|im_end|>",
+      "latency_s": 0.897
+    },
+    {
+      "id": "router_02906",
+      "question": "What does Aristotle's philosophy say about simple organic synthesis ethics?",
+      "gold_experts": [
+        "ORGANIC_SYNTHESIS",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "ORGANIC_SYNTHESIS",
+        "PHILOSOPHY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Deep cross-domain philosophy.\n- Easy interpretation.",
+      "router_raw_text": "<thinking>\n- Deep cross-domain philosophy.\n- Easy interpretation.\n</thinking>\n<experts>[ORGANIC_SYNTHESIS],[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 0.7956
+    },
+    {
+      "id": "router_02107",
+      "question": "How can a non-expert committee be briefed on the syntactic layers of Panini\u2019s Ashtadhyayi in clear terms?",
+      "gold_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "pred_experts": [
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Needs linguistic clarity for complex Sanskrit text.\n- Requires deep comprehension of Sanskrit grammar structure.",
+      "router_raw_text": "<thinking>\n- Needs linguistic clarity for complex Sanskrit text.\n- Requires deep comprehension of Sanskrit grammar structure.\n</thinking>\n<experts>[SANSKRIT_LINGUISTICS]</experts><|im_end|>",
+      "latency_s": 0.9427
+    },
+    {
+      "id": "router_04771",
+      "question": "Synthesize LaTeX star charts.",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "ASTROPHYSICS"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "ASTROPHYSICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium formatting synthesis.\n- Easy examples.",
+      "router_raw_text": "<thinking>\n- Medium formatting synthesis.\n- Easy examples.\n</thinking>\n<experts>[LATEX_FORMATTING],[ASTROPHYSICS]</experts><|im_end|>",
+      "latency_s": 0.7505
+    },
+    {
+      "id": "router_00825",
+      "question": "What are the key parameters for planning an astrophysics simulation of gravitational wave propagation across galaxies?",
+      "gold_experts": [
+        "ASTROPHYSICS"
+      ],
+      "pred_experts": [
+        "ASTROPHYSICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Needs astrophysics modeling expertise\n- Focuses on physics implementation details",
+      "router_raw_text": "<thinking>\n- Needs astrophysics modeling expertise\n- Focuses on physics implementation details\n</thinking>\n<experts>[ASTROPHYSICS]</experts><|im_end|>",
+      "latency_s": 0.7982
+    },
+    {
+      "id": "router_01244",
+      "question": "Diagnose LaTeX errors in climate model equations.",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "CLIMATE_SCIENCE"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "CLIMATE_SCIENCE"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium formatting-climate diag.\n- Easy fixes.",
+      "router_raw_text": "<thinking>\n- Medium formatting-climate diag.\n- Easy fixes.\n</thinking>\n<experts>[LATEX_FORMATTING],[CLIMATE_SCIENCE]</experts><|im_end|>",
+      "latency_s": 0.8376
+    },
+    {
+      "id": "router_00858",
+      "question": "How can a Python function model quantum potential transitions without violating basic chemical computation rules?",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Needs logic design for complex computations.\n- Requires understanding of both Python functions and quantum chemistry.",
+      "router_raw_text": "<thinking>\n- Needs logic design for complex computations.\n- Requires understanding of both Python functions and quantum chemistry.\n</thinking>\n<experts>[PYTHON_LOGIC],[QUANTUM_CHEMISTRY]</experts><|im_end|>",
+      "latency_s": 1.1107
+    },
+    {
+      "id": "router_02830",
+      "question": "Medium synthesis: Botticelli pigments in old texts.",
+      "gold_experts": [
+        "ARCHAIC_ENGLISH",
+        "RENAISSANCE_ART"
+      ],
+      "pred_experts": [
+        "RENAISSANCE_ART",
+        "ANCIENT_HISTORY"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.5,
+      "router_thinking": "- Art medium.\n- History synthesis.",
+      "router_raw_text": "<thinking>\n- Art medium.\n- History synthesis.\n</thinking>\n<experts>[RENAISSANCE_ART],[ANCIENT_HISTORY]</experts><|im_end|>",
+      "latency_s": 0.9975
+    },
+    {
+      "id": "router_00794",
+      "question": "Shallow cross-synthesis LaTeX quantum.",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "QUANTUM_CHEMISTRY"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Easy formatting synthesis.",
+      "router_raw_text": "<thinking>\n- Easy formatting synthesis.\n</thinking>\n<experts>[LATEX_FORMATTING],[QUANTUM_CHEMISTRY]</experts><|im_end|>",
+      "latency_s": 1.8116
+    },
+    {
+      "id": "router_01092",
+      "question": "Shallow cross-synthesis ancient history behavioral patterns.",
+      "gold_experts": [
+        "ANCIENT_HISTORY",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "ANCIENT_HISTORY",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- History shallow.\n- Behavioral easy.",
+      "router_raw_text": "<thinking>\n- History shallow.\n- Behavioral easy.\n</thinking>\n<experts>[ANCIENT_HISTORY],[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 1.3674
+    },
+    {
+      "id": "router_02506",
+      "question": "How should equations describing elliptic curve encryption operations be presented in LaTeX to avoid ambiguity in symbol nesting?",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "CRYPTOGRAPHY"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Requires understanding of LaTeX equation syntax\n- Focuses on clarity and correctness in mathematical notation",
+      "router_raw_text": "<thinking>\n- Requires understanding of LaTeX equation syntax\n- Focuses on clarity and correctness in mathematical notation\n</thinking>\n<experts>[LATEX_FORMATTING]</experts><|im_end|>",
+      "latency_s": 1.4618
+    },
+    {
+      "id": "router_02802",
+      "question": "How to LaTeX format complex Sanskrit sandhi rules in a research paper?",
+      "gold_experts": [
+        "LATEX_FORMATTING",
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "pred_experts": [
+        "LATEX_FORMATTING",
+        "SANSKRIT_LINGUISTICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Needs formatting expertise on both languages.\n- Requires deep linguistic content.",
+      "router_raw_text": "<thinking>\n- Needs formatting expertise on both languages.\n- Requires deep linguistic content.\n</thinking>\n<experts>[LATEX_FORMATTING],[SANSKRIT_LINGUISTICS]</experts><|im_end|>",
+      "latency_s": 1.5814
+    },
+    {
+      "id": "router_01123",
+      "question": "Communicate Python-coded organic synthesis simulator to chemists.",
+      "gold_experts": [
+        "PYTHON_LOGIC",
+        "ORGANIC_SYNTHESIS"
+      ],
+      "pred_experts": [
+        "PYTHON_LOGIC",
+        "ORGANIC_SYNTHESIS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Medium code-chem comm.\n- Easy stakeholder.",
+      "router_raw_text": "<thinking>\n- Medium code-chem comm.\n- Easy stakeholder.\n</thinking>\n<experts>[PYTHON_LOGIC],[ORGANIC_SYNTHESIS]</experts><|im_end|>",
+      "latency_s": 1.366
+    },
+    {
+      "id": "router_02000",
+      "question": "Synthesize Shakespeare ethics with Kant.",
+      "gold_experts": [
+        "ARCHAIC_ENGLISH",
+        "PHILOSOPHY"
+      ],
+      "pred_experts": [
+        "PHILOSOPHY"
+      ],
+      "exact_match": 0,
+      "partial_overlap": 1,
+      "overlap_f1": 0.6667,
+      "router_thinking": "- Medium philosophy cross-domain.\n- Easy synthesis.",
+      "router_raw_text": "<thinking>\n- Medium philosophy cross-domain.\n- Easy synthesis.\n</thinking>\n<experts>[PHILOSOPHY]</experts><|im_end|>",
+      "latency_s": 1.2487
+    },
+    {
+      "id": "router_02076",
+      "question": "Pitch beat sync to boost purchase intent.",
+      "gold_experts": [
+        "MUSIC_THEORY",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "pred_experts": [
+        "MUSIC_THEORY",
+        "BEHAVIORAL_ECONOMICS"
+      ],
+      "exact_match": 1,
+      "partial_overlap": 1,
+      "overlap_f1": 1.0,
+      "router_thinking": "- Music theory deep.\n- Marketing pitch.",
+      "router_raw_text": "<thinking>\n- Music theory deep.\n- Marketing pitch.\n</thinking>\n<experts>[MUSIC_THEORY],[BEHAVIORAL_ECONOMICS]</experts><|im_end|>",
+      "latency_s": 1.3523
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+[
+  {
+    "id": "ext_md_086",
+    "domains": [
+      "PYTHON_LOGIC",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "ROBOTICS"
+    ],
+    "question": "A warehouse robot follows waypoints from a Python generator. The current rule is: stop when a yielded point is falsy. During testing, the robot sometimes halts at coordinate (0, 0) even though that is a valid docking waypoint. In one short note to the controls lead, explain the bug and propose the safest rule change.",
+    "reference_answer": "The rule confuses a Python truthiness check with an explicit end-of-stream marker. In robotics, (0, 0) can be a legitimate pose, but tuples containing zero evaluate in a way that tempts buggy falsy-based handling. The safe fix is to terminate only on a dedicated sentinel such as None or a unique object, checked with identity (`is None`) rather than `if not point`. That preserves valid zero coordinates and makes the stop condition unambiguous.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "A valid waypoint like (0, 0) must not be treated as termination",
+        "Use an explicit sentinel and identity-style check instead of a falsy check"
+      ],
+      "must_include_any": [
+        [
+          "truthiness",
+          "falsy check"
+        ],
+        [
+          "None",
+          "dedicated sentinel"
+        ]
+      ],
+      "must_not_include": [
+        "Claim that (0, 0) is inherently invalid for a robot",
+        "Recommend stopping on any zero-valued coordinate"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "is\\s+None|sentinel"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:09.475489+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_087",
+    "domains": [
+      "QUANTUM_CHEMISTRY",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "QUANTUM_CHEMISTRY",
+      "CLIMATE_SCIENCE"
+    ],
+    "question": "A startup wants to rank candidate refrigerants using one computed property: isolated-molecule dipole moment from quantum chemistry. The PM argues that higher dipole means lower climate risk because the gas will interact more and disappear faster. Give a brief decision note: is this screening rule defensible as a primary rule, and why?",
+    "reference_answer": "No. Dipole moment alone is not a defensible primary climate-risk screen. Climate impact depends on atmospheric lifetime, infrared absorption in relevant bands, degradation pathways, byproducts, and often indirect effects; a polar molecule can still be long-lived or strongly heat-trapping. Quantum calculations can help estimate spectra or reaction tendencies, but climate screening needs a broader framework than one isolated-molecule descriptor. At most, dipole moment is a weak supporting feature, not a decision rule.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "Dipole moment alone is insufficient as the primary screening rule",
+        "Climate risk depends on atmospheric lifetime and radiative or infrared behavior"
+      ],
+      "must_include_any": [
+        [
+          "degradation pathways",
+          "atmospheric chemistry"
+        ],
+        [
+          "weak supporting feature",
+          "not a standalone decision rule"
+        ]
+      ],
+      "must_not_include": [
+        "Claim that higher dipole automatically means lower climate risk",
+        "Treat dipole moment as a direct proxy for atmospheric lifetime"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:09.475489+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_088",
+    "domains": [
+      "RENAISSANCE_ART",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "RENAISSANCE_ART",
+      "MUSIC_THEORY"
+    ],
+    "question": "A museum app maps paintings to background music. A reviewer wrote: \"This fresco uses linear perspective, so the best musical match must be tonal harmony with functional dominant-tonic cadence; both systems organize depth.\" Analyze the reasoning bug in 3-5 sentences and say what a safer cross-domain mapping would look like.",
+    "reference_answer": "The bug is anachronistic over-translation: it forces a later tonal-harmony concept onto Renaissance visual art because of a vague similarity in \"organization.\" Linear perspective is a spatial construction method in painting, while functional dominant-tonic tonality is a historically later harmonic system with different formal constraints. A safer mapping uses contemporaneous or structurally closer musical features, such as modal writing, imitation, texture, or ceremonial function, and states the analogy as suggestive rather than necessary.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "The reasoning is anachronistic or mismatched across historical systems",
+        "A safer mapping should use closer or contemporaneous musical features instead of mandatory tonal cadence"
+      ],
+      "must_include_any": [
+        [
+          "linear perspective is spatial",
+          "painting perspective is spatial"
+        ],
+        [
+          "modal",
+          "imitative"
+        ]
+      ],
+      "must_not_include": [
+        "Assert that Renaissance painting necessarily maps to common-practice tonality",
+        "Treat dominant-tonic cadence as standard Renaissance musical practice"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:09.475489+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_089",
+    "domains": [
+      "SANSKRIT_LINGUISTICS",
+      "ANCIENT_HISTORY"
+    ],
+    "required_adapters": [
+      "SANSKRIT_LINGUISTICS",
+      "ANCIENT_HISTORY"
+    ],
+    "question": "You are advising a museum label team. They want to date an undated inscription because it uses a Sanskrit form they call \"obviously classical.\" Write a 4-sentence maximum note explaining why that claim is risky and what evidence should be paired with the linguistic observation before presenting a date to visitors.",
+    "reference_answer": "Calling a form \"obviously classical\" is risky because Sanskrit was conservative, register-sensitive, and reused across long periods, so a linguistic feature alone may not securely date an inscription. The form may reflect genre, scribal standardization, archaism, or later normalization rather than the composition date. The label should pair the linguistic clue with paleography, archaeological context, material provenance, and any historical names or titulature. Present the date as a range or confidence statement, not a single certain year.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "A Sanskrit linguistic feature alone is insufficient for precise dating",
+        "Dating should be supported by non-linguistic historical evidence"
+      ],
+      "must_include_any": [
+        [
+          "paleography",
+          "script style"
+        ],
+        [
+          "date range",
+          "confidence statement"
+        ]
+      ],
+      "must_not_include": [
+        "Claim that one classical-looking Sanskrit form can securely fix an exact year",
+        "Ignore archaeological or inscriptional context"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:09.475489+00:00",
+      "section": "Edge Cases"
+    }
+  },
+  {
+    "id": "ext_md_090",
+    "domains": [
+      "QUANTUM_CHEMISTRY",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "required_adapters": [
+      "QUANTUM_CHEMISTRY",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "question": "A synthesis team has two candidate routes to the same product. Route A has a lower computed transition-state barrier in gas phase for the key step. Route B has a slightly higher computed barrier but avoids a highly basic intermediate known to decompose in wet solvent. You must choose one route for first lab trial with limited budget. Which route should be prioritized, and why?",
+    "reference_answer": "Prioritize Route B for the first lab trial. A lower gas-phase barrier does not automatically win when the practical reaction environment changes mechanism feasibility, intermediate stability, and failure risk. If Route A depends on a basic intermediate that is likely to decompose under realistic wet-solvent conditions, the computed advantage may be irrelevant in the flask. Route B better reflects synthesis robustness: slightly worse computed kinetics can be acceptable if the route avoids a major decomposition liability.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Choose Route B",
+        "Explain that gas-phase barrier alone is not decisive when solvent and intermediate stability dominate practical success"
+      ],
+      "must_include_any": [
+        [
+          "decomposition",
+          "unstable intermediate"
+        ],
+        [
+          "robustness",
+          "experimental reliability"
+        ]
+      ],
+      "must_not_include": [
+        "Choose Route A solely because the computed barrier is lower",
+        "Assume gas-phase energetics directly guarantee best synthetic route"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "Route\\s*B"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:55:09.475489+00:00",
+      "section": "Edge Cases"
+    }
+  }
+]

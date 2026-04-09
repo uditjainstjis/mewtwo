@@ -1,0 +1,47 @@
+{
+  "weighted_merge": {
+    "soft_100": {
+      "semantic_sim": 0.6592,
+      "token_f1": 0.2719,
+      "latency_s": 4.263,
+      "rubric_coverage": 0.1261
+    },
+    "blind_30_vs_mistral": {
+      "wins_qwen": 6,
+      "wins_mistral": 23,
+      "ties": 1,
+      "avg_qwen_score": 3.7666666666666666,
+      "avg_mistral_score": 5.3
+    }
+  },
+  "late_layer_injection": {
+    "soft_100": {
+      "semantic_sim": 0.6594,
+      "token_f1": 0.2715,
+      "latency_s": 3.89,
+      "rubric_coverage": 0.123
+    },
+    "blind_30_vs_mistral": {
+      "wins_qwen": 4,
+      "wins_mistral": 26,
+      "ties": 0,
+      "avg_qwen_score": 3.5,
+      "avg_mistral_score": 5.333333333333333
+    }
+  },
+  "sequential_reverse": {
+    "soft_100": {
+      "semantic_sim": 0.6623,
+      "token_f1": 0.2734,
+      "latency_s": 4.605,
+      "rubric_coverage": 0.1338
+    },
+    "blind_30_vs_mistral": {
+      "wins_qwen": 4,
+      "wins_mistral": 25,
+      "ties": 1,
+      "avg_qwen_score": 3.533333333333333,
+      "avg_mistral_score": 5.3
+    }
+  }
+}
