@@ -1,0 +1,11 @@
+{
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "published_domains": [
+    "math",
+    "code",
+    "science",
+    "legal",
+    "medical"
+  ],
+  "staging_root": "/Users/uditjain/Desktop/adapter/hf_publish"
+}
