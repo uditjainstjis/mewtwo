@@ -1,40 +1,12 @@
 {
-  "started_utc": "2026-04-07T23:07:56.679852+00:00",
-  "finished_utc": "2026-04-08T00:05:57.648460+00:00",
+  "started_utc": "2026-04-12T15:58:27.005465+00:00",
+  "finished_utc": "2026-04-12T17:11:00.573242+00:00",
   "track_b_data": "data/multidomain_eval_external.json",
   "steps": [
     {
       "step": "bootstrap_track_b",
       "mode": "clone_v2",
       "n": 40
-    },
-    {
-      "argv": [
-        "/opt/homebrew/opt/python@3.14/bin/python3.14",
-        "/Users/uditjain/Desktop/adapter/backend/mistral_eval_md.py",
-        "--num-predict",
-        "180",
-        "--data",
-        "data/multidomain_eval_v2.json",
-        "--output",
-        "results/mistral_track_a.json"
-      ],
-      "returncode": 0,
-      "ok": true
-    },
-    {
-      "argv": [
-        "/opt/homebrew/opt/python@3.14/bin/python3.14",
-        "/Users/uditjain/Desktop/adapter/backend/mistral_eval_md.py",
-        "--num-predict",
-        "180",
-        "--data",
-        "data/multidomain_eval_external.json",
-        "--output",
-        "results/mistral_track_b.json"
-      ],
-      "returncode": 0,
-      "ok": true
     },
     {
       "argv": [

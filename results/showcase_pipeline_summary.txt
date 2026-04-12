@@ -1,42 +1,53 @@
-Showcase pipeline summary  utc=2026-04-07T23:07:56.679852+00:00
+Showcase pipeline summary  utc=2026-04-12T15:58:27.005465+00:00
 PROJECT_ROOT=/Users/uditjain/Desktop/adapter
 
 Track B: cloned v2 with provenance, n=40 -> data/multidomain_eval_external.json
 
+Mistral steps skipped.
+
 
 --- injection Track A (injection_track_a.jsonl) ---
 
-# /Users/uditjain/Desktop/adapter/results/injection_track_a.jsonl  (360 rows)
+# /Users/uditjain/Desktop/adapter/results/injection_track_a.jsonl  (440 rows)
 
-early_third_only              n=  40  Sim=0.661  PPL=10011.4  EM=0.000  F1=0.195  Lat=2.16s
-late_last_quarter             n=  40  Sim=0.645  PPL=12.8  EM=0.000  F1=0.185  Lat=3.23s
-late_layer_injection          n=  40  Sim=0.649  PPL=12.7  EM=0.000  F1=0.189  Lat=4.34s
-merge_high_clamp              n=  40  Sim=0.637  PPL=12.6  EM=0.000  F1=0.193  Lat=4.72s
-oracle_single_d1              n=  40  Sim=0.646  PPL=12.7  EM=0.000  F1=0.186  Lat=4.69s
-oracle_single_d2              n=  40  Sim=0.656  PPL=12.7  EM=0.000  F1=0.197  Lat=4.72s
-sequential_reverse            n=  40  Sim=0.657  PPL=12.6  EM=0.000  F1=0.197  Lat=4.93s
-sequential_token_segments     n=  40  Sim=0.654  PPL=12.6  EM=0.000  F1=0.186  Lat=4.95s
-weighted_merge                n=  40  Sim=0.637  PPL=12.6  EM=0.000  F1=0.193  Lat=4.74s
+comol_late_norm               n=  40  Sim=0.649  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.189  Lat=4.43s
+comol_norm_clamp              n=  40  Sim=0.637  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.193  Lat=5.18s
+early_third_only              n=  40  Sim=0.661  PPL=10011.4  PPL_med=11.3  EM=0.000  F1=0.195  Lat=2.33s
+late_last_quarter             n=  40  Sim=0.645  PPL=12.8  PPL_med=10.6  EM=0.000  F1=0.185  Lat=3.44s
+late_layer_injection          n=  40  Sim=0.649  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.189  Lat=4.59s
+merge_high_clamp              n=  40  Sim=0.637  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.193  Lat=4.94s
+oracle_single_d1              n=  40  Sim=0.646  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.186  Lat=4.93s
+oracle_single_d2              n=  40  Sim=0.656  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.197  Lat=4.95s
+sequential_reverse            n=  40  Sim=0.657  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.197  Lat=5.22s
+sequential_token_segments     n=  40  Sim=0.654  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.186  Lat=5.22s
+weighted_merge                n=  40  Sim=0.637  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.193  Lat=4.94s
 
 
 --- injection Track B (injection_track_b.jsonl) ---
 
-# /Users/uditjain/Desktop/adapter/results/injection_track_b.jsonl  (360 rows)
+# /Users/uditjain/Desktop/adapter/results/injection_track_b.jsonl  (440 rows)
 
-early_third_only              n=  40  Sim=0.661  PPL=10011.4  EM=0.000  F1=0.195  Lat=2.24s
-late_last_quarter             n=  40  Sim=0.645  PPL=12.8  EM=0.000  F1=0.185  Lat=3.36s
-late_layer_injection          n=  40  Sim=0.649  PPL=12.7  EM=0.000  F1=0.189  Lat=4.44s
-merge_high_clamp              n=  40  Sim=0.637  PPL=12.6  EM=0.000  F1=0.193  Lat=4.92s
-oracle_single_d1              n=  40  Sim=0.646  PPL=12.7  EM=0.000  F1=0.186  Lat=4.86s
-oracle_single_d2              n=  40  Sim=0.656  PPL=12.7  EM=0.000  F1=0.197  Lat=5.05s
-sequential_reverse            n=  40  Sim=0.657  PPL=12.6  EM=0.000  F1=0.197  Lat=5.10s
-sequential_token_segments     n=  40  Sim=0.654  PPL=12.6  EM=0.000  F1=0.186  Lat=5.15s
-weighted_merge                n=  40  Sim=0.637  PPL=12.6  EM=0.000  F1=0.193  Lat=4.85s
+comol_late_norm               n=  40  Sim=0.649  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.189  Lat=4.24s
+comol_norm_clamp              n=  40  Sim=0.637  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.193  Lat=5.01s
+early_third_only              n=  40  Sim=0.661  PPL=10011.4  PPL_med=11.3  EM=0.000  F1=0.195  Lat=2.25s
+late_last_quarter             n=  40  Sim=0.645  PPL=12.8  PPL_med=10.6  EM=0.000  F1=0.185  Lat=3.30s
+late_layer_injection          n=  40  Sim=0.649  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.189  Lat=4.37s
+merge_high_clamp              n=  40  Sim=0.637  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.193  Lat=4.83s
+oracle_single_d1              n=  40  Sim=0.646  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.186  Lat=4.80s
+oracle_single_d2              n=  40  Sim=0.656  PPL=12.7  PPL_med=10.5  EM=0.000  F1=0.197  Lat=4.81s
+sequential_reverse            n=  40  Sim=0.657  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.197  Lat=4.99s
+sequential_token_segments     n=  40  Sim=0.654  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.186  Lat=5.06s
+weighted_merge                n=  40  Sim=0.637  PPL=12.6  PPL_med=10.5  EM=0.000  F1=0.193  Lat=4.78s
 
 
-Done utc=2026-04-08T00:05:57.648460+00:00
+--- Mistral Track A (Mistral JSON) ---
 
-WARNING: Mistral Track A (mistral_track_a.json): mean_latency_s=0.0 — Ollama likely down or mistral:7b missing; re-run after `ollama serve` + pull.
+  model=mistral:7b  n=40  n_errors=0  mean_sim=0.6663  mean_lat=17.465s
 
-WARNING: Mistral Track B (mistral_track_b.json): mean_latency_s=0.0 — Ollama likely down or mistral:7b missing; re-run after `ollama serve` + pull.
 
+--- Mistral Track B (Mistral JSON) ---
+
+  model=mistral:7b  n=40  n_errors=0  mean_sim=0.6629  mean_lat=14.469s
+
+
+Done utc=2026-04-12T17:11:00.573242+00:00

@@ -9,23 +9,8 @@ from mlx_lm import load, generate, stream_generate
 from mlx_lm.models import cache as mlx_cache
 from safetensors import safe_open
 
-# Global clamp value for ablation studies
-_GLOBAL_CLAMP = 0.5
-# Clamp mode: "weight_cap" (original v1/v2) or "norm_ratio" (v2b activation clamp)
-_CLAMP_MODE = "weight_cap"
-
-def set_global_clamp(value):
-    global _GLOBAL_CLAMP
-    _GLOBAL_CLAMP = value
-
-def set_clamp_mode(mode):
-    """Set clamp mode: 'weight_cap' (default, per-adapter min(w,c)) or 'norm_ratio' (per-layer γ=min(1, c·‖z‖/‖m‖))."""
-    global _CLAMP_MODE
-    assert mode in ("weight_cap", "norm_ratio"), f"Unknown clamp mode: {mode}"
-    _CLAMP_MODE = mode
-
-def get_clamp_mode():
-    return _CLAMP_MODE
+# Note: Clamp mode is managed by the DynamicEngine instance via set_clamp_mode().
+# Recommended defaults: mode="weight_cap", value=0.5
 
 class RoutedLoRALinear(nn.Module):
     def __init__(self, base_layer, in_features, out_features, alpha=16.0, layer_id: int = -1):
@@ -41,6 +26,10 @@ class RoutedLoRALinear(nn.Module):
         self.adapters = {}
         self.routing_weights = {}
         self.token_routing = {}
+        
+        # Injected settings from DynamicEngine
+        self.clamp_mode = "weight_cap"
+        self.clamp_value = 0.5
         
     def add_adapter(self, name, A, B):
         A_arr = mx.array(A)
@@ -93,29 +82,35 @@ class RoutedLoRALinear(nn.Module):
             if self.adapter_max_layer >= 0 and self.layer_id > self.adapter_max_layer:
                 return base_out
 
-        if _CLAMP_MODE == "norm_ratio":
+        if self.clamp_mode == "norm_ratio":
             # v2b: Per-layer activation norm-ratio clamp
             # γ_l = min(1, c * ||z_l||_2 / (||m_l||_2 + ε))
             # h_out = z_l + γ_l * m_l
             lora_sum = mx.zeros_like(base_out)
-            for name, adapter in self.adapters.items():
+            for name, weights in self.adapters.items():
                 w = self._resolve_weight(name, x)
-                out = (x @ adapter["A"]) @ adapter["B"]
-                lora_sum = lora_sum + (w * adapter["scale"] * out)
-            # Compute norms over last dimension
-            eps = 1e-6
-            base_norm = mx.sqrt(mx.sum(base_out * base_out, axis=-1, keepdims=True) + eps)
-            lora_norm = mx.sqrt(mx.sum(lora_sum * lora_sum, axis=-1, keepdims=True) + eps)
-            gamma = mx.minimum(mx.array([1.0]), mx.array([_GLOBAL_CLAMP]) * base_norm / lora_norm)
+                # Note: in norm_ratio mode, we don't clamp w individually here, 
+                # we clamp the total sum norm ratio below.
+                adapter_out = (x @ weights["A"]) @ weights["B"]
+                lora_sum = lora_sum + w * (adapter_out * weights["scale"])
+
+            m_norm = mx.linalg.norm(lora_sum, axis=-1, keepdims=True)
+            z_norm = mx.linalg.norm(base_out, axis=-1, keepdims=True)
+            
+            # Use self.clamp_value (c)
+            gamma = mx.minimum(1.0, self.clamp_value * z_norm / (m_norm + 1e-6))
             return base_out + gamma * lora_sum
-        else:
-            # Original v1/v2: Per-adapter weight cap min(w, c)
-            lora_out = 0.0
-            for name, adapter in self.adapters.items():
-                w = mx.minimum(self._resolve_weight(name, x), mx.array([_GLOBAL_CLAMP]))
-                out = (x @ adapter["A"]) @ adapter["B"]
-                lora_out = lora_out + (w * adapter["scale"] * out)
-            return base_out + lora_out
+
+        # Default or "weight_cap":
+        lora_sum = mx.zeros_like(base_out)
+        for name, weights in self.adapters.items():
+            w = self._resolve_weight(name, x)
+            # Apply weight clamp c (self.clamp_value)
+            w_clamped = mx.minimum(w, self.clamp_value)
+            adapter_out = (x @ weights["A"]) @ weights["B"]
+            lora_sum = lora_sum + w_clamped * (adapter_out * weights["scale"])
+
+        return base_out + lora_sum
 
 def get_linear_dims(layer):
     if hasattr(layer, "group_size"):
@@ -163,6 +158,8 @@ class DynamicEngine:
         print(f"Loading Base Engine: {model_path}...")
         self.model, self.tokenizer = load(model_path)
         self._num_layers = self._count_transformer_layers()
+        self.clamp_mode = "weight_cap"
+        self.clamp_value = 0.5
         
         print("Injecting RoutedLoRALinear layers...")
         apply_routed_lora(self.model)
@@ -185,6 +182,19 @@ class DynamicEngine:
         if hasattr(m, "layers"):
             return len(m.layers)
         return 0
+
+    def set_clamp_mode(self, mode: str):
+        """Set clamp mode: 'weight_cap' or 'norm_ratio'."""
+        assert mode in ("weight_cap", "norm_ratio"), f"Unknown clamp mode: {mode}"
+        self.clamp_mode = mode
+        for child in self._iter_routed_layers():
+            child.clamp_mode = mode
+
+    def set_global_clamp(self, value: float):
+        """Set the clamp bound (c)."""
+        self.clamp_value = float(value)
+        for child in self._iter_routed_layers():
+            child.clamp_value = float(value)
 
     def set_adapter_layer_gate(self, min_layer: int, max_layer: int = -1):
         """

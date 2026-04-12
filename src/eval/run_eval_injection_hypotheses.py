@@ -143,7 +143,7 @@ def run():
 
     methods = list(getattr(run, "_methods", None) or [])
     if not methods:
-        methods = ["weighted_merge", "late_layer_injection", "sequential_token_segments"]
+        methods = ["weighted_merge", "late_layer_injection", "sequential_token_segments", "comol_norm_clamp", "comol_late_norm"]
     results = []
 
     total = len(items) * len(methods)
@@ -184,14 +184,29 @@ def run():
                 engine.set_adapter_layer_gate(0, -1)
                 pred, _ = engine.generate(prompt, routing_weights=w_b, max_tokens=180)
             elif method == "merge_high_clamp":
-                from dynamic_mlx_inference import set_global_clamp
-
-                set_global_clamp(1.0)
+                engine.set_global_clamp(1.0)
                 try:
                     engine.set_adapter_layer_gate(0, -1)
                     pred, _ = engine.generate(prompt, routing_weights=w_mix, max_tokens=180)
                 finally:
-                    set_global_clamp(0.5)
+                    engine.set_global_clamp(0.5)
+            elif method == "comol_norm_clamp":
+                engine.set_clamp_mode("norm_ratio")
+                engine.set_global_clamp(0.5)
+                try:
+                    engine.set_adapter_layer_gate(0, -1)
+                    pred, _ = engine.generate(prompt, routing_weights=w_mix, max_tokens=180)
+                finally:
+                    engine.set_clamp_mode("weight_cap")
+            elif method == "comol_late_norm":
+                engine.set_clamp_mode("norm_ratio")
+                engine.set_global_clamp(0.5)
+                try:
+                    engine.set_adapter_layer_gate(late_start, -1)
+                    pred, _ = engine.generate(prompt, routing_weights=w_mix, max_tokens=180)
+                finally:
+                    engine.set_clamp_mode("weight_cap")
+                    engine.set_adapter_layer_gate(0, -1)
             elif method == "sequential_token_segments":
                 engine.set_adapter_layer_gate(0, -1)
                 pred, _ = engine.generate_sequential_segments(
@@ -226,13 +241,25 @@ def run():
             elif method == "oracle_single_d2":
                 ppl = perplexity_for_setting(engine, prompt, ref, w_b, 0, -1)
             elif method == "merge_high_clamp":
-                from dynamic_mlx_inference import set_global_clamp
-
-                set_global_clamp(1.0)
+                engine.set_global_clamp(1.0)
                 try:
                     ppl = perplexity_for_setting(engine, prompt, ref, w_mix, 0, -1)
                 finally:
-                    set_global_clamp(0.5)
+                    engine.set_global_clamp(0.5)
+            elif method == "comol_norm_clamp":
+                engine.set_clamp_mode("norm_ratio")
+                engine.set_global_clamp(0.5)
+                try:
+                    ppl = perplexity_for_setting(engine, prompt, ref, w_mix, 0, -1)
+                finally:
+                    engine.set_clamp_mode("weight_cap")
+            elif method == "comol_late_norm":
+                engine.set_clamp_mode("norm_ratio")
+                engine.set_global_clamp(0.5)
+                try:
+                    ppl = perplexity_for_setting(engine, prompt, ref, w_mix, late_start, -1)
+                finally:
+                    engine.set_clamp_mode("weight_cap")
             else:
                 # Sequential paths: PPL under mixture, all layers (proxy for comparability).
                 ppl = perplexity_for_setting(engine, prompt, ref, w_mix, 0, -1)
@@ -344,7 +371,7 @@ if __name__ == "__main__":
         print("Use --real to run GPU inference.")
         raise SystemExit(0)
     run._limit = args.limit if args.limit and args.limit > 0 else None
-    core = ["weighted_merge", "late_layer_injection", "sequential_token_segments"]
+    core = ["weighted_merge", "late_layer_injection", "sequential_token_segments", "comol_norm_clamp", "comol_late_norm"]
     extra = ["late_last_quarter", "sequential_reverse"]
     more = ["early_third_only", "oracle_single_d1", "oracle_single_d2", "merge_high_clamp"]
     mth = list(core)

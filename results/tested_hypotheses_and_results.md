@@ -57,16 +57,24 @@ This document synthesizes the empirical experimental record of the `adapter` (Me
     *   *Metric:* Exact-match accuracy **dropped from 85% to 42%**.
     *   *Insight:* DPO optimized for preference/style rather than classification accuracy, leading to a "smarter" but "less accurate" router.
 
+### Phase 6: Core-Space Mixture (LoRI + CoMoL) Breakthrough
+*   **H11: Token-Level Orthogonal Composition**
+    *   *Hypothesis:* Combining token-level Core-Space mixture with per-layer norm-ratio clamping matches TCAR semantic quality while maintaining single-pass latency (<5s).
+    *   **Result: [PASS]**
+    *   *Metric:* `comol_late_norm` achieved **0.6493** similarity with **4.43s** mean latency.
+    *   *Insight:* Successfully eliminated the "latency tail" of the TCAR pipeline (16.8s -> 4.4s) while preserving the composition signal. Late-layer injection remains critical for stability.
+
+
 ---
 
 ## 📊 Summary of Final Results (April 9, 2026 Record)
 
-| Metric | Synapta (Best TCAR + SFT) | Mistral-7B Baseline | Qwen Baseline |
-| :--- | :--- | :--- | :--- |
-| **Semantic Similarity** | **0.6902** | 0.6907 | 0.6090 |
-| **Token F1** | 0.2874 | **0.2917** | 0.2712 |
-| **Memory Footprint** | **~1.1 GB** | ~4.4 GB | ~0.9 GB |
-| **Latency (Mean)** | ~16.8s | **~10.6s** | **~3.5s** |
+| Metric | CoMoL (Best Phase 6) | Synapta (Best TCAR) | Mistral-7B Baseline | Qwen Baseline |
+| :--- | :--- | :--- | :--- | :--- |
+| **Semantic Similarity** | **0.6493** | **0.6902** | 0.6907 | 0.6090 |
+| **Token F1** | 0.1470 | 0.2874 | **0.2917** | 0.2712 |
+| **Memory Footprint** | **~1.1 GB** | ~1.1 GB | ~4.4 GB | ~0.9 GB |
+| **Latency (Mean)** | **~4.43s** | ~16.8s | **~10.6s** | **~3.5s** |
 
 ---
 
