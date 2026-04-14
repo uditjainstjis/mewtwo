@@ -5,6 +5,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 SERVICE_NAME="mewtwo-remote"
 
 echo "🚀 Installing Mewtwo Remote Control..."
@@ -49,16 +50,20 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=learner
-WorkingDirectory=${SCRIPT_DIR}
-ExecStart=/usr/bin/python3 ${SCRIPT_DIR}/server.py
+WorkingDirectory=${PROJECT_DIR}
+ExecStart=${SCRIPT_DIR}/start_server.sh
 Restart=always
 RestartSec=5
 Environment=DISPLAY=:0
 Environment=XAUTHORITY=/home/learner/.Xauthority
+Environment=RC_HOST=0.0.0.0
+Environment=RC_PORT=7777
 
 [Install]
 WantedBy=multi-user.target
 EOF
+
+chmod +x "${SCRIPT_DIR}/start_server.sh"
 
 sudo systemctl daemon-reload
 sudo systemctl enable ${SERVICE_NAME}

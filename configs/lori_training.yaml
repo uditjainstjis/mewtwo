@@ -1,0 +1,12 @@
+# configs/lori_training.yaml
+base_model: "Qwen/Qwen2.5-1.5B-Instruct"
+adapter_rank: 32
+shared_b_seed: 42
+sparsity_level: 0.8
+target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+lr: 2e-4
+epochs: 3
+batch_size: 8
+gradient_accumulation: 4
+bf16: true
+gradient_checkpointing: true

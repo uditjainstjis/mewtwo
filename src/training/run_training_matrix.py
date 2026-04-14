@@ -54,8 +54,10 @@ def extract_subspace(model, threshold=0.95):
                 # Move matrices to CPU to avoid strict 32GB OOM during the memory-heavy SVD algorithm
                 W_cpu = W.to('cpu').float()
                 
-                # Singular Value Decomposition on CPU RAM
-                U_cpu, S_cpu, V_cpu = torch.linalg.svd(W_cpu, full_matrices=False)
+                # Truncated SVD using Randomized Low-Rank Approximation! 
+                # Since the adapter was trained with r=32, the maximum theoretical rank of the matrix is 32. 
+                # Calculating the full 4096-rank SVD is what was bottlenecking the CPU for 15 minutes!
+                U_cpu, S_cpu, V_cpu = torch.svd_lowrank(W_cpu, q=64)
                 
                 # Dynamic rank selection via Top-K Variance (Grokking drop)
                 s_sq = S_cpu**2

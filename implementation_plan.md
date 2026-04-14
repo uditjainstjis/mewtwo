@@ -1,361 +1,403 @@
-# Knowledge Atoms: The Post-LoRA Paradigm
+# LoRI-MoE: Orthogonal Low-Rank Experts with Token-Level Dynamic Routing
 
-## The Hard Truth First
+## The Honest Diagnosis — Why Both Doc Plans Are Wrong
 
-Let me be brutally honest about what "YC-level, world-breaking invention" actually requires:
+Before presenting the plan, here's the chain-of-thought that both research docs missed.
 
-1. **A real technical insight** that solves a problem nobody else has solved
-2. **A working demo** that proves it works (not a plan — a demo)
-3. **A clear reason why NOW** — why this wasn't possible/obvious 6 months ago
-4. **A business narrative** — why this becomes a company, not just a paper
+### What Both Docs Correctly Identified
+1. Synapta's linear composition is **mathematically broken** — intruder dimensions cause destructive geometric interference
+2. Prompt-level routing is **architecturally obsolete** — reasoning requires token-level granularity
+3. Semantic similarity is **an invalid metric** — cosine similarity can't distinguish "converges to 0" from "converges to infinity"
+4. The clamping mechanisms are **algebraically irrelevant** — at rank-16, adapter norms are infinitesimal vs. base activations
+5. The current codebase has **ZERO real components** — all adapters are `torch.randn`, all metrics are simulated
 
-CF-LoRA and SAC (the current plan) are solid **incremental** contributions. They improve LoRA composition. But they don't REPLACE LoRA. They're still playing in LoRA's sandbox. An investor asks: "So it's LoRA but better?" — and the answer is yes, and that's not exciting enough.
-
-**What WOULD be exciting**: A fundamentally new way to give AI models expert knowledge that makes LoRA's entire approach look obsolete.
-
----
-
-## The Core Insight: LoRA's Fatal Design Flaw
-
-Here's why LoRA composition is broken AT THE DESIGN LEVEL — not fixable by better training or smarter merging:
-
-### How LoRA Works (And Why It Fails at Composition)
-
-```
-Normal layer:  output = W × input          (base model)
-LoRA layer:    output = (W + ΔW) × input   (adapted model)
-                      = W × input + ΔW × input
-                      = base_output + adapter_output
-```
-
-LoRA modifies the **WEIGHT MATRIX** W. The adapter ΔW = BA is applied to EVERY input that passes through this layer. It changes the transformation itself — not selectively, not conditionally, but ALWAYS.
-
-**The composition problem:**
-
-```
-Two adapters: output = W × input + ΔW₁ × input + ΔW₂ × input
-```
-
-If ΔW₁ and ΔW₂ both modify the same row/column of the weight matrix (= they compete for the same neurons), they INTERFERE. And here's the fatal part: **you have no control over which neurons each adapter uses.** LoRA doesn't know or care. It just does gradient descent and grabs whatever neurons help minimize loss. Two adapters trained independently will freely overlap.
-
-This is like two painters sharing one canvas in the dark. They can't see each other's work, so they paint over each other.
-
-### The Key Realization
-
-The problem isn't in how you COMPOSE adapters. The problem is that **LoRA operates at the wrong level of abstraction.**
-
-LoRA modifies weights → weights affect ALL inputs → you can't selectively control what knowledge gets activated when.
-
-What if instead of modifying the model's TRANSFORMATION (weights), you could modify the model's REPRESENTATIONS (activations) directly — and do it SPARSELY and CONDITIONALLY?
-
----
-
-## The Invention: Knowledge Atoms (KA)
-
-### The Paradigm Shift in One Picture
-
-```
-LoRA (Weight Space):
-┌─────────────────────────────┐
-│ W + ΔW_law + ΔW_med         │ ← Modifies the transformation itself
-│ Affects ALL inputs           │ ← Can't turn off, can't separate
-│ Dense low-rank matrices      │ ← 20MB per adapter
-│ Composition = collision risk │ ← Fundamental design limitation
-└─────────────────────────────┘
-
-Knowledge Atoms (Activation Space):
-┌─────────────────────────────┐
-│ W stays FROZEN               │ ← Base model untouched
-│ + sparse patches injected    │ ← Only at relevant layers
-│   ONLY when triggered        │ ← Conditional on input
-│   at specific features       │ ← Sparse: <5% of dimensions
-│ Composition = addition       │ ← Interference-free by construction
-└─────────────────────────────┘
-```
-
-### What Is a Knowledge Atom?
-
-A Knowledge Atom is the SMALLEST UNIT of injectable domain knowledge. It consists of three parts:
-
-```python
-@dataclass
-class KnowledgeAtom:
-    # WHERE to inject: which layers of the transformer
-    layer_indices: List[int]        # e.g., [8, 12, 16, 20]
-    
-    # WHAT to inject: sparse activation patches
-    # For each layer, a sparse vector added to the residual stream
-    patches: Dict[int, SparsePatch] # layer_idx → (indices, values)
-    
-    # WHEN to inject: a lightweight gating function
-    gate: GatingNetwork             # Small MLP that decides IF this atom activates
-```
-
-And a `SparsePatch` is:
-
-```python
-@dataclass
-class SparsePatch:
-    feature_indices: Tensor   # Which dimensions to modify (e.g., 200 out of 4096)
-    feature_values: Tensor    # What values to add at those dimensions
-    # Total parameters: 200 × 2 = 400 numbers ← vs LoRA's 16×4096 = 65,536
-```
-
-### The Math
-
-Standard transformer forward pass:
-```
-h₀ = embed(input)
-h₁ = h₀ + Attention₁(h₀) + FFN₁(h₀)           # Layer 1
-h₂ = h₁ + Attention₂(h₁) + FFN₂(h₁)           # Layer 2
-...
-hₗ = hₗ₋₁ + Attentionₗ(hₗ₋₁) + FFNₗ(hₗ₋₁)   # Layer L
-output = head(hₗ)
-```
-
-With Knowledge Atoms:
-```
-h₀ = embed(input)
-h₁ = h₀ + Attention₁(h₀) + FFN₁(h₀)
-h₂ = h₁ + Attention₂(h₁) + FFN₂(h₁)
-...
-For each layer l:
-  hₗ = hₗ₋₁ + Attentionₗ(...) + FFNₗ(...)
-  
-  # Knowledge Atom injection
-  for atom in active_atoms:
-    if atom.gate(hₗ) > threshold:          # CONDITIONAL: only fire if relevant
-      hₗ += atom.patches[l].inject(hₗ)     # SPARSE: only touch ~5% of dimensions
-```
-
-### Why Composition Is Free
-
-**Theorem (informal):** If two Knowledge Atoms A₁ and A₂ have non-overlapping feature indices (their sparse patches touch different dimensions), then composing them produces EXACTLY the same result as applying each independently — zero interference, zero collision, by construction.
-
-**Why this is guaranteed:** Each atom only modifies a small, specific set of feature dimensions. If atom A₁ modifies dimensions {14, 87, 203, 501, ...} and atom A₂ modifies dimensions {22, 145, 390, 722, ...}, their additions are COMPLETELY INDEPENDENT.
-
-This is like two painters with assigned sections of the canvas. They physically CANNOT paint over each other.
-
-**How we ensure non-overlap:** During training, we enforce sparsity AND diversity through:
-
-```
-L_total = L_task                    # Learn the right knowledge
-        + λ_sparse × ||patch||₁    # Force sparsity (use few dimensions)
-        + λ_diverse × Overlap(patch, existing_atoms)  # Force different dimensions
-```
-
----
-
-## Why Nobody Has Done This
-
-Let me map the landscape and show the exact gap:
-
-| Approach | Operates On | Composable? | Conditional? | Sparse? | Deep Knowledge? |
-|:---|:---|:---|:---|:---|:---|
-| **LoRA** | Weight matrices | ❌ Collisions | ❌ Always on | ❌ Dense low-rank | ✅ Yes |
-| **(IA)³** | Activation rescaling | ⚠️ Partial | ❌ Always on | ⚠️ Semi-sparse | ❌ Weak |
-| **Steering Vectors** | Residual stream (single direction) | ⚠️ Linear only | ❌ Always on | ❌ Dense | ❌ Shallow (tone/style, not facts) |
-| **Steer2Adapt** (2026) | Composed steering vectors | ⚠️ Better | ❌ Always on | ❌ Dense | ❌ Shallow |
-| **Prefix Tuning** | Input embeddings | ❌ | ❌ | ❌ | ❌ Very weak |
-| **Task Vectors** | Weight differences (offline) | ⚠️ With TIES | ❌ Static merge | ❌ Dense | ✅ Yes |
-| **Knowledge Atoms (ours)** | **Sparse activation patches** | **✅ By construction** | **✅ Gated** | **✅ <5% dims** | **✅ To be proven** |
-
-### The Exact Novelty
-
-1. **Steering vectors** can modify activations, but they're SINGLE VECTORS applied uniformly — they can encode "be more truthful" but NOT "know how to diagnose pneumonia." They're behavioral, not factual.
-
-2. **Steer2Adapt** composes steering vectors, but still operates on dense, uniform injections across all tokens. No sparsity guarantee, no conditional gating.
-
-3. **LoRA/DoRA/PiSSA** can encode deep knowledge but can't compose without interference.
-
-4. **NOBODY** does: **sparse, conditional, multi-layer activation injection for deep domain knowledge with guaranteed composability.**
-
-That's the gap. That's the invention.
-
----
-
-## The One Big Risk (Honest Assessment)
+### Where Doc1 (CoMoL-StelLA Synthesis) Goes Wrong
 
 > [!CAUTION]
-> **Can sparse activation patches encode DEEP domain knowledge?**
->
-> Steering vectors work for behavioral attributes (tone, honesty, style) because those are encoded in ~1 direction in activation space. But domain knowledge (medicine, law, math) might require DENSE, distributed representations that CAN'T be captured in a sparse patch.
->
-> **This is the make-or-break experiment.** If it works → paradigm shift. If it doesn't → we learn something fundamental about how knowledge is encoded in neural networks (still publishable, still interesting).
->
-> **My honest probability estimate: 60-70% it works** for at least SOME domains. Math and code (which have structured, pattern-based knowledge) are more likely to work than medicine (which requires broad factual recall).
+> Doc1 proposes Riemannian optimization on the Stiefel manifold — this is a **Sony Research NeurIPS Spotlight** level project. One person cannot correctly implement Riemannian QR-retraction gradients, write custom Triton kernels for core-space fusion, AND train on GPQA/SciCode datasets in 4 weeks. The mathematical elegance is seductive but the implementation complexity is prohibitive.
 
-### Why I Think It WILL Work (The Scientific Argument)
+Specific problems:
+- **Qwen2.5-14B in FP8** = ~14GB base weights. Leaves 18GB. Sounds fine until you realize LoRA training with optimizer states, gradients, activations, and KV cache will eat 20-30GB easily. You'll be OOM during training.
+- **3-phase training pipeline** (manifold → core matrices → router) has 3 failure points. If Phase 1 doesn't converge, everything downstream collapses.
+- **GPQA Diamond target of +15% absolute** — PhD experts score 65%, frontier models plateau at ~90%. Asking a 14B model with adapters to move the needle 15% on this benchmark is aspirational fantasy.
+- **Custom Triton kernels for core-space fusion** — writing correct, performant Triton kernels is a specialized skill that takes weeks alone.
 
-1. **Mechanistic interpretability research** (Anthropic 2024, OpenAI 2024) shows that specific features in sparse autoencoder decompositions correspond to VERY specific concepts — "the Golden Gate Bridge," "DNA base pairs," "Python f-strings." These are sparse, interpretable, and factual.
-
-2. **Representation Engineering** shows you can steer models with activation additions at specific layers. The model's residual stream IS linearly decomposable.
-
-3. **In-context learning** proves that transformers CAN acquire domain knowledge from activation patterns alone (the examples in the prompt modify activations, not weights). Knowledge Atoms are like "compiled in-context learning" — the same knowledge injection, but pre-computed and sparse.
-
----
-
-## Concrete Execution Plan
-
-### Week 1: Proof of Concept (Days 1-5)
-
-**Goal: Prove that sparse activation patches CAN encode domain knowledge.**
-
-This is the existential experiment. Everything depends on it. We do it FIRST.
-
-#### Day 1-2: Build the KA Training Framework
-
-```
-src/knowledge_atoms/
-├── atom.py                 # KnowledgeAtom dataclass
-├── sparse_patch.py         # Sparse activation injection module  
-├── gating.py               # Conditional gating network
-├── atom_trainer.py         # Training loop for knowledge atoms
-├── atom_injector.py        # Hook-based injection into transformer forward pass
-└── losses.py               # Sparsity + diversity + task losses
-```
-
-**How training works:**
-
-1. Load frozen Qwen2.5-7B-Instruct
-2. Register forward hooks at target layers (e.g., layers 8, 12, 16, 20, 24, 28)
-3. For each training example (e.g., a math question):
-   - Forward pass through frozen model → capture activations
-   - The KA module (gating network + sparse patches) proposes activation modifications
-   - Modified activations produce a different output
-   - Backprop through ONLY the KA parameters (model stays frozen)
-   - Sparsity loss ensures patches stay sparse
-4. Result: a trained Knowledge Atom that improves math performance via sparse activation injection
-
-**Key implementation detail:** This is similar to how adapter layers work, but instead of inserting a full bottleneck layer (adapter) or low-rank matrix (LoRA), we inject a SPARSE VECTOR selected by a GATE. The gate and sparse vector are the ONLY trainable parameters. Everything else is frozen.
-
-#### Day 3: Train First Knowledge Atom (MATHEMATICS)
-
-- Use the 1800 real math training examples we already have
-- Train a MATH Knowledge Atom on Qwen2.5-7B
-- Target: ~100K parameters (vs LoRA's ~20M at rank-32 across all layers)
-- Training time estimate: 2-4 hours on RTX 5090
-
-#### Day 4: The Existential Test
-
-Run MMLU math subsets with:
-1. Base Qwen2.5-7B (no adaptation)
-2. Base + LoRA adapter (standard approach)
-3. Base + Knowledge Atom (our approach)
-
-**If KA matches or beats LoRA with 200x fewer parameters → we have a real invention.**
-**If KA is within 80% of LoRA's improvement → worth continuing (sparsity has a natural capacity cost).**
-**If KA shows <50% of LoRA's improvement → the paradigm doesn't work for deep knowledge. We pivot back to CF-LoRA/SAC.**
-
-#### Day 5: Second Atom + Composition Test
-
-Train a LEGAL Knowledge Atom. Then:
-1. Test MATH atom alone on math questions → measures domain quality
-2. Test LEGAL atom alone on legal questions → measures domain quality
-3. Test MATH + LEGAL atoms TOGETHER on math questions → should NOT degrade
-4. Test MATH + LEGAL atoms TOGETHER on legal questions → should NOT degrade
-5. Test MATH + LEGAL atoms on cross-domain questions → should IMPROVE
-
-**The composition test is trivial because of sparsity.** If the atoms touch different features (which our diversity loss enforces), composition is literally just adding two sparse vectors. No interference by construction.
-
-### Week 2: Scale + Benchmark (Days 6-10)
-
-If Week 1 succeeds:
-
-#### Day 6-7: Train Atoms for All 9 Available Domains
-- Use all 9 domains with real training data
-- Each takes 2-4 hours → can pipeline overnight
-- Measure individual quality on domain benchmarks
-
-#### Day 8-9: The Head-to-Head Comparison
-The paper's money table:
-
-| Method | Params | Single-Domain Accuracy | Composition Accuracy | Composition Interference |
-|:---|:---|:---|:---|:---|
-| Base model | 0 | baseline | baseline | N/A |
-| LoRA (rank-32) | 20M | +X% | degrades by Y% | MEASURED |
-| LoRA + CF-LoRA | 20M | +X% | less degradation | MEASURED |
-| LoRA + SAC | 20M | +X% | less degradation | MEASURED |
-| **Knowledge Atoms** | **100K** | **+Z%** | **zero degradation** | **zero by construction** |
-
-If Z ≥ 0.8X (KA reaches 80% of LoRA quality) AND KA has zero composition interference → **that's the headline result.**
-
-"200x fewer parameters. Zero composition interference. 80%+ of LoRA's domain quality."
-
-#### Day 10: The Demo
-Build a live demo: a Qwen2.5-7B model with 9 Knowledge Atoms loaded simultaneously. User picks any combination of domains, asks a cross-domain question, gets an expert answer.
-
-Show that you can hot-swap atoms in <1ms (they're just sparse vectors), compose arbitrary combinations, and the model never degrades.
-
-### Week 3: Paper + Polish + Business (Days 11-15)
-
-#### Day 11-12: Paper Draft
-- Title: *"Knowledge Atoms: Sparse Conditional Activation Injection for Interference-Free Composable Domain Expertise"*
-- Structure: Problem (LoRA can't compose) → Insight (wrong level of abstraction) → Method (KA) → Theory (composition guarantee) → Experiments → Results
-- Target: ICML, NeurIPS, or ICLR
-
-#### Day 13: Open-Source Release
-- Clean repo with: KA training code, trained atoms, demo, benchmarks
-- Blog post explaining the paradigm shift in plain English
-- Tweet thread with key results
-
-#### Day 14-15: Business Framing
-- "Knowledge Atom Marketplace" — domain experts train atoms, developers compose them
-- Like npm packages for AI specialization
-- 200x smaller than LoRA adapters → trivial to distribute, store, compose
-- Enterprise: "Give any model instant expertise in your domain without fine-tuning"
-
----
-
-## Why This Is YC-Level (If It Works)
-
-### The Technical Moat
-1. **New paradigm** — not "LoRA but better," but "LoRA is OBSOLETE for composition"
-2. **Theoretical guarantee** — provable interference-free composition (LoRA can never have this)
-3. **200x more efficient** — sparse patches vs dense matrices
-4. **First-mover advantage** — nobody has published this specific combination
-
-### The Business Narrative
-
-> "Every company fine-tuning LLMs today uses LoRA. But LoRA adapters can't be composed — if you want your model to be good at BOTH law AND medicine, you have to train a new adapter from scratch. Knowledge Atoms solve this. Train once per domain, compose freely. We're building the npm registry for AI expertise."
-
-### The Demo That Gets Attention
-
-```
-"We took a 7B model. We gave it 9 specialist Knowledge Atoms.
-Each atom is 100KB (not 20MB like LoRA).
-Any combination of atoms composes with ZERO interference.
-The model answers cross-domain expert questions that 
-a 70B model without atoms gets wrong.
-Total adaptation cost: 0.9MB vs LoRA's 180MB.
-Training time: 4 hours per domain vs LoRA's 30+ hours."
-```
-
----
-
-## How This Connects to What You've Already Built
-
-| Existing Asset | How It's Used |
-|:---|:---|
-| 9 domains of real training data | ✅ Direct input for KA training |
-| CF-LoRA code | ✅ The diversity loss concept is reused (cross-atom orthogonality) |
-| SAC composition code | ❌ Not needed (composition is trivial with KA, just sparse addition) |
-| Instrumented trainer | ⚠️ Adaptation: track atom sparsity, feature utilization during training |
-| Existing LoRA adapters | ✅ Used as BASELINES to compare against |
-| Subspace geometry analysis | ✅ Used to verify atoms occupy different feature subspaces |
-
----
-
-## Decision Points
-
-> [!IMPORTANT]
-> **Q1: Are you willing to bet 1 week on this?** Day 4 is the existential test. If Knowledge Atoms can't encode domain knowledge via sparse activation patches, we know by Day 4 and pivot back to CF-LoRA + SAC (still a solid paper). Total risk: 4 days. Total upside: paradigm shift.
-
-> [!IMPORTANT]
-> **Q2: What's your deadline?** If you have a conference deadline (ICML, NeurIPS), the 3-week plan is tight but doable. If it's open-ended, we can be more thorough.
+### Where Doc2 (TOSR) Goes Wrong
 
 > [!WARNING]
-> **Q3: Honest expectations.** Even if KA works perfectly, "YC-level" requires more than a paper. It requires: (a) a working product demo, (b) early users/traction, (c) a clear go-to-market. The technology is step 1. Are you prepared to spend weeks 4-8 on the business side?
+> Doc2 proposes DARE-sparsifying the "existing 20 Synapta adapters." Those adapters are `torch.randn(4096, 16)` — random noise. You cannot DARE-sparsify random noise. The entire execution plan builds on adapters that don't exist.
 
-> [!CAUTION]
-> **The risk I want you to understand:** There is a ~30-40% chance that sparse activation patches CANNOT encode deep domain knowledge. In that case, you get: (a) a publishable negative result about how knowledge is encoded in LLMs, (b) a solid fallback to CF-LoRA + SAC, (c) 4 days spent. This is a good bet, but it IS a bet.
+Specific problems:
+- **Staying on Qwen2.5-1.5B** — the reasoning ceiling of a 1.5B model is brutally low. Even with perfect adapter composition, 1.5B models fundamentally lack the latent capacity for multi-step deductive reasoning. You're optimizing the steering wheel of a car with no engine.
+- **HydraLoRA shared-B assumption** — Doc2's own literature table flags this: "The shared B matrix assumes all domains share a common input subspace, which fails for highly disjoint domains (e.g., Arabic poetry vs. Python)."
+- **30% relative improvement on MATH500** (35% → 45.5%) — this would be remarkable, but DARE + token routing alone won't get there. DARE removes parameters; it doesn't add reasoning capability.
+- **100k OpenOrca/MetaMathQA sequences for router training** — this trains the router to mimic existing data patterns, not to perform novel reasoning.
+
+### The Deeper Question Neither Doc Asks
+
+**Can parameter-space composition EVER produce reasoning synthesis?**
+
+Both docs assume that if you solve the interference problem (via orthogonality, sparsification, or manifold alignment), composed adapters will "reason" across domains. But:
+
+- LoRA adapters encode **domain knowledge as weight perturbations**
+- Composing weights ≠ composing reasoning capabilities
+- Even perfectly orthogonal adapters only **prevent interference** — they don't **enable synthesis**
+- The o1/o3 paradigm proves that **test-time compute scaling** (thinking longer), not parameter arithmetic, drives reasoning breakthroughs
+
+This means: **the breakthrough isn't in HOW you compose adapters. It's in WHEN and WHY.**
+
+---
+
+## The Actual Breakthrough: LoRI-MoE
+
+### Core Insight
+
+The synthesis of both documents points to one architecture that neither fully articulates:
+
+**LoRI (frozen random B, sparse A) gives you interference-free adapters FOR FREE via Johnson-Lindenstrauss. Token-level routing gives you dynamic composition. Together, they solve the composition problem without Riemannian optimization, without custom Triton kernels, and without aspirational math.**
+
+| Property | Synapta | Doc1 (CoMoL-StelLA) | Doc2 (TOSR) | **LoRI-MoE (Ours)** |
+|---|---|---|---|---|
+| Interference Resolution | ❌ Scalar clamp | ✅ Stiefel manifold | ⚠️ DARE sparsification | ✅ Frozen random projection (JL lemma) |
+| Routing Granularity | ❌ Prompt-level | ✅ Token-level core-space | ✅ Token-level | ✅ Token-level |
+| Implementation Complexity | Low | **Extreme** | Medium | **Low-Medium** |
+| Training Phases | 0 (untrained) | 3 phases | 2 phases | **2 phases** |
+| Requires Custom Kernels | No | Yes (Triton) | No | **No** |
+| Mathematical Guarantee | None | Strict orthonormality | Approximate (random pruning) | **Approximate orthogonality (JL)** |
+| 4-Week Feasibility | N/A | ❌ Unrealistic | ⚠️ Missing foundations | ✅ **Achievable** |
+
+### Why LoRI-MoE Is Novel
+
+The LoRI paper (NeurIPS 2025) **only does static merging**. It freezes B, trains sparse A matrices, then merges them at fixed weights. Nobody has combined:
+
+1. LoRI's training-time orthogonality constraint WITH
+2. Dynamic token-level routing at inference time
+
+This IS the gap both documents identify but neither fills correctly:
+- Doc1 sees the gap but over-engineers the solution (Stiefel manifold)
+- Doc2 sees the gap but under-engineers the foundation (DARE on nonexistent adapters)
+
+### Architecture
+
+```
+Input Token Hidden State h_t
+        │
+        ▼
+   ┌────────────┐
+   │ Shared B    │  (Frozen random Gaussian, dim: d_model × r)
+   │ (LoRI)      │  (Approximate orthogonality via JL lemma)
+   └─────┬──────┘
+         │
+    ┌────▼────┐
+    │ Router  │  Lightweight MLP: project h_t → softmax over K experts
+    │ R(h_t)  │  Output: [p_1, p_2, ..., p_K] probability distribution
+    └────┬────┘
+         │
+    ┌────▼──────────────────────────┐
+    │  Dynamic A Composition        │
+    │  A_merged = Σ p_k · A_k      │  (Sparse domain-specific matrices)
+    │  where A_k has 80-90% sparsity│
+    └────┬──────────────────────────┘
+         │
+    ┌────▼────┐
+    │ ΔW = A_merged @ B │  (Single LoRA forward pass cost)
+    └────┬────┘
+         │
+    h_out = W_base(h_t) + α · ΔW(h_t)
+```
+
+**Key properties:**
+- **Shared B** is frozen and random → guarantees approximate orthogonality without training
+- **Sparse A_k** matrices are domain-specific → each domain's update lives in a near-orthogonal subspace
+- **Router R** operates on the hidden state → token-level granularity
+- **Single projection** through B → same FLOP cost as standard LoRA, not K× like naive MoE
+
+### Base Model Selection
+
+> [!IMPORTANT]
+> **Primary: Qwen2.5-3B-Instruct** (~6GB BF16, leaves 26GB for everything else)
+> **Scaling experiment: Qwen2.5-7B-Instruct** (~14GB BF16, leaves 18GB)
+
+Why 3B and not 1.5B or 14B:
+- **Not 1.5B**: The reasoning capacity is too low — Qwen2.5-1.5B scores ~25% on MATH. Even a perfect adapter system can't fix a model that lacks fundamental reasoning circuits. You'd be proving that a better steering wheel doesn't help a car with no engine.
+- **Not 14B**: Training LoRA adapters on 14B with BF16 + AdamW optimizer states = ~28GB. You'd have <4GB for activations/KV cache. OOM city.
+- **3B is the sweet spot**: ~40% on MATH (improvable), ~55% on MMLU (strong base), fast iteration (train a LoRA in 1-2 hours), massive headroom on 32GB GPU.
+
+### Domain Selection (5 domains, not 20)
+
+> [!WARNING]
+> 20 domains is a paper claim, not a practical plan. Training 20 quality LoRA adapters takes 20× the compute, 20× the data curation, and makes ablations 20× more expensive. Start with 5 domains that are maximally disjoint and have established benchmarks.
+
+| Domain | Training Data | Evaluation Benchmark | Why This Domain |
+|---|---|---|---|
+| **Mathematics** | MetaMathQA (100k) | MATH500 / GSM8K | Core reasoning capability |
+| **Code** | CodeAlpaca + Evol-Instruct-Code (80k) | HumanEval / MBPP | Disjoint from math syntax |
+| **Science** | SciQ + GPQA train split (50k) | ARC-Challenge / GPQA | Multi-step scientific reasoning |
+| **Legal** | LegalBench subset (30k) | LegalBench test | Highly specialized vocabulary |
+| **Medical** | MedQA + PubMedQA (50k) | MedQA test | Domain with real-world impact |
+
+---
+
+## Proposed Changes
+
+### Phase 0: Foundation Reset (Days 1-3)
+
+> [!IMPORTANT]
+> Nothing in the current codebase is usable for real experiments. The adapters are random, the metrics are simulated, the routers are heuristic toys. We need a clean foundation.
+
+#### [NEW] src/lori_moe/__init__.py
+Empty init for new package.
+
+#### [NEW] src/lori_moe/config.py
+Central configuration dataclass defining: base model path, adapter rank, number of domains, sparsity level, router architecture params, training hyperparameters.
+
+#### [NEW] src/lori_moe/shared_projection.py
+Implements the frozen shared B matrix (random Gaussian initialization with proper scaling). Key: `B = torch.randn(d_model, r) / sqrt(r)` — the `1/sqrt(r)` scaling ensures the projection preserves distances (JL lemma).
+
+#### [NEW] src/lori_moe/lori_adapter.py
+Custom LoRA adapter using frozen B + trainable sparse A. Integrates with HuggingFace PEFT's `LoraConfig` but overrides the B initialization to use the shared frozen matrix. Applies binary sparse masks to A matrices during training.
+
+#### [NEW] scripts/setup_foundation.sh  
+Installs dependencies, downloads Qwen2.5-3B-Instruct, verifies CUDA/BF16 support, creates directory structure.
+
+---
+
+### Phase 1: Train Real Domain Adapters (Days 4-8)
+
+#### [NEW] src/lori_moe/data/prepare_datasets.py
+Downloads and processes the 5 domain datasets from HuggingFace. Formats into instruction-tuning format compatible with Qwen2.5's chat template. Handles train/eval splits.
+
+#### [NEW] src/lori_moe/training/train_lori_adapter.py
+Main training script for a single domain LoRA adapter. Key features:
+- Loads Qwen2.5-3B in BF16
+- Initializes shared frozen B matrix (loaded from checkpoint or generated once)
+- Creates trainable sparse A matrix for the target domain
+- Uses PEFT's LoRA injection into `q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj`
+- AdamW optimizer, cosine LR schedule, gradient checkpointing
+- Saves adapter weights + sparse mask
+
+#### [NEW] src/lori_moe/training/apply_sparsity.py
+Post-training DARE-style sparsification: drops N% of A matrix parameters (by magnitude), rescales remainder. This is ADDITIONAL orthogonalization on top of LoRI's structural guarantee.
+
+#### [NEW] configs/lori_training.yaml
+```yaml
+base_model: "Qwen/Qwen2.5-3B-Instruct"
+adapter_rank: 32  # Higher than Synapta's 16 for more capacity
+shared_b_seed: 42  # Deterministic B initialization
+sparsity_level: 0.8  # 80% sparse A matrices
+target_modules: ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
+lr: 2e-4
+epochs: 3
+batch_size: 8
+gradient_accumulation: 4
+bf16: true
+gradient_checkpointing: true
+```
+
+#### [NEW] scripts/train_all_domains.sh
+Sequential training script for all 5 domains. Estimated: ~2 hours per domain × 5 = 10 hours total.
+
+---
+
+### Phase 2: LoRI-MoE Architecture (Days 9-14)
+
+#### [NEW] src/lori_moe/model/lori_moe_linear.py
+The core module replacing `AdaptiveMultiLoRALinear`. Key differences from Synapta:
+- **No clamping** — orthogonality prevents interference structurally
+- **Token-level routing** — router operates on each token's hidden state
+- **Shared B projection** — single matrix multiply, not K separate ones
+- **Sparse A composition** — dynamic weighted sum of sparse A matrices
+
+#### [NEW] src/lori_moe/model/router.py
+Lightweight MLP router deployed at each transformer layer:
+```python
+class TokenRouter(nn.Module):
+    def __init__(self, hidden_dim, num_experts, bottleneck=64):
+        self.down = nn.Linear(hidden_dim, bottleneck)
+        self.up = nn.Linear(bottleneck, num_experts)
+    
+    def forward(self, hidden_state):
+        # hidden_state: (batch, seq_len, hidden_dim)
+        logits = self.up(F.silu(self.down(hidden_state)))
+        return F.softmax(logits, dim=-1)  # (batch, seq_len, num_experts)
+```
+
+#### [NEW] src/lori_moe/model/lori_moe_model.py
+Wrapper that:
+1. Loads Qwen2.5-3B base model (frozen)
+2. Loads 5 trained LoRI adapters (frozen A matrices)
+3. Loads shared B matrix (frozen)
+4. Injects `LoRIMoELinear` modules at each target layer
+5. Initializes trainable routers at each layer
+6. Implements the full forward pass with load-balancing auxiliary loss
+
+#### [NEW] src/lori_moe/model/losses.py
+- Standard causal LM cross-entropy loss
+- Load-balancing auxiliary loss: `L_aux = α * Σ(f_i * P_i)` where f_i = fraction of tokens routed to expert i, P_i = mean router probability for expert i
+- Total: `L = L_CE + 0.01 * L_aux`
+
+---
+
+### Phase 3: Router Training (Days 15-19)
+
+#### [NEW] src/lori_moe/data/generate_routing_data.py
+Generates multi-domain reasoning traces:
+- Uses the base model itself to generate responses on mixed-domain prompts
+- Annotates which domain is "active" per reasoning step
+- Creates 30k supervised routing examples
+- Format: (prompt, token_positions, expert_labels_per_position)
+
+#### [NEW] src/lori_moe/training/train_router.py
+Router training script:
+- Freezes base model + all adapters + shared B
+- Only trains router parameters (~200K params total across all layers)
+- Uses the multi-domain routing data
+- Monitors routing entropy to detect collapse (entropy < 0.3 = collapse)
+- Implements Top-2 gating with noise for gradient flow through non-selected experts
+
+#### [NEW] configs/router_training.yaml
+```yaml
+router_lr: 1e-3
+router_epochs: 5
+load_balance_weight: 0.01
+top_k: 2  # Top-2 routing
+noise_std: 0.1  # Noisy gating to prevent collapse
+entropy_threshold: 0.3  # Alert if below this
+```
+
+---
+
+### Phase 4: Evaluation (Days 20-23)
+
+#### [NEW] src/lori_moe/eval/run_benchmarks.py
+Evaluation using `lm-eval-harness` on proper benchmarks:
+
+| Benchmark | What It Tests | Metric | Baseline (Qwen2.5-3B) |
+|---|---|---|---|
+| **MATH500** | Mathematical reasoning | Exact Match | ~40% |
+| **GSM8K** | Grade-school math | Exact Match | ~75% |
+| **MMLU** | Multi-domain knowledge | Accuracy | ~55% |
+| **BBH** | Hard multi-step reasoning | Accuracy | ~45% |
+| **HumanEval** | Code generation | Pass@1 | ~40% |
+
+#### [NEW] src/lori_moe/eval/interference_test.py
+Critical test: does multi-adapter composition degrade single-domain performance?
+- Run each domain's benchmark with ONLY that domain's adapter active
+- Run same benchmark with ALL adapters active (router decides)
+- Degradation must be < 2% to prove orthogonality works
+
+#### [NEW] src/lori_moe/eval/routing_analysis.py
+Visualizes token-level routing decisions:
+- For a mixed-domain prompt, plots expert selection probability per token
+- Verifies the router actually switches domains mid-sequence (not collapsed)
+- Generates routing entropy histograms
+
+---
+
+### Phase 5: Ablations + Paper (Days 24-28)
+
+#### [NEW] src/lori_moe/eval/ablation_suite.py
+Systematic ablations:
+1. **Token-level vs. Prompt-level routing** (isolates routing contribution)
+2. **LoRI (shared B) vs. independent B** (isolates orthogonality contribution)  
+3. **Sparse A vs. Dense A** (isolates sparsification contribution)
+4. **Top-1 vs. Top-2 vs. Soft routing** (isolates routing granularity)
+5. **Rank 16 vs. 32 vs. 64** (capacity analysis)
+
+#### [MODIFY] paper_v2/ (new paper draft)
+arXiv submission with framing:
+
+> *"We introduce LoRI-MoE, a parameter-efficient multi-expert inference framework that combines interference-free adapter training (via frozen random projections) with dynamic token-level expert routing. LoRI-MoE achieves X% improvement on MATH500 and Y% on MMLU over prompt-level composition baselines, while guaranteeing <2% single-domain degradation — all within the 32GB memory budget of a single consumer GPU."*
+
+---
+
+## Success Criteria
+
+### The experiment succeeds if:
+1. **Reasoning gain**: ≥10% relative improvement on MATH500 over base Qwen2.5-3B zero-shot
+2. **Zero interference**: <2% degradation on any single-domain benchmark when all 5 adapters are active
+3. **Token routing works**: Routing entropy > 0.5 on multi-domain prompts (router is NOT collapsed)
+4. **Latency bound**: <25% overhead vs. single LoRA inference (tokens/sec)
+5. **Ablations prove mechanism**: Token-level > prompt-level routing (statistically significant)
+
+### The experiment FAILS if:
+- Multi-adapter composition degrades single-domain performance by >5% (orthogonality broken)
+- Router collapses to single expert (entropy < 0.3)
+- No improvement over base model on any hard benchmark (adapters aren't helping)
+- Latency overhead >50% (architecture is impractical)
+
+---
+
+## Failure Modes & Pre-Registered Pivots
+
+### Failure Mode 1: Router Collapse
+**Detection**: Routing entropy drops below 0.3 during training
+**Pivot**: 
+- Increase load-balancing loss weight from 0.01 → 0.1
+- Switch from soft routing to Top-2 hard routing with noise
+- If still collapsed: use X-LoRA style layer-wise routing instead of token-level
+
+### Failure Mode 2: Orthogonality Insufficient  
+**Detection**: Single-domain degradation >5% with all adapters active
+**Pivot**:
+- Increase sparsity from 80% → 95%
+- Apply DARE post-hoc sparsification on top of LoRI training
+- Nuclear option: retrain with LoRI's sparse mask enforced during training (not just post-hoc)
+
+### Failure Mode 3: Adapters Don't Help Reasoning
+**Detection**: No improvement over base model zero-shot on MATH500/MMLU
+**Pivot**:
+- This means the 3B model lacks the reasoning circuits to be steered
+- Scale to Qwen2.5-7B as base model (14GB BF16, still fits on 5090)
+- If 7B also fails: pivot to Doc1's Scenario B — Activation Steering instead of parameter composition
+
+### Failure Mode 4: Token-Level Routing Too Slow
+**Detection**: >50% latency overhead in tokens/sec
+**Pivot**:
+- Reduce router from per-token to per-chunk (every 8 tokens)
+- Reduce router bottleneck dimension from 64 to 16
+- Fall back to layer-wise routing (X-LoRA style) — still better than prompt-level
+
+---
+
+## Week-by-Week Timeline
+
+| Week | Focus | Deliverables | Go/No-Go |
+|---|---|---|---|
+| **Week 1** (Days 1-7) | Foundation + Adapter Training | 5 trained LoRI adapters, evaluation pipeline | Each adapter improves its domain benchmark by ≥5% over base |
+| **Week 2** (Days 8-14) | Architecture Implementation | LoRI-MoE model, router modules, forward pass working | Single forward pass completes without OOM, latency <2× single LoRA |
+| **Week 3** (Days 15-21) | Router Training + Evaluation | Trained router, benchmark results | Routing entropy >0.5, multi-domain improvement visible |
+| **Week 4** (Days 22-28) | Ablations + Paper | Complete ablation table, arXiv draft | All success criteria met |
+
+---
+
+## Open Questions
+
+> [!IMPORTANT]
+> **Q1: Base model — Qwen2.5-3B or Qwen2.5-7B?**
+> I recommend 3B for faster iteration with 7B as a scaling experiment. But if you want maximum paper impact, starting with 7B might be better (it has stronger reasoning baselines to improve upon). What's your preference?
+
+> [!IMPORTANT]  
+> **Q2: Number of domains — 5 or more?**
+> I proposed 5 for practical reasons. Both docs mention 20, which is impressive for a paper claim but impractical for 4-week training. Do you want to start with 5 and scale later, or go aggressive from the start?
+
+> [!IMPORTANT]
+> **Q3: Paper venue target — arXiv preprint, workshop, or main conference?**
+> This affects how much ablation rigor we need. arXiv preprint: 2 ablations suffice. ICLR/NeurIPS main: need 5+ ablations, baselines against X-LoRA/CoMoL/DARE-TIES, and strong theoretical framing.
+
+> [!IMPORTANT]
+> **Q4: Do you want to completely discard the existing Synapta codebase (`src/adapters/`, `src/routers/`) or keep it as a baseline?**
+> I recommend keeping it as-is for baseline comparison but building LoRI-MoE as a clean new package (`src/lori_moe/`).
+
+## Verification Plan
+
+### Automated Tests
+- Unit tests for shared B matrix properties (verify approximate orthogonality via dot-product test)
+- Integration test: full forward pass through LoRI-MoE model
+- Benchmark runner: automated `lm-eval-harness` evaluation
+- Routing entropy monitoring during training
+
+### Manual Verification  
+- Visual inspection of routing heatmaps on multi-domain prompts
+- Qualitative comparison of generated responses (base vs. LoRI-MoE) on cherry-picked hard examples
+- Memory profiling to confirm GPU utilization

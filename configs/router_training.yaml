@@ -1,0 +1,7 @@
+# configs/router_training.yaml
+router_lr: 1e-3
+router_epochs: 5
+load_balance_weight: 0.01
+top_k: 2
+noise_std: 0.1
+entropy_threshold: 0.3

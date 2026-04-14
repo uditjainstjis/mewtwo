@@ -26,6 +26,7 @@ import time
 import asyncio
 import signal
 import secrets
+import socket
 import subprocess
 import shlex
 from pathlib import Path
@@ -41,7 +42,8 @@ import uvicorn
 # ═══════════════════════════════════════════════════════
 # Configuration
 # ═══════════════════════════════════════════════════════
-PORT = 7777
+HOST = os.environ.get("RC_HOST", "0.0.0.0")
+PORT = int(os.environ.get("RC_PORT", "7777"))
 AUTH_TOKEN = os.environ.get("RC_TOKEN", "mewtwo-" + secrets.token_hex(4))
 MEWTWO_DIR = Path(__file__).parent.parent.resolve()
 LOG_DIR = MEWTWO_DIR / "logs"
@@ -106,6 +108,18 @@ def get_system_info() -> dict:
         "disk_pct": disk.percent,
         "uptime_hours": round((time.time() - psutil.boot_time()) / 3600, 1),
     }
+
+
+def get_lan_ip() -> str:
+    """Best-effort LAN IP for local network access."""
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        sock.connect(("8.8.8.8", 80))
+        return sock.getsockname()[0]
+    except OSError:
+        return "127.0.0.1"
+    finally:
+        sock.close()
 
 
 def get_gpu_processes() -> list:
@@ -851,19 +865,20 @@ async function killJob(id) {
 # ═══════════════════════════════════════════════════════
 
 if __name__ == "__main__":
+    local_ip = get_lan_ip()
     print(f"""
 ╔══════════════════════════════════════════════════════╗
 ║       Mewtwo GPU Command Center                      ║
 ╠══════════════════════════════════════════════════════╣
-║  Dashboard:  http://0.0.0.0:{PORT}                    ║
-║  Local:      http://10.7.1.55:{PORT}                  ║
+║  Dashboard:  http://{HOST}:{PORT}                     ║
+║  LAN:        http://{local_ip}:{PORT}                 ║
 ║  Auth Token: {AUTH_TOKEN}                       ║
 ╠══════════════════════════════════════════════════════╣
 ║  From your laptop (same network):                    ║
-║    http://10.7.1.55:{PORT}                            ║
+║    http://{local_ip}:{PORT}                           ║
 ║                                                      ║
 ║  SSH access:                                         ║
-║    ssh learner@10.7.1.55                             ║
+║    ssh learner@{local_ip}                             ║
 ╚══════════════════════════════════════════════════════╝
 """)
-    uvicorn.run(app, host="0.0.0.0", port=PORT, log_level="warning")
+    uvicorn.run(app, host=HOST, port=PORT, log_level="warning")
