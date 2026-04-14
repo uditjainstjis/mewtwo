@@ -1,0 +1,202 @@
+[
+  {
+    "id": "router_00001",
+    "question": "Can you write a brief donor newsletter blurb explaining why Botticelli's use of mythological themes made him a standout Renaissance painter?",
+    "thinking": [
+      "Requires Renaissance art knowledge for context",
+      "Stakeholder communication needs accessible explanation"
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "How did the barter and gift economies of ancient Mesopotamia reflect behavioral biases like loss aversion or reciprocity norms?",
+    "thinking": [
+      "Ancient trade systems need historical grounding",
+      "Behavioral economics frames the cognitive patterns"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "Review this end-to-end encrypted messaging app design: does the chosen cipher suite satisfy both export control laws and modern cryptographic standards?",
+    "thinking": [
+      "Legal analysis covers export/encryption regulations",
+      "Cryptography evaluates cipher suite soundness"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "What does 'mens rea' mean in criminal law, and how does it affect whether someone can be found guilty of a crime?",
+    "thinking": [
+      "Pure legal concept requiring statutory interpretation",
+      "No other domain needed"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00005",
+    "question": "What edge cases arise when an autonomous delivery robot must decide whether to block a pedestrian path to avoid a loss-framed penalty in its reward function?",
+    "thinking": [
+      "Robotics covers navigation and reward design",
+      "Behavioral economics explains loss-framing effects"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00006",
+    "question": "Draft a compliance checklist in LaTeX for a shipping company outlining MARPOL pollution prevention obligations under maritime law.",
+    "thinking": [
+      "LaTeX formatting structures the document output",
+      "Maritime law supplies the regulatory content"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00007",
+    "question": "A contract specifies a penalty of 0.5% of contract value per day of delay; is such a liquidated damages clause enforceable, and what is the total penalty after 14 days on a $200,000 contract?",
+    "thinking": [
+      "Legal analysis assesses enforceability of penalty clauses",
+      "Mathematics computes the resulting penalty amount"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00008",
+    "question": "If patients systematically underestimate chronic disease risk due to optimism bias, how should clinicians adjust screening recommendations to improve diagnostic uptake?",
+    "thinking": [
+      "Medical diagnosis frames screening protocols",
+      "Behavioral economics explains optimism bias impact"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00009",
+    "question": "Should a space agency prioritize sending a probe to Europa or Enceladus first if the primary goal is detecting signs of extraterrestrial life?",
+    "thinking": [
+      "Astrophysics knowledge needed to compare moon habitability",
+      "Decision support framing guides mission prioritization"
+    ],
+    "experts": [
+      "ASTROPHYSICS"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00010",
+    "question": "A 45-year-old presents with fatigue, unexplained weight gain, cold intolerance, and dry skin; what is the most likely diagnosis and what initial tests should be ordered?",
+    "thinking": [
+      "Symptom cluster points to a specific endocrine condition",
+      "Medical diagnosis expertise needed to evaluate and triage"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "medium",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00011",
+    "question": "When planning deployment of autonomous robots in elder care facilities, what philosophical principles around autonomy and dignity should guide the system's behavioral constraints?",
+    "thinking": [
+      "Robotics covers deployment and behavioral design",
+      "Philosophy provides ethical framework for constraints"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00012",
+    "question": "How sophisticated was ancient Egyptian mathematics, and how should a museum use those historical numerical achievements to decide which artifacts to feature in a new exhibit?",
+    "thinking": [
+      "Mathematics assesses Egyptian numerical systems",
+      "Ancient history contextualizes cultural significance for decisions"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

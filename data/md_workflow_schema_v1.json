@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "goal": "Find why a system, method, or decision is failing and explain the most relevant fix or diagnosis."
+  },
+  {
+    "name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "goal": "Choose between realistic options under constraints and justify the choice concisely."
+  },
+  {
+    "name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "goal": "Review a proposed design and identify the strongest strengths, weaknesses, and critical tradeoffs."
+  },
+  {
+    "name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "goal": "Translate theory or domain rules into a concise execution plan or implementation sketch."
+  },
+  {
+    "name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "goal": "Evaluate legal, safety, ethical, or operational risk under concrete factual constraints."
+  },
+  {
+    "name": "Quantitative Reasoning",
+    "workflow_type": "quantitative_analysis",
+    "cognitive_demand": "deep",
+    "goal": "Solve or interpret a quantitative problem where both domains materially affect the correct result."
+  },
+  {
+    "name": "Cross Domain Synthesis",
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "deep",
+    "goal": "Combine formal knowledge from two domains into one concise, correct explanation or recommendation."
+  },
+  {
+    "name": "Edge Cases",
+    "workflow_type": "edge_case_analysis",
+    "cognitive_demand": "deep",
+    "goal": "Stress-test a method or rule on a failure mode, boundary case, or hidden assumption."
+  },
+  {
+    "name": "Interpretation",
+    "workflow_type": "translation_interpretation",
+    "cognitive_demand": "medium",
+    "goal": "Interpret a short technical, historical, or formal fragment into actionable modern meaning with constraints."
+  },
+  {
+    "name": "Stakeholder Communication",
+    "workflow_type": "stakeholder_explanation",
+    "cognitive_demand": "medium",
+    "goal": "Explain a specialized issue to a practical stakeholder without losing core correctness."
+  }
+]

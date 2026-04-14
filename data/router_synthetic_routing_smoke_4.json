@@ -1,0 +1,69 @@
+[
+  {
+    "id": "router_00001",
+    "question": "Ancient Egyptian scribes used a base-10 numeral system. How many total symbols would be needed to write the number 3,472 using their hieroglyphic notation?",
+    "thinking": [
+      "Requires Egyptian history knowledge",
+      "Requires arithmetic calculation"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "Our app stores user data encrypted with AES-256. Does our current encryption disclosure in the privacy policy satisfy GDPR's technical safeguard requirements?",
+    "thinking": [
+      "Involves GDPR legal compliance review",
+      "Involves cryptographic standard assessment"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "What steps should a small business owner take to implement a basic employee non-disclosure agreement policy?",
+    "thinking": [
+      "NDA implementation is purely a legal planning task.",
+      "No other domain needed."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "A contractor claims he worked 47.5 hours at $32/hour but the client says the agreed cap was 40 hours \u2014 who is legally owed what amount?",
+    "thinking": [
+      "Wage dispute requires legal contract analysis.",
+      "Hour and pay calculations need basic math."
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

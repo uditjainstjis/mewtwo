@@ -1,0 +1,169 @@
+[
+  {
+    "id": "router_00001",
+    "question": "Is it legal for an employer to terminate an employee for refusing to work on a public holiday if the contract is silent on the matter?",
+    "thinking": [
+      "Edge case in employment law with no explicit contractual clause",
+      "Requires legal analysis of default statutory obligations"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS"
+    ],
+    "workflow_type": "edge_cases",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00002",
+    "question": "Format the key cargo liability limits from the Hague-Visby Rules into a LaTeX table suitable for a compliance report.",
+    "thinking": [
+      "Needs maritime law knowledge for liability figures",
+      "Requires LaTeX formatting for table structure"
+    ],
+    "experts": [
+      "LATEX_FORMATTING",
+      "MARITIME_LAW"
+    ],
+    "workflow_type": "risk_and_compliance",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00003",
+    "question": "If patients systematically underestimate their medication side effects due to optimism bias, how does this skew clinical trial dropout rate calculations?",
+    "thinking": [
+      "Involves diagnostic/clinical trial data interpretation",
+      "Behavioral bias affects quantitative outcome measurement"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "quantitative_reasoning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00004",
+    "question": "How should a doctor explain a new Type 2 diabetes diagnosis to a patient with low health literacy during a short appointment?",
+    "thinking": [
+      "Requires clinical accuracy about diabetes",
+      "Focuses on clear patient-facing communication"
+    ],
+    "experts": [
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "workflow_type": "stakeholder_communication",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00005",
+    "question": "Did ancient Roman merchants use any pricing or loss-aversion strategies that resemble modern behavioral economics principles?",
+    "thinking": [
+      "Draws on ancient Roman trade history",
+      "Connects to behavioral economics concepts like loss aversion"
+    ],
+    "experts": [
+      "ANCIENT_HISTORY",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "workflow_type": "cross_domain_synthesis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00006",
+    "question": "Our app stores user passwords using a custom XOR cipher. Does this design meet basic legal data-protection requirements, and is XOR considered cryptographically adequate?",
+    "thinking": [
+      "Legal compliance check on data storage",
+      "Assess cryptographic strength of XOR"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "workflow_type": "design_review",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00007",
+    "question": "A contract specifies a penalty of 5% compounded monthly on overdue payments. Is this legally enforceable as written, and what is the effective annual rate?",
+    "thinking": [
+      "Legal enforceability of penalty clause",
+      "Calculate effective annual interest rate"
+    ],
+    "experts": [
+      "LEGAL_ANALYSIS",
+      "MATHEMATICS"
+    ],
+    "workflow_type": "diagnosis",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00008",
+    "question": "What is the symbolic meaning of the light streaming through the window in Jan van Eyck's Arnolfini Portrait?",
+    "thinking": [
+      "Interpret Renaissance iconography",
+      "Single expert domain sufficient"
+    ],
+    "experts": [
+      "RENAISSANCE_ART"
+    ],
+    "workflow_type": "interpretation",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 1,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00009",
+    "question": "We want to deploy a robot caregiver in a nursing home. What basic motion-planning capabilities does it need, and what ethical considerations should guide its autonomy level?",
+    "thinking": [
+      "Robotics implementation requirements",
+      "Philosophical ethics of autonomous agents"
+    ],
+    "experts": [
+      "ROBOTICS",
+      "PHILOSOPHY"
+    ],
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  },
+  {
+    "id": "router_00010",
+    "question": "How did ancient Egyptians use unit fractions in commerce, and what modern fraction equivalent represents 2/3 in their notation system?",
+    "thinking": [
+      "Historical context of Egyptian mathematics",
+      "Convert ancient notation to modern math"
+    ],
+    "experts": [
+      "MATHEMATICS",
+      "ANCIENT_HISTORY"
+    ],
+    "workflow_type": "decision_support",
+    "cognitive_demand": "shallow",
+    "difficulty": "easy",
+    "arity": 2,
+    "source_model": "claude-4.6-sonnet"
+  }
+]

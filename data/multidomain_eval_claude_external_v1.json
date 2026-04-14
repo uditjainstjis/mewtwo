@@ -1,0 +1,231 @@
+[
+  {
+    "id": "ext_claude_001",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "MLX_KERNELS"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "MLX_KERNELS"
+    ],
+    "question": "The following passage is taken from a 17th-century English treatise on numerical reckoning:\n\n\"Suppose thou haste a sequence of quantityes arranged in a lyne; take eche two neighbours and reckon their meane betwixt them, so that the lyne be halved in length at every steppe. Continueth this processe untill but one quantitye remaineth, which shall bee the true meane of all.\"\n\nParse the archaic English to identify precisely which numerical algorithm the author describes, justifying your reading of the key terms. Then describe the design of an MLX Metal compute kernel implementing this algorithm for a 1-D float32 tensor on Apple Silicon: specify threadgroup size, shared-memory layout, synchronization strategy, and how non-power-of-two input sizes are handled.",
+    "reference_answer": "The passage describes parallel tree reduction for the arithmetic mean. \"Quantityes arranged in a lyne\" are array elements; \"take eche two neighbours and reckon their meane betwixt them\" denotes pairwise averaging of adjacent elements, halving the active length each round\u2014equivalent to log\u2082(N) reduction passes until one value remains. This is semantically a parallel reduction sum with final division by N.\n\nFor the MLX Metal kernel: launch with threadgroup size 256 (or min(256, N) rounded to the nearest power-of-two). Each thread loads one element into threadgroup shared memory (float smem). Execute log\u2082(threadgroup_size) rounds: in round r, threads with tid < (stride >> 1) compute smem[tid] = (smem[tid] + smem[tid + stride]) * 0.5f, then call threadgroup_barrier(mem_flags::mem_threadgroup). Thread 0 writes the threadgroup partial result to a partial-sums buffer. A second kernel pass (or simd_sum across partial results) yields the global mean. Non-power-of-two sizes: initialize out-of-bounds smem slots to 0.0f and divide by true N rather than the padded length.",
+    "answer_type": "mixed",
+    "difficulty": "hard",
+    "required_facts": [
+      "\"Neighbours\" and \"meane betwixt them\" maps to pairwise averaging of adjacent elements",
+      "Halving the sequence length each step equals log\u2082(N) rounds of parallel tree reduction",
+      "MLX Metal kernels use threadgroup shared memory for low-latency intra-group data exchange",
+      "threadgroup_barrier(mem_flags::mem_threadgroup) must be called between every reduction round to prevent race conditions",
+      "Non-power-of-two sizes require padding with identity value (0.0f) and dividing by true N",
+      "A two-pass or simd_sum strategy is required when input length exceeds one threadgroup"
+    ],
+    "critical_errors": [
+      "Misidentifying the archaic algorithm as anything other than iterative pairwise averaging leading to a tree reduction for the mean",
+      "Omitting threadgroup_barrier between reduction rounds, producing a race condition",
+      "Using only global memory reads each round and ignoring threadgroup shared memory entirely",
+      "Claiming O(N) parallel step complexity instead of O(log N)",
+      "Failing to address inputs larger than a single threadgroup with no partial-results pass"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Correct identification of algorithm as parallel tree reduction computing arithmetic mean",
+        "Linguistic justification for at least two archaic terms (e.g., 'lyne', 'meane', 'neighbours')",
+        "Threadgroup shared memory declared and loaded before reduction rounds begin",
+        "Explicit threadgroup_barrier synchronization between every reduction round",
+        "Strategy for non-power-of-two sizes or inputs spanning multiple threadgroups"
+      ],
+      "nice_to_have": [
+        "Mention of simd_shuffle_down or SIMD-group-level optimization within each threadgroup",
+        "Discussion of threadgroup size selection relative to Apple GPU occupancy and 1024-thread maximum",
+        "Reference to mx.fast.metal_kernel dispatch API for integrating the custom kernel into MLX"
+      ],
+      "automatic_checks": [
+        "Response contains 'log\u2082(N)' or equivalent O(log N) step-complexity claim",
+        "Response contains 'threadgroup_barrier' or explicit equivalent synchronization primitive",
+        "Response maps 'meane' or 'meane betwixt them' to averaging or arithmetic mean operation"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Neither domain alone is sufficient: ARCHAIC_ENGLISH expertise is required to decode 17th-century mathematical prose and map vocabulary ('lyne', 'neighbours', 'meane betwixt them', 'halved in length') to a concrete modern algorithm, while MLX_KERNELS expertise is required to translate that algorithm into a correct, performant Metal threadgroup reduction with proper shared-memory layout, barrier synchronization, and edge-case handling for non-power-of-two sizes. A model strong in only one domain will either misidentify the algorithm from the text or produce an under-specified and potentially incorrect kernel design.",
+      "created_utc": "2026-04-08T04:49:02.947445+00:00",
+      "batch_index": 1,
+      "pair_seed": 11
+    }
+  },
+  {
+    "id": "ext_claude_002",
+    "domains": [
+      "BEHAVIORAL_ECONOMICS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "required_adapters": [
+      "BEHAVIORAL_ECONOMICS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "question": "A medicinal chemistry team must choose between two routes to enantiopure (S)-naproxen. Route A: four-step racemic synthesis with 72% overall yield, followed by classical resolution using (R)-1-phenylethylamine as the resolving agent (theoretical maximum recovery: 50% of each enantiomer). The team has already spent $350,000 building Route A infrastructure. Route B: three-step synthesis using a proline-catalyzed asymmetric \u03b1-arylation as the key step, 41% overall yield, 96% ee, no resolution required. The project lead argues Route A is superior because 'we've already paid for it.' Calculate the effective enantiopure molar yield for each route, identify the specific cognitive bias in the lead's reasoning, and explain why that bias systematically distorts pharmaceutical R&D resource allocation.",
+    "reference_answer": "Route A's effective enantiopure yield is 72% \u00d7 50% = 36%; the classical resolution step imposes a theoretical maximum of 50% recovery for the desired enantiomer, with the antipode either discarded or racemized. Route B delivers 41% \u00d7 0.96 \u2248 39.4% effective enantiopure yield, making it the higher-output route despite lower gross yield. The project lead exhibits the sunk cost fallacy: the $350,000 already spent on Route A infrastructure is an irreversible historical expenditure that carries no bearing on which route minimizes future costs or maximizes future output. Behaviorally, this arises from loss aversion anchored to the infrastructure investment \u2014 abandoning Route A is framed as 'losing' $350K rather than as freeing capital for a superior alternative. In pharmaceutical R&D, sunk cost bias systematically prolongs underperforming synthetic programs, delays pivots to better chemistry, and inflates total program cost by conflating historical spend with prospective value creation.",
+    "answer_type": "mixed",
+    "difficulty": "hard",
+    "required_facts": [
+      "Classical chiral resolution has a theoretical maximum recovery of 50% per enantiomer",
+      "Route A effective enantiopure yield = 72% \u00d7 50% = 36%",
+      "Route B effective enantiopure yield \u2248 41% \u00d7 0.96 \u2248 39.4%, exceeding Route A",
+      "The project lead's reasoning exemplifies the sunk cost fallacy",
+      "Sunk costs are irreversible past expenditures that should not influence forward-looking decisions",
+      "Loss aversion and reference-dependent utility underpin the sunk cost fallacy behaviorally"
+    ],
+    "critical_errors": [
+      "Concluding Route A has equal or higher effective enantiopure yield than Route B",
+      "Failing to apply the 50% resolution ceiling to Route A's yield calculation",
+      "Misidentifying the bias as anchoring, confirmation bias, or framing effect rather than sunk cost fallacy",
+      "Treating the $350,000 infrastructure cost as a valid forward-looking argument favoring Route A",
+      "Asserting asymmetric synthesis is always superior without performing the numerical yield comparison"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Route A effective enantiopure yield calculated as approximately 36%",
+        "Route B effective enantiopure yield calculated as approximately 39% after ee adjustment",
+        "Sunk cost fallacy explicitly named as the cognitive bias",
+        "$350,000 infrastructure expenditure identified as irrelevant to the forward-looking decision",
+        "Connection drawn between sunk cost bias and systematic R&D resource misallocation"
+      ],
+      "nice_to_have": [
+        "Explanation that the 50% resolution ceiling derives from stoichiometry of diastereomeric salt formation",
+        "Note that 96% ee implies ~2% wrong enantiomer with potential regulatory implications",
+        "Mention of escalation of commitment as the organizational-level analog",
+        "Discussion of opportunity cost framing as the normatively correct lens"
+      ],
+      "automatic_checks": [
+        "Answer contains '36%' or '0.36' for Route A effective enantiopure yield",
+        "Answer contains the phrase 'sunk cost' (case-insensitive)",
+        "Answer identifies Route B as yielding more enantiopure product than Route A"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Genuine dual-domain integration: a correct answer requires knowing the 50% theoretical ceiling of classical chiral resolution (organic synthesis domain) to compute effective enantiopure yields, AND correctly diagnosing the sunk cost fallacy with its grounding in loss aversion and reference-dependent utility (behavioral economics domain). Neither domain alone produces a complete or correct answer; the yield calculation is meaningless without the bias analysis, and the bias analysis is unanchored without the quantitative synthesis comparison.",
+      "created_utc": "2026-04-08T04:50:21.849140+00:00",
+      "batch_index": 2,
+      "pair_seed": 11
+    }
+  },
+  {
+    "id": "ext_claude_003",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "ROBOTICS"
+    ],
+    "question": "Compose a brief set of calibration instructions for a six-degree-of-freedom robotic arm, written in the register and orthographic conventions of a 17th-century English technical manual (circa 1650). The instructions must accurately cover: driving each joint to its mechanical home reference, zeroing positional counts at that reference, and verifying that joint-limit boundaries prevent overtravel. The prose must be intelligible to a modern roboticist yet free of post-17th-century vocabulary. A linguist should find no anachronistic syntax or spelling; a roboticist should find no procedural omissions or misordered steps.",
+    "reference_answer": "A correct response renders instructions in Early Modern English imperatives: second-person address (\"Take heed,\" \"See thou that...\"), Latinate nouns for mechanisms (\"artifice,\" \"engine,\" \"wheele\"), and period-consistent spelling (\"mechanicall,\" \"carefull\"). Robotically, it must first describe driving each joint against its physical stop or index mark to establish a zero datum\u2014the homing phase. It then resets the positional reckoning (encoder count) to a known value at that datum. Finally, it prescribes testing that the arm's excursion halts before extremal positions are violated\u2014workspace-limit verification. Terms such as \"servo,\" \"firmware,\" \"software,\" or \"motor controller\" must be absent; period-plausible equivalents (\"spring-worke,\" \"wheel-worke,\" \"governor\") must substitute while preserving procedural correctness. Correct ordering\u2014home, then zero, then limit-check\u2014is essential; reversing home and zeroing steps constitutes a critical procedural error invalidating the entire calibration.",
+    "answer_type": "mixed",
+    "difficulty": "hard",
+    "required_facts": [
+      "Homing drives each joint to a physical reference stop before any position measurement is trusted",
+      "Encoder zeroing resets the positional count to a known value at the established home datum",
+      "Workspace boundary verification confirms joint-limit stops prevent overtravel",
+      "17th-century technical English uses second-person imperative register and Latinate mechanical vocabulary",
+      "Anachronistic terms (servo, firmware, software, motor controller) must be absent from archaic prose",
+      "Correct procedural order is strictly: home \u2192 zero encoder \u2192 verify limits"
+    ],
+    "critical_errors": [
+      "Using modern technical vocabulary (servo, firmware, software, motor controller) inside the archaic prose",
+      "Reversing the home and encoder-zeroing steps, which invalidates the calibration datum",
+      "Omitting any one of the three required calibration phases",
+      "Writing in modern English orthography and syntax with no archaic register markers whatsoever",
+      "Describing encoder zeroing without anchoring it to the home position as its reference datum"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Homing phase: joints driven to mechanical reference before any zeroing occurs",
+        "Positional zeroing explicitly performed at the home datum",
+        "Workspace or joint-limit boundary verification as a distinct concluding step",
+        "Archaic register markers present: imperative mood, non-modern spelling, period-appropriate vocabulary"
+      ],
+      "nice_to_have": [
+        "Period-appropriate mechanical metaphors (spring-worke, wheel-worke, governor) used as substitutes for anachronistic terms",
+        "Explicit acknowledgment that step ordering is procedurally non-arbitrary",
+        "A chosen archaic substitute for 'encoder' is named and semantically defensible"
+      ],
+      "automatic_checks": [
+        "No occurrence of: servo, firmware, software, motor controller, robot",
+        "At least one archaic second-person form (thou, thee, thy) or -eth verb ending present",
+        "All three calibration phases (home, zero, limit-check) lexically present and in correct order"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Neither domain alone suffices: the ROBOTICS adapter supplies the correct three-phase calibration procedure and its mandatory ordering, while the ARCHAIC_ENGLISH adapter constrains vocabulary, orthography, and register to 17th-century norms. A model with only the robotics adapter produces correct but anachronistic modern prose; one with only the archaic-English adapter produces period-correct text devoid of any valid calibration procedure.",
+      "created_utc": "2026-04-08T04:51:45.532942+00:00",
+      "batch_index": 3,
+      "pair_seed": 11
+    }
+  },
+  {
+    "id": "ext_claude_004",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "PYTHON_LOGIC"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "PYTHON_LOGIC"
+    ],
+    "question": "The following Python function attempts to convert second-person archaic English to modern equivalents and strip third-person archaic verbal inflections:\n\nimport re\ndef modernize(text):\n    subs = {\"thou\":\"you\",\"thee\":\"you\",\"thy\":\"your\",\"thine\":\"your\"}\n    for k,v in subs.items():\n        text = re.sub(r'\\b'+k+r'\\b', v, text, flags=re.IGNORECASE)\n    text = re.sub(r'\\b(\\w+)eth\\b', lambda m: m.group(1)+'s', text, flags=re.IGNORECASE)\n    text = re.sub(r'\\b(\\w+)est\\b', lambda m: m.group(1), text, flags=re.IGNORECASE)\n    return text\n\nIdentify all correctness issues \u2014 both linguistic and logical \u2014 and describe an improved algorithm that handles them. Do not rewrite the full function; describe the required changes and the linguistic rules that justify each fix.",
+    "reference_answer": "Three issues exist. First, the -est regex over-matches: it strips the suffix from any word ending in 'est' \u2014 including 'best', 'forest', 'interest' \u2014 which are not archaic 2nd-person verbal inflections. The fix requires restricting matches to verb contexts where 'thou' (or its substituted form 'you') immediately precedes the token, or maintaining a known-verb whitelist. Second, the irregular 3rd-person forms 'hath' and 'doth' do not end in '-eth' (they end in '-ath' and '-oth' respectively) and are silently skipped by the regex; a pre-pass irregular-forms dictionary (hath\u2192has, doth\u2192does, didst\u2192did, wast\u2192were, art\u2192are) must run before any pattern substitution. Third, 'thine' as a standalone possessive pronoun ('it is thine') should render as 'yours', not 'your'; the flat dictionary substitution is only correct when 'thine' functions as a determiner before a noun. The corrected algorithm should: apply the irregular dict first, restrict the -est rule to post-subject-pronoun verb contexts, and use positional or syntactic heuristics (word-final clause position vs. prenominal position) to select 'your' vs 'yours' for 'thine'.",
+    "answer_type": "mixed",
+    "difficulty": "hard",
+    "required_facts": [
+      "'-est' was the 2nd-person singular present indicative verbal inflection in archaic English, not a general word suffix",
+      "'hath' and 'doth' are irregular 3rd-person archaic present forms that end in '-ath'/'-oth', not '-eth'",
+      "'thine' functions both as a prenominal determiner ('thine eyes' \u2192 'your eyes') and as a standalone possessive pronoun ('it is thine' \u2192 'it is yours')",
+      "The regex \\b(\\w+)est\\b matches non-verbal words such as 'best', 'forest', and 'interest', causing incorrect suffix stripping",
+      "Irregular archaic forms require an explicit lookup-dictionary pass executed before any pattern-based suffix substitution"
+    ],
+    "critical_errors": [
+      "Failing to identify the -est over-matching bug on non-verbal words",
+      "Failing to identify that 'hath' and 'doth' are not captured by the -eth regex and explaining why",
+      "Claiming all pronoun substitutions are correct without noting the 'thine' \u2192 'yours' failure in predicate position",
+      "Proposing a fix that strips -est indiscriminately from all words adjacent to the pronoun without addressing irregular verb stems"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Identifies false-positive -est stripping on non-verbal words with at least one concrete example",
+        "Identifies that 'hath' and 'doth' are missed by the -eth pattern and explains it is due to irregular endings",
+        "Identifies the 'thine' \u2192 'yours' failure when 'thine' appears in predicate/pronoun position",
+        "Proposes a pre-pass irregular-forms dictionary as part of the corrected algorithm"
+      ],
+      "nice_to_have": [
+        "Mentions additional irregular forms such as 'didst', 'wast', 'art', 'canst', 'wouldst'",
+        "Notes that case-insensitive substitution does not restore the original capitalization pattern of the output",
+        "Suggests POS tagging or clause-boundary detection as a more robust fix for context-sensitive substitutions"
+      ],
+      "automatic_checks": [
+        "Answer explicitly names 'hath' or 'doth' as missed by the regex",
+        "Answer provides at least one false-positive -est example (e.g., 'best', 'forest', or 'interest')",
+        "Answer states that 'thine' in predicate position should map to 'yours' rather than 'your'"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Genuine cross-domain requirement: identifying the -est bug demands archaic English morphological knowledge (that '-est' was specifically a 2nd-person singular verbal inflection, not a general suffix), while identifying the regex failure mode demands understanding Python re.sub pattern semantics and word-boundary matching; the 'thine'/'yours' issue requires both lexical knowledge of archaic English pronoun grammar and recognition that a flat dictionary substitution lacks the positional/syntactic context to distinguish determiner from pronoun use.",
+      "created_utc": "2026-04-08T04:53:25.271806+00:00",
+      "batch_index": 4,
+      "pair_seed": 11
+    }
+  }
+]

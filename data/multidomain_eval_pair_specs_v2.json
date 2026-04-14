@@ -1,0 +1,14 @@
+[
+  {"domains": ["MATHEMATICS", "PYTHON_LOGIC"]},
+  {"domains": ["LEGAL_ANALYSIS", "CRYPTOGRAPHY"]},
+  {"domains": ["CLIMATE_SCIENCE", "MATHEMATICS"]},
+  {"domains": ["ROBOTICS", "PYTHON_LOGIC"]},
+  {"domains": ["MARITIME_LAW", "CLIMATE_SCIENCE"]},
+  {"domains": ["SANSKRIT_LINGUISTICS", "ANCIENT_HISTORY"]},
+  {"domains": ["MUSIC_THEORY", "MATHEMATICS"]},
+  {"domains": ["ASTROPHYSICS", "LATEX_FORMATTING"]},
+  {"domains": ["QUANTUM_CHEMISTRY", "ORGANIC_SYNTHESIS"]},
+  {"domains": ["LEGAL_ANALYSIS", "BEHAVIORAL_ECONOMICS"]},
+  {"domains": ["RENAISSANCE_ART", "PHILOSOPHY"]},
+  {"domains": ["MEDICAL_DIAGNOSIS", "MATHEMATICS"]}
+]

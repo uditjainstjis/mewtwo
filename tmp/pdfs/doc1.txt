@@ -1,0 +1,896 @@
+Architectural Evaluation and
+Experimental Blueprint for Core-Space
+Multi-Adapter Composition
+Deep Understanding of the Synapta Framework
+The Synapta project constitutes a pre-registered empirical investigation into prompt-level
+multi-adapter Low-Rank Adaptation (LoRA) composition, optimized for memory-constrained
+edge hardware, specifically the Apple Silicon Unified Memory Architecture (UMA).1 The
+fundamental engineering problem the system attempts to resolve is dynamic, multi-domain
+generalization during inference without incurring the computational overhead of full
+fine-tuning or the memory redundancy of deploying multiple monolithic large language models
+(LLMs). Operating under severe constraints—an Apple M3 processor with 8GB of unified
+memory—the architecture limits itself to 4-bit quantized base models (Qwen2.5-1.5B-Instruct
+and Mistral-7B-Instruct-v0.3) and prompt-level routing heuristics.1
+A rigorous reverse-engineering of the framework reveals its core operational mechanics and
+mathematical formulations. The central design decision resides in the custom
+RoutedLoRALinear module, which replaces standard linear layers in the transformer
+architecture. For a given input activation
+
+at layer , the forward pass computes a base
+
+model output
+and an adapter injection vector
+computed as a dynamically weighted sum of the active adapters:
+, where
+
+. The injection vector is
+
+represents the prompt-level
+
+routing weight for the -th adapter,
+is the LoRA scaling factor, and is the adapter rank.1
+Because the Apple UMA allows the CPU and GPU to share a physical address space, the
+system loads all
+adapter weight matrices into memory at startup, facilitating
+zero-copy access and circumventing the PCIe bus transfer bottlenecks inherent to discrete
+GPU architectures.1
+To prevent catastrophic representation collapse when multiple adapters are injected
+simultaneously, the architecture implements two distinct clamping mechanisms. The
+Weight-Cap mode imposes a hard upper bound on the routing coefficients, defined
+algebraically as
+
+, where
+
+is a global hyperparameter (typically 0.5).
+
+Conversely, the Norm-Ratio mode imposes a per-layer activation gate based on the
+It computes a scaling factor
+
+norm.
+
+and attenuates the
+
+composite adapter signal proportionally if its magnitude exceeds the base model's activation
+magnitude by the specified ratio.1 Routing decisions are governed by a GatedRouter, which
+leverages a lightweight embedding-based similarity search (via all-MiniLM-L6-v2) augmented
+with a confidence gate. The gating rule dictates that a single adapter (
+top domain probability
+
+) is utilized if the
+
+and the gap to the second candidate
+; otherwise, the system defaults to
+
+composition,
+
+1
+
+combining the top two experts.
+
+Explicit and Hidden Assumptions
+The architecture is predicated on several critical assumptions that dictate its operational
+bounds and theoretical validity.
+The primary explicit assumption is the hypothesis of linear subspace composability. The
+framework posits that the linear combination of distinct, independently trained LoRA adapter
+outputs directly correlates with a coherent semantic blending of domain knowledge. It
+explicitly assumes that the knowledge embedded within the Medical Diagnosis adapter and the
+Mathematics adapter resides in non-interfering, additive parameter subspaces, allowing their
+simultaneous activation to resolve intersectional queries. A secondary explicit assumption is
+the necessity of magnitude constraint. The implementation of the Weight-Cap and Norm-Ratio
+clamping mechanisms explicitly assumes that the primary failure mode of multi-adapter
+composition is activation magnitude explosion—specifically, that unconstrained addition injects
+excessive energy into the residual stream, causing the model to diverge from its pre-trained
+manifold.1
+Beneath the explicit architectural choices lie profound hidden assumptions. The most
+structurally limiting is the assumption of prompt-level homogeneity. By assigning a static
+routing weight
+for the entirety of a generative sequence, the system inherently assumes
+that the necessity for specific domain knowledge is uniformly distributed across all tokens. It
+assumes a token predicting a mathematical operator requires the exact same degree of legal
+expert activation as a token predicting a statutory definition. Furthermore, the evaluation
+framework harbors a hidden assumption regarding metric sufficiency. By relying strictly on
+cosine similarity derived from a 22-million parameter sentence transformer (all-MiniLM-L6-v2)
+to evaluate performance on multi-domain expert queries 1, the framework assumes that lexical
+and distributional semantic overlap is a valid, high-fidelity proxy for logical reasoning accuracy,
+factual correctness, and multi-step deduction.
+
+Brutal Critique
+While the empirical rigor, the pre-registered methodology, and the honest reporting of
+negative results (such as the failures of Hypotheses 0, 2, and 5) represent commendable
+scientific practice 1, the underlying mathematical and architectural paradigms of the Synapta
+
+framework exhibit severe theoretical deficits. A rigorous evaluation at the frontier of machine
+learning research reveals that the methodology relies on mathematically naive assumptions,
+reinvents suboptimal paradigms, and utilizes evaluation metrics that render the findings
+unpublishable at top-tier venues (e.g., NeurIPS, ICLR).
+
+The Mathematical Fallacy of Linear Composability
+The most glaring theoretical weakness is the naive assumption that independently trained
+LoRA adapters can be linearly added at inference time to yield coherent multi-domain
+reasoning. The empirical results demonstrate that
+
+composition on single-domain
+
+queries degraded performance (
+) and that the multi-domain gain (+0.017) was
+marginal, highly volatile, and entirely dependent on domain-pair orthogonality.1 The
+architectural response—clamping activation magnitudes—is a superficial patch for a
+fundamental linear algebra problem.
+Recent literature strictly contradicts the assumption of linear composability.
+Parameter-efficient fine-tuning (PEFT) updates, when trained independently, do not naturally
+align in orthogonal subspaces.2 The NeurIPS 2025 paper "LoRA vs Full Fine-tuning: An Illusion of
+Equivalence" proves that LoRA training introduces high-ranking "intruder dimensions"—singular
+vectors that are structurally dissimilar to pre-trained weights and highly specific to the
+fine-tuning data.3 When the RoutedLoRALinear module performs the linear addition
+, it is superimposing these unaligned, non-orthogonal intruder dimensions.
+Because the basis vectors (the column space of
+and the row space of
+) of different
+adapters are not shared, their linear combination creates catastrophic directional interference,
+known as anisotropy.4 The interference is structural and geometric; it cannot be resolved by
+scalar clamping. A top researcher would immediately reject the methodology because
+bounding the magnitude of an activation vector does not correct the geometric misalignment
+of the weight vectors. If two vectors represent conflicting semantic directions in the latent
+space, scaling their magnitude by
+resolve the subspace conflict.4
+
+merely produces a smaller hallucination; it does not
+
+The Algebraic Irrelevance of the Clamping Mechanisms
+The study dedicates significant effort to comparing the Weight-Cap mode and the
+theoretically motivated Norm-Ratio mode.1 However, as the empirical results in Phase 2b
+revealed, the Norm-Ratio clamp produced zero measurable benefit over the Weight-Cap (
+).1 The report correctly notes that the clamp was "effectively inactive"
+because
+
+everywhere.
+
+This result was entirely predictable from first principles. At rank-16, the
+
+norm of the
+
+adapter activations (
+
+) is mathematically bound to be infinitesimally small relative to the
+
+high-dimensional base model activations (
+) in a 1.5B parameter model. The intrinsic
+dimensionality of the residual stream dwarfs the rank-16 projection. Designing a complex,
+dynamically calculated per-layer norm ratio that mathematically cannot trigger under the
+stated operating parameters demonstrates a disconnect between the theoretical intent and
+the algebraic reality of the network's forward pass.
+
+Architectural Obsolescence: Prompt-Level Routing
+Synapta utilizes prompt-level routing, applying a static
+across the entire generation
+1
+sequence. This is a severe architectural regression. The research community established
+through frameworks like X-LoRA (2024) and MoE-LoRA that token-level routing is mandatory
+for complex reasoning tasks.5 Multi-domain reasoning is not a homogeneous blend of facts; it
+is a sequential, combinatorial process. A query requiring mathematical proof and Python code
+generation does not require both domains simultaneously at every token. A token initiating a
+for loop requires the Python expert, while a token evaluating a derivative requires the Math
+expert. Prompt-level routing forces both adapters to remain active globally, guaranteeing
+continuous noise injection into domains where one adapter is irrelevant at that specific
+timestep. The confidence-gated embedding router 1, while functional for triage, is a
+rudimentary reinvention of early MoE gating networks and sentence-level sparse routing
+techniques (e.g., LoraHub, 2023) 7, lacking the granularity required for state-of-the-art
+inference.
+
+Metric Inadequacy and Unpublishability
+The framework's fatal flaw regarding publishability is its evaluation protocol. The study relies on
+semantic similarity using a 22-million parameter sentence transformer (all-MiniLM-L6-v2) to
+evaluate the outputs of a 1.5B and 7B parameter model.1 This metric is fundamentally
+inadequate for evaluating advanced capabilities. Semantic similarity measures lexical
+distribution and bag-of-words overlap; it is entirely blind to logical soundness, factual accuracy,
+and mathematical correctness.
+In the current LLM evaluation frontier (2025–2026), evaluating multi-domain logic requires
+rigorous, execution-based, or objective-graded benchmarks. Relying on an outdated
+embedding model to judge the multi-domain reasoning of modern LLMs renders the empirical
+findings suspect. An effect size of
+in cosine similarity is indistinguishable from
+statistical noise in the embedding space and does not constitute a tangible improvement in
+actual intelligence density. To achieve publication at a top-tier venue, the evaluation must
+transition to objective, multi-step reasoning benchmarks (e.g., GPQA Diamond, SWE-Bench,
+ARC-AGI-2) that measure exact match or execution success rather than semantic proximity.8
+
+Literature Frontier Analysis (2023–2026)
+The transition from the heavily constrained Apple M3 UMA environment to a high-compute
+NVIDIA RTX 5090 (featuring 32GB of VRAM, PCIe Gen 5 bandwidth, and native FP8 Tensor
+Cores) necessitates a complete paradigm shift. The frontier of parameter-efficient multi-task
+learning, model merging, and adapter composition has evolved significantly from heuristic
+linear blending to mathematically grounded manifold optimization, core-space alignment, and
+inference-time reasoning architectures.
+
+The Evolution of Parameter-Space Merging
+The earliest attempts to solve cross-task adapter interference (2023–2024) operated directly in
+the weight space. Methods such as Task Arithmetic, TIES-Merging, and DARE hypothesized that
+interference was caused by parameter redundancy and sign conflicts.10 TIES-Merging
+implemented a "TRIM, ELECT SIGN & MERGE" protocol, dropping low-magnitude parameters
+and resolving conflicting update directions via majority vote.12 DARE extended this by applying
+random dropout to delta weights followed by magnitude rescaling.10 AdaMerging advanced
+the paradigm by learning scaling coefficients directly from unlabeled test sets using
+unsupervised entropy minimization, adapting the merge dynamically.13
+However, these weight-space methods suffer from a fundamental limitation: they operate in
+the full parameter space (
+
+) and frequently destroy the low-rank structure of the LoRA
+
+adapters.15 When TIES-Merging sparsifies a reconstructed matrix
+
+, the resulting matrix
+
+is no longer rank- , eliminating the computational efficiency that justified using LoRA initially.
+The problem of parameter interference was partially mitigated, but the underlying subspace
+misalignment remained unsolved.
+
+The Subspace Alignment and Core-Space Paradigm (2025)
+By 2025, the research consensus shifted toward enforcing orthogonal alignment during
+training or projecting updates into a shared mathematical basis before merging. This
+represents the current state-of-the-art for multi-adapter composition.
+
+Method
+
+Core Innovation
+
+Resolution of
+Interference
+
+Reference
+
+LoRI (LoRA with
+Reduced
+Interference)
+
+Freezes the
+projection matrix
+
+Forces all domain
+adapters into
+approximately
+orthogonal
+subspaces. Sparse
+
+16
+
+as a shared
+random Gaussian
+
+initialization across
+all tasks.
+
+masking on matrix
+
+LoRA-LEGO
+
+Disassembles LoRA
+into Minimal
+Semantic Units
+(MSUs) based on
+rank-wise
+parameter
+clustering.
+
+Allows rank-wise
+assembly of
+multi-domain
+knowledge without
+full-space
+concatenation.
+
+4
+
+Core Space
+Merging
+
+Decomposes task
+adapters into a
+shared low-rank
+basis via SVD,
+creating a compact
+
+Merging occurs
+
+15
+
+"Core
+Space".
+
+prevents
+parameter overlap.
+
+entirely in the
+-dimensional space.
+Mathematically
+guarantees no
+information loss
+while reducing
+complexity from
+to
+
+StelLA
+
+Employs a
+three-factor
+decomposition
+. Constrains
+and
+to the
+Stiefel manifold
+during training via
+Riemannian
+optimization.
+
+.
+
+Guarantees strict
+orthonormality of
+input and output
+subspaces,
+eliminating intruder
+dimensions.
+
+22
+
+StelLA and Core Space Merging effectively solved the linear additivity problem that Synapta
+failed to address. By aligning the bases (
+
+and
+
+) and restricting the domain-specific
+
+updates strictly to a scaling matrix ( ), these frameworks ensure that cross-domain
+interference is mathematically neutralized.
+
+Directional Anisotropy and Token-Level Dynamics (2026)
+
+While subspace alignment solved the basis mismatch, it did not solve the routing granularity or
+the directional sensitivity imbalance.
+1.​ Addressing Anisotropy (TARA): The 2026 paper "Preference-Aligned LoRA Merging"
+(CVPR) identified that even with sufficient subspace coverage, task losses exhibit unequal
+sensitivity to different LoRA directions (anisotropy). TARA mitigates this by aligning
+merging weights using a preference-weighted cross-entropy pseudo-loss, ensuring
+direction-wise reweighting that preserves task-relevant subspaces.4
+2.​ Token-Level Efficiency (CoMoL): The limitation of prompt-level routing has been
+entirely bypassed by Core Space Mixture of LoRA (CoMoL, arxiv 2026). Traditional
+MoE-LoRA architectures compute full
+transformations for each expert, resulting
+in severe memory bloat and latency. CoMoL solves this by performing the token-level
+routing exclusively within the compact core space.24 Instead of aggregating
+high-dimensional expert outputs, CoMoL dynamically weights the small
+core
+matrices based on the current token's hidden state, merging them into a single core
+matrix before the main transformation.25 This maintains the FLOP profile of a standard
+LoRA forward pass while achieving the expressivity of token-level MoE.
+
+Real and Unsolved Gaps
+Despite the synthesis of core-space merging and token-level routing, a critical gap remains at
+the frontier: Real-time, long-horizon reasoning synthesis over orthogonal manifolds.
+Current token-level models (like CoMoL) route based purely on the immediate hidden state of
+a single token. They operate via System 1 pattern matching. However, complex multi-domain
+queries require System 2 deliberation—planning, searching, verifying, and backtracking across
+different domain subspaces. Furthermore, hardware utilization on single-GPU high-VRAM
+setups (like the RTX 5090) for dense token-level core-space MoE remains highly
+memory-bound, requiring specialized Triton or FlashAttention-3 kernels to maximize FP8 Tensor
+Core throughput without saturating the VRAM bandwidth.27 The challenge is bridging the
+mathematical elegance of orthonormal core spaces with the agentic, test-time compute
+scaling required for advanced logical deduction.
+
+Breakthrough Hypothesis Generation
+To achieve a 3x–5x capability improvement and fully leverage the 32GB VRAM and massive FP8
+compute capabilities of the RTX 5090, the architecture must completely abandon static
+prompt-level linear addition. The following hypotheses represent non-incremental, realistically
+testable pathways to breakthrough performance at a NeurIPS/ICLR level.
+
+Hypothesis 1: Dynamic Riemannian Core-Space Routing (The
+CoMoL-StelLA Synthesis)
+●​ Core Idea: Combine the orthonormal Stiefel manifold training paradigm of StelLA 22 with
+
+the token-level core-space routing mechanics of CoMoL.24 We pre-train
+experts utilizing a three-factor decomposition (
+
+domain
+
+), where the projection bases
+
+and
+are shared globally and constrained to be orthonormal. At inference time, a
+lightweight neural router projects the token's hidden state to dynamically mix only the
+core scaling matrices ( ) of the respective experts.
+●​ Why it should work (First-Principles): The root cause of catastrophic interference in
+LoRA composition is basis misalignment, driven by the emergence of intruder
+dimensions.3 By enforcing shared orthonormal bases via Riemannian optimization, all
+domain knowledge is structurally decoupled and forced into an aligned manifold. Routing
+strictly in the
+core space requires negligible FLOPs, enabling dense, per-token
+expert blending without hitting the memory bandwidth bottlenecks that typically cripple
+MoE architectures.
+●​ Why existing methods fail: Synapta linearly adds full-space, misaligned updates,
+causing destructive geometric interference. Standard MoE-LoRA computes full
+high-dimensional transformations for each expert, resulting in memory bloat and latency
+that scales linearly with the number of active experts
+
+.
+
+or
+expert blending per
+●​ The 10x Factor: This architecture enables
+token at the exact same computational cost as a single standard LoRA forward pass. It
+fundamentally solves the intelligence-density versus latency tradeoff, allowing massive
+domain scaling on a single RTX 5090.
+
+Hypothesis 2: Speculative Subspace Tree Search for System 2
+Reasoning
+●​ Core Idea: Shift the multi-adapter composition problem from the weight space to the
+activation space by utilizing the massive FP8 throughput of the RTX 5090 to run parallel,
+speculative reasoning traces across different domain subspaces. Instead of mixing
+experts statically or at the token level, the base model acts as an agentic generator,
+spinning up a Monte Carlo Tree Search (MCTS) where different branches are conditioned
+entirely on different, isolated orthogonal expert adapters. A verification head scores the
+logical coherence of each branch, accepting the optimal multi-domain path.
+●​ Why it should work (First-Principles): Multi-domain reasoning is rarely a homogeneous,
+simultaneous blend of concepts; it is sequential. Solving a bio-informatics problem
+requires first applying biological principles, then mathematical modeling, and finally
+algorithmic coding. Searching over discrete expert trajectories maps perfectly to
+test-time compute scaling, allowing the model to deliberate and backtrack.
+●​ Why existing methods fail: Current composition methods (including TIES and
+AdaMerging) attempt to solve reasoning via parameter arithmetic.11 Reasoning is a
+
+sequential generation problem, not a weight-averaging problem. Averaging a legal
+adapter and a math adapter does not produce a model that can sequence legal logic
+followed by math logic; it produces a model that hallucinates heavily.
+●​ The 10x Factor: By shifting from System 1 parameter mixing to System 2 test-time
+compute scaling (similar to the o1/o3 paradigm 28), the model leverages the parallel
+processing power of the 5090 to verify its own logic, exponentially increasing
+performance on hard reasoning benchmarks.
+
+Hypothesis 3: Latent Orthogonal Projection (LoRI-FP8) with
+Normalized Entropy Gating
+●​ Core Idea: Implement the LoRI methodology 16 by freezing a single, randomly initialized
+projection matrix
+for all tasks, and train the
+matrices using extremely sparse
+masks (e.g., 90-95% sparsity). We replace Synapta's embedding router with an
+autonomous, mathematically derived Normalized Entropy Gate 1 that calculates the
+informational complexity of the prompt's hidden state. If the entropy exceeds a
+threshold, the system triggers a highly optimized, FlashAttention-3 powered FP8 kernel to
+compute the sparse updates across multiple orthogonal domains simultaneously.27
+is fixed and
+is highly sparse, the
+●​ Why it should work (First-Principles): If
+parameter updates for different domains map to orthogonal vectors in a
+high-dimensional space. The dot product of their updates approaches zero,
+mathematically guaranteeing near-zero cross-task interference during merging, even
+without complex Stiefel manifold training.16
+●​ Why existing methods fail: Synapta’s unclamped and capped additions force unaligned,
+dense matrices to sum, destroying the low-rank structure and injecting noise.
+●​ The 10x Factor: This achieves zero-shot adapter merging without any runtime neural
+routing overhead or layer-wise projection costs, maximizing batch size and continuous
+throughput on the RTX 5090 for extreme-scale multi-tenant serving.
+
+Detailed Experiment Design: The CoMoL-StelLA
+Synthesis
+Selected Hypothesis: Hypothesis 1 (Dynamic Riemannian Core-Space Routing) provides the
+most rigorous, mathematically sound, and hardware-optimal pathway for a fundamental
+breakthrough. It directly addresses the flaws of the Synapta architecture while maximizing the
+specific capabilities of the RTX 5090.
+
+1. Model and Architecture Details
+●​ Base Model Selection: Qwen2.5-14B-Instruct.
+●​ Justification: The 14B parameter class represents the optimal frontier for single-GPU
+inference. When quantized to FP8 (native to the RTX 5090's Blackwell/Ada architecture),
+
+the base weights occupy approximately 14GB of VRAM. This leaves 18GB of VRAM
+available for the KV cache (enabling long-context reasoning), the orthogonal adapter
+matrices, and high-throughput batching. Qwen2.5 exhibits state-of-the-art dense
+generalist reasoning capabilities, serving as a powerful substrate.28
+●​ Adapter Architecture: We implement a three-factor decomposition
+corresponding to the StelLA methodology.23
+and
+
+○​
+
+are shared globally across all domains. They are
+
+strictly constrained to the Stiefel manifold (
+orthonormality.
+○​
+
+,
+
+) to guarantee
+
+is the domain-specific core scaling matrix for domain .
+
+●​ Routing Architecture: A lightweight Multi-Layer Perceptron (MLP) router
+deployed at each transformer layer. It operates not on the massive
+state, but on the projected low-rank input state
+probability distribution
+
+over the
+
+is
+
+-dimensional hidden
+.25 It outputs a
+
+experts.
+
+The Forward Pass Pipeline:
+1.​ Projection:
+
+(Computed once per token).
+
+2.​ Routing:
+3.​ Core Merging:
+
+(Dynamic
+
+matrix addition).
+
+4.​ Expansion:
+5.​ Residual Addition:
+
+2. Data Strategy
+Synapta's reliance on 40 synthetic questions is statistically void. We require robust,
+domain-specific, and multi-domain datasets.
+, we utilize high-quality,
+●​ Domain Expert Training: To train the core matrices
+domain-specific subsets from established 2025/2026 reasoning benchmarks: SciCode
+for scientific coding, the GPQA train split for physics/biology/chemistry, and Scale SEAL
+for legal/finance.8
+●​ Synthetic Routing Data (Multi-Domain): We must train the router to switch domains
+mid-generation. We will generate 50,000 synthetic reasoning trajectories using a teacher
+model (e.g., DeepSeek-R1-Distill-Qwen-32B or Claude 3.7 Sonnet). We prompt the
+teacher to solve complex multi-domain queries and explicitly output specialized
+
+<domain_x> tags before each discrete reasoning step. This creates supervised targets for
+the token-level router.
+●​ Data Scaling: The training distribution must be uniformly balanced across 10 distinct
+domains. An imbalanced dataset will cause the router to collapse, perpetually favoring
+the majority class.
+
+3. Training Plan and Pipeline
+The training proceeds in three distinct, mathematically isolated phases to ensure stability.
+●​ Phase 1: Shared Basis Initialization (Stiefel Manifold)
+○​ Initialize a single, global LoRA adapter on a uniform mixture of all domain data.
+○​ Utilize a Riemannian optimizer (converting standard Euclidean gradients via QR
+decomposition retraction) to learn the optimal orthonormal bases
+○​ Upon convergence, completely freeze
+●​ Phase 2: Core Matrix Specialization
+
+and
+
+○​ For each domain , initialize the
+
+core matrix
+
+and
+
+.22
+
+.
+randomly.
+
+exclusively on domain 's dataset. Standard Euclidean optimization
+○​ Train
+(AdamW) is utilized here, as the core matrices are unconstrained.
+●​ Phase 3: Router Training (The Core Space)
+○​ Freeze the base model,
+
+,
+
+, and all expert core matrices
+
+.
+
+. Train using the synthetic multi-domain dataset where the
+○​ Initialize the router
+target expert is known per-token.
+○​ Loss Function: Standard causal language modeling cross-entropy loss, augmented
+with a load-balancing auxiliary loss to penalize the router if it collapses to a single
+expert:
+expert , and
+
+(where
+
+is the fraction of tokens routed to
+
+is the mean router probability).
+
+Compute Utilization Strategy (Maximize RTX 5090): We leverage FlashAttention-3 to exploit
+the hardware support for FP8 low-precision on Hopper/Ada architecture GPUs.27 To maximize
+Tensor Core throughput, we will write custom Triton kernels to fuse the
+
+projection and
+
+the router MLP into a single kernel execution. Because the core matrices
+
+are exceedingly
+
+small (
+), they can remain strictly within the L2 SRAM of the GPU, avoiding global
+memory fetches and completely alleviating the memory bandwidth bottleneck that plagues
+traditional MoE routing.
+Hyperparameters:
+
+●​ Adapter Rank
+●​ LoRA Scaling Factor
+●​ Router Learning Rate:
+
+(to provide sufficient representational capacity in the core space).
+.
+with cosine decay.
+
+.
+●​ Core Matrix Learning Rate:
+●​ Batch Size: Maximized to saturate 30GB of VRAM (leaving 2GB safety buffer).
+
+4. Evaluation Criteria
+The evaluation protocol must shift from semantic similarity to objective reasoning execution.
+Benchmark
+
+Justification
+
+Target Metric
+
+GPQA Diamond
+
+Tests high-level,
+Google-proof scientific
+reasoning. Resistant to data
+contamination.
+
+Exact Match (EM) Accuracy.
+
+SWE-Bench Verified
+
+Tests rigorous, multi-step
+execution, agentic behavior,
+and coding reasoning.
+
+Pass@1 (Code execution
+success).
+
+ARC-AGI-2
+
+Tests fluid intelligence and
+generalization to novel logic
+patterns entirely outside the
+training distribution.
+
+Exact Match Accuracy.
+
+GSM8K (Sanity)
+
+Evaluates if the multi-domain
+routing degrades pure
+single-domain mathematical
+reasoning.
+
+Exact Match Accuracy.
+
+Detecting Real Improvement vs. Noise:
+
+Improvement is verified if exact match accuracy increases on objective benchmarks. Noise
+injection is detected by measuring the perplexity (PPL) on standard single-domain validation
+sets. If the perplexity of the CoMoL-StelLA model increases compared to a single-domain
+expert, the token-level router is injecting cross-domain noise (anisotropy) into the generation
+stream.
+
+Success Criteria
+For the experiment to be deemed a scientific breakthrough worthy of NeurIPS/ICLR
+publication, rather than an incremental engineering patch, it must meet the following strict
+thresholds:
+
+1. The Reasoning Gain Threshold
+●​ Metric: Accuracy on the GPQA Diamond and SWE-Bench Verified benchmarks.
+●​ Threshold: An absolute performance improvement of
+
+over the base
+
+Qwen2.5-14B zero-shot performance, OR a
+relative reduction in error rate
+compared to standard prompt-level LoRA composition (the Synapta baseline).
+●​ Why Meaningful: GPQA Diamond is exceptionally difficult; PhD-level experts score
+approximately 65%, and top frontier models saturate around 90%.8 An improvement of
+15% absolute demonstrates that core-space routing effectively synthesizes domain
+expertise into actionable, multi-step deductive reasoning, allowing an open-weight 14B
+model to simulate the intelligence density of a much larger, proprietary parameter-class
+model.
+
+2. The Zero-Interference Guarantee
+●​ Metric: Accuracy on single-domain benchmarks (e.g., purely mathematical problems on
+GSM8K).
+compared to a dedicated, single-domain expert
+●​ Threshold: Degradation of
+LoRA.
+●​ Why Meaningful: This strictly proves that the Stiefel manifold training and core-space
+routing have successfully resolved the "intruder dimension" interference problem that
+mathematically plagued Synapta's
+
+linear additions.
+
+3. Failure Definition
+The experiment is classified as a failure if it fails to beat the base model's zero-shot
+performance on multi-domain prompts by at least 10% absolute, if cross-task interference
+degrades single-domain performance by >5%, or if the token-level dynamic routing introduces
+a latency overhead exceeding 20% compared to a single standard LoRA forward pass.
+
+Failure Analysis and Fallbacks
+A rigorous, first-principles research methodology requires identifying precise failure vectors
+before initiating training and pre-registering technical fallbacks.
+
+Failure Mode 1: Router Collapse
+●​ What could go wrong: The token-level router
+
+may find a local minimum where it
+
+perpetually assigns
+to a single "general knowledge" expert and
+to all
+specialized experts, effectively ignoring the core matrices to minimize the auxiliary loss.
+●​ Early Detection: Monitor the normalized entropy of the routing distribution
+
+during
+
+Phase 3 training. If the average entropy drops below a critical threshold (e.g.,
+) early in the epochs, collapse is occurring.
+hard routing mechanism
+●​ Fallback Strategy: Transition from soft-merging to a Topaugmented with a noisy gating function (similar to classic MoE implementations). This
+forces gradients to flow through diverse experts, breaking the symmetry of the local
+minimum.
+
+Failure Mode 2: Stiefel Manifold Capacity Bottleneck
+and
+to be strictly
+●​ What could go wrong: Constraining the projection bases
+orthonormal across all highly disparate domains (e.g., Poetry vs. Python coding) might
+severely bottleneck the representational capacity of the adapter, preventing it from
+learning complex, domain-specific distributions.
+plateaus prematurely
+●​ Early Detection: The Phase 2 training loss for the core matrices
+at a high value, and single-domain benchmark performance falls significantly below
+standard unconstrained LoRA fine-tuning.
+●​ Fallback Strategy: Relax the strict geometric constraint and pivot to the LoRI
+methodology.16 Freeze
+as a random Gaussian matrix (which provides approximate
+orthogonality in high-dimensional spaces without strict constraints) and allow
+unconstrained Euclidean updates to
+
+and
+
+.
+
+Failure Mode 3: Hardware Utilization Inefficiencies
+●​ What could go wrong: Despite theoretical efficiency, the custom Triton kernels
+responsible for the
+core-space mixing might fail to effectively saturate the RTX
+5090's Streaming Multiprocessors (SMs), resulting in a memory-bound bottleneck and
+high latency.
+
+●​ Early Detection: Profiling the inference pass with Nsight Systems reveals low Tensor
+Core utilization (<30%) and high memory read/write latency during the dynamic routing
+step.
+●​ Fallback Strategy: Revert from Token-Wise Routing to Layer-Wise Routing (following
+the X-LoRA paradigm).6 Calculating the expert mixture once per transformer layer rather
+than once per token drastically reduces kernel invocation overhead and memory access
+frequency, while still providing significantly deeper representational flexibility than
+prompt-level routing.
+
+Iteration Strategy
+Scientific breakthroughs are rarely achieved on the first training run; they require pivoting
+intelligently based on empirical telemetry.
+●​ Scenario A: Success in Accuracy, Failure in Latency.
+○​ Observation: The mathematical framework of Core Space Merging is validated
+(reasoning metrics improve), but the token-level dynamic calculation exceeds the
+20% latency overhead bound.
+○​ Pivot: We must distill the routing probabilities. We will utilize the trained token-level
+router to label a massive dataset, and subsequently train a static, prompt-level
+predictor. This predictor will output a sequence of discrete expert states ahead of
+time (generating a "Routing Plan"). We can then inject the experts sequentially at the
+prompt generation phase using standard, highly optimized FlashAttention-3 kernels,
+separating the routing logic from the critical generation path.27
+●​ Scenario B: Perfect Domain Isolation, Failure in Reasoning Synthesis.
+○​ Observation: The model successfully isolates domains (zero interference on
+single-domain tasks) and recalls isolated facts, but fails to logically link them on
+GPQA or SWE-Bench. The fundamental assumption that adding independent
+domain parameter knowledge equates to reasoning is proven false.
+○​ Pivot: Shift the paradigm entirely from Parameter Merging to Activation Steering
+(Representation Engineering). Apply "Conditional Activation Steering" techniques.29
+Instead of training matrices to recall domain facts, we will train task vectors that
+steer the model's intermediate hidden states toward specific logical operations (e.g.,
+"deduction step," "verification step," "abstraction step").
+●​ Scenario C: Phase 1 Orthonormal Bases Fail to Capture Features.
+○​ Observation: The shared Stiefel manifold training fails to converge on a globally
+useful basis for 20 disparate domains.
+○​ Pivot: Implement TARA (Preference-Aligned LoRA Merging).4 We abandon the
+pre-training geometric constraint. We train standard, independent LoRAs, but
+merge them post-hoc using the TARA preference-weighted cross-entropy
+pseudo-loss. This algorithm projects out the anisotropic "intruder dimensions"
+before inference, forcing alignment retrospectively rather than prescriptively.
+
+By abandoning naive algebraic addition and fully embracing manifold-constrained core-space
+optimization and token-level dynamics, this experimental blueprint transitions the work from a
+heavily constrained edge-device engineering exercise to a profound theoretical advancement
+at the absolute frontier of machine learning reasoning architectures.
+
+Works cited
+1.​ Synapta_Paper_Main.pdf
+2.​ Pytorch code for NeurIPS 2025 paper "Accurate and Efficient Low-Rank Model
+
+Merging in Core Space" - GitHub, accessed on April 7, 2026,
+https://github.com/apanariello4/core-space-merging
+3.​ NeurIPS Poster LoRA vs Full Fine-tuning: An Illusion of Equivalence, accessed on
+April 7, 2026, https://neurips.cc/virtual/2025/poster/115207
+4.​ Preference-Aligned LoRA Merging: Preserving Subspace Coverage and
+Addressing Directional Anisotropy - arXiv, accessed on April 7, 2026,
+https://arxiv.org/html/2603.26299v1
+5.​ (PDF) X-LoRA: Mixture of low-rank adapter experts, a flexible ..., accessed on April
+7, 2026,
+https://www.researchgate.net/publication/380851173_X-LoRA_Mixture_of_low-ra
+nk_adapter_experts_a_flexible_framework_for_large_language_models_with_app
+lications_in_protein_mechanics_and_molecular_design
+6.​ LoRA Adapter: Efficient Neural Tuning - Emergent Mind, accessed on April 7, 2026,
+https://www.emergentmind.com/topics/lora-adapter
+7.​ HyperLoRA: Efficient Cross-task Generalization via Constrained Low-Rank
+Adapters Generation | Request PDF - ResearchGate, accessed on April 7, 2026,
+https://www.researchgate.net/publication/386194734_HyperLoRA_Efficient_Cross
+-task_Generalization_via_Constrained_Low-Rank_Adapters_Generation
+8.​ I made a list of every AI benchmark that still has signal in 2025-2026 (and the
+ones that are completely dead) : r/LocalLLaMA - Reddit, accessed on April 7,
+2026,
+https://www.reddit.com/r/LocalLLaMA/comments/1rovfbw/i_made_a_list_of_every
+_ai_benchmark_that_still/
+9.​ Best AI Models April 2026: Ranked by Benchmarks - Build Fast with AI, accessed
+on April 7, 2026,
+https://www.buildfastwithai.com/blogs/best-ai-models-april-2026
+10.​PEFT welcomes new merging methods - Hugging Face, accessed on April 7, 2026,
+https://huggingface.co/blog/peft_merging
+11.​ Modeling Multi-Task Model Merging as Adaptive Projective Gradient Descent arXiv, accessed on April 7, 2026, https://arxiv.org/html/2501.01230v1
+12.​HydraOpt: Navigating the Efficiency-Performance Trade-off of Adapter Merging ACL Anthology, accessed on April 7, 2026,
+https://aclanthology.org/2025.emnlp-main.1365.pdf
+13.​AdaMerging: Adaptive Model Fusion - Emergent Mind, accessed on April 7, 2026,
+https://www.emergentmind.com/topics/adamerging-technique
+14.​AdaMerging: Adaptive Model Merging for Multi-Task Learning | OpenReview,
+
+accessed on April 7, 2026, https://openreview.net/forum?id=nZP6NgD3QY
+15.​Accurate and Efficient Low-Rank Model Merging in Core Space - arXiv, accessed
+on April 7, 2026, https://arxiv.org/abs/2509.17786
+16.​LoRI: Reducing Cross-Task Interference in Multi-Task Low ... - arXiv, accessed on
+April 7, 2026, https://arxiv.org/abs/2504.07448
+17.​LoRI: Reducing Cross-Task Interference in Multi-Task Low-Rank Adaptation arXiv, accessed on April 7, 2026, https://arxiv.org/pdf/2504.07448
+18.​LoRI: Reducing Cross-Task Interference in Multi-Task Low-Rank Adaptation |
+OpenReview, accessed on April 7, 2026,
+https://openreview.net/forum?id=b8cW86QcOD
+19.​Merging LoRAs like Playing LEGO: Pushing the Modularity of LoRA to Extremes
+Through Rank-Wise Clustering - ResearchGate, accessed on April 7, 2026,
+https://www.researchgate.net/publication/384295743_Merging_LoRAs_like_Playin
+g_LEGO_Pushing_the_Modularity_of_LoRA_to_Extremes_Through_Rank-Wise_Clu
+stering
+20.​Accurate and Efficient Low-Rank Model Merging in ... - OpenReview, accessed on
+April 7, 2026, https://openreview.net/pdf?id=y1z7SAS8q8
+21.​Accurate and Efficient Low-Rank Model Merging in Core Space - arXiv, accessed
+on April 7, 2026, https://arxiv.org/html/2509.17786v1
+22.​StelLA: Subspace Learning in Low-rank Adaptation using Stiefel Manifold (NeurIPS
+2025 Spotlight) - GitHub, accessed on April 7, 2026,
+https://github.com/SonyResearch/stella
+23.​StelLA: Subspace Learning in Low-rank Adaptation using Stiefel Manifold - arXiv,
+accessed on April 7, 2026, https://arxiv.org/html/2510.01938v2
+24.​CoMoL: Efficient Mixture of LoRA Experts via Dynamic Core ... - arXiv, accessed
+on April 7, 2026, https://arxiv.org/abs/2603.00573
+25.​CoMoL: Efficient Mixture of LoRA Experts via Dynamic Core Space Merging arXiv, accessed on April 7, 2026, https://arxiv.org/html/2603.00573v1
+26.​CoMoL: Efficient Mixture of LoRA Experts via Dynamic Core Space Merging WisPaper, accessed on April 7, 2026,
+https://www.wispaper.ai/zh/blog/comol-efficient-mixture-lora-experts-dynamic-c
+ore-space-merging-20260304/eng
+27.​FlashAttention-3: Fast and Accurate Attention with Asynchrony and
+Low-precision | Tri Dao, accessed on April 7, 2026,
+https://tridao.me/blog/2024/flash3/
+28.​How LLM Reasoning Powers the Agentic AI Revolution | by Arash Nicoomanesh |
+Medium, accessed on April 7, 2026,
+https://medium.com/@anicomanesh/how-llm-reasoning-powers-the-agentic-ai-r
+evolution-cbefd10ebf3f
+29.​ICLR 2025 Papers, accessed on April 7, 2026,
+https://iclr.cc/virtual/2025/papers.html
+
+

@@ -1,0 +1,1505 @@
+[
+  {
+    "id": "ext_md_001",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "CRYPTOGRAPHY"
+    ],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A SaaS company's terms of service state that user data is 'encrypted at rest using industry-standard AES.' During litigation, opposing counsel argues this clause is legally unenforceable as a security warranty because it is too vague. Separately, a security auditor flags that the deployment uses AES-128 in ECB mode. Identify the primary legal vulnerability in the clause and the primary cryptographic failure, and explain how each independently undermines the company's position.",
+    "reference_answer": "Legal vulnerability: The phrase 'industry-standard AES' is a vague representations clause, not a precise warranty. Courts (e.g., under UCC or common law misrepresentation) require specificity for a security promise to be enforceable or defensible; the clause neither specifies key length nor mode, making it ambiguous and potentially misleading to consumers, which could trigger FTC unfairness or deceptive practice liability.\n\nCryptographic failure: ECB mode encrypts identical plaintext blocks to identical ciphertext blocks, leaking data patterns regardless of key length. AES-128-ECB provides no semantic security for structured data. This means even if the legal clause were specific, the actual implementation fails to meet any reasonable 'industry standard,' exposing the company to breach-of-contract and negligence claims if data is compromised.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "ECB mode leaks patterns / no semantic security",
+        "vague or ambiguous warranty / unenforceable clause",
+        "FTC or misrepresentation or consumer protection liability"
+      ],
+      "must_include_any": [
+        [
+          "AES-128",
+          "key length unspecified"
+        ],
+        [
+          "ECB",
+          "Electronic Codebook"
+        ],
+        [
+          "industry standard not defined",
+          "lacks specificity"
+        ]
+      ],
+      "must_not_include": [
+        "AES-256 is required by law",
+        "ECB is compliant",
+        "the clause is enforceable as written"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_002",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "BEHAVIORAL_ECONOMICS"
+    ],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A consumer lending startup is deciding between two opt-out designs for arbitration clauses: (A) a single pre-checked checkbox labeled 'I agree to arbitration' during sign-up, or (B) a separate follow-up email sent 30 days after sign-up with a 14-day opt-out window. From both a legal enforceability standpoint and a behavioral economics standpoint, which design is more defensible and why? Identify the main failure mode of the weaker option.",
+    "reference_answer": "Option B is more defensible on both dimensions.\n\nLegal: U.S. courts (Ninth Circuit and others post-Concepcion) have increasingly scrutinized pre-checked boxes as failing mutual assent \u2014 the consumer never affirmatively manifests agreement. Option B's opt-out window, while still adhesive, has been upheld when adequately noticed (cf. Notify requirements under CFPB guidelines).\n\nBehavioral economics: Pre-checked boxes exploit default bias and present bias \u2014 users accept defaults without processing. Option B, though imperfect, reduces present bias exploitation at point-of-sale and gives an informed cooling-off window. However, B still exploits status quo bias (inertia to opt out).\n\nMain failure mode of Option A: It conflates scrolling past a form with informed consent, creating an unconscionability risk \u2014 courts may void the clause entirely, eliminating arbitration protection the company relies on.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B is more defensible",
+        "default bias or status quo bias",
+        "mutual assent / unconscionability risk for Option A"
+      ],
+      "must_include_any": [
+        [
+          "pre-checked box fails assent",
+          "no affirmative consent"
+        ],
+        [
+          "cooling-off period",
+          "opt-out window"
+        ],
+        [
+          "present bias",
+          "inertia"
+        ]
+      ],
+      "must_not_include": [
+        "Option A is legally safer",
+        "pre-checked boxes are universally enforceable",
+        "behavioral economics is irrelevant to enforceability"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "coverage"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_003",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "MARITIME_LAW"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "MARITIME_LAW"
+    ],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A cargo owner files a claim after goods are damaged during a voyage. The bill of lading contains a clause paramount incorporating the Hague Rules and a jurisdiction clause selecting English courts. The carrier's lawyer files a motion to dismiss in a U.S. federal court, arguing forum non conveniens. The motion is denied. Diagnose the most likely reason the motion failed, referencing both the applicable maritime law framework and the general legal doctrine at play.",
+    "reference_answer": "The motion likely failed for two compounding reasons.\n\nMaritime law: Under the Carriage of Goods by Sea Act (COGSA), which applies to foreign trade to/from U.S. ports and incorporates Hague Rules principles, U.S. courts have held that a clause paramount does not automatically override mandatory U.S. statutory rights. If the cargo was loaded or discharged at a U.S. port, COGSA's application may be non-waivable, weakening the foreign jurisdiction clause's force.\n\nGeneral legal doctrine: Forum non conveniens requires the movant to show an adequate alternative forum and that private/public interest factors strongly favor dismissal (Gulf Oil Corp. v. Gilbert). If the plaintiff's chosen forum (U.S.) has a substantial connection to the claim \u2014 e.g., U.S. port of discharge, U.S. cargo owner \u2014 courts grant high deference to that choice, and the carrier failed to overcome that presumption.\n\nFix: Carrier should have sought transfer under 28 U.S.C. \u00a7 1404(a) or argued COGSA's one-year limitation bar instead.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "COGSA applies to U.S. port shipments",
+        "forum non conveniens requires adequate alternative forum",
+        "deference to plaintiff's chosen forum"
+      ],
+      "must_include_any": [
+        [
+          "Gulf Oil v. Gilbert",
+          "private and public interest factors"
+        ],
+        [
+          "clause paramount",
+          "Hague Rules incorporation"
+        ],
+        [
+          "\u00a7 1404",
+          "transfer as alternative"
+        ]
+      ],
+      "must_not_include": [
+        "forum selection clause is always binding",
+        "Hague-Visby automatically displaces COGSA",
+        "motion should have succeeded"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_004",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "MEDICAL_DIAGNOSIS"
+    ],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A hospital's AI-assisted radiology tool flags a chest CT as low-probability for malignancy (score: 0.18). The radiologist, trusting the tool, does not escalate. Six months later the patient is diagnosed with early-stage lung cancer. The hospital's legal team must decide between two defense postures: (A) argue the AI output was a decision-support tool, not a diagnostic device, shifting liability to the radiologist; or (B) argue the standard of care was met because the 0.18 score was below published clinical thresholds. Identify the stronger defense and the key failure mode of the weaker one.",
+    "reference_answer": "Defense B is stronger in most U.S. jurisdictions.\n\nMedical: A score of 0.18 on a well-validated model is objectively below typical clinical action thresholds (e.g., Lung-RADS category 3 starts at moderate suspicion). If the hospital can show the threshold was evidence-based and consistently applied, the radiologist's decision aligns with accepted practice, satisfying the Bolam/reasonable-physician standard.\n\nLegal: Defense A is the weaker posture. Arguing the tool is 'decision-support only' may backfire if the hospital marketed or deployed it in a way that integrated it into the diagnostic workflow \u2014 courts and the FDA may treat it as a Software as a Medical Device (SaMD), and the hospital could face dual liability (negligent tool selection + negligent supervision) rather than deflecting to the radiologist.\n\nKey failure mode of A: It creates a paper trail of institutional responsibility while simultaneously undermining the radiologist's defense, potentially exposing both parties.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Defense B is stronger",
+        "standard of care / reasonable physician standard",
+        "SaMD or FDA classification risk for Defense A"
+      ],
+      "must_include_any": [
+        [
+          "Lung-RADS",
+          "published threshold",
+          "clinical action threshold"
+        ],
+        [
+          "dual liability",
+          "institutional liability"
+        ],
+        [
+          "decision-support characterization backfires",
+          "marketing or deployment context"
+        ]
+      ],
+      "must_not_include": [
+        "Defense A eliminates hospital liability",
+        "0.18 score is automatically negligent",
+        "AI tools cannot be used in radiology"
+      ],
+      "numeric_targets": [
+        {
+          "label": "AI malignancy score cited in question",
+          "value": "0.18",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_005",
+    "domains": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "LEGAL_ANALYSIS",
+      "ROBOTICS"
+    ],
+    "section_name": "Diagnosis",
+    "workflow_type": "diagnosis_debugging",
+    "cognitive_demand": "medium",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "An autonomous warehouse robot operating under a shared-autonomy framework collides with a worker. Logs show the robot's collision-avoidance module received valid lidar data but a high-latency CAN bus message caused the brake command to arrive 220 ms late \u2014 beyond the system's 150 ms safety threshold. The manufacturer claims the worker was in a restricted zone, invoking contributory negligence. Explain the primary technical failure mode and why the contributory negligence defense is likely to be weak in a strict-liability jurisdiction.",
+    "reference_answer": "Technical failure: The root cause is a deterministic timing violation on the CAN bus. At 220 ms actuation latency versus a 150 ms safety envelope, the system violated its own validated safety threshold \u2014 a design-level fault, not a sensor fault. In safety-critical robotics (ISO 10218, IEC 62061), timing guarantees for safety functions must be met under worst-case load; if CAN bus congestion was foreseeable, the architecture failed to prioritize safety-critical messages (e.g., via message scheduling or a dedicated safety bus).\n\nLegal: In strict-liability jurisdictions (products liability under Restatement Third of Torts \u00a7 2), the manufacturer is liable for defective design regardless of user conduct if the product deviated from its own safety specification. Contributory negligence is largely irrelevant under strict liability unless the plaintiff's conduct was the sole proximate cause. The worker being in a restricted zone does not extinguish the manufacturer's liability for a documented timing defect \u2014 it may only reduce damages under comparative fault, not bar the claim.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "CAN bus latency exceeded 150 ms safety threshold",
+        "design defect / timing violation",
+        "strict liability bars contributory negligence as full defense"
+      ],
+      "must_include_any": [
+        [
+          "ISO 10218",
+          "IEC 62061",
+          "safety-critical timing standard"
+        ],
+        [
+          "Restatement Third",
+          "products liability",
+          "defective design"
+        ],
+        [
+          "comparative fault reduces damages",
+          "does not bar claim"
+        ]
+      ],
+      "must_not_include": [
+        "lidar sensor was faulty",
+        "contributory negligence fully bars recovery under strict liability",
+        "220 ms is within acceptable tolerance"
+      ],
+      "numeric_targets": [
+        {
+          "label": "Actual CAN bus latency (ms)",
+          "value": "220",
+          "tolerance": 0.0
+        },
+        {
+          "label": "System safety threshold (ms)",
+          "value": "150",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:14:42.252396+00:00",
+      "section": "Diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_006",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "MATHEMATICS"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "MATHEMATICS"
+    ],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "edge_case_handling",
+    "task_style": "map_formal_rule_to_application",
+    "question": "A screening test for a rare disease (prevalence 0.1%) has 99% sensitivity and 95% specificity. A patient tests positive. A clinician argues the result is \"almost certainly a true positive\" and wants to begin aggressive treatment immediately. Is the clinician's decision justified? Provide the positive predictive value and a brief recommendation.",
+    "reference_answer": "Using Bayes' theorem: PPV = (0.99 \u00d7 0.001) / [(0.99 \u00d7 0.001) + (0.05 \u00d7 0.999)] \u2248 0.00099 / 0.05094 \u2248 1.94%. The clinician is wrong. Despite high sensitivity and specificity, the extremely low prevalence means roughly 98% of positive results are false positives. Aggressive treatment is not justified based on a single test. The recommended approach is confirmatory testing with a higher-specificity assay or a gold-standard diagnostic before initiating treatment.",
+    "rubric": {
+      "answer_type": "math",
+      "must_include_all": [
+        "false positive",
+        "confirmatory test",
+        "prevalence"
+      ],
+      "must_include_any": [
+        [
+          "PPV",
+          "positive predictive value"
+        ],
+        [
+          "Bayes",
+          "base rate"
+        ]
+      ],
+      "must_not_include": [
+        "almost certainly a true positive",
+        "treatment is justified"
+      ],
+      "numeric_targets": [
+        {
+          "label": "PPV",
+          "value": "0.0194",
+          "tolerance": 0.003
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_007",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "ROBOTICS"
+    ],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "formalization",
+    "task_style": "justify_decision",
+    "question": "A surgical robot's force-torque sensor reports 12 N of resistance during a planned laparoscopic incision where tissue resistance is expected to stay below 8 N. The robot's controller can either (A) halt and request surgeon override, or (B) reduce feed rate by 40% and continue autonomously. Which option should be selected, and what is the primary clinical justification?",
+    "reference_answer": "Option A \u2014 halt and request surgeon override \u2014 is correct. An unexpected 50% exceedance of the expected force threshold indicates possible contact with unintended tissue, adhesions, or a vessel, none of which can be reliably distinguished by force magnitude alone. Autonomous continuation (B), even at reduced speed, risks further injury without informed human judgment. The primary clinical justification is that intraoperative surprises require real-time surgeon interpretation; reducing feed rate does not resolve the diagnostic uncertainty and may mask escalating resistance. Safe robotic surgery protocols require human-in-the-loop escalation when sensor readings exceed calibrated safety margins.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "halt",
+        "surgeon",
+        "force threshold"
+      ],
+      "must_include_any": [
+        [
+          "unintended tissue",
+          "unplanned contact",
+          "unexpected resistance"
+        ],
+        [
+          "human-in-the-loop",
+          "surgeon override",
+          "clinician judgment"
+        ]
+      ],
+      "must_not_include": [
+        "continue autonomously",
+        "option B is correct"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_008",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "PYTHON_LOGIC"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "PYTHON_LOGIC"
+    ],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "translation_constraints",
+    "task_style": "analyze_buggy_reasoning",
+    "question": "A triage script classifies a patient as \"low risk\" for sepsis using this logic:\n```python\nif heart_rate > 90 or temperature > 38.3 or resp_rate > 20:\n    risk = \"high\"\nelse:\n    risk = \"low\"\n```\nA patient presents with HR=88, Temp=38.1, RR=19, and a confirmed infection. The script outputs `low`. Identify the clinical and logical flaw, and state what change would correct it.",
+    "reference_answer": "Clinical flaw: The script implements a single-criterion OR rule but ignores that sepsis screening (e.g., SIRS criteria) requires confirmed or suspected infection combined with \u22652 of the threshold signs. Here, the patient meets all three criteria marginally but each falls just below the individual cutoffs. With a confirmed infection plus near-threshold vitals across all three parameters, clinical risk is high despite the script's output. Logical flaw: the OR condition requires any single threshold to be exceeded; no logic aggregates near-misses or accounts for infection status. Fix: add an `infection` flag and trigger high risk when `infection is True` and two or more vitals are within a defined margin of their thresholds (or use a SIRS-compliant \u22652 condition).",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "infection",
+        "SIRS",
+        "two or more"
+      ],
+      "must_include_any": [
+        [
+          "near-threshold",
+          "just below cutoff",
+          "marginally below"
+        ],
+        [
+          "OR condition",
+          "single criterion",
+          "any one threshold"
+        ]
+      ],
+      "must_not_include": [
+        "script is correct",
+        "low risk is appropriate"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_009",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "CLIMATE_SCIENCE"
+    ],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "stakeholder_usefulness",
+    "task_style": "summarize_with_constraints",
+    "question": "A public health officer must decide whether to issue a heat-related illness advisory for a city during a forecast wet-bulb temperature event of 32\u00b0C. The local hospital has seen a 40% spike in heat exhaustion admissions over the prior 48 hours. Advise whether to issue the advisory, and identify the single most decision-critical factor from each domain.",
+    "reference_answer": "Yes, issue the advisory immediately. From climate science: a wet-bulb temperature of 32\u00b0C is the critical decision factor \u2014 it approaches the physiological limit of human thermoregulation (~35\u00b0C wet-bulb), meaning even healthy adults can suffer heat stress with moderate exertion, and the risk is not captured by dry-bulb temperature alone. From medical diagnosis: the 40% surge in heat exhaustion admissions is the key clinical signal \u2014 it confirms that population-level heat illness is already underway, not merely forecast. Together, these two factors \u2014 imminent physiological danger plus observed clinical burden \u2014 justify an immediate advisory without waiting for additional data.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "wet-bulb",
+        "heat exhaustion",
+        "advisory"
+      ],
+      "must_include_any": [
+        [
+          "thermoregulation",
+          "physiological limit",
+          "35\u00b0C"
+        ],
+        [
+          "hospital admissions",
+          "clinical burden",
+          "40%"
+        ]
+      ],
+      "must_not_include": [
+        "delay the advisory",
+        "dry-bulb is sufficient"
+      ],
+      "numeric_targets": [
+        {
+          "label": "wet-bulb threshold cited",
+          "value": "32",
+          "tolerance": 1.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "coverage"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_010",
+    "domains": [
+      "MEDICAL_DIAGNOSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "required_adapters": [
+      "MEDICAL_DIAGNOSIS",
+      "ORGANIC_SYNTHESIS"
+    ],
+    "section_name": "Decision Support",
+    "workflow_type": "decision_support",
+    "cognitive_demand": "medium",
+    "testing_focus": "mechanism_comparison",
+    "task_style": "prioritize_under_constraints",
+    "question": "A formulary committee must choose between two analgesics for post-operative pain in a patient with known G6PD deficiency: (A) acetaminophen (paracetamol) or (B) aspirin. Both are available at equivalent cost. Identify the mechanism-level reason one is contraindicated and recommend the safer choice.",
+    "reference_answer": "Recommend acetaminophen (A). Aspirin is relatively contraindicated in G6PD deficiency because it generates oxidative stress that exceeds the capacity of G6PD-deficient erythrocytes to regenerate NADPH via the pentose phosphate pathway. Without adequate NADPH, glutathione cannot be reduced, leaving red blood cells unable to neutralize reactive oxygen species \u2014 precipitating hemolytic anemia. Acetaminophen's analgesic mechanism (central COX modulation and endocannabinoid pathway involvement) does not impose significant oxidative burden on erythrocytes and is generally safe in G6PD-deficient patients at therapeutic doses. The mechanism-level distinction is oxidative erythrocyte stress: aspirin provokes it, acetaminophen does not.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "G6PD",
+        "NADPH",
+        "hemolytic",
+        "acetaminophen"
+      ],
+      "must_include_any": [
+        [
+          "oxidative stress",
+          "reactive oxygen species",
+          "oxidative burden"
+        ],
+        [
+          "glutathione",
+          "pentose phosphate pathway"
+        ]
+      ],
+      "must_not_include": [
+        "aspirin is safe in G6PD",
+        "acetaminophen is contraindicated"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "hallucination",
+        "coverage"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:15:58.899951+00:00",
+      "section": "Decision Support"
+    }
+  },
+  {
+    "id": "ext_md_011",
+    "domains": [
+      "PYTHON_LOGIC",
+      "MATHEMATICS"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "MATHEMATICS"
+    ],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "A developer implements Newton's method for finding roots as follows:\n\n```python\ndef newton(f, df, x0, tol=1e-6, max_iter=100):\n    x = x0\n    for _ in range(max_iter):\n        x = x - f(x) / df(x)\n        if abs(f(x)) < tol:\n            return x\n    return x\n```\n\nIdentify the strongest mathematical strength of this design, its most critical numerical weakness, and the single most impactful fix.",
+    "reference_answer": "**Strength:** The implementation correctly encodes the Newton-Raphson update rule x_{n+1} = x_n - f(x_n)/f'(x_n), which achieves quadratic convergence near a simple root \u2014 far faster than bisection or secant methods.\n\n**Critical weakness:** No guard against df(x) \u2248 0. When the derivative is near zero (e.g., near an inflection point or when x approaches a repeated root), division produces either a ZeroDivisionError or a catastrophically large step that diverges or overflows.\n\n**Most impactful fix:** Add a derivative guard before the update:\n```python\nif abs(df(x)) < 1e-12:\n    raise ValueError(\"Derivative too small; convergence unsafe.\")\n```\nThis is more important than the convergence check placement or max_iter handling because it prevents silent numerical corruption.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "quadratic convergence",
+        "derivative near zero or ZeroDivisionError",
+        "guard or check on df(x)"
+      ],
+      "must_include_any": [
+        [
+          "inflection point",
+          "repeated root",
+          "df(x) \u2248 0"
+        ],
+        [
+          "diverge",
+          "overflow",
+          "catastrophic step",
+          "numerical instability"
+        ]
+      ],
+      "must_not_include": [
+        "bisection is better overall",
+        "Newton's method does not converge quadratically"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_012",
+    "domains": [
+      "PYTHON_LOGIC",
+      "MLX_KERNELS"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "MLX_KERNELS"
+    ],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "An engineer is writing a batched matrix multiply for Apple Silicon inference. They propose two designs:\n\n**Option A:** Python loop over batch dimension, calling `mlx.core.matmul` per sample.\n\n**Option B:** Stack inputs into a 3-D array and call `mlx.core.matmul` once on the batched tensor.\n\nCompare the two designs across: compute efficiency, memory layout, and MLX lazy-evaluation behavior. Which should be preferred and why?",
+    "reference_answer": "**Option B is strongly preferred.**\n\n**Compute efficiency:** Option A serializes kernel launches; each `matmul` call incurs Python overhead and prevents the MLX scheduler from fusing operations. Option B issues a single batched kernel, allowing the Metal GPU backend to fully utilize hardware parallelism across the batch.\n\n**Memory layout:** Option A may hold discontiguous tensors; Option B requires a contiguous 3-D layout (batch \u00d7 M \u00d7 N), which is cache-friendly and aligns with Metal performance buffer expectations.\n\n**Lazy evaluation:** MLX builds a computation graph and evaluates lazily. A Python loop forces graph fragmentation \u2014 each iteration adds a separate node with no cross-batch fusion opportunity. A single batched call produces one graph node, enabling the compiler to optimize the whole batch as a unit.\n\n**Conclusion:** Option A should only be used when batch elements have heterogeneous shapes that cannot be padded.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Option B preferred",
+        "lazy evaluation or computation graph",
+        "kernel launch overhead or serialization",
+        "contiguous memory or cache"
+      ],
+      "must_include_any": [
+        [
+          "Metal",
+          "GPU backend",
+          "hardware parallelism"
+        ],
+        [
+          "fusion",
+          "graph node",
+          "compiler optimization"
+        ]
+      ],
+      "must_not_include": [
+        "Option A is faster",
+        "MLX evaluates eagerly"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_013",
+    "domains": [
+      "PYTHON_LOGIC",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "ROBOTICS"
+    ],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A ROS 2 node publishes joint velocity commands at 100 Hz using this pattern:\n\n```python\ndef control_loop(self):\n    error = self.target - self.current_position\n    velocity = self.kp * error\n    self.publisher.publish(Float64(data=velocity))\n```\n\nThe robot arm oscillates increasingly at high speeds instead of converging. Diagnose the two most likely causes \u2014 one from the control logic and one from the software execution model \u2014 and propose a concrete fix for each.",
+    "reference_answer": "**Control logic cause:** Pure proportional (P-only) control with no derivative term provides no damping. At high speeds or with a large kp, the controller overshoots, and without damping the error oscillates with growing amplitude \u2014 a classic underdamped or unstable closed-loop response.\n\n**Fix:** Add a derivative term: `velocity = self.kp * error + self.kd * (error - self.prev_error) / dt` and tune kd to introduce damping.\n\n**Software execution cause:** `self.current_position` is read without synchronization. If sensor callbacks update this variable concurrently in a separate thread/executor, the control loop reads stale or partially-written state, injecting noise that destabilizes the loop.\n\n**Fix:** Use a ROS 2 `ReentrantCallbackGroup` with a mutex lock, or move all callbacks into a `SingleThreadedExecutor` to eliminate the race condition.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "no derivative term or P-only control",
+        "race condition or stale state or thread safety",
+        "derivative gain kd or damping",
+        "mutex or SingleThreadedExecutor or synchronization"
+      ],
+      "must_include_any": [
+        [
+          "underdamped",
+          "overshoot",
+          "oscillation",
+          "instability"
+        ],
+        [
+          "concurrent",
+          "callback",
+          "executor",
+          "thread"
+        ]
+      ],
+      "must_not_include": [
+        "increase kp to fix oscillation",
+        "ROS 2 is single-threaded by default"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_014",
+    "domains": [
+      "PYTHON_LOGIC",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "CRYPTOGRAPHY"
+    ],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A backend service must store user API tokens at rest. Two designs are proposed:\n\n**Design A:** Encrypt tokens with AES-256-GCM using a server-managed key; store ciphertext in the database.\n\n**Design B:** Hash tokens with HMAC-SHA256 using a secret key; store only the digest.\n\nThe service only ever needs to verify a token presented by the user, never retrieve its plaintext. Analyze the security and operational tradeoffs and recommend the better design.",
+    "reference_answer": "**Design B (HMAC) is the better choice** given the stated constraint.\n\n**Security:** Design A stores recoverable ciphertext \u2014 a compromised server key exposes all tokens in plaintext. Design B stores a one-way digest; even with the HMAC key exposed, tokens cannot be bulk-reconstructed without per-token brute-force.\n\n**Operational tradeoff:** Design A requires key rotation to re-encrypt every stored token. Design B requires only re-issuing tokens on key rotation, which is operationally cleaner for short-lived API tokens.\n\n**Verification:** Both support O(1) verification \u2014 Design A decrypts then compares; Design B recomputes HMAC and compares digests in constant time (critical: use `hmac.compare_digest` in Python to prevent timing attacks).\n\n**When to prefer Design A:** Only if plaintext retrieval is ever required (e.g., forwarding tokens to a third-party API), which the spec explicitly excludes here.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Design B preferred",
+        "one-way or non-reversible",
+        "hmac.compare_digest or constant-time comparison",
+        "key compromise exposes plaintext in Design A"
+      ],
+      "must_include_any": [
+        [
+          "timing attack",
+          "compare_digest",
+          "constant-time"
+        ],
+        [
+          "key rotation",
+          "operational",
+          "re-encryption"
+        ]
+      ],
+      "must_not_include": [
+        "Design A is more secure",
+        "HMAC can be reversed"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "hmac\\.compare_digest"
+      ],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_015",
+    "domains": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "required_adapters": [
+      "PYTHON_LOGIC",
+      "LATEX_FORMATTING"
+    ],
+    "section_name": "Design Review",
+    "workflow_type": "design_review",
+    "cognitive_demand": "deep",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "A script auto-generates a LaTeX report by interpolating user-supplied strings directly into a `.tex` template:\n\n```python\ndef render(template: str, values: dict) -> str:\n    return template.format(**values)\n```\n\nA user submits the value `\"50% discount & free {shipping}\"` for a field. Explain what fails and why, covering both the Python execution layer and the LaTeX compilation layer.",
+    "reference_answer": "**Python layer failure:** The string `\"{shipping}\"` in the user value is interpreted by `str.format()` as a second placeholder. Python raises `KeyError: 'shipping'` because `shipping` is not in `values`. This happens before any LaTeX is written.\n\n**LaTeX layer failure (if Python were bypassed):** The `%` character is a LaTeX comment marker \u2014 everything after `%` on a line is ignored by the compiler, silently truncating content. The `&` character is a column separator in tabular environments and raises a LaTeX error outside one.\n\n**Root fix:** Escape user input before interpolation. For Python, use a safe template engine (e.g., `string.Template` with `$var` syntax, which ignores unknown braces) or pre-escape braces. For LaTeX, sanitize `%`, `&`, `$`, `#`, `_`, `^`, `{`, `}` by prefixing with backslash before injecting into the template.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "KeyError on {shipping}",
+        "% is a LaTeX comment character",
+        "& is a LaTeX column separator",
+        "escape user input or sanitize"
+      ],
+      "must_include_any": [
+        [
+          "string.Template",
+          "safe template",
+          "pre-escape braces"
+        ],
+        [
+          "backslash escape",
+          "sanitize special characters",
+          "\\%",
+          "\\&"
+        ]
+      ],
+      "must_not_include": [
+        "% has no special meaning in LaTeX",
+        "str.format is safe for untrusted input"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "KeyError",
+        "string\\.Template|\\\\%|\\\\&"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:16:56.566378+00:00",
+      "section": "Design Review"
+    }
+  },
+  {
+    "id": "ext_md_016",
+    "domains": [
+      "MATHEMATICS",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "ASTROPHYSICS"
+    ],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "edge_case_handling",
+    "task_style": "map_formal_rule_to_application",
+    "question": "A pipeline computing stellar luminosity from parallax measurements uses the distance modulus m \u2212 M = 5 log\u2081\u2080(d/10 pc). A star returns a negative parallax from Gaia due to measurement noise, making d undefined. Outline a concise implementation plan to handle this edge case robustly without discarding the measurement entirely.",
+    "reference_answer": "1. Flag negative-parallax entries rather than dropping them. 2. Apply a Bayesian prior (e.g., exponentially decreasing space density prior from Bailer-Jones) to infer a posterior distance estimate even when the raw parallax is negative or near zero. 3. Propagate the asymmetric distance uncertainty through the distance modulus using Monte Carlo sampling rather than simple error propagation, since the log transform is nonlinear. 4. Cap output luminosity confidence intervals and mark them as 'prior-dominated' in metadata so downstream consumers know the estimate is prior-sensitive. This preserves the data point while correctly representing its low information content.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "Bayesian prior or posterior distance estimate",
+        "do not discard / flag rather than drop",
+        "nonlinear propagation or Monte Carlo uncertainty"
+      ],
+      "must_include_any": [
+        [
+          "distance modulus",
+          "5 log"
+        ],
+        [
+          "Bailer-Jones",
+          "exponential prior",
+          "space density prior"
+        ]
+      ],
+      "must_not_include": [
+        "discard all negative parallax",
+        "set distance to zero",
+        "ignore uncertainty"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_017",
+    "domains": [
+      "MATHEMATICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "QUANTUM_CHEMISTRY"
+    ],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "formalization",
+    "task_style": "justify_decision",
+    "question": "A team is implementing a Hartree\u2013Fock SCF solver and must choose between diagonalizing the Fock matrix directly versus using the conjugate gradient method at each iteration. Given that the basis set has N = 800 functions and the system is a closed-shell molecule, justify which linear-algebra strategy to use and identify the mathematical condition under which the other strategy becomes preferable.",
+    "reference_answer": "For N = 800, direct diagonalization (e.g., LAPACK dsyev) costs O(N\u00b3) \u2248 5 \u00d7 10\u2078 FLOPs per SCF cycle, which is tractable and produces all eigenvalues and eigenvectors needed to build the density matrix \u2014 making it the right choice here. Conjugate gradient (iterative) methods are preferable when N is large (typically N > 10\u00b3\u201310\u2074) and only the lowest few occupied orbitals are needed, reducing cost to O(N\u00b2) per iteration with sparse integral screening. The crossover condition is roughly when the number of required eigenpairs k \u226a N and the Fock matrix is sparse enough that matrix-vector products are cheap. For a dense 800-function basis with all occupied orbitals needed, direct diagonalization is justified.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "O(N\u00b3) cost for direct diagonalization",
+        "direct diagonalization preferred at N=800",
+        "iterative / conjugate gradient preferred for larger N or sparse systems"
+      ],
+      "must_include_any": [
+        [
+          "density matrix",
+          "occupied orbitals"
+        ],
+        [
+          "LAPACK",
+          "dsyev",
+          "eigenvalue solver"
+        ]
+      ],
+      "must_not_include": [
+        "conjugate gradient is always better",
+        "direct diagonalization scales as O(N\u00b2)"
+      ],
+      "numeric_targets": [
+        {
+          "label": "scaling exponent for direct diagonalization",
+          "value": "3",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [
+        "O\\(N\\^?3\\)|O\\(N\u00b3\\)"
+      ],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "hallucination"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_018",
+    "domains": [
+      "MATHEMATICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "CLIMATE_SCIENCE"
+    ],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "translation_constraints",
+    "task_style": "analyze_buggy_reasoning",
+    "question": "A climate analyst fits a linear trend to global mean surface temperature anomalies over 1980\u20132023 using ordinary least squares (OLS) and reports the slope as the warming rate. A reviewer flags the approach as statistically flawed. Identify the specific mathematical assumption OLS violates in this context and describe how the implementation should be corrected.",
+    "reference_answer": "OLS assumes residuals are independent and identically distributed (i.i.d.). Temperature anomaly time series exhibit positive autocorrelation (persistence), violating this assumption. Consequence: OLS underestimates standard errors, making the trend appear more statistically significant than it is. Correction: use a GLS or ARIMA-based regression that models the autocorrelation structure (e.g., AR(1) residuals), or apply a Newey\u2013West (HAC) covariance estimator to obtain autocorrelation-consistent standard errors. The slope estimate itself may be similar, but confidence intervals and p-values will be correctly wider. The analyst should also check for structural breaks (e.g., volcanic forcing in 1991) that violate the assumption of a single linear trend.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "autocorrelation or serial correlation in residuals",
+        "OLS underestimates standard errors",
+        "GLS or Newey-West or ARIMA correction"
+      ],
+      "must_include_any": [
+        [
+          "i.i.d. assumption",
+          "independence assumption"
+        ],
+        [
+          "confidence interval",
+          "p-value",
+          "significance"
+        ]
+      ],
+      "must_not_include": [
+        "OLS is unbiased for the slope in all cases",
+        "autocorrelation does not affect OLS"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_019",
+    "domains": [
+      "MATHEMATICS",
+      "MUSIC_THEORY"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "MUSIC_THEORY"
+    ],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "stakeholder_usefulness",
+    "task_style": "summarize_with_constraints",
+    "question": "A developer is building a tool that detects chord quality (major, minor, diminished, augmented) from a set of MIDI pitch values. Explain to a non-specialist product manager, in plain language with minimal jargon, how interval arithmetic over pitch-class sets maps onto chord classification, and what the implementation must handle correctly to avoid misclassification.",
+    "reference_answer": "Every MIDI note has a pitch class (its note name modulo 12 semitones). A chord is classified by measuring the gaps \u2014 intervals \u2014 between its pitch classes after sorting them. Major triads have gaps of 4 then 3 semitones; minor triads have 3 then 4; diminished has 3 then 3; augmented has 4 then 4. The tool computes these sorted interval patterns and matches them to a lookup table. Key implementation requirements: (1) reduce all pitches modulo 12 to remove octave duplicates; (2) try all rotations of the interval pattern to handle chord inversions; (3) handle 'enharmonic' inputs where the same pitch class appears twice. Without rotation-checking, an inverted C major chord would be misclassified.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "modulo 12 or pitch class reduction",
+        "inversions or rotations of interval pattern",
+        "interval gaps: major=4,3 minor=3,4 diminished=3,3 augmented=4,4"
+      ],
+      "must_include_any": [
+        [
+          "lookup table",
+          "pattern matching"
+        ],
+        [
+          "duplicate pitch class",
+          "enharmonic",
+          "octave removal"
+        ]
+      ],
+      "must_not_include": [
+        "absolute pitch values without modulo reduction",
+        "no need to handle inversions"
+      ],
+      "numeric_targets": [
+        {
+          "label": "semitones in major third",
+          "value": "4",
+          "tolerance": 0.0
+        },
+        {
+          "label": "semitones in minor third",
+          "value": "3",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "coverage"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_020",
+    "domains": [
+      "MATHEMATICS",
+      "LATEX_FORMATTING"
+    ],
+    "required_adapters": [
+      "MATHEMATICS",
+      "LATEX_FORMATTING"
+    ],
+    "section_name": "Implementation Planning",
+    "workflow_type": "implementation_planning",
+    "cognitive_demand": "medium",
+    "testing_focus": "mechanism_comparison",
+    "task_style": "prioritize_under_constraints",
+    "question": "A technical author must typeset a piecewise-defined function with three cases and an alignment constraint: the function symbol should appear only once (left-aligned), the conditions should align on their 'if' keywords, and the output must compile in both pdflatex and lualatex. Compare the `cases` environment against a manual `array` approach, and recommend which to use under these constraints.",
+    "reference_answer": "The `cases` environment (from `amsmath`) typesets piecewise functions compactly with a single left brace, placing the function body in the first column and the condition in the second. It satisfies the single-symbol and basic condition-alignment requirements out of the box and compiles under both pdflatex and lualatex. However, `cases` does not support aligning on an arbitrary keyword like 'if' \u2014 it left-aligns the condition column as a whole. A manual `array` inside `\\left\\{` with explicit column spec (e.g., `r @{\\quad} l`) gives full alignment control and also compiles under both engines. Recommendation: use `array` with `\\left\\{ ... \\right.` since the 'if'-keyword alignment constraint cannot be satisfied by `cases` alone. The verbosity cost is minimal for three cases.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "cases environment from amsmath",
+        "array environment with \\left\\{ for full alignment control",
+        "recommend array due to 'if'-keyword alignment requirement"
+      ],
+      "must_include_any": [
+        [
+          "compiles under pdflatex and lualatex",
+          "compatible with both engines"
+        ],
+        [
+          "column spec",
+          "alignment column",
+          "@{\\quad}"
+        ]
+      ],
+      "must_not_include": [
+        "cases supports arbitrary keyword alignment",
+        "requires a package incompatible with lualatex"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "\\\\left\\\\\\{",
+        "\\\\begin\\{array\\}|array"
+      ],
+      "judge_focus": [
+        "correctness",
+        "usefulness",
+        "coverage"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:18:13.154911+00:00",
+      "section": "Implementation Planning"
+    }
+  },
+  {
+    "id": "ext_md_021",
+    "domains": [
+      "MLX_KERNELS",
+      "MATHEMATICS"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "MATHEMATICS"
+    ],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "depth_reasoning",
+    "task_style": "identify_and_explain",
+    "question": "An MLX metal kernel computes a batched matrix multiply using fp16 accumulation. A numerical analyst flags that summing 1024 fp16 partial products introduces unacceptable rounding error. Identify the precise mathematical source of this risk and explain what kernel-level change resolves it without switching the entire operation to fp32.",
+    "reference_answer": "The risk is catastrophic cancellation and limited mantissa precision in fp16 (10-bit mantissa, machine epsilon ~9.8e-4). Summing 1024 terms compounds rounding error as O(n\u00b7\u03b5), so the accumulated error can reach ~0.1 relative error \u2014 unacceptable for most ML workloads. The fix is mixed-precision accumulation: keep inputs in fp16 but accumulate the dot-product reduction into a fp32 register inside the Metal kernel, then cast back to fp16 only at the final store. This is the standard approach used in Apple's MLX matmul kernels (via `float` accum variables in the inner loop) and adds negligible memory cost while reducing rounding error by ~3 orders of magnitude.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "fp16 mantissa precision",
+        "mixed-precision accumulation",
+        "fp32 accumulator"
+      ],
+      "must_include_any": [
+        [
+          "machine epsilon",
+          "rounding error",
+          "numerical error"
+        ],
+        [
+          "inner loop",
+          "accumulation register",
+          "partial sum"
+        ]
+      ],
+      "must_not_include": [
+        "switch entire kernel to fp32",
+        "use bf16 inputs"
+      ],
+      "numeric_targets": [
+        {
+          "label": "fp16 mantissa bits",
+          "value": "10",
+          "tolerance": 0.0
+        },
+        {
+          "label": "summation terms",
+          "value": "1024",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance",
+      "workflow_type": "risk_compliance",
+      "cognitive_demand": "deep",
+      "testing_focus": "depth_reasoning"
+    }
+  },
+  {
+    "id": "ext_md_022",
+    "domains": [
+      "MLX_KERNELS",
+      "ROBOTICS"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "ROBOTICS"
+    ],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "breadth_synthesis",
+    "task_style": "compare_two_options",
+    "question": "A robotics team runs a real-time joint-torque inference loop on an Apple Silicon edge device at 200 Hz. They must choose between: (A) a single large MLX kernel that fuses sensor preprocessing and the neural network forward pass, or (B) separate sequential MLX kernels with intermediate tensor copies. Compare these two options specifically for latency jitter and safety-critical deadline compliance.",
+    "reference_answer": "Option A (fused kernel) is strongly preferred for safety-critical real-time control. Separate kernels (B) incur repeated Metal command buffer scheduling overhead and intermediate DRAM round-trips, which introduce variable latency spikes \u2014 directly threatening 200 Hz (5 ms) hard deadlines. Jitter from kernel launch overhead in MLX can be 0.2\u20130.5 ms per boundary, and with multiple boundaries, worst-case latency can breach the deadline under thermal throttling. Fused kernels amortize scheduling cost, keep intermediate tensors in fast on-chip SRAM, and produce tighter latency distributions. The compliance risk with option B is a missed deadline causing a stale torque command, which in robotics can destabilize a joint servo loop. Recommendation: use option A, and add a watchdog timer to detect deadline violations and trigger a safe-stop.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "fused kernel",
+        "latency jitter",
+        "kernel launch overhead",
+        "deadline"
+      ],
+      "must_include_any": [
+        [
+          "SRAM",
+          "on-chip memory",
+          "intermediate tensor"
+        ],
+        [
+          "watchdog",
+          "safe-stop",
+          "safety mechanism",
+          "fault detection"
+        ]
+      ],
+      "must_not_include": [
+        "option B is preferred",
+        "jitter is negligible"
+      ],
+      "numeric_targets": [
+        {
+          "label": "control loop frequency Hz",
+          "value": "200",
+          "tolerance": 0.0
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance",
+      "workflow_type": "risk_compliance",
+      "cognitive_demand": "deep",
+      "testing_focus": "breadth_synthesis"
+    }
+  },
+  {
+    "id": "ext_md_023",
+    "domains": [
+      "MLX_KERNELS",
+      "CRYPTOGRAPHY"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "CRYPTOGRAPHY"
+    ],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "error_diagnosis",
+    "task_style": "diagnose_and_fix",
+    "question": "A developer implements AES key schedule expansion inside a custom MLX Metal kernel for bulk on-device encryption of model weights. During audit, a security engineer notes that intermediate round-key tensors are written to MLX's default buffer pool and may persist in GPU-accessible DRAM after the kernel completes. Diagnose the compliance risk and explain the minimal fix.",
+    "reference_answer": "The risk is key material remanence: AES round keys left in GPU DRAM can be read by a subsequent rogue or compromised kernel sharing the same buffer pool, violating key-isolation requirements under standards such as FIPS 140-3 and common-criteria memory protection. MLX's default buffer allocator does not zero buffers on release. The fix has two parts: (1) explicitly zero the round-key tensor immediately after the encryption kernel completes, before releasing it back to the pool \u2014 this can be done with a lightweight MLX fill-zero kernel or Metal blit encoder; (2) allocate the round-key buffer with `MTLStorageMode.private` and mark it non-persistent so it is not mapped to the shared unified memory region accessible from CPU or other GPU tasks. Optionally, perform the key schedule in CPU-side secure enclave memory and pass only the final ciphertext to MLX.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "key material remanence",
+        "zero the buffer",
+        "buffer pool"
+      ],
+      "must_include_any": [
+        [
+          "FIPS",
+          "key isolation",
+          "memory protection standard"
+        ],
+        [
+          "MTLStorageMode",
+          "private storage",
+          "non-persistent"
+        ]
+      ],
+      "must_not_include": [
+        "AES is insecure",
+        "switch to software AES"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "FIPS\\s*140"
+      ],
+      "judge_focus": [
+        "correctness",
+        "hallucination",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance",
+      "workflow_type": "risk_compliance",
+      "cognitive_demand": "deep",
+      "testing_focus": "error_diagnosis"
+    }
+  },
+  {
+    "id": "ext_md_024",
+    "domains": [
+      "MLX_KERNELS",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "MLX_KERNELS",
+      "ASTROPHYSICS"
+    ],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "tradeoff_analysis",
+    "task_style": "choose_best_design",
+    "question": "A planetary science team runs N-body gravitational simulations on Apple Silicon using MLX kernels. They must choose between fp32 and fp64 for force accumulation. fp64 is not natively supported in Metal and must be emulated. Given the physical scale of the problem (solar-system distances, 10^6 timesteps), which design is safer and why?",
+    "reference_answer": "fp64 emulation (via paired fp32 or software double) is the safer design for this workload. Solar-system N-body integration over 10^6 timesteps is highly sensitive to accumulated floating-point error: gravitational force magnitudes span many orders of magnitude (e.g., Sun vs. Kuiper Belt object), causing severe cancellation in fp32 when subtracting nearly equal large numbers. The resulting orbital drift can be physically meaningless within thousands of steps. fp32 machine epsilon (~1.2e-7) is insufficient; fp64 epsilon (~2.2e-16) is the standard for production ephemeris codes (e.g., JPL Horizons). The compliance risk of fp32 is producing scientifically invalid trajectories without obvious error signals. The tradeoff cost of emulated fp64 is ~4\u20138\u00d7 slower kernels, which is acceptable given the scientific correctness requirement. Use emulated fp64 for force accumulation; fp32 is acceptable only for rendering or visualization passes.",
+    "rubric": {
+      "answer_type": "structured_reasoning",
+      "must_include_all": [
+        "fp64",
+        "accumulated error",
+        "orbital drift",
+        "cancellation"
+      ],
+      "must_include_any": [
+        [
+          "machine epsilon",
+          "floating-point precision",
+          "rounding error"
+        ],
+        [
+          "JPL",
+          "ephemeris",
+          "physically invalid",
+          "scientifically invalid"
+        ]
+      ],
+      "must_not_include": [
+        "fp32 is sufficient",
+        "fp64 is unnecessary"
+      ],
+      "numeric_targets": [
+        {
+          "label": "fp32 machine epsilon",
+          "value": "1.2e-7",
+          "tolerance": 5e-08
+        },
+        {
+          "label": "fp64 machine epsilon",
+          "value": "2.2e-16",
+          "tolerance": 5e-17
+        }
+      ],
+      "regex_targets": [],
+      "judge_focus": [
+        "correctness",
+        "coverage",
+        "usefulness"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance",
+      "workflow_type": "risk_compliance",
+      "cognitive_demand": "deep",
+      "testing_focus": "tradeoff_analysis"
+    }
+  },
+  {
+    "id": "ext_md_025",
+    "domains": [
+      "LATEX_FORMATTING",
+      "ASTROPHYSICS"
+    ],
+    "required_adapters": [
+      "LATEX_FORMATTING",
+      "ASTROPHYSICS"
+    ],
+    "section_name": "Risk And Compliance",
+    "workflow_type": "risk_compliance",
+    "cognitive_demand": "deep",
+    "testing_focus": "counterfactual_reasoning",
+    "task_style": "explain_failure_mode",
+    "question": "A researcher submits a journal paper with this LaTeX snippet for the Schwarzschild radius formula:\n\n`$r_s = \\frac{2GM}{c^2}$`\n\nThe journal's style guide requires SI unit dimensional annotations inline and forbids implicit natural units. The copy editor flags it. Explain the failure mode and provide the corrected LaTeX expression.",
+    "reference_answer": "The failure mode is implicit unit convention: the formula as written is dimensionally correct only if the reader assumes SI units (G in m\u00b3 kg\u207b\u00b9 s\u207b\u00b2, M in kg, c in m/s), but the journal requires this to be explicit to prevent misinterpretation if the paper is read in a natural-units context (where c=1). The corrected expression must annotate units or declare them. A compliant form is:\n\n`$r_s = \\frac{2GM}{c^2} \\quad [\\mathrm{m}]$`\n\nor with full inline unit declaration:\n\n`$r_s = \\frac{2GM}{c^2}, \\quad G\\,[\\mathrm{m^3\\,kg^{-1}\\,s^{-2}}],\\; M\\,[\\mathrm{kg}],\\; c\\,[\\mathrm{m\\,s^{-1}}]$`\n\nThe `\\mathrm{}` wrapper is required so unit symbols are rendered in roman (non-italic) type per SI convention, distinguishing them from algebraic variables.",
+    "rubric": {
+      "answer_type": "explanation",
+      "must_include_all": [
+        "implicit units",
+        "\\mathrm",
+        "SI units"
+      ],
+      "must_include_any": [
+        [
+          "natural units",
+          "c=1",
+          "unit convention"
+        ],
+        [
+          "roman type",
+          "non-italic",
+          "SI convention"
+        ]
+      ],
+      "must_not_include": [
+        "formula is wrong",
+        "Schwarzschild radius is incorrect"
+      ],
+      "numeric_targets": [],
+      "regex_targets": [
+        "\\\\mathrm\\{m\\}",
+        "r_s\\s*=\\s*\\\\frac\\{2GM\\}\\{c\\^2\\}"
+      ],
+      "judge_focus": [
+        "correctness",
+        "hallucination",
+        "coverage"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "reference_author": "claude-4.6-sonnet-thinking-via-perplexity",
+      "created_utc": "2026-04-08T06:35:06.911649+00:00",
+      "section": "Risk And Compliance",
+      "workflow_type": "risk_compliance",
+      "cognitive_demand": "deep",
+      "testing_focus": "counterfactual_reasoning"
+    }
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ext_claude_001",
+    "domains": [
+      "ARCHAIC_ENGLISH",
+      "MLX_KERNELS"
+    ],
+    "required_adapters": [
+      "ARCHAIC_ENGLISH",
+      "MLX_KERNELS"
+    ],
+    "question": "The following passage is adapted from an eighteenth-century English mathematical treatise:\n\n\"To interpolate the Value of any Quantity from a Table computed at equall Distances: Take the first Tabulated Value, and thereto add the Product of the Fractional Part of the Interval with the first Difference; adding further the Product of the same Fraction, and of that Fraction diminisht by Unity, divided by the Number Two, with the second Difference; and so proceeding with each higher Difference, the Fraction being successively diminisht by Unity in the Numerator, until the Terms become insensible.\"\n\nIdentify the numerical method described, state its modern closed-form formula precisely, and describe an MLX Metal kernel (via mx.fast.metal_kernel) that evaluates this formula in parallel across a batch of fractional offsets against a shared precomputed difference table in device memory. Specify the thread-dispatch shape, Metal buffer layout, and the accumulation loop structure.",
+    "reference_answer": "The passage encodes Newton's forward difference interpolation formula: f(x\u2080 + sh) = \u03a3\u2096\u208c\u2080\u1d37 C(s,k)\u00b7\u0394\u1d4ff(x\u2080), where C(s,k) = s(s\u22121)\u00b7\u00b7\u00b7(s\u2212k+1)/k! is the generalized falling-factorial binomial coefficient and s \u2208 [0,1) is the fractional offset in table-spacing units. The kernel takes three device buffers: a float32 difference table of shape [M, K+1] (M base points, K+1 differences each), a float32 offsets array of shape [Q], and a float32 output array of shape [M, Q]. Thread grid is dispatched as (M, Q, 1) with threadgroup (32, 8, 1); each thread handles one (base-point m, query q) pair. The Metal source reads s = offsets[q], initializes accum = diff_table[m*(K+1)], then loops k=1\u2026K updating coeff *= (s \u2212 (k\u22121)) / k incrementally and adding coeff * diff_table[m*(K+1)+k] to accum, writing accum to out[m*Q+q]. Critical invariants: coefficients must be built incrementally (not via integer factorial) to handle fractional s correctly; the difference table must be fully constructed host-side before dispatch.",
+    "answer_type": "mixed",
+    "difficulty": "hard",
+    "required_facts": [
+      "The passage describes Newton's forward difference interpolation, not Lagrange, spline, or backward-difference interpolation",
+      "Modern formula is f(x\u2080+sh) = sum_k C(s,k)*delta^k f(x\u2080) with falling-factorial generalized binomial coefficients",
+      "MLX custom kernels use mx.fast.metal_kernel with a Metal Shading Language source string; MLX handles JIT compilation",
+      "Thread grid should be at least 2-D covering both base-point and query dimensions for full parallelism",
+      "Binomial coefficients C(s,k) for fractional s must be computed incrementally as coeff *= (s-(k-1))/k to avoid integer-factorial error",
+      "The forward difference table must be precomputed on the host; Metal kernels cannot efficiently build it via in-kernel scatter"
+    ],
+    "critical_errors": [
+      "Identifying the algorithm as Lagrange interpolation, cubic spline, or any non-finite-difference method",
+      "Using integer n-choose-k binomial coefficients instead of falling-factorial form with fractional s",
+      "Dispatching a 1-D thread grid over queries only, ignoring the base-point dimension",
+      "Claiming the difference table can or should be constructed inside the Metal kernel",
+      "Using CUDA, HIP, or OpenCL syntax instead of Metal Shading Language"
+    ],
+    "grading_rubric": {
+      "must_cover": [
+        "Correct identification of Newton forward difference interpolation by name or equivalent unambiguous description",
+        "Correct modern formula including falling-factorial or generalized binomial coefficient C(s,k)",
+        "mx.fast.metal_kernel invocation with Metal Shading Language kernel source string",
+        "2-D or (M,Q) thread-dispatch shape covering both base points and query offsets",
+        "Incremental coefficient update loop coeff *= (s-(k-1))/k inside the kernel body"
+      ],
+      "nice_to_have": [
+        "Discussion of threadgroup tile size or SIMD-group optimisation on Apple Silicon",
+        "Note on float16 vs float32 precision trade-offs for the accumulator",
+        "Mention that K (order) can be a compile-time template parameter for loop unrolling",
+        "Host-side Python sketch showing buffer preparation and kernel instantiation"
+      ],
+      "automatic_checks": [
+        "Answer contains 'forward difference' or 'Newton interpolat'",
+        "Answer references 'mx.fast.metal_kernel' or 'metal_kernel'",
+        "Answer describes a 2-D dispatch or (M, Q) grid",
+        "Answer includes coefficient update of the form coeff *= (s - ... ) / k or falling-factorial description"
+      ]
+    },
+    "provenance": {
+      "question_author": "claude-sonnet-via-perplexity-proxy",
+      "reference_author": "claude-sonnet-via-perplexity-proxy",
+      "generation_model": "claude-4.6-sonnet-thinking",
+      "quality_notes": "Archaic English comprehension is load-bearing: 'Fractional Part of the Interval' maps to the continuous parameter s; 'Differences' must be parsed specifically as forward differences (not central or backward); and 'diminisht by Unity in the Numerator' encodes the falling-factorial decrement s(s-1)(s-2)... rather than integer combinatorics. Misreading any of these phrases leads to a wrong algorithm or wrong coefficient form. The MLX kernel design separately requires Apple Silicon-specific knowledge: Metal Shading Language syntax, the mx.fast.metal_kernel JIT API, device-buffer layout conventions, and 2-D thread-dispatch semantics\u2014none of which a language-only adapter can supply correctly.",
+      "created_utc": "2026-04-08T04:46:59.461518+00:00",
+      "batch_index": 1,
+      "pair_seed": 11
+    }
+  }
+]

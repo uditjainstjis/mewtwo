@@ -1,0 +1,5 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "data_dir": "data/router_reasoning_sft_smoke200",
+  "task": "router_sft"
+}
