@@ -112,7 +112,7 @@ def main():
         print(f"  CUDA available: {cuda_avail}")
         if cuda_avail:
             print(f"  ✅ Device: {torch.cuda.get_device_name(0)}")
-            print(f"  ✅ VRAM: {torch.cuda.get_device_properties(0).total_mem / 1e9:.1f} GB")
+            print(f"  ✅ VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
             print(f"  CUDA version: {torch.version.cuda}")
             # Quick compute test
             x = torch.randn(100, 100, device="cuda")

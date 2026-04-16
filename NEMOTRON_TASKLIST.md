@@ -80,10 +80,10 @@ Everything below is gated on GPU access.
 
 > This is the novel contribution. Everything before was setup for this.
 
-- [ ] **3.1** Create `src/lori_moe/model/gc_router.py` — Gate-Conditioned Router
-- [ ] **3.2** Create `src/lori_moe/model/internal_hook.py` — Nemotron internal router hook extractor
-- [ ] **3.3** Create `src/lori_moe/inference/gc_compose.py` — GC-LoRI inference engine
-- [ ] **3.4** Create `src/lori_moe/training/train_gc_router.py` — GC-LoRI router training
+- [x] **3.1** Create `src/lori_moe/model/gc_router.py` — Gate-Conditioned Router
+- [x] **3.2** Create `src/lori_moe/model/internal_hook.py` — Nemotron internal router hook extractor
+- [x] **3.3** Create `src/lori_moe/inference/gc_compose.py` — GC-LoRI inference engine
+- [x] **3.4** Create `src/lori_moe/training/train_gc_router.py` — GC-LoRI router training
 - [ ] **3.5** Train GC-LoRI Router using internal signals + hidden states
 - [ ] **3.6** Validate GC-LoRI routing entropy is healthy (> 0.3, not collapsed)
 
@@ -147,12 +147,12 @@ Everything below is gated on GPU access.
 
 | File | Status | Purpose |
 |---|---|---|
-| `scripts/nemotron_router_analysis.py` | 📝 To create | Internal routing signal analysis |
-| `src/lori_moe/model/gc_router.py` | 📝 To create | GC-LoRI Router module |
-| `src/lori_moe/model/internal_hook.py` | 📝 To create | Internal MoE hook extractor |
-| `src/lori_moe/inference/gc_compose.py` | 📝 To create | GC-LoRI inference engine |
-| `src/lori_moe/training/train_gc_router.py` | 📝 To create | GC-LoRI router trainer |
-| `results/nemotron/router_analysis/` | 📝 To create | Routing analysis outputs |
+| `scripts/nemotron_router_analysis.py` | ✅ Created | Internal routing signal analysis |
+| `src/lori_moe/model/gc_router.py` | ✅ Created | GC-LoRI Router module |
+| `src/lori_moe/model/internal_hook.py` | ✅ Created | Internal MoE hook extractor |
+| `src/lori_moe/inference/gc_compose.py` | ✅ Created | GC-LoRI inference engine |
+| `src/lori_moe/training/train_gc_router.py` | ✅ Created | GC-LoRI router trainer |
+| `results/nemotron/router_analysis/` | 📝 To create | Routing analysis outputs (Generated dynamically) |
 
 ---
 
