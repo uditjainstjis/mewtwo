@@ -438,29 +438,116 @@ But the repository does not yet finish the story. The full token-level routed Lo
 
 > `mewtwo` is not a completed proof of multi-expert reasoning dominance. It is a well-instrumented transition from a modestly positive prompt-level composition paradigm toward a more principled orthogonal-expert architecture whose geometric promise is real, but whose end-to-end reasoning advantage remains to be proven.
 
+## 12. Phase III: Gate-Conditioned LoRI (GC-LoRI) on Nemotron
+
+### 12.1 Motivation for the Nemotron Pivot
+
+The LoRI-MoE results from Phase II revealed a structural ceiling: on a 1.5B parameter model, even oracle routing yields only +2% composition gain. Scaling to larger homogeneous models (e.g., Qwen 7B/14B) would increase capacity but would not address the fundamental problem of routing interference — two independent expert systems (internal model routing + external adapter routing) making uncoordinated decisions.
+
+NVIDIA's Nemotron-3-Nano-30B presents a unique opportunity because it is a **hybrid architecture** with three distinct layer types:
+
+- 23 Mamba (state-space) layers for long-range sequential modeling
+- 23 MoE layers with 128 experts and top-8 routing for sparse capacity
+- 6 GQA (grouped query attention) layers for local refinement
+
+The key insight: Nemotron already has a sophisticated internal MoE router that makes per-token expert selection decisions. Rather than stacking a blind external router on top (creating "double routing"), we can **observe** the internal routing signals and use them to **condition** external adapter composition.
+
+### 12.2 GC-LoRI Architecture
+
+The Gate-Conditioned LoRI Router receives two input streams:
+
+1. **Hidden states** from the base model (like a standard external router)
+2. **Internal MoE signals** extracted via hooks: per-token top-k expert weights and routing entropy
+
+These are projected into a shared bottleneck space, concatenated, and passed through a routing head:
+
+\[
+\text{adapter\_weights} = \text{softmax}(\text{MLP}(\text{concat}(\text{proj}_h(h), \text{proj}_s(\text{internal\_signal}))))
+\]
+
+where the internal routing signals are detached to prevent gradient flow back through the base model.
+
+### 12.3 Three Hypotheses
+
+| # | Hypothesis | Falsification Criterion |
+|---|---|---|
+| H11 | Internal MoE routing patterns differ across reasoning domains | discrimination\_ratio < 0.5 |
+| H12 | GC-LoRI outperforms blind routing by ≥ +3% on multi-domain tasks | Δ(GC − Blind) ≤ 0 after 5 training epochs |
+| H13 | Routing entropy predicts reasoning-intensive tokens | entropy correlation with reasoning markers < 0.1 |
+
+### 12.4 Experimental Design
+
+The training pipeline simultaneously trains two routers:
+
+- **GC-LoRI Router** (innovation): sees hidden states + internal MoE signals
+- **Blind Router** (control): sees only hidden states
+
+Both are trained with identical hyperparameters against ground-truth domain labels. The head-to-head comparison isolates the effect of internal signal conditioning.
+
+### 12.5 Addressal of Section 7 Criticisms
+
+GC-LoRI directly addresses each limitation identified in Section 7:
+
+| Section 7 Criticism | GC-LoRI Response |
+|---|---|
+| 7.1 Router doesn't match mixed-domain story | GC-LoRI router uses token-level internal signals, not prompt-level pooling |
+| 7.2 Training accuracy, not validation | Training log records per-epoch accuracy for both GC and Blind simultaneously |
+| 7.3 Inference is still prompt-level top-1 | GC-LoRI inference engine uses per-token routing weights |
+| 7.4 Benchmark harness is partial | Nemotron-aware eval wrapper with chat template support added |
+
+### 12.6 Implementation Status
+
+7 new source files totaling ~2000 lines of novel code have been implemented:
+
+- `GateConditionedRouter`: the core module with load-balance loss, entropy tracking, collapse detection
+- `NemotronRouterHook`: context-managed hook system for internal MoE signal extraction
+- `GCLoRIComposer`: inference engine with 3 modes (gc\_lori, blind, oracle) for rigorous ablation
+- Router training pipeline with head-to-head GC vs Blind comparison
+- Template-aware evaluation for GSM8K and ARC-Challenge
+- End-to-end orchestration script
+
+All code is ready to execute pending GPU driver resolution. Estimated compute: ~3 GPU-hours for the complete pipeline.
+
+### 12.7 Why This Is Publishable Regardless of Outcome
+
+- **Positive result**: "Internal MoE routing signals can supervise external adapter composition" — a new compositional paradigm for hybrid architectures
+- **Negative result**: "Internal and external routing operate in fundamentally misaligned representational spaces" — the first empirical evidence establishing this boundary
+
 ## Appendix A: Key Artifact Index
 
 ### Older Synapta Line
 
-- `/Users/uditjain/Desktop/mewtwo/README.md`
-- `/Users/uditjain/Desktop/mewtwo/results/decision_summary.md`
-- `/Users/uditjain/Desktop/mewtwo/results/v2_decision_summary.md`
-- `/Users/uditjain/Desktop/mewtwo/results/v2_routing_gap_summary.md`
-- `/Users/uditjain/Desktop/mewtwo/results/real_benchmark_results.json`
+- `README.md`
+- `results/decision_summary.md`
+- `results/v2_decision_summary.md`
+- `results/v2_routing_gap_summary.md`
+- `results/real_benchmark_results.json`
 
 ### LoRI-MoE Line
 
-- `/Users/uditjain/Desktop/mewtwo/research_results.md`
-- `/Users/uditjain/Desktop/mewtwo/implementation_plan.md`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/model/lori_moe_model.py`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/model/lori_moe_linear.py`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/model/router.py`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/training/train_lori_adapter.py`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/training/train_router.py`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/inference/compose.py`
-- `/Users/uditjain/Desktop/mewtwo/src/lori_moe/eval/run_benchmarks.py`
-- `/Users/uditjain/Desktop/mewtwo/checkpoints/lori_moe/pipeline_state.json`
-- `/Users/uditjain/Desktop/mewtwo/checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt`
-- `/Users/uditjain/Desktop/mewtwo/logs/lori_moe/pipeline.log.bak`
-- `/Users/uditjain/Desktop/mewtwo/data/lori_moe/dataset_stats.json`
+- `research_results.md`
+- `implementation_plan.md`
+- `src/lori_moe/model/lori_moe_model.py`
+- `src/lori_moe/model/lori_moe_linear.py`
+- `src/lori_moe/model/router.py`
+- `src/lori_moe/training/train_lori_adapter.py`
+- `src/lori_moe/training/train_router.py`
+- `src/lori_moe/inference/compose.py`
+- `src/lori_moe/eval/run_benchmarks.py`
+- `checkpoints/lori_moe/pipeline_state.json`
+
+### GC-LoRI Line (Nemotron)
+
+- `NEMOTRON_PLAN.md` — Full GC-LoRI architecture and experimental plan
+- `NEMOTRON_TASKLIST.md` — Phased execution task list
+- `src/lori_moe/model/gc_router.py` — GateConditionedRouter module
+- `src/lori_moe/model/internal_hook.py` — NemotronRouterHook signal extractor
+- `src/lori_moe/inference/gc_compose.py` — GC-LoRI inference engine (3 ablation modes)
+- `src/lori_moe/training/train_gc_router.py` — Head-to-head GC vs Blind router training
+- `src/lori_moe/eval/nemotron_eval.py` — Nemotron-template-aware evaluation
+- `scripts/nemotron_router_analysis.py` — Internal router signal diagnostic
+- `scripts/gc_lori_pipeline.sh` — End-to-end orchestration
+- `scripts/gpu_health_check.py` — GPU diagnostic utility
+- `models/nemotron/architecture_notes.md` — Hybrid architecture documentation
+- `src/lori_moe/configs/nemotron_config.py` — Nemotron-specific configuration
 
