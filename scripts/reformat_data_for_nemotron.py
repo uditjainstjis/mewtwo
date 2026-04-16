@@ -131,8 +131,9 @@ for domain in ["math", "code", "science", "legal", "medical"]:
             fout.write(json.dumps({"text": new_text, "domain": domain}) + "\n")
             count += 1
             
-            # Cap at 20k per domain for Nemotron (faster iteration)
-            if count >= 20000:
+            # Cap at 50k for math (to use full MetaMathQA), 20k for others
+            domain_cap = 50000 if domain == "math" else 20000
+            if count >= domain_cap:
                 break
     
     total_in += count + skipped

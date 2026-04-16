@@ -203,20 +203,37 @@ def train_gc_router(
         max_length=max_seq_length,
         max_samples_per_domain=max_samples_per_domain,
     )
-    dataloader = DataLoader(
-        dataset,
+    
+    # 80/20 train/val split
+    from torch.utils.data import random_split
+    val_size = int(0.2 * len(dataset))
+    train_size = len(dataset) - val_size
+    train_dataset, val_dataset = random_split(
+        dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42)
+    )
+    
+    train_loader = DataLoader(
+        train_dataset,
         batch_size=batch_size,
         shuffle=True,
         num_workers=4,
         pin_memory=True,
         drop_last=True,
     )
+    val_loader = DataLoader(
+        val_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=4,
+        pin_memory=True,
+        drop_last=False,
+    )
 
     # Optimizers (separate for each router)
     gc_optimizer = torch.optim.AdamW(gc_router.parameters(), lr=lr, weight_decay=0.01)
     blind_optimizer = torch.optim.AdamW(blind_router.parameters(), lr=lr, weight_decay=0.01)
 
-    total_steps = len(dataloader) * epochs
+    total_steps = len(train_loader) * epochs
     gc_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(gc_optimizer, T_max=total_steps)
     blind_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(blind_optimizer, T_max=total_steps)
 
@@ -226,20 +243,17 @@ def train_gc_router(
     logger.info(f"GC-LoRI Router Training")
     logger.info(f"{'='*60}")
     logger.info(f"  Domains:          {domains}")
-    logger.info(f"  Dataset:          {len(dataset)} examples")
+    logger.info(f"  Dataset:          {len(dataset)} examples (Train: {len(train_dataset)}, Val: {len(val_dataset)})")
     logger.info(f"  Batch size:       {batch_size}")
     logger.info(f"  Epochs:           {epochs}")
     logger.info(f"  Total steps:      {total_steps}")
     logger.info(f"  LR:               {lr}")
     logger.info(f"  Hidden dim:       {hidden_dim}")
-    logger.info(f"  Internal top-k:   {internal_top_k}")
-    logger.info(f"  Bottleneck dim:   {bottleneck_dim}")
-    logger.info(f"  Router top-k:     {router_top_k}")
     logger.info(f"  Output:           {output_path}")
     logger.info(f"{'='*60}\n")
 
-    best_gc_acc = 0.0
-    best_blind_acc = 0.0
+    best_gc_val_acc = 0.0
+    best_blind_val_acc = 0.0
     global_step = 0
     start_time = time.time()
     training_log = []
@@ -250,21 +264,19 @@ def train_gc_router(
 
         gc_epoch_loss = 0.0
         blind_epoch_loss = 0.0
-        gc_correct = 0
-        blind_correct = 0
-        total_tokens = 0
+        gc_correct_train = 0
+        blind_correct_train = 0
+        total_tokens_train = 0
         internal_signals_captured = 0
 
-        pbar = tqdm(dataloader, desc=f"[Router] Epoch {epoch+1}/{epochs}")
+        pbar = tqdm(train_loader, desc=f"[Router] Epoch {epoch+1}/{epochs} (Train)")
         for step, batch in enumerate(pbar):
             input_ids = batch["input_ids"].to("cuda")
             attention_mask = batch["attention_mask"].to("cuda")
-            domain_labels = batch["domain_label"].to("cuda")  # (B,)
+            domain_labels = batch["domain_label"].to("cuda")
 
-            # Clear hooks from previous batch
             hooker.clear()
 
-            # Forward pass through frozen base model
             with torch.no_grad():
                 outputs = model(
                     input_ids=input_ids,
@@ -272,30 +284,23 @@ def train_gc_router(
                     output_hidden_states=True,
                 )
 
-            # Get hidden states and internal signals
-            hidden = outputs.hidden_states[-1].float()  # (B, S, D)
+            hidden = outputs.hidden_states[-1].float()
             internal_signal = hooker.get_aggregated_signal()
 
             if internal_signal is not None:
                 internal_signals_captured += 1
 
-            # Expand labels to (B, S) — all tokens share the same domain
             target_labels = domain_labels.unsqueeze(1).expand(-1, hidden.size(1))
             flat_labels = target_labels.reshape(-1)
             flat_mask = attention_mask.reshape(-1)
 
-            # ─── GC-LoRI Router (innovation) ───
+            # GC-LoRI
             if internal_signal is not None:
-                gc_weights, aux_loss = gc_router(
-                    hidden, internal_signal, return_aux_loss=True
-                )
-                gc_logits = torch.log(gc_weights.clamp(min=1e-8))  # log-probs for CE
+                gc_weights, aux_loss = gc_router(hidden, internal_signal, return_aux_loss=True)
+                gc_logits = torch.log(gc_weights.clamp(min=1e-8))
                 flat_gc_logits = gc_logits.view(-1, len(domains))
 
-                gc_loss = criterion(
-                    flat_gc_logits[flat_mask == 1],
-                    flat_labels[flat_mask == 1],
-                )
+                gc_loss = criterion(flat_gc_logits[flat_mask == 1], flat_labels[flat_mask == 1])
                 if aux_loss is not None:
                     gc_loss = gc_loss + aux_loss
 
@@ -306,19 +311,15 @@ def train_gc_router(
                 gc_scheduler.step()
 
                 gc_epoch_loss += gc_loss.item()
-
                 with torch.no_grad():
                     gc_preds = flat_gc_logits.argmax(dim=-1)
-                    gc_correct += ((gc_preds == flat_labels) & (flat_mask == 1)).sum().item()
+                    gc_correct_train += ((gc_preds == flat_labels) & (flat_mask == 1)).sum().item()
 
-            # ─── Blind Router (control) ───
+            # Blind Router
             blind_weights, blind_logits_raw = blind_router(hidden.detach(), return_logits=True)
             flat_blind_logits = blind_logits_raw.view(-1, len(domains))
 
-            blind_loss = criterion(
-                flat_blind_logits[flat_mask == 1],
-                flat_labels[flat_mask == 1],
-            )
+            blind_loss = criterion(flat_blind_logits[flat_mask == 1], flat_labels[flat_mask == 1])
 
             blind_optimizer.zero_grad()
             blind_loss.backward()
@@ -329,99 +330,104 @@ def train_gc_router(
             blind_epoch_loss += blind_loss.item()
             with torch.no_grad():
                 blind_preds = flat_blind_logits.argmax(dim=-1)
-                blind_correct += ((blind_preds == flat_labels) & (flat_mask == 1)).sum().item()
+                blind_correct_train += ((blind_preds == flat_labels) & (flat_mask == 1)).sum().item()
 
-            total_tokens += flat_mask.sum().item()
+            total_tokens_train += flat_mask.sum().item()
             global_step += 1
 
-            # Logging
             if global_step % 10 == 0:
-                gc_acc = gc_correct / max(total_tokens, 1) * 100
-                blind_acc = blind_correct / max(total_tokens, 1) * 100
-                pbar.set_postfix(
-                    gc_acc=f"{gc_acc:.1f}%",
-                    blind_acc=f"{blind_acc:.1f}%",
-                    signals=internal_signals_captured,
+                gc_acc = gc_correct_train / max(total_tokens_train, 1) * 100
+                blind_acc = blind_correct_train / max(total_tokens_train, 1) * 100
+                pbar.set_postfix(gc_acc=f"{gc_acc:.1f}%", blind_acc=f"{blind_acc:.1f}%")
+
+        # Validation Loop
+        gc_router.eval()
+        blind_router.eval()
+        gc_correct_val = 0
+        blind_correct_val = 0
+        total_tokens_val = 0
+
+        pbar_val = tqdm(val_loader, desc=f"[Router] Epoch {epoch+1}/{epochs} (Val)")
+        for batch in pbar_val:
+            input_ids = batch["input_ids"].to("cuda")
+            attention_mask = batch["attention_mask"].to("cuda")
+            domain_labels = batch["domain_label"].to("cuda")
+
+            hooker.clear()
+            with torch.no_grad():
+                outputs = model(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                    output_hidden_states=True,
                 )
-                logger.info(
-                    f"[Router] Step {global_step} | "
-                    f"GC acc: {gc_acc:.1f}% loss: {gc_epoch_loss/(step+1):.4f} | "
-                    f"Blind acc: {blind_acc:.1f}% loss: {blind_epoch_loss/(step+1):.4f} | "
-                    f"Internal signals: {internal_signals_captured}/{step+1}"
-                )
+                hidden = outputs.hidden_states[-1].float()
+                internal_signal = hooker.get_aggregated_signal()
 
-        # Epoch summary
-        gc_acc = gc_correct / max(total_tokens, 1) * 100
-        blind_acc = blind_correct / max(total_tokens, 1) * 100
+                target_labels = domain_labels.unsqueeze(1).expand(-1, hidden.size(1))
+                flat_labels = target_labels.reshape(-1)
+                flat_mask = attention_mask.reshape(-1)
 
-        gc_entropy = gc_router.routing_entropy
-        blind_entropy = blind_router.routing_entropy
+                if internal_signal is not None:
+                    gc_weights, _ = gc_router(hidden, internal_signal, return_aux_loss=False)
+                    gc_preds = gc_weights.argmax(dim=-1).view(-1)
+                    gc_correct_val += ((gc_preds == flat_labels) & (flat_mask == 1)).sum().item()
 
-        logger.info(f"\n[Epoch {epoch+1}] GC-LoRI: acc={gc_acc:.1f}%, entropy={gc_entropy:.3f}")
-        logger.info(f"[Epoch {epoch+1}] Blind:   acc={blind_acc:.1f}%, entropy={blind_entropy:.3f}")
-        logger.info(f"[Epoch {epoch+1}] Δ(GC - Blind) = {gc_acc - blind_acc:+.1f}%")
+                blind_weights, _ = blind_router(hidden, return_logits=True)
+                blind_preds = blind_weights.argmax(dim=-1).view(-1)
+                blind_correct_val += ((blind_preds == flat_labels) & (flat_mask == 1)).sum().item()
+                total_tokens_val += flat_mask.sum().item()
+
+        gc_train_acc = gc_correct_train / max(total_tokens_train, 1) * 100
+        blind_train_acc = blind_correct_train / max(total_tokens_train, 1) * 100
+        gc_val_acc = gc_correct_val / max(total_tokens_val, 1) * 100
+        blind_val_acc = blind_correct_val / max(total_tokens_val, 1) * 100
+
+        logger.info(f"\n[Epoch {epoch+1} Train] GC: {gc_train_acc:.1f}%, Blind: {blind_train_acc:.1f}%")
+        logger.info(f"[Epoch {epoch+1} Val]   GC: {gc_val_acc:.1f}%, Blind: {blind_val_acc:.1f}%")
 
         training_log.append({
             "epoch": epoch + 1,
-            "gc_acc": gc_acc,
-            "blind_acc": blind_acc,
-            "gc_loss": gc_epoch_loss / len(dataloader),
-            "blind_loss": blind_epoch_loss / len(dataloader),
-            "gc_entropy": gc_entropy,
-            "blind_entropy": blind_entropy,
-            "delta_acc": gc_acc - blind_acc,
-            "internal_signals_ratio": internal_signals_captured / len(dataloader),
+            "gc_train_acc": gc_train_acc,
+            "blind_train_acc": blind_train_acc,
+            "gc_val_acc": gc_val_acc,
+            "blind_val_acc": blind_val_acc,
         })
 
-        # Save best GC-LoRI
-        if gc_acc > best_gc_acc:
-            best_gc_acc = gc_acc
+        # Save best GC-LoRI based on Validation Acc
+        if gc_val_acc > best_gc_val_acc:
+            best_gc_val_acc = gc_val_acc
             save_path = output_path / "best"
             save_path.mkdir(parents=True, exist_ok=True)
             torch.save({
                 "state_dict": gc_router.state_dict(),
                 "config": gc_router.get_config(),
                 "epoch": epoch + 1,
-                "accuracy": gc_acc,
+                "val_accuracy": gc_val_acc,
                 "domains": domains,
             }, save_path / "gc_router.pt")
-            logger.info(f"  New best GC-LoRI! Saved (acc={gc_acc:.1f}%)")
+            logger.info(f"  New best GC-LoRI Val Acc: {gc_val_acc:.1f}%! Saved.")
 
-        # Save best blind
-        if blind_acc > best_blind_acc:
-            best_blind_acc = blind_acc
+        # Save best Blind based on Validation Acc
+        if blind_val_acc > best_blind_val_acc:
+            best_blind_val_acc = blind_val_acc
             save_path = output_path / "blind"
             save_path.mkdir(parents=True, exist_ok=True)
             torch.save({
                 "state_dict": blind_router.state_dict(),
-                "config": {
-                    "hidden_dim": hidden_dim,
-                    "num_experts": len(domains),
-                    "bottleneck_dim": bottleneck_dim // 2,
-                },
+                "config": {"hidden_dim": hidden_dim, "num_experts": len(domains), "bottleneck_dim": bottleneck_dim // 2},
                 "epoch": epoch + 1,
-                "accuracy": blind_acc,
+                "val_accuracy": blind_val_acc,
                 "domains": domains,
             }, save_path / "blind_router.pt")
-            logger.info(f"  New best Blind! Saved (acc={blind_acc:.1f}%)")
+            logger.info(f"  New best Blind Val Acc: {blind_val_acc:.1f}%! Saved.")
 
     # Save training log
     elapsed = (time.time() - start_time) / 60
     log_data = {
-        "best_gc_acc": best_gc_acc,
-        "best_blind_acc": best_blind_acc,
-        "delta_best": best_gc_acc - best_blind_acc,
+        "best_gc_val_acc": best_gc_val_acc,
+        "best_blind_val_acc": best_blind_val_acc,
+        "delta_best_val": best_gc_val_acc - best_blind_val_acc,
         "total_time_min": elapsed,
-        "domains": domains,
-        "config": {
-            "hidden_dim": hidden_dim,
-            "internal_top_k": internal_top_k,
-            "bottleneck_dim": bottleneck_dim,
-            "router_top_k": router_top_k,
-            "lr": lr,
-            "epochs": epochs,
-            "batch_size": batch_size,
-        },
         "training_log": training_log,
     }
     with open(output_path / "training_log.json", "w") as f:
@@ -434,16 +440,16 @@ def train_gc_router(
 
     logger.info(f"\n{'='*60}")
     logger.info(f"Router training complete")
-    logger.info(f"  Best GC-LoRI acc:  {best_gc_acc:.1f}%")
-    logger.info(f"  Best Blind acc:    {best_blind_acc:.1f}%")
-    logger.info(f"  Δ(GC - Blind):     {best_gc_acc - best_blind_acc:+.1f}%")
-    logger.info(f"  Time:              {elapsed:.1f} min")
-    logger.info(f"  Output:            {output_path}")
+    logger.info(f"  Best GC-LoRI Val Acc:  {best_gc_val_acc:.1f}%")
+    logger.info(f"  Best Blind Val Acc:    {best_blind_val_acc:.1f}%")
+    logger.info(f"  Δ(GC - Blind):         {best_gc_val_acc - best_blind_val_acc:+.1f}%")
+    logger.info(f"  Time:                  {elapsed:.1f} min")
+    logger.info(f"  Output:                {output_path}")
     logger.info(f"{'='*60}\n")
 
-    if best_gc_acc > best_blind_acc + 2.0:
+    if best_gc_val_acc > best_blind_val_acc + 2.0:
         logger.info("✅ GC-LoRI shows meaningful improvement over blind routing!")
-    elif best_gc_acc > best_blind_acc:
+    elif best_gc_val_acc > best_blind_val_acc:
         logger.info("⚠️  Small GC-LoRI improvement. May not be significant.")
     else:
         logger.info("❌ GC-LoRI did NOT outperform blind routing. Internal signals may not help.")

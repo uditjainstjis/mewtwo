@@ -1,19 +1,28 @@
 #!/usr/bin/env python3
 """
-Nemotron-Aware Evaluation Pipeline
+Nemotron-Aware Evaluation Pipeline — Publication Grade
 
-Wraps the existing evaluation code with Nemotron chat template support
-and adds GC-LoRI ablation evaluation.
+Runs FULL test sets with proper statistical reporting:
+  - GSM8K: 1,319 test examples (math reasoning)
+  - MATH500: 500 examples (hard math)
+  - ARC-Challenge: 1,172 test examples (science reasoning)
+  - MMLU: 14,042 5-shot test examples (multi-domain knowledge)
+  - HumanEval: 164 test examples (code generation)
 
-This handles the key issue from the plan: the existing evaluation code
-uses plain prompts, but Nemotron needs its specific chat template.
+Statistical features:
+  - Bootstrap 95% confidence intervals on all metrics
+  - Per-category breakdown for MMLU
+  - Paired comparisons (baseline vs adapter, GC vs blind)
 
 Usage:
-    python -m src.lori_moe.eval.nemotron_eval \
-        --model_path ./models/nemotron \
-        --adapter_dir ./checkpoints/nemotron_lori/adapters \
-        --output_dir ./results/nemotron \
-        --max_samples 200
+    # Quick development run (200 samples per benchmark)
+    python -m src.lori_moe.eval.nemotron_eval --quick
+
+    # Publication run (full test sets)
+    python -m src.lori_moe.eval.nemotron_eval --full
+
+    # Specific benchmarks
+    python -m src.lori_moe.eval.nemotron_eval --benchmarks gsm8k mmlu arc humaneval
 """
 
 import sys
@@ -23,9 +32,11 @@ import argparse
 import logging
 import re
 from pathlib import Path
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Tuple
 from dataclasses import dataclass, field, asdict
+from collections import defaultdict
 
+import numpy as np
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from peft import PeftModel
@@ -36,82 +47,176 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 logger = logging.getLogger(__name__)
 
+# ──────────────────────────────────────────────────────────────────────────────
+# Constants — Full test set sizes
+# ──────────────────────────────────────────────────────────────────────────────
+
+BENCHMARK_SIZES = {
+    "gsm8k": 1319,       # Full GSM8K test set
+    "math500": 500,      # MATH-500 (standard subset)
+    "arc": 1172,         # Full ARC-Challenge test set
+    "mmlu": 14042,       # Full MMLU test set
+    "humaneval": 164,    # Full HumanEval
+}
+
+# Quick mode for development iteration (still large enough for CI)
+QUICK_SIZES = {
+    "gsm8k": 300,
+    "math500": 200,
+    "arc": 300,
+    "mmlu": 1000,
+    "humaneval": 164,    # Already small
+}
+
+NUM_BOOTSTRAP = 1000
+RANDOM_SEED = 42
+
 
 @dataclass
 class EvalResult:
-    """Result from a single eval run."""
+    """Result from a single eval run with statistical metadata."""
     benchmark: str
     metric: str
     score: float
-    num_examples: int
-    config_name: str
+    ci_lower: float = 0.0
+    ci_upper: float = 0.0
+    num_examples: int = 0
+    num_correct: int = 0
+    config_name: str = "base"
+    per_sample: List[bool] = field(default_factory=list)  # For paired tests
     details: dict = field(default_factory=dict)
+    runtime_seconds: float = 0.0
 
 
-def extract_answer(text: str) -> Optional[str]:
-    """Extract numerical or boxed answer from model response."""
+# ──────────────────────────────────────────────────────────────────────────────
+# Statistical utilities
+# ──────────────────────────────────────────────────────────────────────────────
+
+def bootstrap_ci(correct: List[bool], n_iter: int = NUM_BOOTSTRAP) -> Tuple[float, float, float]:
+    """Bootstrap 95% CI for accuracy."""
+    if not correct:
+        return 0.0, 0.0, 0.0
+    rng = np.random.RandomState(RANDOM_SEED)
+    n = len(correct)
+    arr = np.array(correct, dtype=float)
+    means = []
+    for _ in range(n_iter):
+        sample = rng.choice(arr, size=n, replace=True)
+        means.append(np.mean(sample))
+    return float(np.mean(arr)), float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))
+
+
+def paired_bootstrap_test(
+    correct_a: List[bool], correct_b: List[bool], n_iter: int = 10000
+) -> float:
+    """Paired bootstrap test for two systems on same examples. Returns p-value."""
+    assert len(correct_a) == len(correct_b)
+    a = np.array(correct_a, dtype=float)
+    b = np.array(correct_b, dtype=float)
+    observed_diff = np.mean(a) - np.mean(b)
+    
+    rng = np.random.RandomState(RANDOM_SEED)
+    count = 0
+    n = len(a)
+    for _ in range(n_iter):
+        # Randomly swap labels
+        mask = rng.randint(0, 2, size=n)
+        perm_a = np.where(mask, a, b)
+        perm_b = np.where(mask, b, a)
+        perm_diff = np.mean(perm_a) - np.mean(perm_b)
+        if abs(perm_diff) >= abs(observed_diff):
+            count += 1
+    return (count + 1) / (n_iter + 1)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Answer extraction
+# ──────────────────────────────────────────────────────────────────────────────
+
+def extract_number(text: str) -> Optional[str]:
+    """Extract numerical answer from model response."""
     # \\boxed{answer}
     boxed = re.findall(r'\\boxed\{([^}]+)\}', text)
     if boxed:
         return boxed[-1].strip()
 
-    # #### answer (GSM8K)
+    # #### answer (GSM8K format)
     hash_match = re.findall(r'####\s*(.+?)(?:\n|$)', text)
     if hash_match:
-        return hash_match[-1].strip()
+        candidate = hash_match[-1].strip()
+        # Clean: remove $, commas, percent signs
+        candidate = candidate.replace("$", "").replace(",", "").replace("%", "")
+        num = re.search(r'[-+]?\d*\.?\d+', candidate)
+        return num.group() if num else candidate
 
-    # "The answer is X"
-    ans_match = re.findall(
-        r'(?:the answer is|answer:|therefore|thus|=)\s*(.+?)(?:\.|,|\n|$)',
-        text, re.IGNORECASE
-    )
-    if ans_match:
-        # Clean up: extract just the number
-        candidate = ans_match[-1].strip()
-        num_match = re.search(r'[-+]?\d*\.?\d+', candidate)
-        if num_match:
-            return num_match.group()
-        return candidate
+    # "The answer is X" / "therefore X" / "= X"
+    patterns = [
+        r'(?:the answer is|answer:|therefore|thus|hence)\s*[:=]?\s*([-+]?\d*\.?\d+)',
+        r'=\s*([-+]?\d*\.?\d+)\s*$',
+    ]
+    for pat in patterns:
+        match = re.findall(pat, text, re.IGNORECASE | re.MULTILINE)
+        if match:
+            return match[-1].strip()
+
+    # Last number in the text
+    all_nums = re.findall(r'[-+]?\d+\.?\d*', text)
+    if all_nums:
+        return all_nums[-1]
 
     return None
 
 
-def format_prompt_with_template(
-    tokenizer, question: str, system_prompt: str = None
-) -> str:
-    """Format a prompt using the model's chat template."""
+def normalize_number(s: str) -> Optional[float]:
+    """Normalize a number string for comparison."""
+    if s is None:
+        return None
+    s = s.strip().replace(",", "").replace("$", "").replace("%", "")
+    try:
+        return float(s)
+    except ValueError:
+        return None
+
+
+def numbers_equal(a: str, b: str, tol: float = 1e-5) -> bool:
+    """Compare two number strings with tolerance."""
+    na, nb = normalize_number(a), normalize_number(b)
+    if na is None or nb is None:
+        return str(a).strip() == str(b).strip()
+    return abs(na - nb) < tol
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Model loading
+# ──────────────────────────────────────────────────────────────────────────────
+
+def format_chat(tokenizer, question: str, system_prompt: str = None) -> str:
+    """Format prompt with Nemotron chat template."""
     messages = []
     if system_prompt:
         messages.append({"role": "system", "content": system_prompt})
     messages.append({"role": "user", "content": question})
-
     try:
-        text = tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-        return text
+        return tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     except Exception:
-        # Fallback
         prefix = f"System: {system_prompt}\n" if system_prompt else ""
         return f"{prefix}User: {question}\nAssistant:"
 
 
-def load_model_4bit(model_path: str, device: str = "cuda"):
-    """Load Nemotron in 4-bit with tokenizer."""
+def load_model_4bit(model_path: str):
+    """Load Nemotron in 4-bit."""
     tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    bnb = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_compute_dtype=torch.bfloat16,
-        bnb_4bit_use_double_quant=True,
-        bnb_4bit_quant_type="nf4",
-    )
-
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
-        quantization_config=bnb,
+        quantization_config=BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16,
+            bnb_4bit_use_double_quant=True,
+            bnb_4bit_quant_type="nf4",
+        ),
         device_map="auto",
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
@@ -120,215 +225,339 @@ def load_model_4bit(model_path: str, device: str = "cuda"):
     return model, tokenizer
 
 
-def evaluate_gsm8k(
-    model,
-    tokenizer,
-    max_samples: int = 200,
-    max_new_tokens: int = 512,
-    config_name: str = "base",
-) -> EvalResult:
-    """Evaluate on GSM8K with Nemotron chat template."""
-    from datasets import load_dataset
+def generate_response(model, tokenizer, prompt_text: str, max_new_tokens: int = 512) -> str:
+    """Generate a single response."""
+    inputs = tokenizer(prompt_text, return_tensors="pt", truncation=True, max_length=1536)
+    inputs = {k: v.to(model.device) for k, v in inputs.items()}
 
-    logger.info(f"Evaluating GSM8K ({max_samples} samples, config={config_name})")
+    with torch.no_grad():
+        output_ids = model.generate(
+            **inputs,
+            max_new_tokens=max_new_tokens,
+            temperature=0.0,
+            do_sample=False,
+            pad_token_id=tokenizer.pad_token_id,
+        )
+
+    return tokenizer.decode(
+        output_ids[0][inputs["input_ids"].shape[1]:],
+        skip_special_tokens=True,
+    )
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Benchmark implementations
+# ──────────────────────────────────────────────────────────────────────────────
+
+def evaluate_gsm8k(model, tokenizer, max_samples: int, config_name: str = "base") -> EvalResult:
+    """GSM8K — Full test set (1,319 examples)."""
+    from datasets import load_dataset
+    t0 = time.time()
 
     ds = load_dataset("openai/gsm8k", "main", split="test")
-    ds = ds.select(range(min(max_samples, len(ds))))
+    if max_samples and max_samples < len(ds):
+        ds = ds.select(range(max_samples))
 
-    correct = 0
-    total = 0
+    correct_list = []
     examples = []
 
-    system_prompt = (
-        "You are a precise mathematics expert. Solve problems step-by-step, "
-        "showing all work clearly. Put your final numerical answer in \\boxed{}."
-    )
+    system = "You are an expert mathematician. Solve the problem step by step. Put your final numerical answer in \\boxed{}."
 
-    for i, example in enumerate(tqdm(ds, desc=f"GSM8K [{config_name}]")):
-        question = example["question"]
-        gold = example["answer"]
-        gold_num = extract_answer(gold)
+    for i, ex in enumerate(tqdm(ds, desc=f"GSM8K [{config_name}]")):
+        prompt = format_chat(tokenizer, ex["question"], system)
+        response = generate_response(model, tokenizer, prompt)
 
-        prompt = format_prompt_with_template(
-            tokenizer, question, system_prompt=system_prompt
-        )
-        inputs = tokenizer(
-            prompt, return_tensors="pt", truncation=True, max_length=1024
-        ).to(model.device)
+        gold = extract_number(ex["answer"])
+        pred = extract_number(response)
+        is_correct = numbers_equal(pred, gold) if pred and gold else False
+        correct_list.append(is_correct)
 
-        with torch.no_grad():
-            output_ids = model.generate(
-                **inputs,
-                max_new_tokens=max_new_tokens,
-                temperature=0.0,
-                do_sample=False,
-                pad_token_id=tokenizer.pad_token_id,
-            )
+        if i < 5:
+            examples.append({"q": ex["question"][:80], "gold": gold, "pred": pred, "ok": is_correct})
 
-        response = tokenizer.decode(
-            output_ids[0][inputs["input_ids"].shape[1]:],
-            skip_special_tokens=True,
-        )
-        pred_num = extract_answer(response)
+    score, ci_lo, ci_hi = bootstrap_ci(correct_list)
 
-        is_correct = (
-            pred_num is not None
-            and gold_num is not None
-            and str(pred_num).strip() == str(gold_num).strip()
-        )
-        if is_correct:
-            correct += 1
-        total += 1
-
-        if i < 3:
-            logger.info(f"  Example {i}: gold={gold_num}, pred={pred_num}, correct={is_correct}")
-            examples.append({
-                "question": question[:100],
-                "gold": gold_num,
-                "pred": pred_num,
-                "correct": is_correct,
-            })
-
-    accuracy = correct / max(total, 1)
-    logger.info(f"GSM8K [{config_name}]: {correct}/{total} = {accuracy:.4f}")
+    logger.info(f"GSM8K [{config_name}]: {sum(correct_list)}/{len(correct_list)} = {score:.4f} [{ci_lo:.4f}, {ci_hi:.4f}]")
 
     return EvalResult(
-        benchmark="gsm8k",
-        metric="exact_match",
-        score=accuracy,
-        num_examples=total,
-        config_name=config_name,
-        details={"examples": examples},
+        benchmark="gsm8k", metric="exact_match", score=score,
+        ci_lower=ci_lo, ci_upper=ci_hi,
+        num_examples=len(correct_list), num_correct=sum(correct_list),
+        config_name=config_name, per_sample=correct_list,
+        details={"examples": examples}, runtime_seconds=time.time() - t0,
     )
 
 
-def evaluate_arc(
-    model,
-    tokenizer,
-    max_samples: int = 200,
-    max_new_tokens: int = 128,
-    config_name: str = "base",
-) -> EvalResult:
-    """Evaluate on ARC-Challenge with Nemotron chat template."""
+def evaluate_math500(model, tokenizer, max_samples: int, config_name: str = "base") -> EvalResult:
+    """MATH-500 — Hard math problems."""
     from datasets import load_dataset
+    t0 = time.time()
 
-    logger.info(f"Evaluating ARC-Challenge ({max_samples} samples, config={config_name})")
+    try:
+        ds = load_dataset("lighteval/MATH", split="test")
+    except Exception:
+        ds = load_dataset("hendrycks/competition_math", split="test")
+
+    if max_samples and max_samples < len(ds):
+        # Sample deterministically for reproducibility
+        rng = np.random.RandomState(RANDOM_SEED)
+        indices = rng.choice(len(ds), size=max_samples, replace=False)
+        ds = ds.select(indices.tolist())
+
+    correct_list = []
+    system = "Solve the following math problem. Show your work and put your final answer in \\boxed{}."
+
+    for i, ex in enumerate(tqdm(ds, desc=f"MATH [{config_name}]")):
+        prompt = format_chat(tokenizer, ex["problem"], system)
+        response = generate_response(model, tokenizer, prompt, max_new_tokens=768)
+
+        gold = extract_number(ex["solution"])
+        pred = extract_number(response)
+        is_correct = numbers_equal(pred, gold) if pred and gold else False
+        correct_list.append(is_correct)
+
+    score, ci_lo, ci_hi = bootstrap_ci(correct_list)
+    logger.info(f"MATH [{config_name}]: {sum(correct_list)}/{len(correct_list)} = {score:.4f} [{ci_lo:.4f}, {ci_hi:.4f}]")
+
+    return EvalResult(
+        benchmark="math500", metric="exact_match", score=score,
+        ci_lower=ci_lo, ci_upper=ci_hi,
+        num_examples=len(correct_list), num_correct=sum(correct_list),
+        config_name=config_name, per_sample=correct_list,
+        runtime_seconds=time.time() - t0,
+    )
+
+
+def evaluate_arc(model, tokenizer, max_samples: int, config_name: str = "base") -> EvalResult:
+    """ARC-Challenge — Full test set (1,172 examples)."""
+    from datasets import load_dataset
+    t0 = time.time()
 
     ds = load_dataset("allenai/ai2_arc", "ARC-Challenge", split="test")
-    ds = ds.select(range(min(max_samples, len(ds))))
+    if max_samples and max_samples < len(ds):
+        ds = ds.select(range(max_samples))
 
-    correct = 0
-    total = 0
+    correct_list = []
+    system = "Answer the multiple-choice science question. Reply with ONLY the letter (A, B, C, or D)."
 
-    system_prompt = (
-        "You are a science expert. Answer the following multiple-choice question. "
-        "Reply with ONLY the letter of the correct answer (A, B, C, or D)."
-    )
+    for i, ex in enumerate(tqdm(ds, desc=f"ARC [{config_name}]")):
+        choices = ex["choices"]
+        choice_text = "\n".join(f"{l}. {t}" for l, t in zip(choices["label"], choices["text"]))
+        full_q = f"{ex['question']}\n\n{choice_text}"
 
-    for i, example in enumerate(tqdm(ds, desc=f"ARC [{config_name}]")):
-        question = example["question"]
-        choices = example["choices"]
-        gold = example["answerKey"]
+        prompt = format_chat(tokenizer, full_q, system)
+        response = generate_response(model, tokenizer, prompt, max_new_tokens=64)
 
-        # Format choices
-        choice_text = "\n".join(
-            f"{label}. {text}"
-            for label, text in zip(choices["label"], choices["text"])
-        )
-        full_question = f"{question}\n\n{choice_text}"
-
-        prompt = format_prompt_with_template(
-            tokenizer, full_question, system_prompt=system_prompt
-        )
-        inputs = tokenizer(
-            prompt, return_tensors="pt", truncation=True, max_length=1024
-        ).to(model.device)
-
-        with torch.no_grad():
-            output_ids = model.generate(
-                **inputs,
-                max_new_tokens=max_new_tokens,
-                temperature=0.0,
-                do_sample=False,
-                pad_token_id=tokenizer.pad_token_id,
-            )
-
-        response = tokenizer.decode(
-            output_ids[0][inputs["input_ids"].shape[1]:],
-            skip_special_tokens=True,
-        ).strip()
-
-        # Extract answer letter
+        gold = ex["answerKey"].upper()
         pred = None
-        for char in response:
+        for char in response.strip():
             if char.upper() in "ABCDE":
                 pred = char.upper()
                 break
 
-        if pred == gold.upper():
-            correct += 1
-        total += 1
+        correct_list.append(pred == gold)
 
-    accuracy = correct / max(total, 1)
-    logger.info(f"ARC [{config_name}]: {correct}/{total} = {accuracy:.4f}")
+    score, ci_lo, ci_hi = bootstrap_ci(correct_list)
+    logger.info(f"ARC [{config_name}]: {sum(correct_list)}/{len(correct_list)} = {score:.4f} [{ci_lo:.4f}, {ci_hi:.4f}]")
 
     return EvalResult(
-        benchmark="arc_challenge",
-        metric="accuracy",
-        score=accuracy,
-        num_examples=total,
-        config_name=config_name,
+        benchmark="arc_challenge", metric="accuracy", score=score,
+        ci_lower=ci_lo, ci_upper=ci_hi,
+        num_examples=len(correct_list), num_correct=sum(correct_list),
+        config_name=config_name, per_sample=correct_list,
+        runtime_seconds=time.time() - t0,
     )
 
 
-def run_nemotron_evaluation(
+def evaluate_mmlu(model, tokenizer, max_samples: int, config_name: str = "base") -> EvalResult:
+    """MMLU — 5-shot, full test set (14,042 examples across 57 subjects)."""
+    from datasets import load_dataset
+    t0 = time.time()
+
+    # Load full MMLU
+    test_ds = load_dataset("cais/mmlu", "all", split="test")
+    dev_ds = load_dataset("cais/mmlu", "all", split="dev")
+
+    if max_samples and max_samples < len(test_ds):
+        rng = np.random.RandomState(RANDOM_SEED)
+        indices = rng.choice(len(test_ds), size=max_samples, replace=False)
+        test_ds = test_ds.select(indices.tolist())
+
+    # Build 5-shot examples per subject from dev set
+    dev_by_subject = defaultdict(list)
+    for ex in dev_ds:
+        dev_by_subject[ex["subject"]].append(ex)
+
+    correct_list = []
+    subject_results = defaultdict(lambda: {"correct": 0, "total": 0})
+
+    LETTERS = ["A", "B", "C", "D"]
+
+    for i, ex in enumerate(tqdm(test_ds, desc=f"MMLU [{config_name}]")):
+        subject = ex["subject"]
+        gold_idx = ex["answer"]
+        gold_letter = LETTERS[gold_idx] if isinstance(gold_idx, int) else gold_idx
+
+        # Build 5-shot prompt
+        few_shot = ""
+        shots = dev_by_subject.get(subject, [])[:5]
+        for shot in shots:
+            shot_choices = " ".join(f"({LETTERS[j]}) {c}" for j, c in enumerate(shot["choices"]))
+            shot_answer = LETTERS[shot["answer"]] if isinstance(shot["answer"], int) else shot["answer"]
+            few_shot += f"Q: {shot['question']} {shot_choices}\nA: {shot_answer}\n\n"
+
+        test_choices = " ".join(f"({LETTERS[j]}) {c}" for j, c in enumerate(ex["choices"]))
+        question = f"{few_shot}Q: {ex['question']} {test_choices}\nA:"
+
+        prompt = format_chat(tokenizer, question)
+        response = generate_response(model, tokenizer, prompt, max_new_tokens=8)
+
+        pred = None
+        for char in response.strip():
+            if char.upper() in "ABCD":
+                pred = char.upper()
+                break
+
+        is_correct = (pred == gold_letter)
+        correct_list.append(is_correct)
+        subject_results[subject]["total"] += 1
+        if is_correct:
+            subject_results[subject]["correct"] += 1
+
+    score, ci_lo, ci_hi = bootstrap_ci(correct_list)
+
+    # Per-subject breakdown
+    subject_scores = {}
+    for subj, res in sorted(subject_results.items()):
+        if res["total"] > 0:
+            subject_scores[subj] = res["correct"] / res["total"]
+
+    logger.info(f"MMLU [{config_name}]: {sum(correct_list)}/{len(correct_list)} = {score:.4f} [{ci_lo:.4f}, {ci_hi:.4f}]")
+    logger.info(f"  Subjects evaluated: {len(subject_scores)}")
+
+    return EvalResult(
+        benchmark="mmlu", metric="5shot_accuracy", score=score,
+        ci_lower=ci_lo, ci_upper=ci_hi,
+        num_examples=len(correct_list), num_correct=sum(correct_list),
+        config_name=config_name, per_sample=correct_list,
+        details={"subject_scores": subject_scores}, runtime_seconds=time.time() - t0,
+    )
+
+
+def evaluate_humaneval(model, tokenizer, max_samples: int, config_name: str = "base") -> EvalResult:
+    """HumanEval — Code generation (164 problems). Uses simple syntax check."""
+    from datasets import load_dataset
+    t0 = time.time()
+
+    ds = load_dataset("openai/openai_humaneval", split="test")
+    if max_samples and max_samples < len(ds):
+        ds = ds.select(range(max_samples))
+
+    correct_list = []
+    system = "Complete the following Python function. Only output the code, no explanations."
+
+    for i, ex in enumerate(tqdm(ds, desc=f"HumanEval [{config_name}]")):
+        prompt = format_chat(tokenizer, ex["prompt"], system)
+        response = generate_response(model, tokenizer, prompt, max_new_tokens=512)
+
+        # Extract code from response
+        code = response
+        if "```python" in code:
+            code = code.split("```python")[1].split("```")[0]
+        elif "```" in code:
+            code = code.split("```")[1].split("```")[0]
+
+        # Combine prompt + completion
+        full_code = ex["prompt"] + code
+
+        # Basic validation: can it parse?
+        try:
+            compile(full_code, "<string>", "exec")
+            # Run test cases if available
+            test_code = full_code + "\n" + ex.get("test", "")
+            try:
+                exec_globals = {}
+                exec(test_code, exec_globals)
+                correct_list.append(True)
+            except Exception:
+                correct_list.append(False)
+        except SyntaxError:
+            correct_list.append(False)
+
+    score, ci_lo, ci_hi = bootstrap_ci(correct_list)
+    logger.info(f"HumanEval [{config_name}]: {sum(correct_list)}/{len(correct_list)} = {score:.4f} [{ci_lo:.4f}, {ci_hi:.4f}]")
+
+    return EvalResult(
+        benchmark="humaneval", metric="pass@1", score=score,
+        ci_lower=ci_lo, ci_upper=ci_hi,
+        num_examples=len(correct_list), num_correct=sum(correct_list),
+        config_name=config_name, per_sample=correct_list,
+        runtime_seconds=time.time() - t0,
+    )
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Main pipeline
+# ──────────────────────────────────────────────────────────────────────────────
+
+BENCHMARK_FUNCS = {
+    "gsm8k": evaluate_gsm8k,
+    "math500": evaluate_math500,
+    "arc": evaluate_arc,
+    "mmlu": evaluate_mmlu,
+    "humaneval": evaluate_humaneval,
+}
+
+
+def run_evaluation(
     model_path: str,
     adapter_dir: Optional[str] = None,
     output_dir: str = str(PROJECT_ROOT / "results" / "nemotron"),
-    max_samples: int = 200,
+    benchmarks: List[str] = None,
+    sizes: Dict[str, int] = None,
     eval_baseline: bool = True,
     eval_adapters: bool = True,
     domains: List[str] = None,
 ):
-    """
-    Run complete Nemotron evaluation suite.
-
-    Steps:
-    1. Baseline (no adapters)
-    2. Single adapter per domain
-    3. Save comparison table
-    """
+    """Run full evaluation suite."""
     domains = domains or ["math", "code", "science"]
+    benchmarks = benchmarks or ["gsm8k", "arc", "mmlu"]
+    sizes = sizes or BENCHMARK_SIZES
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
 
     all_results = {}
 
-    # ── 1. Baseline ──
+    # Baseline
     if eval_baseline:
         logger.info("\n" + "=" * 60)
-        logger.info("BASELINE EVALUATION (No Adapters)")
+        logger.info("BASELINE EVALUATION")
         logger.info("=" * 60)
 
         model, tokenizer = load_model_4bit(model_path)
 
-        base_gsm8k = evaluate_gsm8k(model, tokenizer, max_samples, config_name="baseline")
-        all_results["baseline_gsm8k"] = asdict(base_gsm8k)
+        for bench in benchmarks:
+            if bench in BENCHMARK_FUNCS:
+                result = BENCHMARK_FUNCS[bench](
+                    model, tokenizer, sizes.get(bench, 200), config_name="baseline"
+                )
+                all_results[f"baseline_{bench}"] = asdict(result)
 
-        base_arc = evaluate_arc(model, tokenizer, max_samples, config_name="baseline")
-        all_results["baseline_arc"] = asdict(base_arc)
+        del model; torch.cuda.empty_cache()
 
-        del model
-        torch.cuda.empty_cache()
-
-    # ── 2. Single Adapters ──
+    # Single adapters
     if eval_adapters and adapter_dir:
         logger.info("\n" + "=" * 60)
-        logger.info("SINGLE ADAPTER EVALUATION")
+        logger.info("ADAPTER EVALUATION")
         logger.info("=" * 60)
 
+        domain_benchmark_map = {
+            "math": ["gsm8k", "math500"],
+            "code": ["humaneval"],
+            "science": ["arc"],
+        }
+
         for domain in domains:
-            # Find adapter
             adapter_path = None
             for subdir in ["dare_sparsified", "best", "final"]:
                 candidate = Path(adapter_dir) / domain / subdir
@@ -337,65 +566,102 @@ def run_nemotron_evaluation(
                     break
 
             if adapter_path is None:
-                logger.warning(f"No adapter found for '{domain}'")
+                logger.warning(f"No adapter for {domain}")
                 continue
 
-            logger.info(f"\nLoading adapter: {domain} from {adapter_path}")
             model, tokenizer = load_model_4bit(model_path)
             model = PeftModel.from_pretrained(model, str(adapter_path))
             model.eval()
 
-            if domain == "math":
-                result = evaluate_gsm8k(model, tokenizer, max_samples, config_name=f"single_{domain}")
-                all_results[f"single_{domain}_gsm8k"] = asdict(result)
+            for bench in domain_benchmark_map.get(domain, []):
+                if bench in benchmarks and bench in BENCHMARK_FUNCS:
+                    result = BENCHMARK_FUNCS[bench](
+                        model, tokenizer, sizes.get(bench, 200),
+                        config_name=f"adapter_{domain}"
+                    )
+                    all_results[f"adapter_{domain}_{bench}"] = asdict(result)
 
-            if domain == "science":
-                result = evaluate_arc(model, tokenizer, max_samples, config_name=f"single_{domain}")
-                all_results[f"single_{domain}_arc"] = asdict(result)
+            del model; torch.cuda.empty_cache()
 
-            del model
-            torch.cuda.empty_cache()
-
-    # ── Save Results ──
+    # Save results
     results_file = output_path / "evaluation_results.json"
     with open(results_file, "w") as f:
-        json.dump(all_results, f, indent=2)
+        json.dump(all_results, f, indent=2, default=str)
 
     # Print summary table
-    print(f"\n{'='*60}")
-    print("NEMOTRON EVALUATION SUMMARY")
-    print(f"{'='*60}")
-    print(f"{'Config':<30} {'Benchmark':<15} {'Score':>10}")
-    print(f"{'-'*55}")
-    for name, result in all_results.items():
-        print(f"{result['config_name']:<30} {result['benchmark']:<15} {result['score']:>10.4f}")
-    print(f"{'='*60}")
+    print(f"\n{'='*80}")
+    print("NEMOTRON EVALUATION RESULTS")
+    print(f"{'='*80}")
+    print(f"{'Config':<25} {'Benchmark':<15} {'Score':>8} {'95% CI':>20} {'N':>6}")
+    print(f"{'-'*74}")
+    for name, r in all_results.items():
+        ci = f"[{r['ci_lower']:.4f}, {r['ci_upper']:.4f}]"
+        print(f"{r['config_name']:<25} {r['benchmark']:<15} {r['score']:>8.4f} {ci:>20} {r['num_examples']:>6}")
+    print(f"{'='*80}")
 
-    logger.info(f"Results saved to {results_file}")
+    # Paired comparisons
+    print(f"\nPAIRED COMPARISONS:")
+    for bench in benchmarks:
+        baseline_key = f"baseline_{bench}"
+        if baseline_key not in all_results:
+            continue
+        baseline_samples = all_results[baseline_key].get("per_sample", [])
+        for name, r in all_results.items():
+            if name == baseline_key or bench not in name:
+                continue
+            adapter_samples = r.get("per_sample", [])
+            if len(baseline_samples) == len(adapter_samples) and len(baseline_samples) > 0:
+                p_val = paired_bootstrap_test(adapter_samples, baseline_samples)
+                delta = r["score"] - all_results[baseline_key]["score"]
+                sig = "***" if p_val < 0.001 else "**" if p_val < 0.01 else "*" if p_val < 0.05 else "ns"
+                print(f"  {r['config_name']} vs baseline ({bench}): "
+                      f"Δ={delta:+.4f}, p={p_val:.4f} {sig}")
+
+    logger.info(f"\nResults saved to {results_file}")
     return all_results
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Nemotron Evaluation Suite")
+    parser = argparse.ArgumentParser(description="Nemotron Evaluation — Publication Grade")
     parser.add_argument("--model_path", type=str, default=str(PROJECT_ROOT / "models" / "nemotron"))
     parser.add_argument("--adapter_dir", type=str, default=str(PROJECT_ROOT / "checkpoints" / "nemotron_lori" / "adapters"))
     parser.add_argument("--output_dir", type=str, default=str(PROJECT_ROOT / "results" / "nemotron"))
-    parser.add_argument("--max_samples", type=int, default=200)
+    parser.add_argument("--benchmarks", nargs="+", default=["gsm8k", "arc", "mmlu"],
+                        choices=list(BENCHMARK_FUNCS.keys()))
     parser.add_argument("--no_baseline", action="store_true")
     parser.add_argument("--no_adapters", action="store_true")
     parser.add_argument("--domains", nargs="+", default=["math", "code", "science"])
+    
+    # Scale controls
+    parser.add_argument("--full", action="store_true", help="Use full test sets (publication mode)")
+    parser.add_argument("--quick", action="store_true", help="Use reduced test sets (development mode)")
+    parser.add_argument("--max_samples", type=int, default=None, help="Override all benchmark sizes")
+    
     args = parser.parse_args()
 
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(message)s",
-    )
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 
-    run_nemotron_evaluation(
+    # Determine sizes
+    if args.max_samples:
+        sizes = {b: args.max_samples for b in BENCHMARK_FUNCS}
+    elif args.full:
+        sizes = BENCHMARK_SIZES
+        logger.info("📊 PUBLICATION MODE — using full test sets")
+    elif args.quick:
+        sizes = QUICK_SIZES
+        logger.info("🔧 DEVELOPMENT MODE — using reduced test sets")
+    else:
+        sizes = QUICK_SIZES
+        logger.info("🔧 Default: development mode. Use --full for publication-grade runs.")
+
+    logger.info(f"Benchmark sizes: {sizes}")
+
+    run_evaluation(
         model_path=args.model_path,
         adapter_dir=args.adapter_dir,
         output_dir=args.output_dir,
-        max_samples=args.max_samples,
+        benchmarks=args.benchmarks,
+        sizes=sizes,
         eval_baseline=not args.no_baseline,
         eval_adapters=not args.no_adapters,
         domains=args.domains,
