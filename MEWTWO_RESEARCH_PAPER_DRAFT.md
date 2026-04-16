@@ -105,6 +105,7 @@ The later v2 benchmark was stronger because it separated single-domain and genui
 
 Aggregate v2 results:
 
+
 #### Single-Domain Split (100 questions)
 
 | Method | Avg Sim | Avg PPL | Avg Latency |

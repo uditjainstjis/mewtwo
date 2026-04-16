@@ -70,6 +70,8 @@ class DomainDataset(TorchDataset):
         self.max_length = max_length
         self.examples = []
         self.encoded_examples = []
+        self.assistant_prefix = self._derive_assistant_prefix()
+        self._mask_warning_emitted = False
 
         with open(data_path, "r") as f:
             for i, line in enumerate(f):
@@ -79,6 +81,16 @@ class DomainDataset(TorchDataset):
                 self.examples.append(row["text"])
 
         logger.info(f"Loaded {len(self.examples)} examples from {data_path}")
+        if self.assistant_prefix:
+            logger.info(
+                "Derived assistant prefix from chat template for loss masking: %r",
+                self.assistant_prefix,
+            )
+        else:
+            logger.warning(
+                "Could not derive assistant prefix from tokenizer chat template. "
+                "Falling back to token-pattern masking."
+            )
 
         # Pretokenize once so the GPU is not starved by repeated CPU tokenization.
         batch_size = 512
@@ -91,15 +103,94 @@ class DomainDataset(TorchDataset):
                 padding=False,
                 return_attention_mask=True,
             )
-            for input_ids, attention_mask in zip(
-                encoded_batch["input_ids"], encoded_batch["attention_mask"]
+            for text, input_ids, attention_mask in zip(
+                texts, encoded_batch["input_ids"], encoded_batch["attention_mask"]
             ):
+                input_ids_tensor = torch.tensor(input_ids, dtype=torch.long)
+                attention_mask_tensor = torch.tensor(attention_mask, dtype=torch.long)
+                labels = input_ids_tensor.clone()
+
+                mask_until = self._find_assistant_start(text, input_ids_tensor)
+                if mask_until is None:
+                    mask_until = 0
+                else:
+                    mask_until = max(0, min(mask_until, input_ids_tensor.shape[0]))
+                    labels[:mask_until] = -100
+
                 self.encoded_examples.append(
                     {
-                        "input_ids": torch.tensor(input_ids, dtype=torch.long),
-                        "attention_mask": torch.tensor(attention_mask, dtype=torch.long),
+                        "input_ids": input_ids_tensor,
+                        "attention_mask": attention_mask_tensor,
+                        "labels": labels,
                     }
                 )
+
+    def _derive_assistant_prefix(self) -> Optional[str]:
+        """Infer the exact assistant-content prefix from the tokenizer chat template."""
+        if not hasattr(self.tokenizer, "apply_chat_template"):
+            return None
+
+        system = "__system__"
+        user = "__user__"
+        sentinel = "__assistant_sentinel__"
+
+        try:
+            prompt_only = self.tokenizer.apply_chat_template(
+                [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                ],
+                tokenize=False,
+                add_generation_prompt=False,
+            )
+            with_assistant = self.tokenizer.apply_chat_template(
+                [
+                    {"role": "system", "content": system},
+                    {"role": "user", "content": user},
+                    {"role": "assistant", "content": sentinel},
+                ],
+                tokenize=False,
+                add_generation_prompt=False,
+            )
+        except Exception as exc:
+            logger.warning("Chat template inspection failed: %s", exc)
+            return None
+
+        sentinel_start = with_assistant.find(sentinel)
+        if sentinel_start == -1 or not with_assistant.startswith(prompt_only):
+            return None
+
+        prefix = with_assistant[len(prompt_only):sentinel_start]
+        return prefix or None
+
+    def _find_assistant_start(self, text: str, input_ids: torch.Tensor) -> Optional[int]:
+        """Find where assistant response begins, using the tokenizer's own template when possible."""
+        if self.assistant_prefix:
+            prefix_pos = text.find(self.assistant_prefix)
+            if prefix_pos != -1:
+                prefix_text = text[:prefix_pos + len(self.assistant_prefix)]
+                prefix_ids = self.tokenizer(
+                    prefix_text,
+                    truncation=True,
+                    max_length=self.max_length,
+                    padding=False,
+                    return_attention_mask=False,
+                )["input_ids"]
+                return min(len(prefix_ids), input_ids.shape[0])
+
+        # Fallback: preserve old behavior for Qwen-like templates if dynamic detection fails.
+        assistant_start_seq = [151644, 77091, 198]
+        for i in range(len(input_ids) - len(assistant_start_seq)):
+            if input_ids[i:i + len(assistant_start_seq)].tolist() == assistant_start_seq:
+                return i + len(assistant_start_seq)
+
+        if not self._mask_warning_emitted:
+            logger.warning(
+                "Could not locate assistant span in one or more examples. "
+                "Those examples will keep full-token loss."
+            )
+            self._mask_warning_emitted = True
+        return None
 
     def __len__(self):
         return len(self.encoded_examples)
@@ -108,24 +199,7 @@ class DomainDataset(TorchDataset):
         encoded = self.encoded_examples[idx]
         input_ids = encoded["input_ids"].clone()
         attention_mask = encoded["attention_mask"].clone()
-
-        # For causal LM, labels = input_ids (shift happens in loss)
-        labels = input_ids.clone()
-
-        # ─── High-Signal Instruction Masking ───
-        # Mask everything before the assistant response starts.
-        # Qwen-style sequence: [<|im_start|>, assistant, \n]
-        # Token IDs: [151644, 77091, 198]
-        assistant_start_seq = [151644, 77091, 198]
-        mask_until = -1
-        
-        for i in range(len(input_ids) - len(assistant_start_seq)):
-            if input_ids[i:i+len(assistant_start_seq)].tolist() == assistant_start_seq:
-                mask_until = i + len(assistant_start_seq)
-                break
-        
-        if mask_until != -1:
-            labels[:mask_until] = -100 # Mask system/user prompts
+        labels = encoded["labels"].clone()
             
         return {
             "input_ids": input_ids,
@@ -330,6 +404,7 @@ def train_adapter(
     compile_mode: Optional[str] = None,
     vram_fraction: float = None,
     use_4bit: bool = False,
+    target_modules: str = "",
 ):
     """Train a single domain LoRI adapter."""
 
@@ -346,6 +421,7 @@ def train_adapter(
         device="cuda",
         use_gradient_checkpointing=gradient_checkpointing,
         use_4bit=use_4bit,
+        target_modules=target_modules.split(",") if target_modules else None,
     )
 
     # ── Load dataset ──
@@ -793,6 +869,7 @@ def main():
     parser.add_argument("--save_every", type=int, default=500)
     parser.add_argument("--gradient_checkpointing", action="store_true", help="Enable gradient checkpointing (saves memory, slower)")
     parser.add_argument("--vram_fraction", type=float, default=None, help="Hard cap VRAM usage (0.0 to 1.0) to prevent OOMing other processes")
+    parser.add_argument("--target_modules", type=str, default="", help="Comma separated list of target modules")
     parser.add_argument(
         "--optimizer_backend",
         type=str,
@@ -854,6 +931,7 @@ def main():
         compile_mode=args.compile_mode,
         vram_fraction=args.vram_fraction,
         use_4bit=args.use_4bit,
+        target_modules=args.target_modules,
     )
 
 

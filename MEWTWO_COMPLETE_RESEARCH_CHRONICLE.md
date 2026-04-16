@@ -21,7 +21,8 @@
 10. [Phase 8: Ablation Studies](#10-phase-8-ablation-studies)
 11. [Phase 9: Scaling Experiments](#11-phase-9-scaling-experiments)
 12. [Phase 10: Uditaptor Framework](#12-phase-10-uditaptor-framework)
-13. [Complete Results Matrix](#13-complete-results-matrix)
+13. [Phase 11: GC-LoRI — Gate-Conditioned LoRI on Nemotron](#12b-phase-11-gc-lori--gate-conditioned-lori-on-nemotron-april-2026)
+14. [Complete Results Matrix](#13-complete-results-matrix)
 14. [Every Hypothesis — Tested, Passed, or Failed](#14-every-hypothesis--tested-passed-or-failed)
 15. [Key Discoveries & Insights](#15-key-discoveries--insights)
 16. [Artifacts & File Reference](#16-artifacts--file-reference)
@@ -494,6 +495,104 @@ A parallel research track proposed the **"Uditaptor" (Universal Dynamic Inter-Ar
 
 ---
 
+## 12b. Phase 11: GC-LoRI — Gate-Conditioned LoRI on Nemotron (April 2026)
+
+### The Strategic Pivot
+
+After 10 phases on Qwen models (1.5B–14B), we identified a fundamental limitation: **at 1.5B parameters, even oracle routing only yields +2% composition gain**. Simply scaling to a bigger Qwen model would be a commodity experiment — anyone with a GPU can replicate it.
+
+The pivot: **Nemotron-3-Nano-30B** — NVIDIA's hybrid Mamba/MoE/GQA architecture with **128 internal MoE experts**, a fundamentally different structure from the homogeneous Qwen models.
+
+### The Innovation: Gate-Conditioned LoRI (GC-LoRI)
+
+> **Core Insight:** Nemotron already has an internal 128-expert MoE router that makes per-token routing decisions. Instead of stacking a *blind* external router on top (creating a "double routing" conflict), we **listen** to the internal router and use its signals to *condition* external adapter composition.
+
+```
+┌─────────────────────────────────────────────────────┐
+│              Nemotron Forward Pass                   │
+│                                                      │
+│  Input → [Mamba] → [MoE (128 experts)] → [GQA] →   │
+│                      ↓ hooks                         │
+│              {top_k_weights, entropy}                │
+│                      ↓                               │
+│  ┌────────────────────────────────────────┐          │
+│  │     GC-LoRI Router (Novel)            │          │
+│  │  concat(signal_proj(internal_signal), │          │
+│  │         hidden_proj(hidden_state))    │          │
+│  │  → routing_head → softmax            │          │
+│  │  → adapter_weights (3 external)      │          │
+│  └────────────────────────────────────────┘          │
+│                      ↓                               │
+│         Apply selected LoRI adapter                  │
+└─────────────────────────────────────────────────────┘
+```
+
+### Why This Is Novel (No Published Precedent)
+
+1. **No existing work** uses internal MoE routing to supervise external adapter composition
+2. External adapters learn only **residual reasoning** — what the base model *can't* already handle
+3. Avoids the "double routing" conflict of stacking two independent expert systems
+4. The internal router signals are captured via hooks with `.detach()` — no gradient flow back (observe, don't modify)
+
+### Nemotron Architecture (Hybrid)
+
+| Layer Type | Count | Purpose |
+|:---|:---|:---|
+| Mamba (state-space) | 23 layers | Long-range sequential modeling |
+| MoE (128 experts) | 23 layers | Capacity via sparse expert routing |
+| GQA (grouped attention) | 6 layers | Local attention refinement |
+| **Total parameters** | **31.6B** | 4-bit quantized for RTX 5090 |
+
+### Three Hypotheses
+
+| # | Hypothesis | Risk | Status |
+|:---|:---|:---|:---|
+| H11 | Internal MoE routing patterns differ across reasoning domains (math vs code vs science) | Low | ⬜ Pending GPU fix |
+| H12 | GC-LoRI (conditioned) outperforms blind external routing by ≥ +3% on multi-domain tasks | Medium | ⬜ Pending adapter training |
+| H13 | Routing entropy predicts reasoning-intensive tokens | Low | ⬜ Pending router analysis |
+
+### Key Implementation Files
+
+| File | Purpose | Status |
+|:---|:---|:---|
+| `src/lori_moe/model/gc_router.py` | GateConditionedRouter module | ✅ Written |
+| `src/lori_moe/model/internal_hook.py` | NemotronRouterHook (signal extractor) | ✅ Written |
+| `scripts/nemotron_router_analysis.py` | Foundational diagnostic experiment | ✅ Written |
+| `src/lori_moe/inference/gc_compose.py` | GC-LoRI inference engine (3 modes) | ✅ Written |
+| `src/lori_moe/training/train_gc_router.py` | Head-to-head GC vs Blind training | ✅ Written |
+| `src/lori_moe/eval/nemotron_eval.py` | Nemotron-template-aware evaluation | ✅ Written |
+| `scripts/gc_lori_pipeline.sh` | End-to-end orchestration script | ✅ Written |
+
+### Ablation Design (Pre-Registered)
+
+| ID | Experiment | What It Tests |
+|:---|:---|:---|
+| 4A | Blind External Router | Control — standard external MoE routing |
+| 4B | **GC-LoRI Router** | **Innovation** — internal signals improve routing? |
+| 4C | Shared-Expert-Only Adapters | Always-active path for base coordination |
+| 4D | Routing-Entropy Detector | Diagnostic — does entropy predict reasoning? |
+
+### Falsification Criteria
+
+- ❌ **Kill GC-LoRI** if: discrimination ratio < 0.5 in router analysis (internal routing doesn't differ by domain)
+- ❌ **Kill GC-LoRI** if: GC-LoRI accuracy ≤ Blind accuracy after 5 epochs of router training
+- ❌ **Kill composition** if: single best Nemotron adapter beats all composition variants
+
+### Current Status
+
+**🔴 BLOCKED on GPU driver** — `torch.cuda.is_available() == False`. All code is written and ready to execute. Estimated ~3 GPU-hours for the complete innovation pipeline.
+
+### Why This Is the Right Paper
+
+The entire 10-phase Mewtwo journey converges here:
+- **Phase 3** proved adapters work individually (+27% GSM8K)
+- **Phase 6** proved blind composition fails (4% GSM8K collapse)
+- **Phase 8** proved the router is NOT the bottleneck (oracle only +2%)
+- **Phase 9** proved scale matters (1.5B is too small)
+- **Phase 11** combines: bigger model (30B) + smarter routing (gate-conditioned) + architecture-aware targets (attention-only for safety)
+
+---
+
 ## 13. Complete Results Matrix
 
 ### Single-Adapter Performance (Qwen2.5-1.5B)
@@ -705,3 +804,4 @@ The simple router achieved 99.6% on training domain classification but the CoT r
 ---
 
 *Generated: 2026-04-14 | Total experiments: 1,300+ real model inferences | Total compute: ~50 GPU-hours on RTX 5090*
+
