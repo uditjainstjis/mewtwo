@@ -146,7 +146,7 @@ def train_gc_router(
 
     load_kwargs = {
         "torch_dtype": torch.bfloat16,
-        "device_map": "auto",
+        "device_map": {"": 0},
         "trust_remote_code": True,
     }
     if use_4bit:
@@ -285,7 +285,7 @@ def train_gc_router(
                 )
 
             hidden = outputs.hidden_states[-1].float()
-            internal_signal = hooker.get_aggregated_signal()
+            internal_signal = hooker.get_aggregated_signal(batch_size=input_ids.shape[0])
 
             if internal_signal is not None:
                 internal_signals_captured += 1
@@ -361,7 +361,7 @@ def train_gc_router(
                     output_hidden_states=True,
                 )
                 hidden = outputs.hidden_states[-1].float()
-                internal_signal = hooker.get_aggregated_signal()
+                internal_signal = hooker.get_aggregated_signal(batch_size=input_ids.shape[0])
 
                 target_labels = domain_labels.unsqueeze(1).expand(-1, hidden.size(1))
                 flat_labels = target_labels.reshape(-1)

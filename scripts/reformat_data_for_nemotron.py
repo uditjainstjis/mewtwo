@@ -44,8 +44,6 @@ SYSTEM_PROMPTS = {
     "math": "You are a precise mathematics expert. Solve problems step-by-step, showing all work clearly. Always verify your final answer.",
     "code": "You are an expert programmer. Write clean, correct, well-documented code. Explain your approach before implementation.",
     "science": "You are a rigorous scientist. Answer questions with precise scientific reasoning, citing relevant principles and evidence.",
-    "legal": "You are a legal expert. Analyze questions with careful attention to legal principles, precedents, and logical reasoning.",
-    "medical": "You are a medical professional. Provide accurate medical information with appropriate caveats and evidence-based reasoning.",
 }
 
 
@@ -92,7 +90,7 @@ def format_for_nemotron(system, user, assistant):
 total_in = 0
 total_out = 0
 
-for domain in ["math", "code", "science", "legal", "medical"]:
+for domain in ["math", "code", "science"]:
     input_file = INPUT_DIR / f"{domain}_train.jsonl"
     output_file = OUTPUT_DIR / f"{domain}_train.jsonl"
     

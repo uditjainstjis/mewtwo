@@ -170,58 +170,97 @@ $VENV -m src.lori_moe.training.train_lori_adapter \
     2>&1 | tee "$LOG_DIR/train_science.log"
 echo "✅ Science adapter trained"
 
-# ─── Step 7: Baseline Evaluation ───
+# ─── Step 7: Comprehensive Evaluation ───
 echo ""
 echo "=========================================="
-echo " Step 7: Baseline Evaluation"
+echo " Step 7: Comprehensive Evaluation"
 echo "=========================================="
 $VENV -c "
 import torch, json, sys
 sys.path.insert(0, '$PROJECT_ROOT')
-from src.lori_moe.eval.run_benchmarks import evaluate_math
+from src.lori_moe.eval.run_benchmarks import evaluate_math, run_lm_eval_benchmark
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 from peft import PeftModel
+from pathlib import Path
 
-bnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16, bnb_4bit_use_double_quant=True, bnb_4bit_quant_type='nf4')
+bnb = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_compute_dtype=torch.bfloat16,
+    bnb_4bit_use_double_quant=True,
+    bnb_4bit_quant_type='nf4'
+)
+
+def get_model(adapter=None):
+    model = AutoModelForCausalLM.from_pretrained(
+        '$ACTUAL_MODEL_PATH',
+        quantization_config=bnb,
+        device_map='auto',
+        trust_remote_code=True
+    )
+    if adapter:
+        model = PeftModel.from_pretrained(model, adapter)
+    return model.eval()
+
+def find_adapter(domain):
+    for sub in ['dare_sparsified', 'best', 'final']:
+        p = Path('$PROJECT_ROOT/checkpoints/nemotron_lori/adapters') / domain / sub
+        if (p / 'adapter_config.json').exists():
+            return str(p)
+    return None
+
 tok = AutoTokenizer.from_pretrained('$ACTUAL_MODEL_PATH', trust_remote_code=True)
 if tok.pad_token is None:
     tok.pad_token = tok.eos_token
 
-print('=== BASELINE (no adapter) ===')
-model = AutoModelForCausalLM.from_pretrained('$ACTUAL_MODEL_PATH', quantization_config=bnb, device_map='auto', trust_remote_code=True)
-model.eval()
-base_result = evaluate_math(model, tok, 'gsm8k', 200)
-print(f'Baseline GSM8K: {base_result.score:.4f} ({base_result.num_examples} examples)')
+results = {}
 
-results = {'baseline_gsm8k': base_result.score}
+# 1. BASELINE
+print('=== BASELINE (Zero-Shot) ===')
+model = get_model()
+results['baseline_gsm8k'] = evaluate_math(model, tok, 'gsm8k', 100).score
+print(f'  Baseline GSM8K: {results[\"baseline_gsm8k\"]:.4f}')
 
-# Math adapter
-del model; torch.cuda.empty_cache()
+lm_results = run_lm_eval_benchmark(model, tok, tasks=['humaneval', 'arc_challenge'], limit=50)
+results['baseline_humaneval'] = lm_results.get('humaneval', type('obj', (object,), {'score': 0})).score
+results['baseline_arc'] = lm_results.get('arc_challenge', type('obj', (object,), {'score': 0})).score
+print(f'  Baseline HumanEval: {results[\"baseline_humaneval\"]:.4f}')
+print(f'  Baseline ARC: {results[\"baseline_arc\"]:.4f}')
+
+# 2. MATH ADAPTER
 print('\\n=== MATH ADAPTER ===')
-model = AutoModelForCausalLM.from_pretrained('$ACTUAL_MODEL_PATH', quantization_config=bnb, device_map='auto', trust_remote_code=True)
+path = find_adapter('math')
+if path:
+    del model; torch.cuda.empty_cache()
+    model = get_model(path)
+    results['math_adapter_gsm8k'] = evaluate_math(model, tok, 'gsm8k', 100).score
+    results['delta_math'] = results['math_adapter_gsm8k'] - results['baseline_gsm8k']
+    print(f'  Math Adapter GSM8K: {results[\"math_adapter_gsm8k\"]:.4f} (Δ={results[\"delta_math\"]:.4f})')
 
-from pathlib import Path
-adapter_path = None
-for sub in ['dare_sparsified', 'best', 'final']:
-    p = Path('$PROJECT_ROOT/checkpoints/nemotron_lori/adapters/math') / sub
-    if (p / 'adapter_config.json').exists():
-        adapter_path = str(p)
-        break
+# 3. CODE ADAPTER
+print('\\n=== CODE ADAPTER ===')
+path = find_adapter('code')
+if path:
+    del model; torch.cuda.empty_cache()
+    model = get_model(path)
+    lm_results = run_lm_eval_benchmark(model, tok, tasks=['humaneval'], limit=50)
+    results['code_adapter_humaneval'] = lm_results.get('humaneval', type('obj', (object,), {'score': 0})).score
+    results['delta_code'] = results['code_adapter_humaneval'] - results['baseline_humaneval']
+    print(f'  Code Adapter HumanEval: {results[\"code_adapter_humaneval\"]:.4f} (Δ={results[\"delta_code\"]:.4f})')
 
-if adapter_path:
-    model = PeftModel.from_pretrained(model, adapter_path)
-    model.eval()
-    math_result = evaluate_math(model, tok, 'gsm8k', 200)
-    print(f'Math Adapter GSM8K: {math_result.score:.4f}')
-    results['math_adapter_gsm8k'] = math_result.score
-    results['delta_math'] = math_result.score - base_result.score
-else:
-    print('No math adapter found!')
+# 4. SCIENCE ADAPTER
+print('\\n=== SCIENCE ADAPTER ===')
+path = find_adapter('science')
+if path:
+    del model; torch.cuda.empty_cache()
+    model = get_model(path)
+    lm_results = run_lm_eval_benchmark(model, tok, tasks=['arc_challenge'], limit=100)
+    results['science_adapter_arc'] = lm_results.get('arc_challenge', type('obj', (object,), {'score': 0})).score
+    results['delta_science'] = results['science_adapter_arc'] - results['baseline_arc']
+    print(f'  Science Adapter ARC: {results[\"science_adapter_arc\"]:.4f} (Δ={results[\"delta_science\"]:.4f})')
 
 with open('$PROJECT_ROOT/results/nemotron/evaluation_results.json', 'w') as f:
     json.dump(results, f, indent=2)
 print(f'\\nResults saved to results/nemotron/evaluation_results.json')
-print(f'Results: {json.dumps(results, indent=2)}')
 " 2>&1 | tee "$LOG_DIR/evaluation.log"
 echo "✅ Evaluation complete"
 

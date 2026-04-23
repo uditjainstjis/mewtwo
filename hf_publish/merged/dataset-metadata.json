@@ -1,0 +1,30 @@
+{
+    "id": "uditjain13/nemotron-30b-multi-domain-merged-peft",
+    "title": "Nemotron-30B Multi-Domain Merged PEFT Adapters",
+    "subtitle": "DARE/TIES-merged Math+Code+Science PEFT adapters for cross-domain evaluation.",
+    "description": "## Nemotron-30B Multi-Domain Merged PEFT\nA statically merged LoRA adapter (rank-32) combining Math, Code, and Science fine-tuning domains via DARE/TIES merging technique, built on top of nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16 \u2014 a hybrid Mamba-Attention mixture-of-experts architecture.\nTrained on 1x NVIDIA RTX 5090 (32GB VRAM). Individual domain adapters each trained ~3-8 hours.\n---\n## The Cross-Domain Task-Inversion Phenomenon (\"The Code Paradox\")\nDuring evaluation, we discovered a systematic cross-domain transfer inversion:\n- Math adapter \u2192 best at HumanEval (60%): Rigid proof-formatting generalizes to Python structure\n- Code adapter \u2192 best at MATH-500: Deductive Python reasoning transfers to mathematical logic\n- Merged adapter \u2192 best at MATH-500 (56%): Domain-averaging amplifies mathematical reasoning while preserving structure\n| Benchmark | Base Model | Merged Adapter | Delta |\n|-----------|-----------|----------------|-------|\n| ARC       | 20.0%     | 19.0%          | -1.0% |\n| HumanEval | 50.0%     | 34.0%          | -16.0%|\n| MATH-500  | 41.5%     | 56.0%          | +14.5%|\n| MBPP      | 8.0%      | 0.0%           | -8.0% |\nNote on regressions: HumanEval and MBPP regressions in the merged adapter are expected \u2014 DARE/TIES merging trades per-domain peak performance for generalized mathematical reasoning. Use domain-specific adapters for code-specific tasks.\n---\n## Training Details\n| Parameter | Value |\n|-----------|-------|\n| LoRA Rank (r) | 64 |\n| LoRA Alpha | 128 |\n| Target Modules | q_proj, k_proj, v_proj, o_proj |\n| Learning Rate | 1e-4 |\n| Training Steps | ~1250 per domain |\n| Hardware | 1x RTX 5090 32GB |\n| Merge Method | DARE/TIES |\n| Merge Rank | 32 (compressed from 64) |\nTraining datasets: OpenMathInstruct-2 (Math), sahil2801/CodeAlpaca-20k (Code), allenai/sciq (Science)\n---\n## How to Use\nimport torch, sys\nfrom transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig\nfrom peft import PeftModel\nmodel_id = \"nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16\"\nadapter_id = \"uditjain13/nemotron-30b-multi-domain-merged-peft\"\ntokenizer = AutoTokenizer.from_pretrained(model_id)\nbase_model = AutoModelForCausalLM.from_pretrained(\n    model_id, device_map=\"auto\",\n    quantization_config=BitsAndBytesConfig(load_in_4bit=True)\n)\nmodel = PeftModel.from_pretrained(base_model, adapter_id)\nmodel.eval()\n# Handle Hybrid Mamba Cache\ntry:\n    model_module = sys.modules[base_model.__class__.__module__]\n    HybridMambaAttentionDynamicCache = getattr(model_module, 'HybridMambaAttentionDynamicCache')\n    past_key_values = HybridMambaAttentionDynamicCache(\n        base_model.config, batch_size=1, dtype=torch.bfloat16, device=model.device\n    )\nexcept (AttributeError, KeyError):\n    past_key_values = None  # Fallback for non-Mamba environments\nmessages = [{\"role\": \"user\", \"content\": \"Solve step by step: If x\u00b2 + 5x + 6 = 0, find x.\"}]\nprompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)\ninputs = tokenizer(prompt, return_tensors=\"pt\").to(model.device)\noutputs = model.generate(**inputs, max_new_tokens=512, past_key_values=past_key_values)\nprint(tokenizer.decode(outputs, skip_special_tokens=True))\n---\n## Intended Use\n\u2705 Mathematical reasoning and STEM problem solving\n\u2705 Structured step-by-step analytical tasks\n\u2705 Research on multi-adapter merging and cross-domain transfer\n\u2705 Baseline for dynamic adapter routing research\n\u274c Creative writing or open-ended dialogue\n\u274c Multilingual tasks\n\u274c Production code generation (use math-specific adapter for HumanEval tasks)\n---\n## Related Resources\n- \ud83e\udd17 HuggingFace: [uditjain/nemotron-30b-multi-domain-merged-peft](https://huggingface.co/uditjain/nemotron-30b-multi-domain-merged-peft)\n- \ud83d\udce7 Contact: hello@uditjain.in\n## Citation\n@misc{jain2026nemotronmerged,\n  author = {Udit Jain},\n  title = {Nemotron-30B Multi-Domain Merged PEFT},\n  year = {2026},\n  publisher = {HuggingFace},\n  url = {https://huggingface.co/uditjain/nemotron-30b-multi-domain-merged-peft}\n}\n",
+    "licenses": [
+        {
+            "name": "apache-2.0"
+        }
+    ],
+    "keywords": [
+        "nlp",
+        "deep learning",
+        "transformers",
+        "text generation",
+        "fine-tuning",
+        "peft",
+        "lora",
+        "math reasoning",
+        "code generation",
+        "mamba",
+        "nemotron",
+        "parameter efficient",
+        "model weights",
+        "reasoning"
+    ],
+    "collaborators": [],
+    "data": [],
+    "isPrivate": false
+}

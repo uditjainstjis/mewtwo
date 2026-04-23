@@ -36,9 +36,10 @@ from typing import Optional, Dict, List, Tuple
 from dataclasses import dataclass, field, asdict
 from collections import defaultdict
 
+import os
 import numpy as np
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig, TextStreamer
 from peft import PeftModel
 from tqdm import tqdm
 
@@ -59,13 +60,13 @@ BENCHMARK_SIZES = {
     "humaneval": 164,    # Full HumanEval
 }
 
-# Quick mode for development iteration (still large enough for CI)
+# Quick mode — With KV cache fix, generation is ~5-10s each instead of ~100s
 QUICK_SIZES = {
-    "gsm8k": 300,
-    "math500": 200,
-    "arc": 300,
-    "mmlu": 1000,
-    "humaneval": 164,    # Already small
+    "gsm8k": 200,        # ~15-30 min with cache (was ~6 hours without)
+    "math500": 200,      # ~15-30 min with cache
+    "arc": 300,          # Very fast with max_new_tokens=64
+    "mmlu": 500,         # Already fast (8 tokens each)
+    "humaneval": 100,    # Code generation
 }
 
 NUM_BOOTSTRAP = 1000
@@ -217,7 +218,7 @@ def load_model_4bit(model_path: str):
             bnb_4bit_use_double_quant=True,
             bnb_4bit_quant_type="nf4",
         ),
-        device_map="auto",
+        device_map={"": 0},
         trust_remote_code=True,
         torch_dtype=torch.bfloat16,
     )
@@ -230,13 +231,33 @@ def generate_response(model, tokenizer, prompt_text: str, max_new_tokens: int = 
     inputs = tokenizer(prompt_text, return_tensors="pt", truncation=True, max_length=1536)
     inputs = {k: v.to(model.device) for k, v in inputs.items()}
 
+    # Nemotron-H specific: HybridMambaAttentionDynamicCache is required for KV cache
+    past_key_values = None
+    try:
+        # Check if this is Nemotron by looking at the config
+        if "NemotronH" in str(type(model.config)) or (hasattr(model.config, "hybrid_override_pattern")):
+            from models.nemotron.modeling_nemotron_h import HybridMambaAttentionDynamicCache
+            past_key_values = HybridMambaAttentionDynamicCache(
+                model.config, 
+                batch_size=inputs["input_ids"].shape[0], 
+                device=model.device,
+                dtype=model.dtype
+            )
+            logger.debug("Using HybridMambaAttentionDynamicCache for generation")
+    except Exception as e:
+        logger.warning(f"Failed to initialize specialized Nemotron cache: {e}. Falling back to default.")
+
     with torch.no_grad():
+        streamer = TextStreamer(tokenizer, skip_prompt=True) if os.environ.get("DEBUG_GEN", "0") == "1" else None
         output_ids = model.generate(
             **inputs,
             max_new_tokens=max_new_tokens,
             temperature=0.0,
             do_sample=False,
             pad_token_id=tokenizer.pad_token_id,
+            use_cache=True,
+            past_key_values=past_key_values,
+            streamer=streamer,
         )
 
     return tokenizer.decode(

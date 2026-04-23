@@ -1,0 +1,13 @@
+{
+  "id": "uditjain13/nemotron-30b-peft-cross-domain-task-inversion",
+  "title": "Nemotron 30B PEFT Cross Domain Task Inversion",
+  "code_file": "code_paradox_vis.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "true",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": []
+}

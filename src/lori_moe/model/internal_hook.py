@@ -164,10 +164,13 @@ class NemotronRouterHook:
         """Get all captured routing signals, keyed by layer name."""
         return self.signals
 
-    def get_aggregated_signal(self) -> Optional[Dict[str, torch.Tensor]]:
+    def get_aggregated_signal(self, batch_size: Optional[int] = None) -> Optional[Dict[str, torch.Tensor]]:
         """
         Aggregate routing signals across all MoE layers into a single
         conditioning tensor suitable for GC-LoRI.
+
+        Args:
+            batch_size: Optional expected batch size to reshape flattened signals.
 
         Returns:
             Dict with:
@@ -186,7 +189,13 @@ class NemotronRouterHook:
             w = sig["top_k_weights"]
             e = sig["entropy"]
 
-            # Ensure consistent batch/seq dims
+            # Handle flattened MoE signals (B*S, K) -> (B, S, K)
+            if batch_size is not None and w.dim() == 2 and w.shape[0] != batch_size:
+                S = w.shape[0] // batch_size
+                w = w.view(batch_size, S, -1)
+                e = e.view(batch_size, S)
+            
+            # Ensure consistent batch/seq dims for raw unflattened signals
             if w.dim() == 2:
                 w = w.unsqueeze(0)  # add batch dim
             if e.dim() == 1:

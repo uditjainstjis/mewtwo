@@ -1,3 +1,6 @@
+import os
+os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
 """
 LoRI Adapter Training Script
 
@@ -19,7 +22,6 @@ Usage:
         --batch_size 8 \
         --lr 2e-4
 """
-import os
 import sys
 import json
 import time
@@ -277,8 +279,7 @@ def create_lori_model(
     This gives us PEFT compatibility while enforcing LoRI constraints.
     """
     if target_modules is None:
-        target_modules = ["q_proj", "k_proj", "v_proj", "o_proj",
-                         "gate_proj", "up_proj", "down_proj"]
+        target_modules = ["q_proj", "k_proj", "v_proj", "o_proj"] # No MoE gate/router targets per user instruction
 
     logger.info(f"Loading base model: {base_model_name}")
     tokenizer = AutoTokenizer.from_pretrained(
@@ -291,7 +292,7 @@ def create_lori_model(
         "torch_dtype": torch.bfloat16,
         "device_map": "auto",
         "trust_remote_code": True,
-        "attn_implementation": "sdpa",
+        "attn_implementation": "eager",
     }
     
     if use_4bit:
@@ -308,7 +309,14 @@ def create_lori_model(
         base_model_name,
         **kwargs
     )
-    model.config.use_cache = False
+    
+    from peft import prepare_model_for_kbit_training
+    model = prepare_model_for_kbit_training(
+        model,
+        use_gradient_checkpointing=True,
+        gradient_checkpointing_kwargs={"use_reentrant": False}
+    )
+    
 
     # Apply LoRA
     lora_config = LoraConfig(
@@ -323,10 +331,11 @@ def create_lori_model(
     
     if use_gradient_checkpointing:
         logger.info("Enabling gradient checkpointing (non-reentrant for LoRI compatibility).")
-        model.enable_input_require_grads()  # Required when some params are frozen
+        model.enable_input_require_grads()  # Must come AFTER get_peft_model
         model.gradient_checkpointing_enable(
             gradient_checkpointing_kwargs={"use_reentrant": False}
         )
+        model.config.use_cache = False  # Mutually exclusive with checkpointing
 
     # ─── LoRI Modification: Freeze B matrices and share them ───────────────
     logger.info("Applying LoRI constraints: freezing B, sharing projection...")
@@ -512,6 +521,7 @@ def train_adapter(
     total_loss = 0
     best_loss = float("inf")
     start_time = time.time()
+    initial_global_step = 0
     training_log = []
 
     def persist_training_snapshot(
@@ -566,6 +576,19 @@ def train_adapter(
     signal.signal(signal.SIGINT, handle_interrupt)
     signal.signal(signal.SIGTERM, handle_interrupt)
 
+    def emergency_save(signum, frame):
+        logger.info(f"\n[EMERGENCY SAVE] SIGUSR1 received at step {global_step}. Saving checkpoint...")
+        emergency_path = output_path / f"emergency-manual-step-{global_step}"
+        persist_training_snapshot(
+            emergency_path,
+            interrupted_run=False,
+            save_tokenizer=True,
+            include_full_log=False,
+        )
+        logger.info(f"[EMERGENCY SAVE] Done. Training continues.")
+
+    signal.signal(signal.SIGUSR1, emergency_save)
+
     # ── Auto-Resume Logic ──
     latest_ckpt = None
     max_step_found = -1
@@ -584,7 +607,7 @@ def train_adapter(
     if latest_ckpt:
         logger.info(f"\n{'*'*60}")
         logger.info(f"⚡ AUTO-RESUME TRIGGERED ⚡")
-        logger.info(f"Found checkpoint: {latest_ckpt.name}")
+        logger.info(f"Found latest checkpoint: {latest_ckpt.name}. Resuming from global_step {max_step_found}.")
         
         # Load weights
         from peft import PeftModel
@@ -609,7 +632,10 @@ def train_adapter(
         logger.info(f"{'*'*60}\n")
     else:
         logger.info("No checkpoint found. Starting from Step 0.")
+    
+    initial_global_step = global_step
 
+    train_model = model
     if compile_mode:
         try:
             train_model = torch.compile(model, mode=compile_mode)
@@ -646,6 +672,7 @@ def train_adapter(
                     input_ids=input_ids,
                     attention_mask=attention_mask,
                     labels=labels,
+                    use_cache=False,
                 )
                 loss = outputs.loss / grad_accum
 
@@ -682,7 +709,8 @@ def train_adapter(
                     if global_step % log_every == 0:
                         avg_loss = epoch_loss / epoch_steps
                         elapsed = time.time() - start_time
-                        eta = (elapsed / global_step) * (total_steps - global_step)
+                        steps_completed = global_step - initial_global_step + 1e-6
+                        eta = (elapsed / steps_completed) * (total_steps - global_step)
                         gpu_mem = torch.cuda.memory_allocated() / 1e9
                         lr_current = scheduler.get_last_lr()[0]
 
@@ -723,6 +751,8 @@ def train_adapter(
                             include_full_log=False,
                         )
                         logger.info(f"Checkpoint saved: {ckpt_path}")
+                        with open(output_path / ".latest_checkpoint", "w") as f:
+                            f.write(ckpt_path.name)
 
                     if interrupted:
                         interrupt_path = output_path / f"interrupt-step-{global_step}"

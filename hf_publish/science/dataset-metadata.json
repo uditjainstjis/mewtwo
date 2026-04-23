@@ -1,0 +1,30 @@
+{
+    "id": "uditjain13/nemotron-30b-science-expert-peft",
+    "title": "Nemotron-30B Science Expert PEFT Adapter",
+    "subtitle": "LoRA Science Expert Adapter for Nemotron-30B evaluating context bounds.",
+    "description": "## Nemotron-30B Science Expert PEFT Adapter\nA domain-expert LoRA adapter (rank-64) fine-tuned specifically for the target domain on allenai/sciq, built on top of nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16 \u2014 a hybrid Mamba-Attention mixture-of-experts architecture.\nTrained on 1x NVIDIA RTX 5090 (32GB VRAM) for ~8.1 hours.\n---\n## The Cross-Domain Task-Inversion Phenomenon (\"The Code Paradox\")\nDuring evaluation, we discovered a systematic cross-domain transfer inversion while researching dynamic token routing:\n- **Science adapter**: Tests raw contextual extraction capabilities separated from rigid logic chains.\n\n| Benchmark | Base Model | Expert Adapter | Delta |\n|-----------|-----------|----------------|-------|\n| ARC       | 20.0%     | 21.0%          | 1.0% |\n| HumanEval | 50.0%     | 1.0%          | -49.0%|\n| MATH-500  | 41.5%     | 55.00000000000001%          | 13.500000000000007%|\n| MBPP      | 8.0%      | 0.0%           | -8.0% |\n\n---\n## Training Details\n| Parameter | Value |\n|-----------|-------|\n| LoRA Rank (r) | 64 |\n| LoRA Alpha | 128 |\n| Target Modules | q_proj, k_proj, v_proj, o_proj |\n| Learning Rate | 1e-4 |\n| Training Steps | 1250 |\n| Hardware | 1x RTX 5090 32GB |\n\nTraining dataset: allenai/sciq\n---\n## How to Use\n```python\nimport torch, sys\nfrom transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig\nfrom peft import PeftModel\n\nmodel_id = \"nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16\"\nadapter_id = \"uditjain13/nemotron-30b-science-expert-peft\"\n\ntokenizer = AutoTokenizer.from_pretrained(model_id)\nbase_model = AutoModelForCausalLM.from_pretrained(\n    model_id, device_map=\"auto\",\n    quantization_config=BitsAndBytesConfig(load_in_4bit=True)\n)\n\nmodel = PeftModel.from_pretrained(base_model, adapter_id.replace(\"uditjain13\", \"uditjain\"))\nmodel.eval()\n\n# Handle Hybrid Mamba Cache\ntry:\n    model_module = sys.modules[base_model.__class__.__module__]\n    HybridMambaAttentionDynamicCache = getattr(model_module, 'HybridMambaAttentionDynamicCache')\n    past_key_values = HybridMambaAttentionDynamicCache(\n        base_model.config, batch_size=1, dtype=torch.bfloat16, device=model.device\n    )\nexcept (AttributeError, KeyError):\n    past_key_values = None  # Fallback for non-Mamba environments\n\nmessages = [{\"role\": \"user\", \"content\": \"Solve step by step: If x\u00b2 + 5x + 6 = 0, find x.\"}]\nprompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)\ninputs = tokenizer(prompt, return_tensors=\"pt\").to(model.device)\n\noutputs = model.generate(**inputs, max_new_tokens=512, past_key_values=past_key_values)\nprint(tokenizer.decode(outputs[0][inputs['input_ids'].shape[1]:], skip_special_tokens=True))\n```\n---\n## Related Resources\n- \ud83d\udce7 Contact: hello@uditjain.in\n",
+    "licenses": [
+        {
+            "name": "apache-2.0"
+        }
+    ],
+    "keywords": [
+        "nlp",
+        "deep learning",
+        "transformers",
+        "text generation",
+        "fine-tuning",
+        "peft",
+        "lora",
+        "math reasoning",
+        "code generation",
+        "mamba",
+        "nemotron",
+        "parameter efficient",
+        "model weights",
+        "reasoning"
+    ],
+    "collaborators": [],
+    "data": [],
+    "isPrivate": false
+}

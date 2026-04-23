@@ -162,8 +162,6 @@ TEST_PROMPTS = [
     {"text": "Solve step by step: If 3x + 7 = 22, what is x?", "domain": "math"},
     {"text": "Write a Python function to check if a number is prime.", "domain": "code"},
     {"text": "Explain the mechanism of CRISPR-Cas9 gene editing.", "domain": "science"},
-    {"text": "A patient presents with chest pain, shortness of breath, and elevated troponin. What is the differential diagnosis?", "domain": "medical"},
-    {"text": "A contract states 'time is of the essence.' The seller delivers 2 days late. Can the buyer terminate? Analyze.", "domain": "legal"},
     {"text": "Write a Python function that solves the quadratic equation and explains each step scientifically.", "domain": "mixed_math_code_science"},
 ]
 

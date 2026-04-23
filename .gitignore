@@ -51,8 +51,17 @@ checkpoints/
 models/
 *.pt
 *.pth
+# Documents and Archives
+*.pdf
+*.zip
 *.log
+*.pid
 .venv/
 data/training/
 data/eval/
 data/synthetic_geometry/
+data/lori_moe/
+data/nemotron/
+data/router_reasoning_sft_5000/
+data/router_reasoning_dpo_5000/
+data/router_synthetic_routing_5000.json

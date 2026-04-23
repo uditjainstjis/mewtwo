@@ -126,10 +126,10 @@ class GateConditionedRouter(nn.Module):
         entropy = internal_routing["entropy"]  # (B, S)
 
         # Pad/truncate top_k_weights to expected internal_top_k
-        curr_k = top_k_weights.shape[-1]
+        curr_b, curr_s, curr_k = top_k_weights.shape
         if curr_k < self.internal_top_k:
             padding = torch.zeros(
-                B, S, self.internal_top_k - curr_k,
+                curr_b, curr_s, self.internal_top_k - curr_k,
                 device=top_k_weights.device, dtype=top_k_weights.dtype
             )
             top_k_weights = torch.cat([top_k_weights, padding], dim=-1)
