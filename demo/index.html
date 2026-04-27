@@ -35,7 +35,7 @@
       <p class="hero-desc">Synapta hot-swaps specialized domain adapters <em>mid-sentence, token by token</em> — boosting reasoning, code, and science performance by up to <strong>54%</strong> with zero cross-domain interference.</p>
       <div class="stats-row">
         <div class="stat"><div class="stat-value delta">+35%</div><div class="stat-label">MATH-500 (relative)</div><div class="stat-sub">41.5% → 56.0% accuracy</div></div>
-        <div class="stat"><div class="stat-value delta">+54%</div><div class="stat-label">HumanEval (relative)</div><div class="stat-sub">50% → 77% pass@1</div></div>
+        <div class="stat"><div class="stat-value delta">+20%</div><div class="stat-label">HumanEval (relative)</div><div class="stat-sub">50% → 60% pass@1</div></div>
         <div class="stat"><div class="stat-value delta">+55%</div><div class="stat-label">ARC Science (relative)</div><div class="stat-sub">20% → 31% accuracy</div></div>
         <div class="stat"><div class="stat-value swap">316ms</div><div class="stat-label">Cold-Swap Latency</div><div class="stat-sub">Hot-swap in ~0ms</div></div>
         <div class="stat"><div class="stat-value orth">&lt;0.01</div><div class="stat-label">Cross-Domain Interference</div><div class="stat-sub">Structurally eliminated</div></div>
@@ -61,9 +61,17 @@
             <button class="expert-btn active" data-expert="code" onclick="selectExpert(this)" style="color:#00d4aa;border-color:rgba(0,212,170,0.3);">⚡ Code</button>
             <button class="expert-btn" data-expert="science" onclick="selectExpert(this)" style="color:#f59e0b;border-color:rgba(245,158,11,0.3);">🔬 Science</button>
           </div>
-          <div class="prompt-row">
-            <textarea class="prompt-input" id="promptInput" placeholder="Ask anything — math proofs, Python code, science questions, or mix them all..." rows="2"></textarea>
-            <button class="btn-generate" id="btnGenerate" onclick="generate()">Generate →</button>
+          <div class="prompt-row" style="flex-direction: column; align-items: stretch;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <label style="display: flex; align-items: center; cursor: pointer; font-size: 14px; color: var(--text-muted);">
+                <input type="checkbox" id="thinkingToggle" checked style="margin-right: 8px;">
+                Enable Chain of Thought (Thinking)
+              </label>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: flex-start;">
+              <textarea class="prompt-input" id="promptInput" placeholder="Ask anything — math proofs, Python code, science questions, or mix them all..." rows="2"></textarea>
+              <button class="btn-generate" id="btnGenerate" onclick="generate()">Generate →</button>
+            </div>
           </div>
         </div>
       </div>
@@ -135,9 +143,9 @@
           <p class="bench-subtitle">Code generation pass@1 (100 problems)</p>
           <div class="bench-compare">
             <div class="bench-before"><span class="bench-label">Naked 30B</span><div class="bench-bar-wrap"><div class="bench-bar" style="--pct:50%;--clr:var(--text-muted);" data-val="50.0%"></div></div></div>
-            <div class="bench-after"><span class="bench-label">+ Synapta</span><div class="bench-bar-wrap"><div class="bench-bar" style="--pct:77%;--clr:var(--accent-code);" data-val="77.0%"></div></div></div>
+            <div class="bench-after"><span class="bench-label">+ Synapta</span><div class="bench-bar-wrap"><div class="bench-bar" style="--pct:60%;--clr:var(--accent-code);" data-val="60.0%"></div></div></div>
           </div>
-          <div class="bench-delta">+54% relative improvement (27 percentage points)</div>
+          <div class="bench-delta">+20% relative improvement (10 percentage points)</div>
         </div>
         <div class="bench-card">
           <div class="bench-icon">🔬</div>
@@ -151,7 +159,14 @@
         </div>
       </div>
 
-      <div class="interference-card card">
+    <!-- STATIC MERGE DESTRUCTION -->
+    <section id="merging-vs-routing" style="margin-top: 80px; margin-bottom: 80px;">
+      <div class="section-label">The Fatal Flaw of Static Merging</div>
+      <h2 class="section-title">Static Merging <span style="color:#ef4444;">Destroys</span> Intelligence.<br>Dynamic Routing <span style="color:#00d4aa;">Preserves</span> It.</h2>
+      <p class="section-desc">Traditional PEFT merging (DARE/TIES) causes catastrophic parameter collision. In our 30B tests, statically merging Math, Code, and Science adapters <strong>collapsed ARC science scores to 19%</strong> — worse than the naked base model (20%). Synapta's token-level routing preserves peak expert performance (31%) by keeping weights separated and hot-swapping pointers at O(1) speed.</p>
+    </section>
+
+    <div class="interference-card card">
         <div class="card-body" style="text-align:center;">
           <h3 style="margin-bottom:8px;">Zero Catastrophic Forgetting — Proven</h3>
           <p class="section-desc" style="margin-bottom:20px;">5 domain adapters trained to full convergence on Qwen2.5-1.5B. Average cross-domain cosine similarity: <strong style="color:var(--accent-code);font-family:'JetBrains Mono',monospace;">0.0068</strong>. Same frozen-B architecture applies to Nemotron.</p>

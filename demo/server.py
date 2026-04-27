@@ -7,6 +7,7 @@ router. Serves a WebSocket endpoint that streams real tokens with real routing d
 """
 
 import os
+import re
 import sys
 import json
 import time
@@ -41,6 +42,106 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 logger = logging.getLogger("synapta-server")
+
+
+def _task_style(prompt: str) -> tuple[str, Optional[str]]:
+    text = prompt.lower()
+    if "answer with only one letter" in text:
+        return "choice", None
+    if "\\boxed{" in prompt or "solve the following math problem" in text or "compute\\n\\[" in text:
+        return "math", "math"
+    if "```python" in text or "complete the code" in text or "write a function" in text or "\ndef " in text:
+        return "code", "code"
+    if "prove" in text or "derive" in text or "equation" in text:
+        return "math", "math"
+    if "algorithm" in text or "time complexity" in text:
+        return "code", "code"
+    if any(word in text for word in ["physics", "chemistry", "electrical", "thermal", "serdes", "bandwidth"]):
+        return "science", "science"
+    return "general", None
+
+
+def _first_complete_boxed_end(text: str) -> Optional[int]:
+    start = text.find("\\boxed{")
+    if start == -1:
+        return None
+
+    depth = 0
+    for idx in range(start, len(text)):
+        ch = text[idx]
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return idx + 1
+    return None
+
+
+def _first_complete_code_fence_end(text: str) -> Optional[int]:
+    start = text.find("```")
+    if start == -1:
+        return None
+    end = text.find("```", start + 3)
+    if end == -1:
+        return None
+    return end + 3
+
+
+def _trim_at_first_marker(text: str, markers: list[str]) -> tuple[str, bool]:
+    cut = None
+    for marker in markers:
+        idx = text.find(marker)
+        if idx != -1 and (cut is None or idx < cut):
+            cut = idx
+    if cut is None:
+        return text, False
+    return text[:cut].rstrip(), True
+
+
+def _should_stop_generation(prompt: str, text: str, thinking: bool) -> tuple[str, bool]:
+    if not thinking:
+        style, _ = _task_style(prompt)
+        trimmed, hit_marker = _trim_at_first_marker(
+            text,
+            ["<think>", "</think>", "\nUser:", "\nSystem:", "User:", "System:"],
+        )
+        if hit_marker:
+            return trimmed, True
+
+        if style == "math" and "\\boxed{" in prompt:
+            boxed_end = _first_complete_boxed_end(text)
+            if boxed_end is not None:
+                return text[:boxed_end].rstrip(), True
+
+        if style == "choice":
+            match = re.search(r"\b([ABCD])\b", text)
+            if match:
+                return match.group(1), True
+
+        if style == "code":
+            fence_end = _first_complete_code_fence_end(text)
+            if fence_end is not None:
+                return text[:fence_end].rstrip(), True
+
+    return text, False
+
+
+def _apply_hint_to_weights(
+    weights: dict[str, float],
+    hint_domain: Optional[str],
+    hint_strength: float,
+) -> tuple[str, dict[str, float]]:
+    if not hint_domain or hint_domain not in weights or hint_strength <= 0:
+        selected = max(weights, key=weights.get)
+        return selected, weights
+
+    adjusted = dict(weights)
+    adjusted[hint_domain] += hint_strength
+    total = sum(adjusted.values()) or 1.0
+    adjusted = {k: v / total for k, v in adjusted.items()}
+    selected = max(adjusted, key=adjusted.get)
+    return selected, adjusted
 
 # ── Router (Neural MLP on Layer 32) ──
 class NeuralMLPRouter(nn.Module):
@@ -87,6 +188,7 @@ class SynaptaEngine:
         self.ready = False
         self.current_adapter = None
         self.load_time = 0
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     def load(self):
         t0 = time.time()
@@ -141,9 +243,9 @@ class SynaptaEngine:
         self.model.eval()
 
         # Router
-        self.router = NeuralMLPRouter(hidden_dim=2688, num_domains=3).to(self.model.device)
+        self.router = NeuralMLPRouter(hidden_dim=2688, num_domains=3).to(self.device)
         if NEURAL_ROUTER_PATH.exists():
-            ckpt = torch.load(NEURAL_ROUTER_PATH, map_location=self.model.device, weights_only=True)
+            ckpt = torch.load(NEURAL_ROUTER_PATH, map_location=self.device, weights_only=True)
             self.router.load_state_dict(ckpt if 'state_dict' not in ckpt else ckpt['state_dict'], strict=False)
             logger.info("✅ Loaded trained Neural MLP Router")
         else:
@@ -167,27 +269,43 @@ class SynaptaEngine:
                     attention_mask=attention_mask,
                     output_hidden_states=True,
                 )
-        # 33rd item in tuple is layer 32 output (index 0 is embeddings)
-        hidden = outputs.hidden_states[32][:, -1, :]  
+        # index 0 is embeddings, so index 33 is output of layer 32
+        hidden = outputs.hidden_states[33][:, -1, :]  
         return hidden.squeeze(0)
 
     def set_adapter(self, domain: str):
         if domain == self.current_adapter:
             return
+        if domain == "none":
+            self.model.base_model.disable_adapter_layers()
+            if hasattr(self.model, "_adapters_disabled"):
+                self.model._adapters_disabled = True
+            self.current_adapter = "none"
+            return
         try:
+            self.model.base_model.enable_adapter_layers()
+            if hasattr(self.model, "_adapters_disabled"):
+                self.model._adapters_disabled = False
             self.model.set_adapter(domain)
             self.current_adapter = domain
         except Exception as e:
             logger.warning(f"Failed to set adapter {domain}: {e}")
 
-    def format_prompt(self, user_text: str) -> str:
-        messages = [{"role": "user", "content": user_text}]
-        try:
-            return self.tokenizer.apply_chat_template(
-                messages, tokenize=False, add_generation_prompt=True
-            )
-        except Exception:
-            return f"<extra_id_0>System\n\n<extra_id_1>User\n{user_text}\n<extra_id_1>Assistant\n"
+    def format_prompt(self, user_text: str, thinking: bool = False) -> str:
+        # Raw completion prompts work better with the non-instruct base model than
+        # chat transcript wrappers, which trigger User:/System: continuation.
+        style, _ = _task_style(user_text)
+        if thinking:
+            return f"{user_text.rstrip()}\n\n<think>"
+        if style == "math":
+            suffix = "\nRespond with only the final answer in \\boxed{}.\n"
+        elif style == "choice":
+            suffix = "\nRespond with exactly one letter: A, B, C, or D.\n"
+        elif style == "code":
+            suffix = "\nReturn only code. Do not explain.\n"
+        else:
+            suffix = "\nRespond directly with no meta-commentary.\n"
+        return user_text.rstrip() + suffix
 
 engine = SynaptaEngine()
 
@@ -229,6 +347,8 @@ async def status():
         "adapters": DOMAINS,
         "vram_gb": round(torch.cuda.memory_allocated() / 1e9, 1) if torch.cuda.is_available() else 0,
         "load_time_s": round(engine.load_time, 1),
+        "device": str(engine.device),
+        "pid": os.getpid(),
     }
 
 @app.websocket("/ws/generate")
@@ -241,6 +361,18 @@ async def websocket_generate(ws: WebSocket):
             mode = data.get("mode", "routed")
             adapter = data.get("adapter", "code")
             max_tokens = min(data.get("max_tokens", 512), 1024)
+            thinking = data.get("thinking", False)
+            do_sample = bool(data.get("do_sample", True))
+            temperature = float(data.get("temperature", 0.6))
+            top_p = float(data.get("top_p", 0.9))
+            repetition_penalty = float(data.get("repetition_penalty", 1.1))
+            chunk_size = max(1, min(int(data.get("chunk_size", CHUNK_SIZE)), 128))
+            routing_interval = max(1, min(int(data.get("routing_interval", chunk_size)), 256))
+            min_tokens_before_swap = max(0, min(int(data.get("min_tokens_before_swap", routing_interval)), 512))
+            domain_hint_strength = max(0.0, min(float(data.get("domain_hint_strength", 0.18)), 1.0))
+            swap_margin = max(0.0, min(float(data.get("swap_margin", 0.2)), 1.0))
+            lock_prompt_domain = bool(data.get("lock_prompt_domain", True))
+            prompt_anchor = bool(data.get("prompt_anchor", True))
 
             if not prompt or not engine.ready:
                 await ws.send_json({"type": "error", "message": "Not ready or empty prompt"})
@@ -250,7 +382,25 @@ async def websocket_generate(ws: WebSocket):
             msg_queue = queue.Queue()
 
             def run_generation():
-                _generate_sync(msg_queue, prompt, mode, adapter, max_tokens)
+                _generate_sync(
+                    msg_queue=msg_queue,
+                    prompt=prompt,
+                    mode=mode,
+                    adapter=adapter,
+                    max_tokens=max_tokens,
+                    thinking=thinking,
+                    do_sample=do_sample,
+                    temperature=temperature,
+                    top_p=top_p,
+                    repetition_penalty=repetition_penalty,
+                    chunk_size=chunk_size,
+                    routing_interval=routing_interval,
+                    min_tokens_before_swap=min_tokens_before_swap,
+                    domain_hint_strength=domain_hint_strength,
+                    swap_margin=swap_margin,
+                    lock_prompt_domain=lock_prompt_domain,
+                    prompt_anchor=prompt_anchor,
+                )
 
             loop = asyncio.get_event_loop()
             gen_task = loop.run_in_executor(None, run_generation)
@@ -281,15 +431,43 @@ async def websocket_generate(ws: WebSocket):
         logger.error(f"WebSocket error: {e}")
 
 
-def _generate_sync(msg_queue, prompt: str, mode: str, adapter: str, max_tokens: int):
+def _generate_sync(
+    msg_queue,
+    prompt: str,
+    mode: str,
+    adapter: str,
+    max_tokens: int,
+    thinking: bool,
+    do_sample: bool,
+    temperature: float,
+    top_p: float,
+    repetition_penalty: float,
+    chunk_size: int,
+    routing_interval: int,
+    min_tokens_before_swap: int,
+    domain_hint_strength: float,
+    swap_margin: float,
+    lock_prompt_domain: bool,
+    prompt_anchor: bool,
+):
     t0 = time.time()
     try:
-        formatted = engine.format_prompt(prompt)
-        input_ids = engine.tokenizer.encode(formatted, return_tensors="pt").to("cuda")
+        formatted = engine.format_prompt(prompt, thinking)
+        encoded = engine.tokenizer(formatted, return_tensors="pt")
+        input_ids = encoded["input_ids"].to(engine.device)
+        attention_mask = encoded["attention_mask"].to(engine.device)
+        task_style, hinted_domain = _task_style(prompt)
+        prompt_locked_domain = hinted_domain if lock_prompt_domain else None
 
         if mode == "routed":
-            hidden = engine.get_hidden_state_layer32(input_ids)
-            current_domain, weights = engine.router.route(hidden)
+            # INITIAL ROUTING: Use ONLY the raw user prompt without System Instruction pollution
+            # to get a clean, unbiased classification of the user's intent.
+            clean_prompt_ids = engine.tokenizer.encode(prompt, return_tensors="pt").to(engine.device)
+            clean_hidden = engine.get_hidden_state_layer32(clean_prompt_ids)
+            current_domain, weights = engine.router.route(clean_hidden)
+            if prompt_anchor:
+                current_domain, weights = _apply_hint_to_weights(weights, hinted_domain, domain_hint_strength)
+            
             engine.set_adapter(current_domain)
             msg_queue.put({"type": "route", "domain": current_domain, "weights": {k: round(v, 4) for k, v in weights.items()}})
         elif mode == "single":
@@ -302,22 +480,51 @@ def _generate_sync(msg_queue, prompt: str, mode: str, adapter: str, max_tokens: 
 
         total_generated = 0
         swap_count = 0
+        output_text = ""
+        tokens_since_route = 0
+
+        code_bans = [
+            "####",
+            "\\boxed",
+            "<think>",
+            "</think>",
+            "\nTask:",
+            "\nQuestion:",
+            "\nUser:",
+            "\nSystem:",
+        ]
+        general_bans = [
+            "<think>",
+            "</think>",
+            "\nTask:",
+            "\nQuestion:",
+            "\nUser:",
+            "\nSystem:",
+        ]
+        bad_words_code = [engine.tokenizer.encode(w, add_special_tokens=False) for w in code_bans]
+        bad_words_general = [engine.tokenizer.encode(w, add_special_tokens=False) for w in general_bans]
 
         while total_generated < max_tokens:
-            chunk_size = min(CHUNK_SIZE, max_tokens - total_generated)
+            current_chunk = min(chunk_size, max_tokens - total_generated)
 
             with torch.no_grad():
+                bad_words = bad_words_code if current_domain == "code" else bad_words_general
+                gen_kwargs = {
+                    "max_new_tokens": current_chunk,
+                    "do_sample": do_sample,
+                    "pad_token_id": engine.tokenizer.pad_token_id,
+                    "bad_words_ids": bad_words,
+                    "repetition_penalty": repetition_penalty,
+                    "attention_mask": attention_mask,
+                }
+                if do_sample:
+                    gen_kwargs["temperature"] = temperature
+                    gen_kwargs["top_p"] = top_p
                 if mode == "naked":
                     with engine.model.disable_adapter():
-                        output = engine.model.generate(
-                            input_ids, max_new_tokens=chunk_size, do_sample=True, temperature=0.6,
-                            top_p=0.9, pad_token_id=engine.tokenizer.pad_token_id,
-                        )
+                        output = engine.model.generate(input_ids, **gen_kwargs)
                 else:
-                    output = engine.model.generate(
-                        input_ids, max_new_tokens=chunk_size, do_sample=True, temperature=0.6,
-                        top_p=0.9, pad_token_id=engine.tokenizer.pad_token_id,
-                    )
+                    output = engine.model.generate(input_ids, **gen_kwargs)
 
             new_token_ids = output[0][input_ids.shape[1]:]
             if len(new_token_ids) == 0:
@@ -330,7 +537,15 @@ def _generate_sync(msg_queue, prompt: str, mode: str, adapter: str, max_tokens: 
                     break
 
                 token_text = engine.tokenizer.decode([tid.item()], skip_special_tokens=False)
+                output_text += token_text
+
+                output_text, should_stop = _should_stop_generation(prompt, output_text, thinking)
+                if should_stop:
+                    hit_eos = True
+                    break
+
                 total_generated += 1
+                tokens_since_route += 1
                 elapsed = time.time() - t0
                 
                 msg_queue.put({
@@ -342,25 +557,58 @@ def _generate_sync(msg_queue, prompt: str, mode: str, adapter: str, max_tokens: 
                 break
 
             input_ids = output
+            attention_mask = torch.ones_like(input_ids, device=input_ids.device)
 
-            if mode == "routed" and total_generated < max_tokens:
+            if mode == "routed" and total_generated < max_tokens and tokens_since_route >= routing_interval:
+                tokens_since_route = 0
                 hidden = engine.get_hidden_state_layer32(input_ids)
                 new_domain, new_weights = engine.router.route(hidden)
+                if prompt_anchor:
+                    new_domain, new_weights = _apply_hint_to_weights(new_weights, hinted_domain, domain_hint_strength)
+
+                max_conf = max(new_weights.values()) if new_weights else 0
+                
+                # ENTROPY GATE HYSTERESIS:
+                # In a 3-way Softmax, max_conf is guaranteed to be >= 0.33.
+                # If currently routing, require conf to drop below 0.50 to become none (low confidence).
+                # If currently none, require conf to exceed 0.70 to become routed (high confidence).
+                if current_domain == "none":
+                    if max_conf < 0.70:
+                        new_domain = "none"
+                else:
+                    if max_conf < 0.50:
+                        new_domain = current_domain if prompt_locked_domain else "none"
+
+                if prompt_locked_domain and current_domain == prompt_locked_domain and total_generated < max(min_tokens_before_swap, routing_interval):
+                    new_domain = current_domain
 
                 if new_domain != current_domain:
-                    swap_count += 1
-                    msg_queue.put({
-                        "type": "swap", "from": current_domain, "to": new_domain,
-                        "at_token": total_generated, "weights": {k: round(v, 4) for k, v in new_weights.items()}
-                    })
-                    current_domain = new_domain
-                    engine.set_adapter(current_domain)
+                    # Interspecial hysteresis (e.g. math -> code)
+                    curr_weight = new_weights.get(current_domain, 0.0)
+                    new_weight = new_weights.get(new_domain, 0.0)
+                    if prompt_locked_domain and current_domain == prompt_locked_domain and new_domain != prompt_locked_domain:
+                        if total_generated < min_tokens_before_swap:
+                            new_domain = current_domain
+                        elif new_weight <= curr_weight + max(swap_margin, 0.25):
+                            new_domain = current_domain
+
+                    if new_domain != current_domain and (new_domain == "none" or new_weight > curr_weight + swap_margin):
+                        swap_count += 1
+                        msg_queue.put({
+                            "type": "swap", "from": current_domain, "to": new_domain,
+                            "at_token": total_generated, "weights": {k: round(v, 4) for k, v in new_weights.items()}
+                        })
+                        current_domain = new_domain
+                        engine.set_adapter(current_domain)
 
         elapsed = time.time() - t0
         msg_queue.put({
             "type": "done", "total_tokens": total_generated, "swaps": swap_count,
             "elapsed_s": round(elapsed, 2), "final_domain": current_domain,
             "speed": round(total_generated / max(elapsed, 0.01), 1),
+            "full_text": output_text,
+            "mode": mode,
+            "adapter": adapter,
         })
 
     except Exception as e:

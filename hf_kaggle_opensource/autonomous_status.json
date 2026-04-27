@@ -1,0 +1,29 @@
+{
+  "targets": [
+    "qwen_0.8b_math_DPO_rank1",
+    "qwen_0.8b_math_DPO_rank2",
+    "qwen_0.8b_math_DPO_rank8",
+    "qwen_0.8b_math_DPO_rank128",
+    "qwen_0.8b_math_DPO_rank1024",
+    "qwen_0.8b_math_DPO_rank3072",
+    "nemotron_4b_math_DPO_rank128",
+    "nemotron_4b_math_DPO_rank1024",
+    "nemotron_4b_math_DPO_rank3072"
+  ],
+  "completed": [
+    "qwen_0.8b_math_DPO_rank1",
+    "qwen_0.8b_math_DPO_rank2",
+    "qwen_0.8b_math_DPO_rank8",
+    "qwen_0.8b_math_DPO_rank128",
+    "qwen_0.8b_math_DPO_rank1024",
+    "qwen_0.8b_math_DPO_rank3072"
+  ],
+  "pending": [
+    "nemotron_4b_math_DPO_rank128",
+    "nemotron_4b_math_DPO_rank1024",
+    "nemotron_4b_math_DPO_rank3072"
+  ],
+  "missing_merged": [],
+  "completed_count": 6,
+  "pending_count": 3
+}

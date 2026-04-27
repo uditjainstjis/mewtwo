@@ -8,11 +8,15 @@ const LABELS = { code: "Code ⚡", math: "Math 🔢", science: "Science 🔬", n
 let ws = null;
 let currentMode = "routed";
 let selectedExpert = "code";
-let generating = false;
-let swapCount = 0;
-let tokenIdx = 0;
+
+// Internal State
 let genStartTime = 0;
+let tokenIdx = 0;
+let swapCount = 0;
+let isThinking = false;
+let currentThinkingBlock = null;
 let serverReady = false;
+let generating = false;
 
 const WS_URL = `ws://${location.hostname || 'localhost'}:${location.port || '8765'}/ws/generate`;
 
@@ -43,6 +47,11 @@ function connectWebSocket() {
   ws.onclose = () => {
     console.log("❌ WebSocket disconnected");
     serverReady = false;
+    generating = false;
+    if (document.getElementById("btnGenerate")) {
+      document.getElementById("btnGenerate").disabled = false;
+      document.getElementById("btnGenerate").textContent = "Generate →";
+    }
     updateStatus("disconnected");
     // Reconnect after 3s
     setTimeout(connectWebSocket, 3000);
@@ -51,6 +60,11 @@ function connectWebSocket() {
   ws.onerror = (err) => {
     console.error("WebSocket error:", err);
     serverReady = false;
+    generating = false;
+    if (document.getElementById("btnGenerate")) {
+      document.getElementById("btnGenerate").disabled = false;
+      document.getElementById("btnGenerate").textContent = "Generate →";
+    }
     updateStatus("error");
   };
 
@@ -148,15 +162,81 @@ function appendToken(text, domain, index) {
   const cursor = output.querySelector(".cursor-blink");
   if (cursor) cursor.remove();
 
+  if (text.includes("<think>")) {
+    isThinking = true;
+    text = text.replace(/<think>/g, "");
+    
+    currentThinkingBlock = document.createElement("details");
+    currentThinkingBlock.className = "thinking-block";
+    currentThinkingBlock.style.margin = "12px 0";
+    currentThinkingBlock.style.background = "var(--surface-sunken)";
+    currentThinkingBlock.style.borderRadius = "8px";
+    currentThinkingBlock.style.border = "1px solid var(--border)";
+    currentThinkingBlock.open = true;
+
+    let summary = document.createElement("summary");
+    summary.style.cursor = "pointer";
+    summary.style.padding = "10px 12px";
+    summary.style.fontWeight = "600";
+    summary.style.color = "var(--text-muted)";
+    summary.style.outline = "none";
+    summary.innerHTML = "🤔 Thinking Process <span style='font-size:12px; font-weight:normal; opacity:0.7;'>(Click to toggle)</span>";
+    
+    let contentDiv = document.createElement("div");
+    contentDiv.className = "thinking-content";
+    contentDiv.style.padding = "0 12px 12px 12px";
+    contentDiv.style.fontFamily = "monospace";
+    contentDiv.style.fontSize = "0.9em";
+    contentDiv.style.whiteSpace = "pre-wrap";
+    
+    currentThinkingBlock.appendChild(summary);
+    currentThinkingBlock.appendChild(contentDiv);
+    
+    output.appendChild(currentThinkingBlock);
+  }
+
   const span = document.createElement("span");
   span.className = "token";
+
+  let isClosing = text.includes("</think>");
+  if (isClosing) {
+    isThinking = false;
+    text = text.replace(/<\/think>/g, "");
+  }
+
   const color = currentMode === "routed" ? (COLORS[domain] || COLORS.none) :
                 currentMode === "naked" ? COLORS.none :
                 COLORS[selectedExpert];
-  span.style.color = color;
+  
+  if (isThinking || (isClosing && currentThinkingBlock)) {
+    span.style.color = "#9ca3af";
+    span.style.fontStyle = "italic";
+    span.style.opacity = "0.8";
+  } else {
+    span.style.color = color;
+  }
+  
   span.textContent = text;
   span.title = `Token ${index} — ${LABELS[domain] || domain}`;
-  output.appendChild(span);
+
+  if (currentThinkingBlock && (isThinking || isClosing)) {
+    currentThinkingBlock.querySelector(".thinking-content").appendChild(span);
+  } else {
+    output.appendChild(span);
+  }
+
+  if (isClosing && currentThinkingBlock) {
+    currentThinkingBlock.open = false; // Auto-collapse when finished!
+    currentThinkingBlock = null;
+    
+    let separator = document.createElement("div");
+    separator.style.marginTop = "12px";
+    separator.style.marginBottom = "8px";
+    separator.style.fontWeight = "bold";
+    separator.style.color = "var(--text-primary)";
+    separator.innerHTML = "💡 Final Answer:";
+    output.appendChild(separator);
+  }
 
   // Re-add cursor
   const cur = document.createElement("span");
@@ -245,6 +325,7 @@ function generate() {
   generating = true;
   swapCount = 0;
   tokenIdx = 0;
+  isThinking = false;
   genStartTime = performance.now();
 
   document.getElementById("btnGenerate").disabled = true;
@@ -273,11 +354,15 @@ function generate() {
   }
 
   // Send to server
+  const thinkingToggle = document.getElementById("thinkingToggle");
+  const isThinkingMode = thinkingToggle ? thinkingToggle.checked : true;
+
   ws.send(JSON.stringify({
     prompt: prompt,
     mode: mode,
     adapter: adapter,
-    max_tokens: 512,
+    max_tokens: 2048,
+    thinking: isThinkingMode,
   }));
 }
 
