@@ -23,9 +23,14 @@ ROOT = Path(__file__).resolve().parent
 PROJECT_ROOT = ROOT.parent
 OUTPUT_DIR = ROOT / "outputs"
 OFFLOAD_DIR = ROOT / "eval_offload_cache"
+BENCHMARK_CACHE_DIR = ROOT / "data" / "benchmark_cache"
 RESULTS_DIR = ROOT / "results"
 RESULTS_JSON = RESULTS_DIR / "post_dpo_benchmarks.json"
 SUMMARY_MD = RESULTS_DIR / "post_dpo_benchmarks_summary.md"
+
+os.environ.setdefault("HF_HOME", str(BENCHMARK_CACHE_DIR / "hf_home"))
+os.environ.setdefault("HF_DATASETS_CACHE", str(BENCHMARK_CACHE_DIR / "datasets"))
+os.environ.setdefault("HUGGINGFACE_HUB_CACHE", str(BENCHMARK_CACHE_DIR / "hub"))
 
 RANKS = [1, 2, 8, 128, 1024, 3072]
 MODEL_ORDER = ["qwen_0.8b", "nemotron_4b"]
@@ -487,6 +492,7 @@ def main():
     args = parse_args()
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     OFFLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    BENCHMARK_CACHE_DIR.mkdir(parents=True, exist_ok=True)
     results = load_results()
 
     targets = [(model_key, rank, stages) for model_key, rank, stages in eval_targets() if model_key in args.models and rank in args.ranks]

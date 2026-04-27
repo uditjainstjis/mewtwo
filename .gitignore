@@ -65,3 +65,5 @@ data/nemotron/
 data/router_reasoning_sft_5000/
 data/router_reasoning_dpo_5000/
 data/router_synthetic_routing_5000.json
+hf_kaggle_opensource/results/
+hf_kaggle_opensource/data/benchmark_cache/
