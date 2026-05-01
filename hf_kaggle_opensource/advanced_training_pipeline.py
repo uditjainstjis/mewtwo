@@ -213,12 +213,30 @@ def reset_offload_dir(offload_dir: Path):
     offload_dir.mkdir(parents=True, exist_ok=True)
 
 
+def fast_train_profile(model_key: str, rank: int):
+    if model_key == "nemotron_4b" and rank <= 128:
+        return {
+            "attn_implementation": "eager",
+            "gradient_checkpointing": False,
+            "device_map": {"": 0} if torch.cuda.is_available() else None,
+            "offload_state_dict": False,
+        }
+    return {
+        "attn_implementation": "eager",
+        "gradient_checkpointing": True,
+        "device_map": "auto",
+        "offload_state_dict": True,
+    }
+
+
 def load_trainable_adapter(
     model_key: str,
+    rank: int,
     adapter_path: Path,
     offload_dir: Path,
 ):
     model_name = resolve_model_name(model_key)
+    profile = fast_train_profile(model_key, rank)
     tokenizer = AutoTokenizer.from_pretrained(
         model_name,
         trust_remote_code=True,
@@ -236,13 +254,13 @@ def load_trainable_adapter(
 
     reset_offload_dir(offload_dir)
     load_kwargs = {
-        "device_map": "auto",
+        "device_map": profile["device_map"],
         "trust_remote_code": True,
         "torch_dtype": torch.bfloat16,
         "quantization_config": quant_config,
-        "attn_implementation": "eager",
+        "attn_implementation": profile["attn_implementation"],
         "offload_folder": str(offload_dir),
-        "offload_state_dict": True,
+        "offload_state_dict": profile["offload_state_dict"],
         "low_cpu_mem_usage": True,
     }
 
@@ -252,17 +270,19 @@ def load_trainable_adapter(
 
     base_model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
     base_model.config.use_cache = False
+    use_gradient_checkpointing = profile["gradient_checkpointing"]
     base_model = prepare_model_for_kbit_training(
         base_model,
-        use_gradient_checkpointing=True,
-        gradient_checkpointing_kwargs={"use_reentrant": False},
+        use_gradient_checkpointing=use_gradient_checkpointing,
+        gradient_checkpointing_kwargs={"use_reentrant": False} if use_gradient_checkpointing else None,
     )
 
     model = PeftModel.from_pretrained(base_model, str(adapter_path), is_trainable=True)
     model.enable_input_require_grads()
-    model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
+    if use_gradient_checkpointing:
+        model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     model.config.use_cache = False
-    return model, tokenizer
+    return model, tokenizer, use_gradient_checkpointing
 
 
 def write_timing(output_path: Path, start_time: float):
@@ -289,6 +309,7 @@ def build_dpo_config_kwargs(
     learning_rate: float,
     max_length: int,
     max_prompt_length: int,
+    use_gradient_checkpointing: bool,
 ):
     signature = inspect.signature(DPOConfig.__init__)
     supported = set(signature.parameters.keys())
@@ -304,7 +325,7 @@ def build_dpo_config_kwargs(
         "save_strategy": "no",
         "report_to": "none",
         "remove_unused_columns": False,
-        "gradient_checkpointing": True,
+        "gradient_checkpointing": use_gradient_checkpointing,
         "logging_steps": 5,
     }
     if "max_prompt_length" in supported:
@@ -383,8 +404,9 @@ def run_dpo(
         trainer = None
         start_time = time.time()
         try:
-            model, tokenizer = load_trainable_adapter(
+            model, tokenizer, use_gradient_checkpointing = load_trainable_adapter(
                 model_key=model_key,
+                rank=rank,
                 adapter_path=merged_adapter_path,
                 offload_dir=offload_dir / exp_name,
             )
@@ -397,6 +419,7 @@ def run_dpo(
                     learning_rate=learning_rate,
                     max_length=max_length,
                     max_prompt_length=max_prompt_length,
+                    use_gradient_checkpointing=use_gradient_checkpointing,
                 )
             )
             trainer = DPOTrainer(

@@ -1,0 +1,1 @@
+Use the `perplexityPro` MCP server for research-heavy tasks whenever current web information, deep literature synthesis, or longer-form external reasoning would materially help. Prefer it before generic web browsing when the task is primarily research rather than simple fact lookup.
