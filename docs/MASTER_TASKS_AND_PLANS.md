@@ -262,7 +262,7 @@ This reads from `data/lori_moe/*.jsonl` and writes to `data/nemotron/*.jsonl` us
 
 ### Step 1.2: Verify Nemotron Config
 
-File already exists: `src/lori_moe/synapta_src/synapta_src/configs/nemotron_config.py`
+File already exists: `src/lori_moe/synapta_src/configs/nemotron_config.py`
 
 Key settings:
 - `rank=64`, `alpha=128.0` (ratio 2.0)
@@ -942,7 +942,7 @@ This is the working checklist for the Nemotron track. Rewritten to center on the
 - [x] `mamba_ssm==2.3.1` installed and validated (`rmsnorm_fn` import succeeds)
 - [x] `scripts/nemotron_probe.py` hardened for source-backed output without CUDA
 - [x] `train_lori_adapter.py` upgraded to template-derived assistant-prefix masking
-- [x] `src/lori_moe/synapta_src/synapta_src/configs/nemotron_config.py` created (attention-only default)
+- [x] `src/lori_moe/synapta_src/configs/nemotron_config.py` created (attention-only default)
 - [x] `models/nemotron/architecture_notes.md` written
 - [x] `scripts/reformat_data_for_nemotron.py` exists
 - [x] `scripts/nemotron_pipeline.sh` exists (draft)

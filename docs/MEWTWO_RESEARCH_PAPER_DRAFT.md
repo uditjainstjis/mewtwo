@@ -51,7 +51,7 @@ This stratum is documented in:
 
 - `/Users/uditjain/Desktop/mewtwo/research_results.md`
 - `/Users/uditjain/Desktop/mewtwo/implementation_plan.md`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/`
 - `/Users/uditjain/Desktop/mewtwo/adapters/lori_moe/`
 
 Its core ingredients are:
@@ -222,15 +222,15 @@ The code base contains substantial LoRI-MoE implementation work:
 
 Key files:
 
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/shared_projection.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/lori_adapter.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/model/lori_moe_linear.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/model/lori_moe_model.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/model/router.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/training/train_lori_adapter.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/training/train_router.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/eval/run_benchmarks.py`
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/inference/compose.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/shared_projection.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/lori_adapter.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/model/lori_moe_linear.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/model/lori_moe_model.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/model/router.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/training/train_lori_adapter.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/training/train_router.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/eval/run_benchmarks.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/inference/compose.py`
 
 ## 6. Executed LoRI-MoE Evidence
 
@@ -319,13 +319,13 @@ The repository contains real progress, but several key claims outrun the execute
 
 The repository includes a routing-data generator designed to produce mixed-domain transitions:
 
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/data/generate_routing_data.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/data/generate_routing_data.py`
 
 That generator explicitly argues that training only on pure-domain prompts would collapse the router into prompt-level heuristics.
 
 However, the actual trainer:
 
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/training/train_router.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/training/train_router.py`
 
 does not load `routing_mixed_train.jsonl`. Instead, it:
 
@@ -344,7 +344,7 @@ The markdown narrative says the router reached very high validation accuracy. Th
 
 The inference entry point:
 
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/inference/compose.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/inference/compose.py`
 
 does not run the full token-level routed multi-expert system in practice. Instead, it:
 
@@ -360,13 +360,13 @@ This is operationally closer to prompt-level domain selection than to full token
 
 The evaluation harness:
 
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/eval/run_benchmarks.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/eval/run_benchmarks.py`
 
 contains real benchmark logic for base and single-adapter evaluation, and it correctly emphasizes exact-match and pass@1. However, it does not presently demonstrate a completed full-benchmark path for the routed LoRI-MoE model itself.
 
 The companion file:
 
-- `/Users/uditjain/Desktop/mewtwo/synapta_src/synapta_src/src/lori_moe/eval/routing_analysis.py`
+- `/Users/uditjain/Desktop/mewtwo/synapta_src/src/lori_moe/eval/routing_analysis.py`
 
 is only a stub.
 
@@ -549,5 +549,5 @@ All code is ready to execute pending GPU driver resolution. Estimated compute: ~
 - `scripts/gc_lori_pipeline.sh` — End-to-end orchestration
 - `scripts/gpu_health_check.py` — GPU diagnostic utility
 - `models/nemotron/architecture_notes.md` — Hybrid architecture documentation
-- `src/lori_moe/synapta_src/synapta_src/configs/nemotron_config.py` — Nemotron-specific configuration
+- `src/lori_moe/synapta_src/configs/nemotron_config.py` — Nemotron-specific configuration
 

@@ -847,9 +847,9 @@ Previous works (Synapta, LoRI-MoE) on smaller 1.5B architectures demonstrated th
 To achieve this, we built a fully autonomous "auto-chaining" pipeline that protected VRAM integerity while executing consecutive evaluations.
 
 ### Critical Execution Scripts
-*   `/synapta_src/synapta_src/scripts/master_pipeline.py`: The Phase 1 orchestrator. Exclusively tasked with running the single adapters against the 4 clean benchmarks.
-*   `/synapta_src/synapta_src/scripts/auto_chain.sh`: A background watchdog. Designed to wait for `master_pipeline.py` to finish the clean evals, violently kill the master thread to prevent it from wasting 5 hours running useless LayerBlend routing training, clear the GPU cache, and boot the ultimate sprint.
-*   `/synapta_src/synapta_src/scripts/research_sprint.py`: The Phase 2 & 3 executor. Implements the true PEFT composition via HuggingFace's `add_weighted_adapter` and executes the standardized `lm-eval-harness` logic.
+*   `/synapta_src/scripts/master_pipeline.py`: The Phase 1 orchestrator. Exclusively tasked with running the single adapters against the 4 clean benchmarks.
+*   `/synapta_src/scripts/auto_chain.sh`: A background watchdog. Designed to wait for `master_pipeline.py` to finish the clean evals, violently kill the master thread to prevent it from wasting 5 hours running useless LayerBlend routing training, clear the GPU cache, and boot the ultimate sprint.
+*   `/synapta_src/scripts/research_sprint.py`: The Phase 2 & 3 executor. Implements the true PEFT composition via HuggingFace's `add_weighted_adapter` and executes the standardized `lm-eval-harness` logic.
 
 ### Evaluation Datasets
 We moved away from using the base training datasets to avoid contamination, shifting exclusively to standard metrics:

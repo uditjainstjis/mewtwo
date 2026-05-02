@@ -58,10 +58,10 @@ Models trained on instruction data interpret a system prompt of this style as a 
 
 ```bash
 # Backup original
-cp /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server.py /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server_original.py
+cp /home/learner/Desktop/mewtwo/synapta_src/src/demo/server.py /home/learner/Desktop/mewtwo/synapta_src/src/demo/server_original.py
 
 # Deploy fix
-cp /home/learner/Desktop/mewtwo/synapta_src/overnight_demo_artifacts/server_fixed.py /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server.py
+cp /home/learner/Desktop/mewtwo/synapta_src/overnight_demo_artifacts/server_fixed.py /home/learner/Desktop/mewtwo/synapta_src/src/demo/server.py
 
 # Restart server normally
 ```

@@ -1,9 +1,9 @@
 # Deck Update Guide — exact changes to make tomorrow
 
-The deck source is `/home/learner/Desktop/mewtwo/synapta_src/synapta_src/build_pitch_deck.py`. Edit, then regenerate with:
+The deck source is `/home/learner/Desktop/mewtwo/synapta_src/build_pitch_deck.py`. Edit, then regenerate with:
 
 ```bash
-/home/learner/Desktop/mewtwo/.venv/bin/python /home/learner/Desktop/mewtwo/synapta_src/synapta_src/build_pitch_deck.py
+/home/learner/Desktop/mewtwo/.venv/bin/python /home/learner/Desktop/mewtwo/synapta_src/build_pitch_deck.py
 libreoffice --headless --convert-to pdf --outdir /home/learner/Desktop/mewtwo/ /home/learner/Desktop/mewtwo/SYNAPTA_PITCH_DECK.pptx
 ```
 
@@ -145,8 +145,8 @@ Specifically verify:
 ## Then deploy the demo fix
 
 ```bash
-cp /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server.py /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server_original.py
-cp /home/learner/Desktop/mewtwo/synapta_src/overnight_demo_artifacts/server_fixed.py /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server.py
+cp /home/learner/Desktop/mewtwo/synapta_src/src/demo/server.py /home/learner/Desktop/mewtwo/synapta_src/src/demo/server_original.py
+cp /home/learner/Desktop/mewtwo/synapta_src/overnight_demo_artifacts/server_fixed.py /home/learner/Desktop/mewtwo/synapta_src/src/demo/server.py
 ```
 
 ## Then submit YC application

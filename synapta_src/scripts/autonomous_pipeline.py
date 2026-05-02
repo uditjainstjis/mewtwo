@@ -304,7 +304,7 @@ def run_pipeline():
     logger.info(f"  Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     
     # Write PID for dashboard control
-    with open("/archive/old_top_level/old_tmp/lori_pipeline.pid", "w") as f:
+    with open("/tmp/lori_pipeline.pid", "w") as f:
         f.write(str(os.getpid()))
     
     for model_idx, model_config in enumerate(model_queue):

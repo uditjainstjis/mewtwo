@@ -108,7 +108,7 @@ def get_state():
     live_runs = parse_live_stats()
     
     is_running = False
-    pid_file = "/archive/old_top_level/old_tmp/lori_pipeline.pid"
+    pid_file = "/tmp/lori_pipeline.pid"
     if os.path.exists(pid_file):
         try:
             with open(pid_file, "r") as f:
@@ -189,7 +189,7 @@ def stop_pipeline():
     
     subprocess.run("pkill -f train_lori_adapter.py", shell=True)
     
-    pid_file = "/archive/old_top_level/old_tmp/lori_pipeline.pid"
+    pid_file = "/tmp/lori_pipeline.pid"
     if os.path.exists(pid_file):
         try:
             with open(pid_file, "r") as f:

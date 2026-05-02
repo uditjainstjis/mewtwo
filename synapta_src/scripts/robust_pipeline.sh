@@ -15,7 +15,7 @@ echo "1️⃣ Logging into HuggingFace..."
 
 # 2. Base Models Download
 echo "2️⃣ Pre-downloading all 4 Base Models..."
-cat << 'PY_EOF' > /home/learner/Desktop/mewtwo/synapta_src/synapta_src/scripts/download_models.py
+cat << 'PY_EOF' > /home/learner/Desktop/mewtwo/synapta_src/scripts/download_models.py
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -40,7 +40,7 @@ for m in models:
     except Exception as e:
         print(f"❌ Failed to download {m}: {e}")
 PY_EOF
-/home/learner/Desktop/mewtwo/.venv/bin/python3 /home/learner/Desktop/mewtwo/synapta_src/synapta_src/scripts/download_models.py || echo "⚠️ Warning: Model download issue. Resuming..."
+/home/learner/Desktop/mewtwo/.venv/bin/python3 /home/learner/Desktop/mewtwo/synapta_src/scripts/download_models.py || echo "⚠️ Warning: Model download issue. Resuming..."
 
 # 3. Download and Process Data
 echo "3️⃣ Running Data Curation (All Tiers)..."
@@ -49,7 +49,7 @@ for tier in 1 2 3; do
     echo "Processing Tier $tier..."
     for i in {1..3}; do
         echo "Attempt $i for Tier $tier..."
-        if /home/learner/Desktop/mewtwo/.venv/bin/python3 /home/learner/Desktop/mewtwo/synapta_src/synapta_src/scripts/curate_training_data.py --output-dir data/training --eval-dir data/eval --tier $tier; then
+        if /home/learner/Desktop/mewtwo/.venv/bin/python3 /home/learner/Desktop/mewtwo/synapta_src/scripts/curate_training_data.py --output-dir data/training --eval-dir data/eval --tier $tier; then
             echo "✅ Tier $tier data curated successfully!"
             break
         else

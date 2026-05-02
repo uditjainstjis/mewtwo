@@ -23,8 +23,8 @@ Both absolute numbers **~doubled** vs the deck's n=25 claim. 56% → 73% with ro
 5 specific bugs in `src/demo/server.py`. Drop-in fix at `synapta_src/overnight_demo_artifacts/server_fixed.py`. Polish smoke (max=512) shows **all 4 modes hit 95% pass rate** on 20 prompts. The demo is fully validated for inference. Two-line deploy:
 
 ```bash
-cp /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server.py /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server_original.py
-cp /home/learner/Desktop/mewtwo/synapta_src/overnight_demo_artifacts/server_fixed.py /home/learner/Desktop/mewtwo/synapta_src/synapta_src/src/demo/server.py
+cp /home/learner/Desktop/mewtwo/synapta_src/src/demo/server.py /home/learner/Desktop/mewtwo/synapta_src/src/demo/server_original.py
+cp /home/learner/Desktop/mewtwo/synapta_src/overnight_demo_artifacts/server_fixed.py /home/learner/Desktop/mewtwo/synapta_src/src/demo/server.py
 ```
 
 ### ✅ WIN #3 — Token routing efficiency story (NEW deck claim)

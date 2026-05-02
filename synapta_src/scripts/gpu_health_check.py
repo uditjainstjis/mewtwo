@@ -181,7 +181,7 @@ def main():
     print("\n" + "=" * 60)
     if not issues:
         print("✅ ALL CHECKS PASSED — GPU is healthy!")
-        print("   You can proceed with: ./synapta_src/synapta_src/scripts/gc_lori_pipeline.sh")
+        print("   You can proceed with: ./synapta_src/scripts/gc_lori_pipeline.sh")
     else:
         print(f"❌ FOUND {len(issues)} ISSUE(S):")
         for i, issue in enumerate(issues, 1):

@@ -8,7 +8,7 @@
 #
 # Usage:
 #   chmod +x scripts/gc_lori_pipeline.sh
-#   ./synapta_src/synapta_src/scripts/gc_lori_pipeline.sh 2>&1 | tee logs/nemotron/gc_lori_pipeline.log
+#   ./synapta_src/scripts/gc_lori_pipeline.sh 2>&1 | tee logs/nemotron/gc_lori_pipeline.log
 #
 # The script is idempotent — it checks for existing outputs before re-running.
 # ============================================================================
