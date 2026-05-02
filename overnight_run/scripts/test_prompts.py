@@ -1,0 +1,73 @@
+"""20 diverse test prompts spanning math, code, science, mixed-domain.
+Each entry: id, domain, prompt, expected_signal (a substring or pattern that the answer should contain
+                                                   for a smoke-test sanity check; not a strict eval)."""
+
+TEST_PROMPTS = [
+    # MATH (5)
+    {"id": "math_01", "domain": "math",
+     "prompt": "What is 17 * 23? Give just the number.",
+     "expected_signal": "391"},
+    {"id": "math_02", "domain": "math",
+     "prompt": "Solve for x: 3x + 7 = 22. Give x as a number.",
+     "expected_signal": "5"},
+    {"id": "math_03", "domain": "math",
+     "prompt": "What is the derivative of f(x) = x^3 + 2x^2 - 5x + 1? Provide the symbolic derivative.",
+     "expected_signal": "3x"},
+    {"id": "math_04", "domain": "math",
+     "prompt": "If a triangle has sides 3, 4, and 5, what is its area?",
+     "expected_signal": "6"},
+    {"id": "math_05", "domain": "math",
+     "prompt": "What is the sum of the first 10 positive integers?",
+     "expected_signal": "55"},
+
+    # CODE (5)
+    {"id": "code_01", "domain": "code",
+     "prompt": "Write a Python function `is_prime(n)` that returns True if n is prime, False otherwise. Just the function, no explanation.",
+     "expected_signal": "def is_prime"},
+    {"id": "code_02", "domain": "code",
+     "prompt": "Write a Python one-liner to reverse a string s.",
+     "expected_signal": "[::-1]"},
+    {"id": "code_03", "domain": "code",
+     "prompt": "Write a Python function `fib(n)` that returns the n-th Fibonacci number iteratively.",
+     "expected_signal": "def fib"},
+    {"id": "code_04", "domain": "code",
+     "prompt": "Write a Python list comprehension that returns squares of even numbers from 0 to 20.",
+     "expected_signal": "for"},
+    {"id": "code_05", "domain": "code",
+     "prompt": "Write a Python function that takes a list and returns it sorted in descending order without using sort/sorted's reverse argument.",
+     "expected_signal": "def "},
+
+    # SCIENCE (5)
+    {"id": "sci_01", "domain": "science",
+     "prompt": "What is the chemical symbol for gold? One word.",
+     "expected_signal": "Au"},
+    {"id": "sci_02", "domain": "science",
+     "prompt": "What is the formula for kinetic energy? Use standard variable names.",
+     "expected_signal": "1/2"},
+    {"id": "sci_03", "domain": "science",
+     "prompt": "What planet has the largest moon in the solar system? Name the moon and the planet.",
+     "expected_signal": "Ganymede"},
+    {"id": "sci_04", "domain": "science",
+     "prompt": "What is photosynthesis? Answer in one sentence.",
+     "expected_signal": "light"},
+    {"id": "sci_05", "domain": "science",
+     "prompt": "What is Newton's second law of motion? State it as an equation.",
+     "expected_signal": "F"},
+
+    # MIXED-DOMAIN (5) — the prompts that justify multi-adapter routing
+    {"id": "mix_01", "domain": "mixed_code_math",
+     "prompt": "Write a Python function `solve_quadratic(a, b, c)` that returns the real roots of ax^2 + bx + c = 0 using the quadratic formula. Handle the case where there are no real roots by returning None.",
+     "expected_signal": "discriminant"},
+    {"id": "mix_02", "domain": "mixed_code_math",
+     "prompt": "Write a Python function to compute the n-th prime number using the Sieve of Eratosthenes. Test it: print the 100th prime.",
+     "expected_signal": "541"},
+    {"id": "mix_03", "domain": "mixed_code_sci",
+     "prompt": "Write Python code that computes the gravitational force between two masses m1 and m2 separated by distance r. Use G = 6.674e-11. Then call it with m1=5.97e24, m2=7.34e22, r=3.84e8 and print the result.",
+     "expected_signal": "G"},
+    {"id": "mix_04", "domain": "mixed_math_sci",
+     "prompt": "A car accelerates from 0 to 60 mph in 5 seconds. Compute its average acceleration in m/s^2. Show the conversion from mph to m/s.",
+     "expected_signal": "5.36"},
+    {"id": "mix_05", "domain": "mixed_all",
+     "prompt": "Write a Python function that simulates the trajectory of a projectile launched at angle theta degrees with initial velocity v0 m/s. Return a list of (t, x, y) for t from 0 to flight_time in 0.1s steps. Use g=9.81 m/s^2. Then plot x vs y conceptually by printing a few sample points for theta=45, v0=20.",
+     "expected_signal": "import math"},
+]

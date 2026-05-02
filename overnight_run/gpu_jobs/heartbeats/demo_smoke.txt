@@ -1,0 +1,9 @@
+{
+  "ts": "2026-05-01T23:39:28.656721",
+  "state": "done",
+  "mode": null,
+  "prompt_id": null,
+  "idx": null,
+  "total": 80,
+  "vram_used_mb": 16714
+}

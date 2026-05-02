@@ -469,13 +469,15 @@ rect(s, Inches(0.7), Inches(4.7), Inches(12), Inches(1.9), fill=PANEL_LIGHT, rou
 text(s, "ALREADY BUILT — SOLO", Inches(1.0), Inches(4.85), Inches(8), Inches(0.4),
      size=11, color=CYAN, bold=True)
 text(s, "Adapter system validated on Nemotron-30B (4-bit, RTX 5090).",
-     Inches(1.0), Inches(5.2), Inches(12), Inches(0.4), size=14, color=WHITE)
-text(s, "12 routing techniques tested, 4 papers in pipeline (NeurIPS submission May 4).",
-     Inches(1.0), Inches(5.55), Inches(12), Inches(0.4), size=14, color=WHITE)
-text(s, "20+ adapters trained across multiple base models.  Code Paradox: novel finding, n=200.",
-     Inches(1.0), Inches(5.9), Inches(12), Inches(0.4), size=14, color=WHITE)
+     Inches(1.0), Inches(5.15), Inches(12), Inches(0.35), size=13, color=WHITE)
+text(s, "12 routing techniques tested. 4 research artifacts in pipeline.",
+     Inches(1.0), Inches(5.45), Inches(12), Inches(0.35), size=13, color=WHITE)
+text(s, "20+ adapters trained across base models.  Code Paradox: novel finding, n=200.",
+     Inches(1.0), Inches(5.75), Inches(12), Inches(0.35), size=13, color=WHITE)
 text(s, "WebSocket investor demo + adapter-routing visualization shipped.",
-     Inches(1.0), Inches(6.25), Inches(12), Inches(0.4), size=14, color=WHITE)
+     Inches(1.0), Inches(6.05), Inches(12), Inches(0.35), size=13, color=WHITE)
+text(s, "10+ BFSI conversations scheduled May 5–13 via college + Shark Tank network.",
+     Inches(1.0), Inches(6.35), Inches(12), Inches(0.35), size=13, color=GREEN, bold=True)
 
 text(s, "What I need is leverage — capital, hardware, and customer access — not validation.",
      Inches(0.7), Inches(6.95), Inches(12), Inches(0.4), size=12, color=AMBER, bold=True)
@@ -505,7 +507,7 @@ text(s, "USE OF FUNDS", Inches(0.95), panel_top + Inches(0.25),
 
 uof = [
     ("60%", "Cloud GPU access for 70-200B scaling validation"),
-    ("25%", "First 3 BFSI design-partner deployments"),
+    ("25%", "First 3 BFSI design partners — pipeline open"),
     ("15%", "Founder + minimum infra to ship"),
 ]
 uof_top = panel_top + Inches(0.85)
