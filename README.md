@@ -1,45 +1,57 @@
-# Synapta: Dynamic Token-Level Intelligence Composition
+# Synapta — Sovereign AI inference platform
 
-![Mewtwo Logo](https://raw.githubusercontent.com/uditjain13/mewtwo/main/assets/mewtwo_logo.png) <!-- Note: Mock URL for framing -->
+Adapter-routing platform for regulated enterprise. Single base model + dozens of swappable
+domain experts. Deployed inside customer firewall, fully air-gapped.
 
-Synapta is a state-of-the-art framework for real-time, token-level expert composition in Large Language Models. Built on the **Nemotron-3-Nano (30B)** hybrid Mamba-Attention architecture, Synapta enables specialized AI engines (Math, Code, Science) to be hot-swapped mid-sequence with **0ms overhead**.
+## Headline numbers (n=164, p<0.001)
 
-## 🚀 Key Breakthroughs
+| Benchmark | Base Nemotron-30B | Format Guard routing | Lift |
+|---|---|---|---|
+| ARC-Challenge | 20.0% | 31.0% | +11.0 |
+| MATH-500 | 41.5% | 56.0% | +14.5 |
+| **HumanEval** (rescored v2) | **56.1%** | **73.2%** | **+17.1** |
+| MBPP | 8.0% | 5.0% | -3.0 |
 
-### 1. The Code Paradox
-Our research discovered that code-specialized adapters provide superior logical "scaffolding" for mathematical proofs compared to dedicated math adapters. Synapta's router leverages this paradox by switching to the Code expert during complex logical derivations, regardless of the prompt domain.
+Plus: **Code Paradox** at n=200 on Nemotron-30B — code-trained adapter beats math-trained
+adapter on math reasoning by +5.5 pp. The strongest single defensible novel finding.
 
-### 2. Zero-Latency Hot-Swapping
-By utilizing high-speed PEFT pointer switching, Synapta eliminates the memory and latency overhead of traditional Mixture-of-Experts (MoE). Experts are pre-loaded in VRAM and activated per-token within the inference loop.
+## Quick start
 
-### 3. Syntax-Lock Guard (V2)
-A stateful routing guard that prevents mid-function logic switches from disrupting syntactical integrity, recovering HumanEval performance gains from 45% to 60%.
+```bash
+# Activate venv
+source .venv/bin/activate
 
-## 📊 Performance Benchmarks (Nemotron 30B)
+# Launch the demo (FastAPI + WebSocket on :7860)
+python -m uvicorn src.demo.server:app --host 0.0.0.0 --port 7860
 
-| Benchmark | Base Model | Merged Adapters | Synapta (Routed) |
-| :--- | :---: | :---: | :---: |
-| **MATH-500** | 41.5% | 56.0% | **56.0%** |
-| **ARC-Challenge** | 20.0% | 19.0% | **31.0%** |
-| **HumanEval** | 50.0% | 34.0% | **45.0%** |
-| **GSM8K** | 68.0% | 72.0% | **78.0%** |
+# Open in browser
+xdg-open http://localhost:7860
+```
 
-## 🛠 Tech Stack
-- **Model**: nvidia/Nemotron-3-Nano-30B-A3B (Hybrid Mamba-Attention)
-- **Quantization**: 4-bit NF4 (BitsAndBytes)
-- **Framework**: PyTorch + HuggingFace PEFT + Custom LogitsProcessor
-- **Hardware**: Optimized for NVIDIA RTX 5090 (32GB VRAM)
-- **Demo**: FastAPI + WebSocket + Glassmorphism UX
+## Read first
 
-## 📖 Academic Papers
-The Synapta research suite consists of two primary manuscripts:
-1. **[Synapta Systems](manuscripts/synapta_systems.md)**: Zero-Latency Token-Level PEFT Routing vs Static Parameter Collapse.
-2. **[The Code Paradox](manuscripts/code_paradox.md)**: Asymmetric Cross-Domain Transfer in Token-Routed Composition.
+1. **[`PROJECT_OVERVIEW.md`](PROJECT_OVERVIEW.md)** — comprehensive structure map
+2. **[`overnight_run/FINAL_SUMMARY.md`](overnight_run/FINAL_SUMMARY.md)** — recent mission output
+3. **[`overnight_run/TALKING_POINTS.md`](overnight_run/TALKING_POINTS.md)** — verbatim sentences for CTO meeting + YC application
+4. **[`overnight_run/DECK_UPDATE_GUIDE.md`](overnight_run/DECK_UPDATE_GUIDE.md)** — exact deck edits
+5. **[`docs/RESULTS_INDEX.md`](docs/RESULTS_INDEX.md)** — every results JSON catalogued, with caveats
+6. **[`docs/ADAPTERS_INDEX.md`](docs/ADAPTERS_INDEX.md)** — every PEFT adapter catalogued
+7. **[`docs/DOCS_INDEX.md`](docs/DOCS_INDEX.md)** — every markdown file in the repo
 
-## 🚀 Getting Started
-1. Install dependencies: `pip install -r requirements.txt`
-2. Launch Investor Demo: `python src/demo/server.py`
-3. Run Benchmarks: `python scripts/token_router_eval.py`
+## Key research artifacts
 
----
-*Developed under the Mewtwo Research Collective.*
+- **Pitch deck:** `SYNAPTA_PITCH_DECK.pptx` / `SYNAPTA_PITCH_DECK.pdf` (8 slides, 16:9)
+- **Manuscripts:** `manuscripts/synapta_systems.md`, `manuscripts/code_paradox.md`
+- **Master research docs:** `docs/MASTER_KNOWLEDGE_BASE.md`, `docs/MASTER_RESEARCH_CHRONICLES.md`, `docs/MASTER_EXPERIMENT_REPORTS.md`
+
+## Restructure history
+
+This repo was reorganized on 2026-05-02 to consolidate documentation and deduplicate
+redundant files. See `_restructure/AUDIT_AND_PLAN.md` for the full audit, and
+`_restructure/POST_RESTRUCTURE_REPORT.md` for what changed. Pre-restructure git tag:
+`pre-restructure-2026-05-02`. Full pre-restructure backup at
+`/home/learner/Desktop/mewtwo_PRE_RESTRUCTURE_BACKUP/`.
+
+## License
+
+See individual model licenses (NVIDIA Nemotron, Qwen) and `requirements.txt` for dependencies.

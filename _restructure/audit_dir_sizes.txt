@@ -1,0 +1,34 @@
+=== Per-top-level-dir size + file count ===
+38M  66  archive/
+704K  37  backend/
+8.3G  754  checkpoints/
+32K  6  configs/
+225M  84  data/
+132K  7  demo/
+1.3M  14  docs/
+43G  8935  hf_kaggle_opensource/
+180M  56  hf_publish/
+16K  2  kaggle_notebook/
+21M  70  logs/
+32K  4  manuscripts/
+60G  91  models/
+24K  0  outputs/
+3.1M  75  overnight_run/
+12K  0  paper_v2/
+110M  4663  perplexity-mcp-venv/
+12K  2  prompts/
+12K  1  __pycache__/
+132K  5  remote-control/
+12K  2  _restructure/
+15M  322  results/
+139M  65  router_adapters/
+876K  68  scripts/
+1.1M  106  src/
+45M  5  submission_adapter/
+28K  4  tests/
+124K  3  tmp/
+=== Hidden dirs ===
+9.1G	.venv
+588M	.git
+23M	.cache
+8.0K	.claude

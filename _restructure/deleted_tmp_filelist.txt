@@ -1,0 +1,3 @@
+/home/learner/Desktop/mewtwo/tmp/terminal_model_chat_standalone.py
+/home/learner/Desktop/mewtwo/tmp/pdfs/doc2.txt
+/home/learner/Desktop/mewtwo/tmp/pdfs/doc1.txt
