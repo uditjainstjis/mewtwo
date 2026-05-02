@@ -1,0 +1,20 @@
+{
+  "domain": "math",
+  "total_steps": 500,
+  "best_loss": Infinity,
+  "total_time_min": 0.02551377216974894,
+  "interrupted": false,
+  "signal": null,
+  "config": {
+    "rank": 32,
+    "alpha": 64.0,
+    "sparsity": 0.8,
+    "lr": 5e-05,
+    "epochs": 3,
+    "batch_size": 32,
+    "grad_accum": 2,
+    "optimizer_backend": "bnb_paged_adamw_8bit",
+    "compile_mode": null
+  },
+  "log": []
+}

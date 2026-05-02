@@ -1,0 +1,43 @@
+{
+  "best_gc_val_acc": 97.94258997094106,
+  "best_blind_val_acc": 97.94445272334401,
+  "delta_best_val": -0.0018627524029568576,
+  "total_time_min": 118.18347583214442,
+  "training_log": [
+    {
+      "epoch": 1,
+      "gc_train_acc": 95.03560083251178,
+      "blind_train_acc": 97.16392525843034,
+      "gc_val_acc": 97.813128678936,
+      "blind_val_acc": 97.79217271440281
+    },
+    {
+      "epoch": 2,
+      "gc_train_acc": 97.89715827524776,
+      "blind_train_acc": 97.91249401848361,
+      "gc_val_acc": 97.8280306981596,
+      "blind_val_acc": 97.82663363385738
+    },
+    {
+      "epoch": 3,
+      "gc_train_acc": 97.93970631475172,
+      "blind_train_acc": 97.93128895192302,
+      "gc_val_acc": 97.8280306981596,
+      "blind_val_acc": 97.84758959839058
+    },
+    {
+      "epoch": 4,
+      "gc_train_acc": 97.95158286778398,
+      "blind_train_acc": 97.96991657586292,
+      "gc_val_acc": 97.92396244691156,
+      "blind_val_acc": 97.93048208032188
+    },
+    {
+      "epoch": 5,
+      "gc_train_acc": 97.95953900525221,
+      "blind_train_acc": 97.96945535050244,
+      "gc_val_acc": 97.94258997094106,
+      "blind_val_acc": 97.94445272334401
+    }
+  ]
+}

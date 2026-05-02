@@ -14,8 +14,8 @@ Numbers used in `SYNAPTA_PITCH_DECK.pptx` and findings.
 
 | Mode | Pass@1 (v1 inline buggy) | Pass@1 (v2 rescored) | Files |
 |---|---|---|---|
-| Base Nemotron-30B | 22.0% | **56.1%** | `overnight_run/qa_pairs/humaneval_full_base{,_rescored}.jsonl` |
-| Format Guard | 70.7% | **73.2%** | `overnight_run/qa_pairs/humaneval_full_format_guard{,_rescored}.jsonl` |
+| Base Nemotron-30B | 22.0% | **56.1%** | `results/overnight/humaneval_full_base{,_rescored}.jsonl` |
+| Format Guard | 70.7% | **73.2%** | `results/overnight/humaneval_full_format_guard{,_rescored}.jsonl` |
 | **Delta** | +48.7 (inflated) | **+17.1** (defensible) | n=164, McNemar p<0.001 |
 
 **Methodology note:** v1 used the original `extract_code` that dropped imports and stripped body indentation. v2 rescore applied corrected extraction to the SAME raw outputs (saved in JSONL `raw_output` field). See `findings/humaneval_n164.md` and `findings/humaneval_statistical_analysis.md`.
@@ -31,7 +31,7 @@ Numbers used in `SYNAPTA_PITCH_DECK.pptx` and findings.
 | merged | 19.0% | 34.0% | 56.0% | 0.0% |
 
 **File:** `results/nemotron/master_results.json` (n=100 ARC/HE/MBPP, n=200 MATH-500)
-**Caveat:** HumanEval column likely under-counted by ~30 pp due to scoring bug (same as the n=25 deck claim). Use overnight_run/findings/humaneval_n164.md numbers for HumanEval.
+**Caveat:** HumanEval column likely under-counted by ~30 pp due to scoring bug (same as the n=25 deck claim). Use docs/findings/humaneval_n164.md numbers for HumanEval.
 
 ### Token-Level Routing on Nemotron-30B
 
@@ -56,13 +56,10 @@ Numbers used in `SYNAPTA_PITCH_DECK.pptx` and findings.
 
 | Base model | Sample | Base | Math adapter | Code adapter | Δ (code−math) |
 |---|---|---|---|---|---|
-| qwen_0.8b | n=50 | 8.0% | 10.0% | 16.0% | +6.0 |
-| nemotron_mini_4b | n=50 | 12.0% | 8.0% | 10.0% | +2.0 |
-| qwen_0.8b | **n=200** | 15.0% | 16.0% | 12.0% | **-4.0** ❌ |
 | nemotron_3_nano_30b | n=200 | 41.5% | 50.5% | 56.0% | **+5.5** ✅ (original) |
 
-**Files:** `overnight_run/qa_pairs/code_paradox_*.jsonl`
-**Caveat:** n=50 cross-family results were small-sample flukes. Robust replication only at n=200 on Nemotron-30B. Full analysis in `overnight_run/findings/code_paradox_replication.md`.
+**Files:** `results/overnight/code_paradox_*.jsonl`
+**Caveat:** n=50 cross-family results were small-sample flukes. Robust replication only at n=200 on Nemotron-30B. Full analysis in `docs/findings/code_paradox_replication.md`.
 
 ---
 
@@ -73,12 +70,12 @@ Used to validate the demo server pipeline.
 ### Iter-2 smoke (max=256, baseline)
 - 20 prompts × 4 modes = 80 generations
 - Pass rates: base 95% / single_best 85% / token_routing 85% / format_guard 85%
-- Files: `overnight_run/qa_pairs/demo_smoke_{base,single_best,token_routing,format_guard}.jsonl`
+- Files: `results/overnight/demo_smoke_{base,single_best,token_routing,format_guard}.jsonl`
 
 ### Iter-9 polish smoke (max=512, post-fix)
 - Same 20 prompts × 4 modes
 - Pass rates: **all 4 modes at 95%** — adapter modes lifted with adequate token budget
-- Files: `overnight_run/qa_pairs/demo_polish_*.jsonl`
+- Files: `results/overnight/demo_polish_*.jsonl`
 
 ---
 
@@ -87,59 +84,6 @@ Used to validate the demo server pipeline.
 ### `./data/synthetic_geometry/`
 
 - `sweep_results.json` (195K)
-
-### `./hf_kaggle_opensource/results/`
-
-- `post_dpo_benchmarks.json` (181K)
-- `qwen_geometry_behavior.json` (194K)
-
-### `./hf_kaggle_opensource/results/agentic_eval/`
-
-- `planbench_results.json` (312K)
-- `spectral_recoverability_report.json` (6K)
-- `tau_bench_results.json` (155K)
-
-### `./hf_kaggle_opensource/results/agentic_eval/tau_bench_runs/`
-
-- `model-nemotron_4b__rank-0__stage-base__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-128__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (38K)
-- `model-nemotron_4b__rank-128__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-128__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-1__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-1__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-1__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-2__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-2__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-2__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-8__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-8__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-nemotron_4b__rank-8__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
-- `model-qwen_0_8b__rank-0__stage-base__env-retail__split-dev__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (49K)
-- `model-qwen_0_8b__rank-0__stage-base__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (97K)
-- `model-qwen_0_8b__rank-1024__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (283K)
-- `model-qwen_0_8b__rank-1024__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (293K)
-- `model-qwen_0_8b__rank-1024__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (286K)
-- `model-qwen_0_8b__rank-1024__stage-merged_dare_trunc2__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (294K)
-- `model-qwen_0_8b__rank-1024__stage-merged_dare_trunc8__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (269K)
-- `model-qwen_0_8b__rank-128__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (270K)
-- `model-qwen_0_8b__rank-128__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (309K)
-- `model-qwen_0_8b__rank-128__stage-math_sft_trunc2__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (315K)
-- `model-qwen_0_8b__rank-128__stage-math_sft_trunc8__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (302K)
-- `model-qwen_0_8b__rank-128__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (294K)
-- `model-qwen_0_8b__rank-1__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (223K)
-- `model-qwen_0_8b__rank-1__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (243K)
-- `model-qwen_0_8b__rank-1__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (245K)
-- `model-qwen_0_8b__rank-2__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (247K)
-- `model-qwen_0_8b__rank-2__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (221K)
-- `model-qwen_0_8b__rank-2__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (247K)
-- `model-qwen_0_8b__rank-3072__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (267K)
-- `model-qwen_0_8b__rank-3072__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (313K)
-- `model-qwen_0_8b__rank-3072__stage-math_sft_trunc2__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (318K)
-- `model-qwen_0_8b__rank-3072__stage-math_sft_trunc8__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (341K)
-- `model-qwen_0_8b__rank-3072__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (295K)
-- `model-qwen_0_8b__rank-8__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (239K)
-- `model-qwen_0_8b__rank-8__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (274K)
-- `model-qwen_0_8b__rank-8__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (244K)
 
 ### `./results/`
 
@@ -268,13 +212,24 @@ Used to validate the demo server pipeline.
 - `hypothesis_matrix.json` (3K)
 - `hypothesis_verdicts.json` (995B)
 - `master_results.json` (2K)
-- `sprint_results.json` (212K)
+- `sprint_results.json` (216K)
 - `token_routing_results.json` (297B)
 
 ### `./results/nemotron/router_analysis/`
 
 - `router_analysis.json` (3K)
 - `router_analysis_details.json` (622K)
+
+### `./results/overnight/qa_pairs/`
+
+- `code_paradox_qwen_n200_summary.json` (228B)
+- `code_paradox_summary.json` (549B)
+- `humaneval_full_summary.json` (190B)
+- `humaneval_rescored_summary.json` (308B)
+
+### `./results/overnight/qa_pairs/_buggy_v1/`
+
+- `humaneval_full_summary.json` (91B)
 
 ### `./results/router_generation_5000_raw/`
 
@@ -409,12 +364,65 @@ Used to validate the demo server pipeline.
 - `single_code.json` (4K)
 - `single_math.json` (2K)
 
+### `./results/small_models/`
+
+- `post_dpo_benchmarks.json` (182K)
+- `qwen_geometry_behavior.json` (195K)
+
+### `./results/small_models/agentic_eval/`
+
+- `planbench_results.json` (311K)
+- `spectral_recoverability_report.json` (6K)
+- `tau_bench_results.json` (154K)
+
+### `./results/small_models/agentic_eval/tau_bench_runs/`
+
+- `model-nemotron_4b__rank-0__stage-base__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-128__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (38K)
+- `model-nemotron_4b__rank-128__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-128__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-1__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-1__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-1__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-2__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-2__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-2__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-8__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-8__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-nemotron_4b__rank-8__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (39K)
+- `model-qwen_0_8b__rank-0__stage-base__env-retail__split-dev__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (49K)
+- `model-qwen_0_8b__rank-0__stage-base__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (97K)
+- `model-qwen_0_8b__rank-1024__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (283K)
+- `model-qwen_0_8b__rank-1024__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (293K)
+- `model-qwen_0_8b__rank-1024__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (286K)
+- `model-qwen_0_8b__rank-1024__stage-merged_dare_trunc2__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (294K)
+- `model-qwen_0_8b__rank-1024__stage-merged_dare_trunc8__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (269K)
+- `model-qwen_0_8b__rank-128__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (270K)
+- `model-qwen_0_8b__rank-128__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (309K)
+- `model-qwen_0_8b__rank-128__stage-math_sft_trunc2__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (315K)
+- `model-qwen_0_8b__rank-128__stage-math_sft_trunc8__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (302K)
+- `model-qwen_0_8b__rank-128__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (294K)
+- `model-qwen_0_8b__rank-1__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (223K)
+- `model-qwen_0_8b__rank-1__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (243K)
+- `model-qwen_0_8b__rank-1__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (245K)
+- `model-qwen_0_8b__rank-2__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (247K)
+- `model-qwen_0_8b__rank-2__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (221K)
+- `model-qwen_0_8b__rank-2__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (247K)
+- `model-qwen_0_8b__rank-3072__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (267K)
+- `model-qwen_0_8b__rank-3072__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (313K)
+- `model-qwen_0_8b__rank-3072__stage-math_sft_trunc2__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (318K)
+- `model-qwen_0_8b__rank-3072__stage-math_sft_trunc8__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (341K)
+- `model-qwen_0_8b__rank-3072__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (295K)
+- `model-qwen_0_8b__rank-8__stage-dpo__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (239K)
+- `model-qwen_0_8b__rank-8__stage-math_sft__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (274K)
+- `model-qwen_0_8b__rank-8__stage-merged_dare__env-retail__split-test__trials-1__agent-local_hf__user-local_hf-qwen_0_8b-base-0.json` (244K)
+
 
 ---
 
 ## 4. Caveats and known issues
 
-- **HumanEval scoring bug** affected `results/nemotron/master_results.json` (Phase 1 single-adapter HumanEval column). Same bug in `overnight_run/qa_pairs/humaneval_full_*.jsonl` (v1) but corrected in `*_rescored.jsonl`. Use rescored numbers.
+- **HumanEval scoring bug** affected `results/nemotron/master_results.json` (Phase 1 single-adapter HumanEval column). Same bug in `results/overnight/humaneval_full_*.jsonl` (v1) but corrected in `*_rescored.jsonl`. Use rescored numbers.
 - **Code Paradox cross-family overclaim** rolled back. Original deck claimed replication across 3 base models; n=200 follow-up showed n=50 was a fluke. Only the +5.5 pp Nemotron-30B n=200 result is robust.
 - **Demo bugs** in original `src/demo/server.py` (5 issues) caused 'crap answers' in early demos. Fix shipped May 2; backup at `src/demo/server_original_backup.py`. Smoke-test verification at 95% post-fix.
 - **Results in `results/router_generation_*` and `results/md_section_generation_*`** are intermediate artifacts from router-training experiments, not final results. Treat as historical.

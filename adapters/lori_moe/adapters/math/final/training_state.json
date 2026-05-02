@@ -1,0 +1,43 @@
+{
+  "domain": "math",
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "global_step": 25,
+  "best_loss": 0.5744120097160339,
+  "interrupted": false,
+  "signal": null,
+  "config": {
+    "rank": 32,
+    "alpha": 64.0,
+    "sparsity": 0.8,
+    "shared_b_seed": 42,
+    "lr": 0.0002,
+    "epochs": 1,
+    "batch_size": 4,
+    "grad_accum": 1,
+    "max_seq_length": 1024,
+    "max_train_samples": 100,
+    "warmup_ratio": 0.1,
+    "save_every": 500,
+    "gradient_checkpointing": false,
+    "optimizer_backend": "bnb_paged_adamw_8bit",
+    "compile_mode": null
+  },
+  "log": [
+    {
+      "step": 10,
+      "epoch": 1,
+      "loss": 0.5370769739151001,
+      "lr": 0.00014600650377311522,
+      "gpu_gb": 1.606995456,
+      "elapsed_min": 0.01952485243479411
+    },
+    {
+      "step": 20,
+      "epoch": 1,
+      "loss": 0.5847885325551033,
+      "lr": 2.242887092955801e-05,
+      "gpu_gb": 1.441675264,
+      "elapsed_min": 0.032098376750946046
+    }
+  ]
+}

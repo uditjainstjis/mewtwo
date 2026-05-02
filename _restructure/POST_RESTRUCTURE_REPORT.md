@@ -30,7 +30,7 @@ and no disruption to the running demo server.
   - 32 copies of Qwen tokenizer.json (~340 MB)
   - 21 copies of another tokenizer/config (~150 MB+)
   - 16×3 + 12 + 7 other duplicate config files
-  - 3 copies of adapter_model.safetensors between `checkpoints/nemotron_lori/adapters/{X}/best/` and `hf_publish/{X}/`
+  - 3 copies of adapter_model.safetensors between `adapters/nemotron_30b/{X}/best/` and `adapters/published/{X}/`
 - **No paths changed** — every PEFT load / benchmark script continues to work without modification
 
 ### 4. Documentation generated
@@ -41,18 +41,18 @@ and no disruption to the running demo server.
 - **`/home/learner/Desktop/mewtwo/docs/DOCS_INDEX.md`** (new) — every markdown file in the repo organized by directory
 
 ### 5. Buggy-scoring annotations
-- **`results/nemotron/_NOTE.md`** — explains the HumanEval extraction bug, points readers to `overnight_run/findings/humaneval_n164.md` for corrected n=164 numbers (56.1% / 73.2% / +17.1)
+- **`results/nemotron/_NOTE.md`** — explains the HumanEval extraction bug, points readers to `docs/findings/humaneval_n164.md` for corrected n=164 numbers (56.1% / 73.2% / +17.1)
 - **`results/lori_moe/_NOTE.md`** — explains the LoRI-MoE phase artifacts and their relationship to current production architecture
 
 ## Verification
 
 ### Canonical inference paths still resolve
 ✅ All 11 critical paths verified:
-- `checkpoints/nemotron_lori/adapters/{math,code,science}/best/adapter_model.safetensors` — same inode as `hf_publish/{math,code,science}/adapter_model.safetensors` (hardlinked, both paths work)
+- `adapters/nemotron_30b/{math,code,science}/best/adapter_model.safetensors` — same inode as `adapters/published/{math,code,science}/adapter_model.safetensors` (hardlinked, both paths work)
 - `models/nemotron/config.json`
 - `src/demo/server.py` (FIXED version) + `server_original_backup.py` (pre-fix backup)
 - `build_pitch_deck.py`
-- `overnight_run/FINAL_SUMMARY.md`, `overnight_run/qa_pairs/humaneval_full_base_rescored.jsonl`
+- `overnight_run/FINAL_SUMMARY.md`, `results/overnight/humaneval_full_base_rescored.jsonl`
 
 ### Demo server uninterrupted
 - Demo server (PID 10097, started before restructure) still running with 36 min uptime

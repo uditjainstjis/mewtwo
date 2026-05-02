@@ -1,0 +1,70 @@
+{
+  "started_at": "2026-04-27T09:54:17.396886+00:00",
+  "deadline_at": "2026-04-28T09:54:17.396885+00:00",
+  "config": {
+    "hours": 24.0,
+    "requested_dataset_limit": 10000,
+    "output_dir": "/home/learner/Desktop/mewtwo/hf_kaggle_opensource/outputs",
+    "offload_dir": "/home/learner/Desktop/mewtwo/hf_kaggle_opensource/offload_cache",
+    "data_cache_dir": "/home/learner/Desktop/mewtwo/data/hf_kaggle/dpo_cache",
+    "python": "/home/learner/Desktop/mewtwo/.venv/bin/python"
+  },
+  "queue": [
+    "nemotron_4b_math_DPO_rank128",
+    "nemotron_4b_math_DPO_rank1024",
+    "nemotron_4b_math_DPO_rank3072"
+  ],
+  "jobs": {
+    "nemotron_4b_math_DPO_rank128": {
+      "model": "nemotron_4b",
+      "rank": 128,
+      "status": "running",
+      "attempts": [
+        {
+          "attempt": 1,
+          "started_at": "2026-04-27T09:54:17.397072+00:00",
+          "profile": {
+            "dataset_limit": 3000,
+            "effective_batch_size": 16,
+            "batch_size": 4,
+            "max_length": 384,
+            "max_prompt_length": 192
+          },
+          "status": "failed",
+          "finished_at": "2026-04-27T09:54:47.397481+00:00",
+          "return_code": 1,
+          "failure_type": "oom"
+        },
+        {
+          "attempt": 2,
+          "started_at": "2026-04-27T09:54:47.397711+00:00",
+          "profile": {
+            "dataset_limit": 3000,
+            "effective_batch_size": 12,
+            "batch_size": 3,
+            "max_length": 384,
+            "max_prompt_length": 192
+          },
+          "status": "failed",
+          "finished_at": "2026-04-27T09:55:17.402751+00:00",
+          "return_code": 1,
+          "failure_type": "oom"
+        },
+        {
+          "attempt": 3,
+          "started_at": "2026-04-27T09:55:17.403018+00:00",
+          "profile": {
+            "dataset_limit": 3000,
+            "effective_batch_size": 8,
+            "batch_size": 2,
+            "max_length": 320,
+            "max_prompt_length": 160
+          },
+          "status": "running"
+        }
+      ],
+      "started_at": "2026-04-27T09:54:17.397016+00:00",
+      "planned_dataset_limit": 10000
+    }
+  }
+}

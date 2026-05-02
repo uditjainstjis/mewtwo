@@ -1,0 +1,83 @@
+{
+  "domain": "science",
+  "base_model": "Qwen/Qwen3.5-0.8B",
+  "global_step": 75,
+  "best_loss": Infinity,
+  "interrupted": true,
+  "signal": "SIGTERM",
+  "config": {
+    "rank": 32,
+    "alpha": 64.0,
+    "sparsity": 0.8,
+    "shared_b_seed": 42,
+    "lr": 5e-05,
+    "epochs": 3,
+    "batch_size": 4,
+    "grad_accum": 16,
+    "max_seq_length": 512,
+    "max_train_samples": 10000,
+    "warmup_ratio": 0.1,
+    "save_every": 500,
+    "gradient_checkpointing": false,
+    "optimizer_backend": "bnb_paged_adamw_8bit",
+    "compile_mode": null
+  },
+  "log": [
+    {
+      "step": 10,
+      "epoch": 1,
+      "loss": 2.1412526078522207,
+      "lr": 1.0869565217391305e-05,
+      "gpu_gb": 2.022994432,
+      "elapsed_min": 0.6609798312187195
+    },
+    {
+      "step": 20,
+      "epoch": 1,
+      "loss": 1.891732045263052,
+      "lr": 2.173913043478261e-05,
+      "gpu_gb": 2.197819392,
+      "elapsed_min": 1.3028649727503459
+    },
+    {
+      "step": 30,
+      "epoch": 1,
+      "loss": 1.7488245140761136,
+      "lr": 3.260869565217392e-05,
+      "gpu_gb": 1.927634944,
+      "elapsed_min": 1.9455560326576233
+    },
+    {
+      "step": 40,
+      "epoch": 1,
+      "loss": 1.6635890597477556,
+      "lr": 4.347826086956522e-05,
+      "gpu_gb": 2.086567424,
+      "elapsed_min": 2.589159921805064
+    },
+    {
+      "step": 50,
+      "epoch": 1,
+      "loss": 1.6097808917611838,
+      "lr": 4.9988916606645514e-05,
+      "gpu_gb": 2.372645888,
+      "elapsed_min": 3.234874478975932
+    },
+    {
+      "step": 60,
+      "epoch": 1,
+      "loss": 1.5702963842079043,
+      "lr": 4.986434126461717e-05,
+      "gpu_gb": 1.879954432,
+      "elapsed_min": 3.885535208384196
+    },
+    {
+      "step": 70,
+      "epoch": 1,
+      "loss": 1.5366448114493063,
+      "lr": 4.960202873324033e-05,
+      "gpu_gb": 1.81638144,
+      "elapsed_min": 4.504346013069153
+    }
+  ]
+}

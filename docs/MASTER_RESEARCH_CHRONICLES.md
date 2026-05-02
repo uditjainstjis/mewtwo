@@ -240,7 +240,7 @@ bf16: true
 - Shape: `torch.Size([32, 1536])` for Qwen2.5-1.5B (rank-32, hidden_dim=1536)
 - Shape: `torch.Size([32, 8960])` for larger models
 - Seed: 42 (deterministic, frozen after generation)
-- Saved to: `checkpoints/lori_moe/shared_projection_B.pt`
+- Saved to: `adapters/lori_moe/shared_projection_B.pt`
 
 ### Training Results (Qwen2.5-1.5B)
 
@@ -765,12 +765,12 @@ The simple router achieved 99.6% on training domain classification but the CoT r
 
 | Path | Description |
 |:---|:---|
-| `checkpoints/lori_moe/shared_projection_B.pt` | Shared B matrix (rank-32 × 1536) |
-| `checkpoints/lori_moe/shared_projection_B_8960.pt` | Shared B for larger models |
-| `checkpoints/lori_moe/qwen2.5_1.5b/{domain}/` | 5 domain adapters (best/final/dare) |
-| `checkpoints/lori_moe/qwen2.5_1.5b/router/best/` | Trained router weights |
-| `checkpoints/lori_moe/qwen3.5_0.8b/{domain}/` | 3 domain adapters for Qwen3.5-0.8B |
-| `checkpoints/lori_moe/qwen2.5_0.5b/math/` | Math adapter for 0.5B model |
+| `adapters/lori_moe/shared_projection_B.pt` | Shared B matrix (rank-32 × 1536) |
+| `adapters/lori_moe/shared_projection_B_8960.pt` | Shared B for larger models |
+| `adapters/lori_moe/qwen2.5_1.5b/{domain}/` | 5 domain adapters (best/final/dare) |
+| `adapters/lori_moe/qwen2.5_1.5b/router/best/` | Trained router weights |
+| `adapters/lori_moe/qwen3.5_0.8b/{domain}/` | 3 domain adapters for Qwen3.5-0.8B |
+| `adapters/lori_moe/qwen2.5_0.5b/math/` | Math adapter for 0.5B model |
 
 ### Documentation
 
@@ -847,9 +847,9 @@ Previous works (Synapta, LoRI-MoE) on smaller 1.5B architectures demonstrated th
 To achieve this, we built a fully autonomous "auto-chaining" pipeline that protected VRAM integerity while executing consecutive evaluations.
 
 ### Critical Execution Scripts
-*   `/scripts/master_pipeline.py`: The Phase 1 orchestrator. Exclusively tasked with running the single adapters against the 4 clean benchmarks.
-*   `/scripts/auto_chain.sh`: A background watchdog. Designed to wait for `master_pipeline.py` to finish the clean evals, violently kill the master thread to prevent it from wasting 5 hours running useless LayerBlend routing training, clear the GPU cache, and boot the ultimate sprint.
-*   `/scripts/research_sprint.py`: The Phase 2 & 3 executor. Implements the true PEFT composition via HuggingFace's `add_weighted_adapter` and executes the standardized `lm-eval-harness` logic.
+*   `/synapta_src/synapta_src/scripts/master_pipeline.py`: The Phase 1 orchestrator. Exclusively tasked with running the single adapters against the 4 clean benchmarks.
+*   `/synapta_src/synapta_src/scripts/auto_chain.sh`: A background watchdog. Designed to wait for `master_pipeline.py` to finish the clean evals, violently kill the master thread to prevent it from wasting 5 hours running useless LayerBlend routing training, clear the GPU cache, and boot the ultimate sprint.
+*   `/synapta_src/synapta_src/scripts/research_sprint.py`: The Phase 2 & 3 executor. Implements the true PEFT composition via HuggingFace's `add_weighted_adapter` and executes the standardized `lm-eval-harness` logic.
 
 ### Evaluation Datasets
 We moved away from using the base training datasets to avoid contamination, shifting exclusively to standard metrics:
@@ -980,7 +980,7 @@ Before the grand comparison could run, two prerequisite scripts were built and e
 **File:** [`scripts/train_neural_router_v2.py`](scripts/train_neural_router_v2.py)
 - Architecture: `SimpleNeuralRouter` — LayerNorm(2688) → Linear(2688,256) → SiLU → Dropout(0.1) → Linear(256,3)
 - Training: 150 epochs, batch_size=64, AdamW lr=1e-3, weight_decay=0.01
-- **Output:** `router_adapters/neural_mlp_router.pt` (2.78 MB)
+- **Output:** `adapters/routers/neural_mlp_router.pt` (2.78 MB)
 - Trained on domain-labeled token embeddings to predict Math/Code/Science
 
 ---
@@ -1080,7 +1080,7 @@ Every single strategy scored **0.0%** on ARC-Challenge (25 questions). This is a
 - **Training:** 200 epochs, batch_size=128, AdamW lr=5e-4, CosineAnnealing schedule
 - **80/20 train/val split** (4,200 train / 1,050 val)
 - **Final metrics:** TrainAcc=81.1%, **ValAcc=79.6%** (best), stabilized by epoch 50
-- **Saved to:** `router_adapters/sft_oracle_router.pt` (2.85 MB)
+- **Saved to:** `adapters/routers/sft_oracle_router.pt` (2.85 MB)
 - **Note:** 79.6% val accuracy ≈ majority class baseline (79.5% are Math), meaning the router essentially learned to always predict "Math"
 
 ### 6.3 REINFORCE Router Training
@@ -1088,7 +1088,7 @@ Every single strategy scored **0.0%** on ARC-Challenge (25 questions). This is a
 - **Training:** 100 epochs, Adam lr=1e-3, gradient clipping at 1.0
 - **Reward:** Per-token log-probability under chosen adapter (normalized)
 - **Final metrics:** Loss converged to 0.0000 by epoch 80, TotalReward=0.0
-- **Saved to:** `router_adapters/reinforce_router.pt` (1.40 MB)
+- **Saved to:** `adapters/routers/reinforce_router.pt` (1.40 MB)
 - **Note:** REINFORCE collapsed — zero reward throughout, meaning the policy learned nothing beyond the initialization bias
 
 ### 6.4 UCB Bandit
@@ -1169,9 +1169,9 @@ The PPL-Reactive router achieved the lowest average perplexity on all benchmarks
 | File | Description | Size |
 |:---|:---|---:|
 | `data/neural_router_train_data.pt` | 300 domain-labeled hidden states (layer 32) | 7.26 MB |
-| `router_adapters/neural_mlp_router.pt` | Trained SimpleNeuralRouter weights | 2.78 MB |
-| `router_adapters/sft_oracle_router.pt` | SFT router trained on oracle trace labels | 2.85 MB |
-| `router_adapters/reinforce_router.pt` | REINFORCE policy weights | 1.40 MB |
+| `adapters/routers/neural_mlp_router.pt` | Trained SimpleNeuralRouter weights | 2.78 MB |
+| `adapters/routers/sft_oracle_router.pt` | SFT router trained on oracle trace labels | 2.85 MB |
+| `adapters/routers/reinforce_router.pt` | REINFORCE policy weights | 1.40 MB |
 
 ### 8.3 New Result Files
 

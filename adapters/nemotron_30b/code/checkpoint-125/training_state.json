@@ -1,0 +1,26 @@
+{
+  "domain": "code",
+  "base_model": "/home/learner/Desktop/mewtwo/models/nemotron",
+  "global_step": 125,
+  "best_loss": Infinity,
+  "interrupted": false,
+  "signal": null,
+  "config": {
+    "rank": 64,
+    "alpha": 128.0,
+    "sparsity": 0.8,
+    "shared_b_seed": 42,
+    "lr": 0.0001,
+    "epochs": 2,
+    "batch_size": 2,
+    "grad_accum": 16,
+    "max_seq_length": 512,
+    "max_train_samples": 50000,
+    "warmup_ratio": 0.1,
+    "save_every": 25,
+    "gradient_checkpointing": true,
+    "optimizer_backend": "bnb_paged_adamw_8bit",
+    "compile_mode": null
+  },
+  "log": []
+}

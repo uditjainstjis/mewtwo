@@ -128,13 +128,13 @@ It teaches the router what *failure modes to avoid*.
 ### `train_router_sft.py`
 
 - runs supervised fine-tuning for the router LoRA
-- saves the adapter and tokenizer in `router_adapters/router_reasoning_sft`
+- saves the adapter and tokenizer in `adapters/routers/router_reasoning_sft`
 
 ### `train_router_dpo.py`
 
 - loads the SFT adapter
 - runs preference optimization on the DPO set
-- saves the improved adapter in `router_adapters/router_reasoning_dpo`
+- saves the improved adapter in `adapters/routers/router_reasoning_dpo`
 
 ### `run_router_upgrade_pipeline.py`
 
@@ -165,9 +165,9 @@ Smoke artifacts completed successfully:
   - `data/router_synthetic_routing_smoke_100.json`
   - `data/router_synthetic_routing_smoke_200.json`
 - SFT smoke training:
-  - `router_adapters/router_reasoning_sft_smoke200`
+  - `adapters/routers/router_reasoning_sft_smoke200`
 - DPO smoke training:
-  - `router_adapters/router_reasoning_dpo_smoke200`
+  - `adapters/routers/router_reasoning_dpo_smoke200`
 
 Smoke training outcomes:
 

@@ -262,7 +262,7 @@ This reads from `data/lori_moe/*.jsonl` and writes to `data/nemotron/*.jsonl` us
 
 ### Step 1.2: Verify Nemotron Config
 
-File already exists: `src/lori_moe/configs/nemotron_config.py`
+File already exists: `src/lori_moe/synapta_src/synapta_src/configs/nemotron_config.py`
 
 Key settings:
 - `rank=64`, `alpha=128.0` (ratio 2.0)
@@ -279,7 +279,7 @@ import torch
 
 proj = get_shared_projection(
     hidden_size=2688, rank=64, seed=42,
-    save_path=Path("/home/learner/Desktop/mewtwo/checkpoints/nemotron_lori/shared_projection_B.pt"),
+    save_path=Path("/home/learner/Desktop/mewtwo/adapters/nemotron_30b/shared_projection_B.pt"),
     device="cuda", dtype=torch.bfloat16,
 )
 stats = proj.verify_orthogonality(num_samples=200, dim_out=2688)
@@ -313,7 +313,7 @@ Record: GSM8K, ARC, MMLU baselines.
     --domain math \
     --base_model ./models/nemotron \
     --data_dir ./data/nemotron \
-    --output_dir ./checkpoints/nemotron_lori/adapters \
+    --output_dir ./adapters/nemotron_30b/adapters \
     --rank 64 --alpha 128.0 --sparsity 0.8 \
     --epochs 2 --batch_size 2 --grad_accum 16 \
     --lr 1e-4 --max_seq_length 1024 \
@@ -778,9 +778,9 @@ Key innovation in training:
 ```bash
 .venv/bin/python -m src.lori_moe.training.train_gc_router \
     --base_model ./models/nemotron \
-    --adapter_dir ./checkpoints/nemotron_lori/adapters \
+    --adapter_dir ./adapters/nemotron_30b/adapters \
     --data_dir ./data/nemotron \
-    --output_dir ./checkpoints/nemotron_lori/gc_router \
+    --output_dir ./adapters/nemotron_30b/gc_router \
     --epochs 5 --lr 5e-4 \
     --use_4bit \
     2>&1 | tee logs/nemotron/train_gc_router.log
@@ -866,7 +866,7 @@ mewtwo/
 │   ├── math_train.jsonl
 │   ├── code_train.jsonl
 │   └── science_train.jsonl
-├── checkpoints/nemotron_lori/
+├── adapters/nemotron_30b/
 │   ├── shared_projection_B.pt           # rank=64 × hidden=2688
 │   ├── adapters/{math,code,science}/
 │   │   ├── best/
@@ -942,7 +942,7 @@ This is the working checklist for the Nemotron track. Rewritten to center on the
 - [x] `mamba_ssm==2.3.1` installed and validated (`rmsnorm_fn` import succeeds)
 - [x] `scripts/nemotron_probe.py` hardened for source-backed output without CUDA
 - [x] `train_lori_adapter.py` upgraded to template-derived assistant-prefix masking
-- [x] `src/lori_moe/configs/nemotron_config.py` created (attention-only default)
+- [x] `src/lori_moe/synapta_src/synapta_src/configs/nemotron_config.py` created (attention-only default)
 - [x] `models/nemotron/architecture_notes.md` written
 - [x] `scripts/reformat_data_for_nemotron.py` exists
 - [x] `scripts/nemotron_pipeline.sh` exists (draft)

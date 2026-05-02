@@ -1,0 +1,9 @@
+{
+  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "sft_adapter": "adapters/routers/router_reasoning_sft_manual_probe5000",
+  "dataset": "data/router_reasoning_dpo_5000.jsonl",
+  "task": "router_dpo_manual",
+  "force_cpu": false,
+  "device": "cpu",
+  "total_steps": 1
+}

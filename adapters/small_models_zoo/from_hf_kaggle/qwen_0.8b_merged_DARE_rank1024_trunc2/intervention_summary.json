@@ -1,0 +1,55 @@
+{
+  "source": "/home/learner/Desktop/mewtwo/adapters/small_models_zoo/from_hf_kaggle/qwen_0.8b_merged_DARE_rank1024/merged_sft",
+  "retain_rank": 2,
+  "label": "trunc2",
+  "modules": {
+    "base_model.model.model.layers.11.self_attn.q_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.11.self_attn.v_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.15.self_attn.q_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.15.self_attn.v_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.19.self_attn.q_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.19.self_attn.v_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.23.self_attn.q_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.23.self_attn.v_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.3.self_attn.q_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.3.self_attn.v_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.7.self_attn.q_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    },
+    "base_model.model.model.layers.7.self_attn.v_proj": {
+      "original_rank": 1024,
+      "retained_rank": 2
+    }
+  }
+}

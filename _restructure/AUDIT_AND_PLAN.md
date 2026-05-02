@@ -13,13 +13,13 @@
 | `models/` | 60 GB | 91 | Base model weights (Nemotron-30B, Qwen-3.5-0.8B). DO NOT TOUCH. |
 | `hf_kaggle_opensource/` | 43 GB | 8935 | Adapters + benchmarks (tau-bench, LLMs-Planning) |
 | `.venv/` | 9.1 GB | many | Python venv. DO NOT TOUCH. |
-| `checkpoints/` | 8.3 GB | 754 | Training intermediate checkpoints + best/final |
+| `adapters/` | 8.3 GB | 754 | Training intermediate checkpoints + best/final |
 | `.git/` | 588 MB | — | Git history. DO NOT TOUCH. |
 | `data/` | 225 MB | 84 | Datasets and prompts |
-| `hf_publish/` | 180 MB | 56 | Publishing-ready adapters (DUPLICATES of checkpoints/.../best) |
-| `router_adapters/` | 139 MB | 65 | Router model checkpoints |
+| `adapters/published/` | 180 MB | 56 | Publishing-ready adapters (DUPLICATES of adapters/.../best) |
+| `adapters/routers/` | 139 MB | 65 | Router model checkpoints |
 | `perplexity-mcp-venv/` | 110 MB | many | MCP server venv. DO NOT TOUCH. |
-| `submission_adapter/` | 45 MB | 5 | Single packaged adapter |
+| `adapters/submission/` | 45 MB | 5 | Single packaged adapter |
 | `archive/` | 38 MB | 66 | Old work (synapta_v1 etc) |
 | `logs/` | 21 MB | 70 | Training and run logs |
 | `results/` | 15 MB | 322 | Benchmark output JSONs |
@@ -31,9 +31,9 @@
 
 ### Duplicates (verified by sha256)
 
-- **32 copies of identical Qwen tokenizer.json** (~11MB each) across `hf_kaggle_opensource/outputs/` adapter dirs and `checkpoints/lori_moe/qwen3.5_0.8b/`. Total ~340MB recoverable.
+- **32 copies of identical Qwen tokenizer.json** (~11MB each) across `adapters/small_models_zoo/from_hf_kaggle/` adapter dirs and `adapters/lori_moe/qwen3.5_0.8b/`. Total ~340MB recoverable.
 - **21 copies** of another identical file (likely Nemotron tokenizer or vocab).
-- **3× of `hf_publish/{math,code,science}/adapter_model.safetensors`** is bit-identical to `checkpoints/nemotron_lori/adapters/{math,code,science}/best/adapter_model.safetensors`. ~270MB.
+- **3× of `adapters/published/{math,code,science}/adapter_model.safetensors`** is bit-identical to `adapters/nemotron_30b/{math,code,science}/best/adapter_model.safetensors`. ~270MB.
 - Multiple **dare_sparsified** dirs that are bit-equivalent to their `final/` siblings.
 - 7-19 copies of various PEFT config/template files.
 
@@ -47,16 +47,16 @@
 ### Documentation sprawl
 
 417 markdown files total (excluding venvs/.git). Highest concentrations:
-- `hf_kaggle_opensource/results/` — 32 files
+- `results/small_models/` — 32 files
 - `results/md_generation_prompts/` — 22 files
 - `archive/synapta_v1/` — 19 files
 - `results/` — 16 files
 - `docs/` — 12 (master research docs)
-- `overnight_run/findings/` — 7
+- `docs/findings/` — 7
 
 ### Intermediate training checkpoints
 
-`checkpoints/nemotron_lori/adapters/{math,code,science}/checkpoint-*/` total **~3 GB** of training-history checkpoints. Each ~29 MB. Only `best/` and `final/` are referenced by inference/benchmark scripts.
+`adapters/nemotron_30b/{math,code,science}/checkpoint-*/` total **~3 GB** of training-history checkpoints. Each ~29 MB. Only `best/` and `final/` are referenced by inference/benchmark scripts.
 
 ## Plan (executed in order)
 
@@ -74,7 +74,7 @@ For each set of bit-identical files outside model/git/venv:
 Notable groups:
 - 32× Qwen tokenizer.json
 - 16-21× Nemotron tokenizer/config files
-- 3× adapter_model.safetensors (`hf_publish/* === checkpoints/.../best`)
+- 3× adapter_model.safetensors (`adapters/published/* === adapters/.../best`)
 
 ### Step 3 — Comprehensive documentation generation
 Generate four navigation documents:
@@ -84,7 +84,7 @@ Generate four navigation documents:
 - **`docs/DOCS_INDEX.md`** — every markdown file catalogued by topic
 
 ### Step 4 — Annotate buggy-scoring artifacts
-The HumanEval extraction bug affected files in `results/nemotron/master_results.json` and similar. Add a `_NOTE.md` next to each affected file explaining what the bug was and where the corrected numbers live (`overnight_run/findings/humaneval_n164.md`).
+The HumanEval extraction bug affected files in `results/nemotron/master_results.json` and similar. Add a `_NOTE.md` next to each affected file explaining what the bug was and where the corrected numbers live (`docs/findings/humaneval_n164.md`).
 
 ### Step 5 — Verify
 - Run a quick smoke test (model load, generate one prompt) to confirm nothing broke

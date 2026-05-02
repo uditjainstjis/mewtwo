@@ -126,7 +126,7 @@ The registry points to adapter files under `backend/expert_adapters/...`, but th
 
 ### 1.3 LoRI-MoE architecture
 
-The LoRI-MoE branch lives under `src/lori_moe/` and `checkpoints/lori_moe/`.
+The LoRI-MoE branch lives under `src/lori_moe/` and `adapters/lori_moe/`.
 
 Core files:
 
@@ -409,10 +409,10 @@ What is executed:
 
 Verified by:
 
-- `checkpoints/lori_moe/qwen2.5_1.5b/*/training_log.json`
+- `adapters/lori_moe/qwen2.5_1.5b/*/training_log.json`
 - saved PEFT adapter directories under each domain's `best`, `final`, and `dare_sparsified` folders
 - `logs/lori_moe/pipeline.log`
-- `checkpoints/lori_moe/pipeline_state.json`
+- `adapters/lori_moe/pipeline_state.json`
 
 What is executed:
 
@@ -427,7 +427,7 @@ What is executed:
 
 Verified by:
 
-- `checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt`
+- `adapters/lori_moe/qwen2.5_1.5b/router/best/router.pt`
 - `logs/lori_moe/train_router.log`
 - `logs/lori_moe/router_training.log`
 
@@ -441,9 +441,9 @@ What is executed:
 
 Verified by:
 
-- `checkpoints/lori_moe/qwen3.5_0.8b/math/training_log.json`
-- `checkpoints/lori_moe/qwen2.5_0.5b/math/training_log.json`
-- `checkpoints/lori_moe/qwen2.5_7b/science/training_log.json`
+- `adapters/lori_moe/qwen3.5_0.8b/math/training_log.json`
+- `adapters/lori_moe/qwen2.5_0.5b/math/training_log.json`
+- `adapters/lori_moe/qwen2.5_7b/science/training_log.json`
 - `logs/lori_moe/*`
 
 What is executed:
@@ -821,7 +821,7 @@ Prepared dataset statistics:
 
 Primary evidence:
 
-- `checkpoints/lori_moe/qwen2.5_1.5b/<domain>/training_log.json`
+- `adapters/lori_moe/qwen2.5_1.5b/<domain>/training_log.json`
 - each domain's `best/training_state.json`
 - `logs/lori_moe/pipeline.log`
 
@@ -855,7 +855,7 @@ Primary evidence:
 
 - `logs/lori_moe/train_router.log`
 - `logs/lori_moe/router_training.log`
-- `checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt`
+- `adapters/lori_moe/qwen2.5_1.5b/router/best/router.pt`
 
 Observed results:
 
@@ -877,7 +877,7 @@ Primary evidence:
 
 - `logs/lori_moe/pipeline.log`
 - `logs/lori_moe/pipeline_stdout.log`
-- `checkpoints/lori_moe/pipeline_state.json`
+- `adapters/lori_moe/pipeline_state.json`
 - per-model training logs
 
 Observed outcomes:
@@ -947,14 +947,14 @@ This section maps the main artifacts without dumping large files.
 
 | Path | Structure | What it contains | Why it matters |
 | --- | --- | --- | --- |
-| `checkpoints/lori_moe/qwen2.5_1.5b/<domain>/training_log.json` | JSON | Domain-level training summary: steps, best loss, runtime | Primary evidence of successful 1.5B adapter training |
-| `checkpoints/lori_moe/qwen2.5_1.5b/<domain>/best/` | PEFT adapter directory | `adapter_model.safetensors`, config, tokenizer assets, `training_state.json` | Best checkpoint per domain |
-| `checkpoints/lori_moe/qwen2.5_1.5b/<domain>/final/` | PEFT adapter directory | Final checkpoint after training | Shows post-training saved state |
-| `checkpoints/lori_moe/qwen2.5_1.5b/<domain>/dare_sparsified/` | PEFT adapter directory | Sparsified checkpoint variant | Evidence that DARE sparsification was actually applied |
-| `checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt` | PyTorch checkpoint | Trained router weights | Evidence of router training completion |
-| `checkpoints/lori_moe/pipeline_state.json` | JSON | Tracks completed and failed models / domains in the autonomous pipeline | High-level execution bookkeeping |
-| `checkpoints/lori_moe/queue_config.json` | JSON | Queue definition for model/domain training | Explains intended scaling plan |
-| `checkpoints/lori_moe/qwen3.5_0.8b/math/*` | Partial checkpoint tree | Interrupted training artifacts plus `checkpoint-500` | Evidence of a partial scaling attempt |
+| `adapters/lori_moe/qwen2.5_1.5b/<domain>/training_log.json` | JSON | Domain-level training summary: steps, best loss, runtime | Primary evidence of successful 1.5B adapter training |
+| `adapters/lori_moe/qwen2.5_1.5b/<domain>/best/` | PEFT adapter directory | `adapter_model.safetensors`, config, tokenizer assets, `training_state.json` | Best checkpoint per domain |
+| `adapters/lori_moe/qwen2.5_1.5b/<domain>/final/` | PEFT adapter directory | Final checkpoint after training | Shows post-training saved state |
+| `adapters/lori_moe/qwen2.5_1.5b/<domain>/dare_sparsified/` | PEFT adapter directory | Sparsified checkpoint variant | Evidence that DARE sparsification was actually applied |
+| `adapters/lori_moe/qwen2.5_1.5b/router/best/router.pt` | PyTorch checkpoint | Trained router weights | Evidence of router training completion |
+| `adapters/lori_moe/pipeline_state.json` | JSON | Tracks completed and failed models / domains in the autonomous pipeline | High-level execution bookkeeping |
+| `adapters/lori_moe/queue_config.json` | JSON | Queue definition for model/domain training | Explains intended scaling plan |
+| `adapters/lori_moe/qwen3.5_0.8b/math/*` | Partial checkpoint tree | Interrupted training artifacts plus `checkpoint-500` | Evidence of a partial scaling attempt |
 
 ### 5.4 Log artifacts
 
@@ -1275,8 +1275,8 @@ As the project progressed, the central thesis split into three narrower hypothes
 - **`src/router/generate_synthetic_routing_dataset.py`** — Generates synthetic routing corpus using frontier model (Claude 4.6 Sonnet via Perplexity proxy). **Status: Fully executed; produced 5,000-item dataset at `data/router_synthetic_routing_5000.json`.**
 - **`src/router/prepare_router_sft_dataset.py`** — Converts synthetic data to chat-format JSONL for SFT. **Status: Fully executed.**
 - **`src/router/build_router_dpo_dataset.py`** — Builds DPO preference pairs from gold traces + injected failure modes. **Status: Fully executed.**
-- **`src/router/train_router_sft.py`** + **`train_router_sft_manual.py`** — SFT training (manual PyTorch loops due to `trl` crashing on Apple MPS). **Status: Fully executed on 5,000 examples. Adapter saved at `router_adapters/router_reasoning_sft_5000_mpsfix`.**
-- DPO training — **Status: Fully executed on MPS. Adapter saved at `router_adapters/router_reasoning_dpo_5000_mpsfix`. Note: DPO regressed routing accuracy.**
+- **`src/router/train_router_sft.py`** + **`train_router_sft_manual.py`** — SFT training (manual PyTorch loops due to `trl` crashing on Apple MPS). **Status: Fully executed on 5,000 examples. Adapter saved at `adapters/routers/router_reasoning_sft_5000_mpsfix`.**
+- DPO training — **Status: Fully executed on MPS. Adapter saved at `adapters/routers/router_reasoning_dpo_5000_mpsfix`. Note: DPO regressed routing accuracy.**
 
 #### Collaborative Inference (TCAR)
 - **`backend/collaborative_reasoning.py`** — `CollaborativeReasoner` class. Implements: (1) Natural-language reasoning router, (2) Independent expert branches with shared KV-cache prefill, (3) Discriminative verifier selection (score_completion-based Best-of-N), (4) Support for HF-trained router injection. **Status: Fully implemented and tested.**
@@ -1316,7 +1316,7 @@ As the project progressed, the central thesis split into three narrower hypothes
 - **`backend/benchmark_v3.py`** — Validation script for Qwen 3.5 0.8B with a 5-domain subset (Legal, Medical, Python, Math, MLX). Uses `expert_registry_v3.json`. Tests only Baseline vs Synapta-Balanced (c=0.5). **Status: Script exists (129 lines), no evidence of completed runs or result artifacts.**
 
 #### HuggingFace Publishing
-- **`hf_publish/`** — Contains staged adapter files for 5 domains (math, code, science, legal, medical) targeting Qwen2.5-1.5B-Instruct. **Status: Staging directory exists with family_summary.json. Publish script exists at `scripts/prepare_hf_lori_publish.py`. No evidence of successful publication.**
+- **`adapters/published/`** — Contains staged adapter files for 5 domains (math, code, science, legal, medical) targeting Qwen2.5-1.5B-Instruct. **Status: Staging directory exists with family_summary.json. Publish script exists at `scripts/prepare_hf_lori_publish.py`. No evidence of successful publication.**
 
 ### 3.3 UNIMPLEMENTED HYPOTHESES (Documented but Not Coded)
 
@@ -1692,10 +1692,10 @@ Individual latencies: 92.8s, 79.0s, 79.6s, 64.0s.
 | Directory | Description |
 | --- | --- |
 | `backend/expert_adapters/{DOMAIN}/` | 20 domain-specific LoRA adapter directories, each containing `adapters.safetensors` |
-| `router_adapters/router_reasoning_sft_5000_mpsfix/` | SFT-trained router LoRA checkpoint (best routing accuracy: 85%) |
-| `router_adapters/router_reasoning_dpo_5000_mpsfix/` | DPO-trained router LoRA checkpoint (regressed to 42% accuracy) |
-| `router_adapters/router_reasoning_sft_smoke200/` | Smoke-test SFT checkpoint |
-| `router_adapters/router_reasoning_dpo_smoke200/` | Smoke-test DPO checkpoint |
+| `adapters/routers/router_reasoning_sft_5000_mpsfix/` | SFT-trained router LoRA checkpoint (best routing accuracy: 85%) |
+| `adapters/routers/router_reasoning_dpo_5000_mpsfix/` | DPO-trained router LoRA checkpoint (regressed to 42% accuracy) |
+| `adapters/routers/router_reasoning_sft_smoke200/` | Smoke-test SFT checkpoint |
+| `adapters/routers/router_reasoning_dpo_smoke200/` | Smoke-test DPO checkpoint |
 
 ### 5.6 Total Inference Count
 
@@ -1845,7 +1845,7 @@ This document is the definitive, research-grade reference for all Token-Level Ad
 - **Adapter count:** 5 domains (math, code, science, legal, medical)
 - **Composition:** Designed for top-2 token-level expert blending per layer
 - **Key scripts:** `src/lori_moe/model/router.py`, `src/lori_moe/training/train_router.py`
-- **Result files:** `checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt`, `logs/lori_moe/train_router.log`
+- **Result files:** `adapters/lori_moe/qwen2.5_1.5b/router/best/router.pt`, `logs/lori_moe/train_router.log`
 
 ### Generation C: Nemotron-30B Token-Level Dynamic Routing (RTX 5090)
 
@@ -1967,7 +1967,7 @@ The `MultiLayerRouter` class manages routers across all transformer layers, with
 
 ### 3.2 Adapter Training Results (Qwen2.5-1.5B)
 
-**Source:** `checkpoints/lori_moe/qwen2.5_1.5b/*/training_log.json`
+**Source:** `adapters/lori_moe/qwen2.5_1.5b/*/training_log.json`
 
 Training config: `max_train_samples=10000`, `max_seq_length=512`, `gradient_checkpointing=true`, `optimizer=bnb_paged_adamw_8bit`
 
@@ -1983,7 +1983,7 @@ Training config: `max_train_samples=10000`, `max_seq_length=512`, `gradient_chec
 
 ### 3.3 Router Training Results
 
-**Source:** `checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt`, `logs/lori_moe/train_router.log`
+**Source:** `adapters/lori_moe/qwen2.5_1.5b/router/best/router.pt`, `logs/lori_moe/train_router.log`
 
 - 5,000 total routing examples (1,000 per domain)
 - Pooled hidden-state classifier
@@ -2024,7 +2024,7 @@ The full LoRI-MoE composition story (multi-expert token-level blending during ge
 
 ### 4.2 Adapter Training (Nemotron 30B)
 
-**Source:** `checkpoints/nemotron_lori/adapters/*/training_log.json`
+**Source:** `adapters/nemotron_30b/*/training_log.json`
 
 Training was executed using LoRA with frozen random `lora_A` projections (LoRI-style).
 
@@ -2263,11 +2263,11 @@ When a syntactically critical region is detected, the router **LOCKS** the curre
 
 | Path | Contents |
 | :--- | :--- |
-| `checkpoints/nemotron_lori/adapters/math/best/` | Nemotron 30B Math PEFT adapter (safetensors) |
-| `checkpoints/nemotron_lori/adapters/code/best/` | Nemotron 30B Code PEFT adapter (safetensors) |
-| `checkpoints/nemotron_lori/adapters/science/best/` | Nemotron 30B Science PEFT adapter (safetensors) |
-| `checkpoints/lori_moe/qwen2.5_1.5b/*/best/` | Qwen 1.5B domain adapters (5 domains) |
-| `checkpoints/lori_moe/qwen2.5_1.5b/router/best/router.pt` | Qwen 1.5B pooled hidden-state router weights |
+| `adapters/nemotron_30b/math/best/` | Nemotron 30B Math PEFT adapter (safetensors) |
+| `adapters/nemotron_30b/code/best/` | Nemotron 30B Code PEFT adapter (safetensors) |
+| `adapters/nemotron_30b/science/best/` | Nemotron 30B Science PEFT adapter (safetensors) |
+| `adapters/lori_moe/qwen2.5_1.5b/*/best/` | Qwen 1.5B domain adapters (5 domains) |
+| `adapters/lori_moe/qwen2.5_1.5b/router/best/router.pt` | Qwen 1.5B pooled hidden-state router weights |
 
 ---
 

@@ -1,0 +1,50 @@
+{
+  "last_updated": "2026-04-18T20:48:17Z",
+  "current_phase": "phase_3_5",
+  "phases": {
+    "phase_0": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_0_5": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_0_7": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_1": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_1_5": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_2": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_3_math": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_3_science": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_3_code": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_3_5": {
+      "status": "COMPLETED",
+      "last_checkpoint": null
+    },
+    "phase_4_router": {
+      "status": "PENDING",
+      "last_checkpoint": null
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "Historical Event": {
+    "path": "/Users/uditjain/Desktop/adapter/synapta_src/synapta_src/backend/adapters/Historical Event/adapters.safetensors",
+    "description": "Historical Event specific knowledge data.",
+    "vram_mb": 20.15
+  },
+  "Company": {
+    "path": "/Users/uditjain/Desktop/adapter/synapta_src/synapta_src/backend/adapters/Company/adapters.safetensors",
+    "description": "Fictional corporate entities, synthetic ecology, bio-lattice, and industrial history.",
+    "vram_mb": 20.15
+  },
+  "Author": {
+    "path": "/Users/uditjain/Desktop/adapter/synapta_src/synapta_src/backend/adapters/Author/adapters.safetensors",
+    "description": "Speculative fiction writers, submerged noir, arboreal poetry, and literary biographies.",
+    "vram_mb": 20.15
+  }
+}

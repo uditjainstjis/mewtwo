@@ -1,9 +1,0 @@
-{
-  "ts": "2026-05-02T02:07:29.133169",
-  "state": "done",
-  "mode": null,
-  "idx": null,
-  "total": 164,
-  "passed": null,
-  "vram_used_mb": 16714
-}

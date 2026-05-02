@@ -1,9 +1,0 @@
-{
-  "base_model": "Qwen/Qwen2.5-0.5B-Instruct",
-  "sft_adapter": "router_adapters/router_reasoning_sft_5000_mpsfix",
-  "dataset": "data/router_reasoning_dpo_5000.jsonl",
-  "task": "router_dpo_manual",
-  "device": "mps",
-  "dtype": "float16",
-  "total_steps": 300
-}

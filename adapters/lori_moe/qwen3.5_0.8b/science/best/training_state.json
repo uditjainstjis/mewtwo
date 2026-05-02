@@ -1,0 +1,26 @@
+{
+  "domain": "science",
+  "base_model": "Qwen/Qwen3.5-0.8B",
+  "global_step": 156,
+  "best_loss": 1.4385526450872421,
+  "interrupted": false,
+  "signal": null,
+  "config": {
+    "rank": 32,
+    "alpha": 64.0,
+    "sparsity": 0.8,
+    "shared_b_seed": 42,
+    "lr": 5e-05,
+    "epochs": 3,
+    "batch_size": 4,
+    "grad_accum": 16,
+    "max_seq_length": 512,
+    "max_train_samples": 10000,
+    "warmup_ratio": 0.1,
+    "save_every": 500,
+    "gradient_checkpointing": true,
+    "optimizer_backend": "bnb_paged_adamw_8bit",
+    "compile_mode": null
+  },
+  "log": []
+}

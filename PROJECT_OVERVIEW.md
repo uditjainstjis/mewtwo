@@ -76,7 +76,7 @@ mewtwo/
 │   ├── nemotron/                # Nemotron-H-30B (NemotronHForCausalLM)
 │   └── Qwen3.5-0.8B/
 │
-├── checkpoints/                 # PEFT adapter training output
+├── adapters/                 # PEFT adapter training output
 │   ├── nemotron_lori/adapters/{math,code,science}/
 │   │   ├── best/                # canonical inference adapter
 │   │   ├── final/               # last training step
@@ -85,7 +85,7 @@ mewtwo/
 │   ├── lori_moe/                # LoRI-MoE Qwen-1.5B work
 │   └── MATHEMATICS/             # ?
 │
-├── hf_publish/                  # publishing-ready adapters (hardlinked to checkpoints/...)
+├── adapters/published/                  # publishing-ready adapters (hardlinked to adapters/...)
 │   └── {math,code,science,merged}/
 │
 ├── hf_kaggle_opensource/        # small-model adapter zoo + 3rd-party benchmarks
@@ -93,8 +93,8 @@ mewtwo/
 │   ├── benchmarks/              # tau-bench, LLMs-Planning (3rd-party suites)
 │   └── results/                 # small-model eval outputs
 │
-├── router_adapters/             # router classifier checkpoints (Synapta v1 era)
-├── submission_adapter/          # single packaged adapter (Synapta submission)
+├── adapters/routers/             # router classifier checkpoints (Synapta v1 era)
+├── adapters/submission/          # single packaged adapter (Synapta submission)
 │
 ├── src/                         # Synapta source code
 │   ├── demo/server.py           # FastAPI WebSocket demo (FIXED 2026-05-02)
@@ -140,9 +140,9 @@ mewtwo/
 
 ## Known caveats (read before citing numbers)
 
-1. **HumanEval scoring bug:** original `extract_code` in `scripts/master_pipeline.py` and `overnight_run/scripts/run_humaneval_n164.py` (v1) dropped imports from prompts and stripped body indentation. This caused systematic ~30 pp under-counting on Nemotron-30B HumanEval. **Use the v2 rescored numbers** in `overnight_run/qa_pairs/humaneval_full_*_rescored.jsonl` and findings in `overnight_run/findings/humaneval_n164.md`.
+1. **HumanEval scoring bug:** original `extract_code` in `scripts/master_pipeline.py` and `synapta_src/overnight_scripts/run_humaneval_n164.py` (v1) dropped imports from prompts and stripped body indentation. This caused systematic ~30 pp under-counting on Nemotron-30B HumanEval. **Use the v2 rescored numbers** in `results/overnight/humaneval_full_*_rescored.jsonl` and findings in `docs/findings/humaneval_n164.md`.
 
-2. **Code Paradox cross-family overclaim retracted:** n=50 results on Qwen-0.8B and Nemotron-Mini-4B suggested cross-family replication, but n=200 follow-up on Qwen-0.8B showed the paradox does NOT replicate at full sample. **Robust claim:** +5.5 pp at n=200 on Nemotron-30B only. Honest update in `overnight_run/findings/code_paradox_replication.md`.
+2. **Code Paradox cross-family overclaim retracted:** n=50 results on Qwen-0.8B and Nemotron-Mini-4B suggested cross-family replication, but n=200 follow-up on Qwen-0.8B showed the paradox does NOT replicate at full sample. **Robust claim:** +5.5 pp at n=200 on Nemotron-30B only. Honest update in `docs/findings/code_paradox_replication.md`.
 
-3. **Demo had 5 bugs** in original `src/demo/server.py` (repetition_penalty=1.3, wrong neural router input distribution, initial adapter not set, marketing system prompt, routing interval mismatch). Fixed 2026-05-02. Backup at `src/demo/server_original_backup.py`. Bug breakdown in `overnight_run/findings/demo_server_bugs.md`.
+3. **Demo had 5 bugs** in original `src/demo/server.py` (repetition_penalty=1.3, wrong neural router input distribution, initial adapter not set, marketing system prompt, routing interval mismatch). Fixed 2026-05-02. Backup at `src/demo/server_original_backup.py`. Bug breakdown in `docs/findings/demo_server_bugs.md`.
 
