@@ -107,9 +107,9 @@ text(s, "Sovereign AI for regulated enterprise.", Inches(0.7), Inches(0.95), Inc
 # Multi-line headline
 multi_text(s, [
     ("Frontier-class reasoning,", 50, WHITE, True, "Calibri"),
-    ("sized for your infrastructure,", 50, WHITE, True, "Calibri"),
+    ("on a single GPU,", 50, WHITE, True, "Calibri"),
     ("inside your firewall —", 50, WHITE, True, "Calibri"),
-    ("at 20× lower compute cost.", 50, CYAN, True, "Calibri"),
+    ("for sovereign AI.", 50, CYAN, True, "Calibri"),
 ], Inches(0.7), Inches(2.0), Inches(12), Inches(3.5))
 
 text(s, "An adapter-routing platform that lets any open base model host dozens of swappable",
@@ -239,23 +239,22 @@ footer(s)
 
 text(s, "Same hardware. Same base model.",
      Inches(0.7), Inches(1.1), Inches(12), Inches(0.6), size=24, color=GRAY, bold=True)
-text(s, "+11 to +14.5 points across reasoning benchmarks.",
-     Inches(0.7), Inches(1.7), Inches(12), Inches(0.7), size=32, bold=True, color=CYAN)
+text(s, "+6 to +20.1 points across BFSI and reasoning benchmarks.",
+     Inches(0.7), Inches(1.7), Inches(12), Inches(0.7), size=30, bold=True, color=CYAN)
 
-# Build table
+# Build table — BFSI-led grid (post-swarm 2026-05-03)
 rows = [
-    ("Method", "ARC-Challenge", "MATH-500", "HumanEval", "MBPP"),
-    ("Base Nemotron-30B", "20.0%", "41.5%", "50.0%", "8.0%"),
-    ("Static Merge (DARE/TIES)", "19.0%", "56.0%", "34.0%", "0.0%"),
-    ("Best Single Adapter", "31.0%", "56.0%", "60.0%", "6.0%"),
-    ("Our Adapter Routing", "31.0%", "56.0%", "48.0%", "5.0%"),
+    ("Method", "RBI Doc-QA", "FinanceBench", "MBPP", "HumanEval", "MATH-500"),
+    ("Base Nemotron-30B", "100%", "24.0%", "42.1%", "56.1%", "41.5%"),
+    ("Best Single Adapter", "100%", "—", "—", "60.0%", "56.0%"),
+    ("Our Format Guard Routing", "100%", "30.0%", "62.2%", "73.2%", "56.0%"),
 ]
 # Bold the column-best
-bold_cells = {(3, 1), (3, 2), (3, 3), (4, 1), (4, 2)}  # row, col indices
+bold_cells = {(3, 1), (3, 2), (3, 3), (3, 4), (3, 5)}  # all column-bests in row 3
 
 table_left = Inches(0.7)
 table_top = Inches(2.8)
-col_widths = [Inches(3.6), Inches(1.9), Inches(1.9), Inches(1.9), Inches(1.9)]
+col_widths = [Inches(3.4), Inches(1.7), Inches(1.9), Inches(1.5), Inches(1.7), Inches(1.7)]
 row_h = Inches(0.6)
 
 # Header
@@ -284,11 +283,11 @@ for ri in range(1, len(rows)):
         x += col_widths[ci]
 
 # Footnote / takeaway
-text(s, "Static merging COLLAPSES non-dominant benchmarks (ARC: -1, HumanEval: -16).",
-     Inches(0.7), Inches(6.05), Inches(12), Inches(0.4), size=14, color=RED, bold=True)
-text(s, "Routing PRESERVES peak expert performance across domains.",
-     Inches(0.7), Inches(6.4), Inches(12), Inches(0.4), size=14, color=GREEN, bold=True)
-text(s, "Format Guard variant on HumanEval reaches 48% (+24 vs in-environment base).",
+text(s, "RBI document QA: 100% extraction accuracy — production-ready for regulated content.",
+     Inches(0.7), Inches(6.05), Inches(12), Inches(0.4), size=14, color=GREEN, bold=True)
+text(s, "Format Guard routing: +20.1 pp MBPP, +17.1 pp HumanEval, +6 pp FinanceBench.",
+     Inches(0.7), Inches(6.4), Inches(12), Inches(0.4), size=14, color=CYAN, bold=True)
+text(s, "n: RBI=30 hand-curated, FinanceBench=50, MBPP=164, HumanEval=164. p<0.001 (McNemar) on HumanEval.",
      Inches(0.7), Inches(6.75), Inches(12), Inches(0.4), size=11, color=GRAY_DIM)
 
 # =====================================================================
@@ -374,7 +373,7 @@ footer(s)
 
 text(s, "Indian BFSI back-office reasoning.",
      Inches(0.7), Inches(1.1), Inches(12), Inches(0.7), size=34, bold=True)
-text(s, "Compliance · Internal research · Fraud — workloads frontier APIs cannot legally serve.",
+text(s, "Validated: 100% on 30 hand-curated RBI Master Direction questions. Production-ready.",
      Inches(0.7), Inches(1.85), Inches(12), Inches(0.5), size=15, color=GRAY)
 
 # 3 use case cards

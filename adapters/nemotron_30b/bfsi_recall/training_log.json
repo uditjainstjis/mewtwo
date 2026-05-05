@@ -1,0 +1,28 @@
+{
+  "phase": "07_train_bfsi_extract",
+  "base_model": "/home/learner/Desktop/mewtwo/models/nemotron",
+  "train_examples": 1387,
+  "eval_examples": 73,
+  "dropped_truncated": 0,
+  "max_len": 384,
+  "lora": {
+    "r": 16,
+    "alpha": 32,
+    "dropout": 0.05,
+    "target_modules": "{'k_proj', 'v_proj', 'down_proj', 'gate_proj', 'q_proj', 'o_proj', 'up_proj'}"
+  },
+  "epochs": 2,
+  "effective_batch_size": 16,
+  "learning_rate": 0.0001,
+  "elapsed_minutes": 83.3942397316297,
+  "final_metrics": {
+    "eval_loss": 1.4054951667785645,
+    "eval_runtime": 67.3137,
+    "eval_samples_per_second": 1.084,
+    "eval_steps_per_second": 1.084,
+    "epoch": 1.0
+  },
+  "best_dir": "/home/learner/Desktop/mewtwo/adapters/nemotron_30b/bfsi_recall/best",
+  "training_dir": "/home/learner/Desktop/mewtwo/adapters/nemotron_30b/bfsi_recall/training",
+  "finished_at": "2026-05-03T20:20:37.624734Z"
+}

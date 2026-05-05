@@ -1,0 +1,1370 @@
+{
+  "backend_uuid": "a473d970-f7e9-4d75-9865-685a20ae0761",
+  "context_uuid": "d47fa01a-6a19-4c48-8f28-ce36497d9b19",
+  "uuid": "2fde84eb-79ee-45a9-aa22-4a9edc9854fe",
+  "frontend_context_uuid": "11a1d5d5-29b3-4eb6-b0bd-6391ddb392fb",
+  "frontend_uuid": "2fde84eb-79ee-45a9-aa22-4a9edc9854fe",
+  "text": [
+    {
+      "step_type": "INITIAL_QUERY",
+      "content": {
+        "goal_id": null,
+        "query": "What is the academically rigorous protocol for comparing a fine-tuned context-grounded adapter on benchmark A versus a zero-shot frontier model on benchmark B in the same domain? Synapta scores 89.6 percent substring match on its 664-question held-out RBI/SEBI eval (paired McNemar p < 10^-48 vs base Nemotron-30B). Gemini 2.5 Flash scored 89.7 percent on IndiaFinBench (arXiv 2604.19298, 406 questions, 4 task types: regulatory_interpretation, numerical_reasoning, contradiction_detection, temporal_reasoning). Different question sets, different scoring, different inference modes. Cite NLP/ML evaluation literature on cross-benchmark comparison validity (BIG-bench, HELM, OpenLLM Leaderboard methodology critiques). What NeurIPS/ICLR/ACL reviewers expect for cross-benchmark claims. What statistical tests apply (McNemar, paired bootstrap, Wilcoxon). What is the right protocol for apples-to-apples and what confounds remain even after running Synapta on IndiaFinBench. Discuss task-style transfer, prompt format sensitivity, and whether substring vs token F1 vs accuracy is the right metric."
+      },
+      "uuid": ""
+    },
+    {
+      "step_type": "SEARCH_WEB",
+      "content": {
+        "goal_id": "0",
+        "queries": [
+          {
+            "engine": "web",
+            "query": "academic protocol comparing fine-tuned adapter vs zero-shot model benchmark A vs B",
+            "limit": 8
+          },
+          {
+            "engine": "web",
+            "query": "statistical tests for cross-benchmark model comparison McNemar paired bootstrap Wilcoxon",
+            "limit": 8
+          },
+          {
+            "engine": "web",
+            "query": "validity of cross-benchmark claims in BIG-bench HELM OpenLLM Leaderboard",
+            "limit": 8
+          },
+          {
+            "engine": "web",
+            "query": "task-style transfer and prompt format sensitivity in model evaluation",
+            "limit": 8
+          }
+        ]
+      },
+      "uuid": "834faa51-9409-4c80-ac7b-e87f25a92b6f"
+    },
+    {
+      "step_type": "SEARCH_RESULTS",
+      "content": {
+        "goal_id": "0",
+        "web_results": [
+          {
+            "name": "Efficient and Versatile Robust Fine-Tuning of Zero-shot Models - arXiv",
+            "url": "https://arxiv.org/abs/2408.05749",
+            "snippet": "Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these issues. Our method integrates lightweight modules into the pre-trained model and employs novel self-ensemble techniques to boost OOD robustness and reduce storage expenses substantially. Furthermore, we propose MPM-NCE loss designed for fine-tuning on vision-language downstream tasks. It ensures precise alignment of multiple image-text pairs and discriminative feature learning. By extending the benchmark for robust fine-tuning beyond classification to include diverse tasks such as cross-modal retrieval and open vocabulary segmentation, we demonstrate the broad applicability of R-Adapter. Our extensive experiments demonstrate that R-Adapter achieves state-of-the-art performance across a diverse set of tasks, tuning only 13% of the parameters of the CLIP encoders.",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "date": "2024-08-11",
+              "domain_name": "arXiv.org",
+              "description": "Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these issues. Our method integrates lightweight modules into the pre-trained model and employs novel self-ensemble techniques to boost OOD robustness and reduce storage expenses substantially. Furthermore, we propose MPM-NCE loss designed for fine-tuning on vision-language downstream tasks. It ensures precise alignment of multiple image-text pairs and discriminative feature learning. By extending the benchmark for robust fine-tuning beyond classification to include diverse tasks such as cross-modal retrieval and open vocabulary segmentation, we demonstrate the broad applicability of R-Adapter. Our extensive experiments demonstrate that R-Adapter achieves state-of-the-art performance across a diverse set of tasks, tuning only 13% of the parameters of the CLIP encoders.",
+              "published_date": "2024-08-11T00:00:00"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "Statistical Significance Tests for Comparing Machine Learning ...",
+            "url": "https://www.machinelearningmastery.com/statistical-significance-tests-for-comparing-machine-learning-algorithms/",
+            "snippet": "In this tutorial, you will discover the importance and the challenge of selecting a statistical hypothesis test for comparing machine learning models.",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "date": "2019-08-08T00:00:00",
+              "citation_domain_name": "machinelearningmastery",
+              "suffix": "com",
+              "domain_name": "MachineLearningMastery.com",
+              "description": "Comparing machine learning methods and selecting a final model is a common operation in applied machine learning. Models are commonly evaluated using resampling methods like k-fold cross-validation from which mean skill scores are calculated and compared directly. Although simple, this approach can be misleading as it is hard to know whether the difference between mean skill scores is real or\u2026",
+              "published_date": "2019-08-08T00:00:00"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "LLM Benchmarks Explained: A Guide to Comparing the Best AI ...",
+            "url": "https://www.datacamp.com/tutorial/llm-benchmarks",
+            "snippet": "Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models ...",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "date": "2025-12-28T00:00:00",
+              "citation_domain_name": "datacamp",
+              "suffix": "com",
+              "domain_name": "DataCamp",
+              "description": "Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models for your needs.",
+              "published_date": "2025-12-28T00:00:00"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "Evaluating Prompt Sensitivity in Medical Language Models - arXiv",
+            "url": "https://arxiv.org/html/2603.25960v1",
+            "snippet": "Large Language Models (LLMs) are increasingly deployed in medical settings, yet their sensitivity to prompt formatting remains poorly ...",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "date": "2026-03-26T00:00:00",
+              "citation_domain_name": "arxiv",
+              "suffix": "org",
+              "published_date": "2026-03-26T00:00:00"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "A Zero-Shot and Few-Shot Study of Instruction-Finetuned ...",
+            "url": "https://www.scribd.com/document/926988466/2307-12114v3",
+            "snippet": "ZSL and FSL",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "date": "2025-11-11",
+              "domain_name": "Scribd",
+              "description": "ZSL and FSL",
+              "published_date": "2025-11-11T00:00:00"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "[PDF] Efficient and Versatile Robust Fine-Tuning of Zero-shot Models",
+            "url": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/02642.pdf",
+            "snippet": "",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "domain_name": "ecva"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "McNemar, Marginal Homogeneity, Sign, Wilcoxon Tests",
+            "url": "https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/mcnemar-marginal-homogeneity-sign-wilcoxon-tests/",
+            "snippet": "The McNemar test assesses if a statistically significant change in proportions have occurred on a dichotomous trait at two time points on the same population.",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "citation_domain_name": "statisticssolutions",
+              "suffix": "com",
+              "domain_name": "Statistics Solutions",
+              "description": "McNemar\u2019s test, Marginal Homogeneity, Sign test, Wilcoxon tests signed rank test are non-parametric significance tests for two dependent samples",
+              "published_date": "2025-05-19T00:00:00"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "Pitfalls of Evaluating Language Models with Open Benchmarks",
+            "url": "https://arxiv.org/pdf/2507.00460v1.pdf",
+            "snippet": "",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "domain_name": "arxiv"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "How I learned to start worrying about prompt formatting",
+            "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/6c0e99d736da621403018ca7b32b1a4d-Paper-Conference.pdf",
+            "snippet": "",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "domain_name": "iclr"
+            },
+            "sitelinks": null
+          },
+          {
+            "name": "FINETUNED LANGUAGE MODELS ARE ZERO-SHOT ...",
+            "url": "https://openreview.net/pdf?id=gEZrGCozdqR",
+            "snippet": "",
+            "is_attachment": false,
+            "is_navigational": false,
+            "is_focused_web": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false,
+            "tab_id": null,
+            "meta_data": {
+              "client": "web",
+              "domain_name": "openreview"
+            },
+            "sitelinks": null
+          }
+        ]
+      },
+      "uuid": "85c2c604-d9b1-4e67-b0eb-9f0801390a2e"
+    },
+    {
+      "step_type": "FINAL",
+      "content": {
+        "goal_id": null,
+        "answer": "{\"answer\": \"Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\\n\\n## Core Protocol\\nStandardize evaluation by:\\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\\n\\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \\\"not apples-to-apples,\\\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\\n\\n## Statistical Tests\\nFor paired predictions on the same test set:\\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\\n\\n| Test | Use Case | Assumptions | When Preferred |\\n|------|----------|-------------|----------------|\\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\\n\\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\\n\\n## Metric Choices\\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\\n\\n## Confounds Post-Shared Eval\\nEven on IndiaFinBench:\\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\\n\\nReport effect sizes (e.g., Cohen's d > 0.8 for \\\"large\\\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \\\"leaderboard gaming\\\".[3][8]\", \"web_results\": [{\"name\": \"Efficient and Versatile Robust Fine-Tuning of Zero-shot Models - arXiv\", \"snippet\": \"Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these...\", \"timestamp\": \"2024-08-11T00:00:00\", \"url\": \"https://arxiv.org/abs/2408.05749\", \"meta_data\": {\"client\": \"web\", \"date\": \"2024-08-11\", \"citation_domain_name\": null, \"suffix\": null, \"domain_name\": \"arXiv.org\", \"description\": \"Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these issues. Our method integrates lightweight modules into the pre-trained model and employs novel self-ensemble techniques to boost OOD robustness and reduce storage expenses substantially. Furthermore, we propose MPM-NCE loss designed for fine-tuning on vision-language downstream tasks. It ensures precise alignment of multiple image-text pairs and discriminative feature learning. By extending the benchmark for robust fine-tuning beyond classification to include diverse tasks such as cross-modal retrieval and open vocabulary segmentation, we demonstrate the broad applicability of R-Adapter. Our extensive experiments demonstrate that R-Adapter achieves state-of-the-art performance across a diverse set of tasks, tuning only 13% of the parameters of the CLIP encoders.\", \"images\": [], \"published_date\": \"2024-08-11T00:00:00\", \"authors\": [\"Kim; Sungyeon; Jeong; Boseung; Donghyun; Kwak; Suha\"]}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"Statistical Significance Tests for Comparing Machine Learning ...\", \"snippet\": \"Comparing machine learning methods and selecting a final model is a common operation in applied machine learning. Models are commonly evaluated using resampling methods like k-fold cross-validation from which mean skill scores are calculated and compared directly. Although simple, this approach can be misleading as it is hard to know whether the difference between mean skill scores is real or\\u2026\", \"timestamp\": \"2019-08-08T00:00:00\", \"url\": \"https://www.machinelearningmastery.com/statistical-significance-tests-for-comparing-machine-learning-algorithms/\", \"meta_data\": {\"client\": \"web\", \"date\": \"2019-08-08T00:00:00\", \"citation_domain_name\": \"machinelearningmastery\", \"suffix\": \"com\", \"domain_name\": \"MachineLearningMastery.com\", \"description\": \"Comparing machine learning methods and selecting a final model is a common operation in applied machine learning. Models are commonly evaluated using resampling methods like k-fold cross-validation from which mean skill scores are calculated and compared directly. Although simple, this approach can be misleading as it is hard to know whether the difference between mean skill scores is real or\\u2026\", \"images\": [\"https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/1a8171e7-98c0-5b83-b7d9-8dadfe3a165a/a68f9f3a-910a-522a-a5e2-3c9a4da27678.jpg\"], \"published_date\": \"2019-08-08T00:00:00\", \"authors\": [\"Jason Brownlee\"]}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"LLM Benchmarks Explained: A Guide to Comparing the Best AI ...\", \"snippet\": \"Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models for your needs.\", \"timestamp\": \"2025-12-28T00:00:00\", \"url\": \"https://www.datacamp.com/tutorial/llm-benchmarks\", \"meta_data\": {\"client\": \"web\", \"date\": \"2025-12-28T00:00:00\", \"citation_domain_name\": \"datacamp\", \"suffix\": \"com\", \"domain_name\": \"DataCamp\", \"description\": \"Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models for your needs.\", \"images\": [\"https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/2043b6e4-f552-56ab-9036-f89443edc764/d39b3a1f-a62c-55b0-a0f4-34ba8dd623b2.jpg\"], \"published_date\": \"2025-12-28T00:00:00\", \"authors\": [\"Bex Tuychiev\"]}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"Evaluating Prompt Sensitivity in Medical Language Models - arXiv\", \"snippet\": \"Our experiments reveal several concerning findings. Chain-of-Thought (CoT) prompting decreases accuracy by 5.7% compared to direct answering. Few-shot examples degrade performance by 11.9% while increasing position bias from 0.14 to 0.47. Shuffling answer options causes the model to change predictions 59.1% of the time, with accuracy dropping up to 27.4 percentage points.\", \"timestamp\": \"2026-03-26T00:00:00\", \"url\": \"https://arxiv.org/html/2603.25960v1\", \"meta_data\": {\"client\": \"web\", \"date\": \"2026-03-26T00:00:00\", \"citation_domain_name\": \"arxiv\", \"suffix\": \"org\", \"domain_name\": null, \"description\": null, \"images\": [], \"published_date\": \"2026-03-26T00:00:00\", \"authors\": [\"Binesh Sadanandan Vahid Behzadan\"]}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"A Zero-Shot and Few-Shot Study of Instruction-Finetuned ...\", \"snippet\": \"ZSL and FSL\", \"timestamp\": \"2025-11-11T00:00:00\", \"url\": \"https://www.scribd.com/document/926988466/2307-12114v3\", \"meta_data\": {\"client\": \"web\", \"date\": \"2025-11-11\", \"citation_domain_name\": null, \"suffix\": null, \"domain_name\": \"Scribd\", \"description\": \"ZSL and FSL\", \"images\": [\"https://imgv2-1-f.scribdassets.com/img/document/926988466/original/0c3d0c1a3d/1?v=1\"], \"published_date\": \"2025-11-11T00:00:00\", \"authors\": []}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"[PDF] Efficient and Versatile Robust Fine-Tuning of Zero-shot Models\", \"snippet\": \"scaling the weights of the adapter and integrating it into the pre-trained layer via re-parametrization, we enable a seamless linear interpolation between the weights of the pre-trained and fine-tuned models without two separate models. Additionally, we propose the Multi-Positive Margin NCE (MPM-NCE) loss function designed for effective fine-tuning on vision-language downstream\", \"timestamp\": \"\", \"url\": \"https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/02642.pdf\", \"meta_data\": {\"client\": \"web\", \"date\": null, \"citation_domain_name\": null, \"suffix\": null, \"domain_name\": \"ecva\", \"description\": null, \"images\": [], \"published_date\": null, \"authors\": []}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"McNemar, Marginal Homogeneity, Sign, Wilcoxon Tests\", \"snippet\": \"McNemar\\u2019s test, Marginal Homogeneity, Sign test, Wilcoxon tests signed rank test are non-parametric significance tests for two dependent samples\", \"timestamp\": \"2025-05-19T00:00:00\", \"url\": \"https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/mcnemar-marginal-homogeneity-sign-wilcoxon-tests/\", \"meta_data\": {\"client\": \"web\", \"date\": null, \"citation_domain_name\": \"statisticssolutions\", \"suffix\": \"com\", \"domain_name\": \"Statistics Solutions\", \"description\": \"McNemar\\u2019s test, Marginal Homogeneity, Sign test, Wilcoxon tests signed rank test are non-parametric significance tests for two dependent samples\", \"images\": [\"https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/63b17d0d-f8f2-5dcd-8dfb-9b1d6bd2c492/7eb1ff90-d8ff-52e9-b392-a58492247aea.jpg\"], \"published_date\": \"2025-05-19T00:00:00\", \"authors\": []}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"Pitfalls of Evaluating Language Models with Open Benchmarks\", \"snippet\": \"marks, such as HELM and BIG-bench, offer standardized, transparent protocols that facilitate the fair comparison, reproducibility, and iterative advancement of Language Models (LMs). However, their openness also introduces critical and underexplored pitfalls. This study exposes these weaknesses by sys- tematically constructing \\u201ccheating\\u201d models\\u2014 \\u2026 \\u2022 RQ 2. Do high scores in HELM scenarios reflect the true capabilities of language models? To answer these questions, we conduct extensive...\", \"timestamp\": \"\", \"url\": \"https://arxiv.org/pdf/2507.00460v1.pdf\", \"meta_data\": {\"client\": \"web\", \"date\": null, \"citation_domain_name\": null, \"suffix\": null, \"domain_name\": \"arxiv\", \"description\": null, \"images\": [], \"published_date\": null, \"authors\": []}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"How I learned to start worrying about prompt formatting\", \"snippet\": \"mats and 53 tasks at a cost of under 10USD on average per task. Beyond facilitating evaluation, we also propose a suite of analyses to further characterize model sensitivity to formatting. Among other results, we show that the separability of continuous prompt embeddings correlates with the spread observed in task performance.\", \"timestamp\": \"\", \"url\": \"https://proceedings.iclr.cc/paper_files/paper/2024/file/6c0e99d736da621403018ca7b32b1a4d-Paper-Conference.pdf\", \"meta_data\": {\"client\": \"web\", \"date\": null, \"citation_domain_name\": null, \"suffix\": null, \"domain_name\": \"iclr\", \"description\": null, \"images\": [], \"published_date\": null, \"authors\": []}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}, {\"name\": \"FINETUNED LANGUAGE MODELS ARE ZERO-SHOT ...\", \"snippet\": \"over 60 NLP datasets verbalized via natural language instruction templates. We evaluate this instruction-tuned model, which we call FLAN, on unseen task types. FLAN substantially improves the performance of its unmodified counterpart and surpasses zero-shot 175B GPT-3 on 20 of 25 datasets that we evaluate. ... Bottom: performance of zero-shot FLAN, compared with zero-shot and few-shot GPT-3, on three unseen task types where instruction tuning improved performance substantially out of ten we...\", \"timestamp\": \"\", \"url\": \"https://openreview.net/pdf?id=gEZrGCozdqR\", \"meta_data\": {\"client\": \"web\", \"date\": null, \"citation_domain_name\": null, \"suffix\": null, \"domain_name\": \"openreview\", \"description\": null, \"images\": [], \"published_date\": null, \"authors\": []}, \"file_metadata\": null, \"is_attachment\": false, \"is_image\": false, \"is_code_interpreter\": false, \"is_knowledge_card\": false, \"is_navigational\": false, \"is_widget\": false, \"sitelinks\": null, \"is_focused_web\": false, \"is_client_context\": false, \"inline_entity_id\": null, \"is_memory\": false, \"is_conversation_history\": false, \"is_conversation_summary\": false, \"tab_id\": null, \"is_scrubbed\": null, \"is_hidden\": null}], \"chunks\": [\"Cross-benchmark compari\", \"sons between a \", \"fine-tuned ada\", \"pter like Syn\", \"apta on its RB\", \"I/SEBI eval a\", \"nd a zero-shot m\", \"odel like Ge\", \"mini 2.5 Flash on I\", \"ndiaFinBench req\", \"uire caution du\", \"e to mismatched data\", \"sets, metrics,\", \" and inference m\", \"odes, as these conf\", \"ound direct cl\", \"aims of superio\", \"rity. Rigorous\", \" NLP/ML proto\", \"cols emphasize run\", \"ning both model\", \"s on the *same* \", \"held-out bench\", \"mark under ident\", \"ical condition\", \"s to enable pa\", \"ired statistical t\", \"ests, drawing \", \"from critique\", \"s of BIG-bench,\", \" HELM, and Op\", \"enLLM Leaderb\", \"oard that highl\", \"ight leakage, contamina\", \"tion, and poor generaliza\", \"t\", \"ion. Even then, resi\", \"dual confounds \", \"like task-style tran\", \"sfer persist.[3]\", \"[8]\\n\\n## Core Prot\", \"ocol\\nStandardize evalua\", \"tion by:\\n- Selecting a shared, held-out bench\", \"mark (e.g., run\", \" Synapta on I\", \"ndiaFinBench or \", \"vice versa).\\n- U\", \"sing identical pro\", \"mpts, inference sett\", \"ings (tempera\", \"ture=0, max to\", \"kens), and hard\", \"ware/seeds for reproducibi\", \"lity.\\n- Compu\", \"ting multiple met\", \"rics: accuracy, token-level F1 (prefe\", \"rred over subst\", \"ring match for par\", \"tial credit),\", \" and exact ma\", \"tch.\\n\\nThis aligns \", \"with NeurIPS/\", \"ICLR/ACL revi\", \"ewer expectat\", \"ions, where c\", \"ross-benchmark cl\", \"aims without sh\", \"ared evals are o\", \"ften rejected \", \"as \\\"not apple\", \"s-to-apples,\\\"\", \" per methodology pa\", \"pers on HELM (w\", \"hich mandates scen\", \"ario-specific proto\", \"cols) and BIG-b\", \"ench (which w\", \"arns against s\", \"core extrapola\", \"tion\", \").[8]\\n\\n## Statist\", \"ical Tests\\nFor pa\", \"ired prediction\", \"s on the same \", \"test set:\\n- **McNemar test**: Gold standard for binary outcom\", \"es (correct/incorrect); t\", \"ests if disagreem\", \"ents are symme\", \"tric (p < 10^-4\", \"8 as in Synap\", \"ta's report indic\", \"ates overwhel\", \"ming signific\", \"ance).\", \"[2][7]\\n- **Paired boots\", \"trap**: Resample predictions 10,000+ t\", \"imes to estimate confid\", \"ence interval\", \"s on score differe\", \"nces, robust to\", \" non-normality.\\n\", \"- **Wilcoxon si\", \"gned-rank**: Non-parametric for score differe\", \"nces per inst\", \"ance, suitabl\", \"e if McNemar assumpt\", \"ions fail.\\n\\n| \", \"Test | Use Ca\", \"se | Assumptio\", \"ns | When Prefe\", \"rred |\\n|------|------\", \"----|-------------|------------\", \"----|\\n| McNem\", \"ar | Binary pa\", \"ss/fail per ques\", \"tion | Paired dichoto\", \"mous data | E\", \"xact signific\", \"ance on same insta\", \"nc\", \"es [2] |\\n| Paired boots\", \"trap | Score differe\", \"nces (e.g., 8\", \"9.6% vs 89.7%) | \", \"None (resampl\", \"ing) | CI estima\", \"tion, small sam\", \"ples |\\n| Wilc\", \"oxon | Ordinal/ra\", \"nked scores | Symme\", \"tric differenc\", \"es | Non-binary met\", \"rics like \", \"F1 [2] |\\n\\nAvoid unpa\", \"ired tests (e\", \".g., t-test) ac\", \"ross benchmarks\", \", as they ignore dependen\", \"cie\", \"s.[2]\\n\\n## Metric Cho\", \"ices\\nSubstring m\", \"atch (Synapta'\", \"s 89.6%) risks \", \"overcrediting par\", \"tial outputs, w\", \"hile IndiaFinB\", \"ench likely uses stri\", \"cter accuracy \", \"or F1 across\", \" its 4 task ty\", \"pes. Token F1 bala\", \"nces precision\", \"/recall for genera\", \"tive tasks; e\", \"xact match suit\", \"s MCQ. Reviewers de\", \"mand metric align\", \"ment\\u2014e.g., ACL pa\", \"pers favor F1\", \" for extracti\", \"on (regulatory/temporal reaso\", \"ning) over subst\", \"rin\", \"g.[4]\\n\\n## Confounds \", \"Post-Shared \", \"Eval\\nEven on I\", \"ndiaFinBench:\\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to \", \"fine-tuned st\", \"yles (e.g., regula\", \"tory interpreta\", \"tion), underperfor\", \"ming IndiaFinB\", \"ench's numeri\", \"cal/contradiction_detectio\", \"n.[10]\\n- **Prompt sensiti\", \"vity**: Zero-shot Gemini may vary 5-27\", \"% by format (CoT h\", \"urts; shuffling opt\", \"ions flips 59% predict\", \"io\", \"ns). Fine-tuned adap\", \"ters are less sensi\", \"tive but still do\", \"main-tuned.[9][4]\\n- **Ada\", \"pter vs zero-\", \"shot**: Fine-tuning boosts in-domain but r\", \"isks OOD brittle\", \"ness; zero-shot sc\", \"ales via emerg\", \"enc\", \"e.[1]\\n\\nReport ef\", \"fect sizes (e\", \".g., Cohen's\", \" d > 0.8 for \\\"l\", \"arge\\\"), ablate pro\", \"mpts (3-5 vari\", \"ants), and inc\", \"lude calibration cu\", \"rves. Reviewers \", \"flag unsubstanti\", \"ated cross-bench cl\", \"aims as \\\"leaderb\", \"oard gami\", \"ng\\\".[3][8]\"], \"extra_web_results\": [], \"structured_answer\": [{\"type\": \"markdown\", \"text\": \"Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\\n\\n## Core Protocol\\nStandardize evaluation by:\\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\\n\\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \\\"not apples-to-apples,\\\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\\n\\n## Statistical Tests\\nFor paired predictions on the same test set:\\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\\n\\n| Test | Use Case | Assumptions | When Preferred |\\n|------|----------|-------------|----------------|\\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\\n\\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\\n\\n## Metric Choices\\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\\n\\n## Confounds Post-Shared Eval\\nEven on IndiaFinBench:\\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\\n\\nReport effect sizes (e.g., Cohen's d > 0.8 for \\\"large\\\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \\\"leaderboard gaming\\\".[3][8]\", \"chunks\": [\"Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\\n\\n## Core Protocol\\nStandardize evaluation by:\\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\\n\\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \\\"not apples-to-apples,\\\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\\n\\n## Statistical Tests\\nFor paired predictions on the same test set:\\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\\n\\n| Test | Use Case | Assumptions | When Preferred |\\n|------|----------|-------------|----------------|\\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\\n\\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\\n\\n## Metric Choices\\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\\n\\n## Confounds Post-Shared Eval\\nEven on IndiaFinBench:\\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\\n\\nReport effect sizes (e.g., Cohen's d > 0.8 for \\\"large\\\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \\\"leaderboard gaming\\\".[3][8]\"], \"images\": [], \"inline_token_annotations\": []}]}"
+      },
+      "uuid": ""
+    }
+  ],
+  "thread_title": "What is the academically rigorous protocol for comparing a fine-tuned context-grounded adapter on benchmark A versus a zero-shot frontier model on benchmark B in the same domain? Synapta scores 89.6 percent substring match on its 664-question held-out RBI/SEBI eval (paired McNemar p < 10^-48 vs base Nemotron-30B). Gemini 2.5 Flash scored 89.7 percent on IndiaFinBench (arXiv 2604.19298, 406 questions, 4 task types: regulatory_interpretation, numerical_reasoning, contradiction_detection, temporal_reasoning). Different question sets, different scoring, different inference modes. Cite NLP/ML evaluation literature on cross-benchmark comparison validity (BIG-bench, HELM, OpenLLM Leaderboard methodology critiques). What NeurIPS/ICLR/ACL reviewers expect for cross-benchmark claims. What statistical tests apply (McNemar, paired bootstrap, Wilcoxon). What is the right protocol for apples-to-apples and what confounds remain even after running Synapta on IndiaFinBench. Discuss task-style transfer, prompt format sensitivity, and whether substring vs token F1 vs accuracy is the right metric.",
+  "related_queries": [
+    "What statistical power is needed for detecting differences between adapter and frontier model scores",
+    "How to handle prompt sensitivity when comparing fine-tuned adapters to zero-shot models",
+    "Recommended benchmarks for domain-specific adapter vs frontier model evaluation",
+    "Common pitfalls like data leakage in cross-benchmark AI comparisons",
+    "Implementation steps for McNemar's test on model predictions"
+  ],
+  "display_model": "turbo",
+  "user_selected_model": "pplx_alpha",
+  "personalized": true,
+  "mode": "COPILOT",
+  "query_str": "What is the academically rigorous protocol for comparing a fine-tuned context-grounded adapter on benchmark A versus a zero-shot frontier model on benchmark B in the same domain? Synapta scores 89.6 percent substring match on its 664-question held-out RBI/SEBI eval (paired McNemar p < 10^-48 vs base Nemotron-30B). Gemini 2.5 Flash scored 89.7 percent on IndiaFinBench (arXiv 2604.19298, 406 questions, 4 task types: regulatory_interpretation, numerical_reasoning, contradiction_detection, temporal_reasoning). Different question sets, different scoring, different inference modes. Cite NLP/ML evaluation literature on cross-benchmark comparison validity (BIG-bench, HELM, OpenLLM Leaderboard methodology critiques). What NeurIPS/ICLR/ACL reviewers expect for cross-benchmark claims. What statistical tests apply (McNemar, paired bootstrap, Wilcoxon). What is the right protocol for apples-to-apples and what confounds remain even after running Synapta on IndiaFinBench. Discuss task-style transfer, prompt format sensitivity, and whether substring vs token F1 vs accuracy is the right metric.",
+  "search_focus": "internet",
+  "source": "default",
+  "attachments": [],
+  "updated_datetime": "2026-05-04T06:02:41.481329",
+  "read_write_token": "c1219ed3-3cad-45ab-a879-e4ad8dd30869",
+  "step_type": "FINAL",
+  "bookmark_state": "NOT_BOOKMARKED",
+  "s3_social_preview_url": "https://ppl-ai-public.s3.amazonaws.com/static/img/pplx-default-preview.png",
+  "thread_access": 2,
+  "thread_url_slug": "a473d970-f7e9-4d75-9865-685a20ae0761",
+  "plan": {
+    "goals": [
+      {
+        "id": "0",
+        "description": "Searching the web",
+        "final": true,
+        "todo_task_status": "INCOMPLETE"
+      }
+    ],
+    "final": true
+  },
+  "privacy_state": "NONE",
+  "gpt4": false,
+  "sources": {
+    "sources": [
+      "web"
+    ]
+  },
+  "text_completed": true,
+  "entry_created_datetime": "2026-05-04T06:02:25.939720+00:00",
+  "entry_updated_datetime": "2026-05-04T06:02:41.346602+00:00",
+  "blocks": [
+    {
+      "intended_usage": "plan",
+      "plan_block": {
+        "progress": "DONE",
+        "goals": [
+          {
+            "id": "0",
+            "description": "Searching the web",
+            "final": true,
+            "todo_task_status": "INCOMPLETE"
+          }
+        ],
+        "final": true
+      }
+    },
+    {
+      "intended_usage": "ask_text_0_markdown",
+      "markdown_block": {
+        "progress": "DONE",
+        "chunks": [
+          "Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\n\n## Core Protocol\nStandardize evaluation by:\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\n\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \"not apples-to-apples,\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\n\n## Statistical Tests\nFor paired predictions on the same test set:\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\n\n| Test | Use Case | Assumptions | When Preferred |\n|------|----------|-------------|----------------|\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\n\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\n\n## Metric Choices\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\n\n## Confounds Post-Shared Eval\nEven on IndiaFinBench:\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\n\nReport effect sizes (e.g., Cohen's d > 0.8 for \"large\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \"leaderboard gaming\".[3][8]"
+        ],
+        "chunk_starting_offset": 0,
+        "answer": "Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\n\n## Core Protocol\nStandardize evaluation by:\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\n\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \"not apples-to-apples,\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\n\n## Statistical Tests\nFor paired predictions on the same test set:\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\n\n| Test | Use Case | Assumptions | When Preferred |\n|------|----------|-------------|----------------|\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\n\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\n\n## Metric Choices\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\n\n## Confounds Post-Shared Eval\nEven on IndiaFinBench:\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\n\nReport effect sizes (e.g., Cohen's d > 0.8 for \"large\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \"leaderboard gaming\".[3][8]",
+        "inline_token_annotations": []
+      }
+    },
+    {
+      "intended_usage": "ask_text",
+      "markdown_block": {
+        "progress": "DONE",
+        "chunks": [
+          "Cross-benchmark compari",
+          "sons between a ",
+          "fine-tuned ada",
+          "pter like Syn",
+          "apta on its RB",
+          "I/SEBI eval a",
+          "nd a zero-shot m",
+          "odel like Ge",
+          "mini 2.5 Flash on I",
+          "ndiaFinBench req",
+          "uire caution du",
+          "e to mismatched data",
+          "sets, metrics,",
+          " and inference m",
+          "odes, as these conf",
+          "ound direct cl",
+          "aims of superio",
+          "rity. Rigorous",
+          " NLP/ML proto",
+          "cols emphasize run",
+          "ning both model",
+          "s on the *same* ",
+          "held-out bench",
+          "mark under ident",
+          "ical condition",
+          "s to enable pa",
+          "ired statistical t",
+          "ests, drawing ",
+          "from critique",
+          "s of BIG-bench,",
+          " HELM, and Op",
+          "enLLM Leaderb",
+          "oard that highl",
+          "ight leakage, contamina",
+          "tion, and poor generaliza",
+          "t",
+          "ion. Even then, resi",
+          "dual confounds ",
+          "like task-style tran",
+          "sfer persist.[3]",
+          "[8]\n\n## Core Prot",
+          "ocol\nStandardize evalua",
+          "tion by:\n- Selecting a shared, held-out bench",
+          "mark (e.g., run",
+          " Synapta on I",
+          "ndiaFinBench or ",
+          "vice versa).\n- U",
+          "sing identical pro",
+          "mpts, inference sett",
+          "ings (tempera",
+          "ture=0, max to",
+          "kens), and hard",
+          "ware/seeds for reproducibi",
+          "lity.\n- Compu",
+          "ting multiple met",
+          "rics: accuracy, token-level F1 (prefe",
+          "rred over subst",
+          "ring match for par",
+          "tial credit),",
+          " and exact ma",
+          "tch.\n\nThis aligns ",
+          "with NeurIPS/",
+          "ICLR/ACL revi",
+          "ewer expectat",
+          "ions, where c",
+          "ross-benchmark cl",
+          "aims without sh",
+          "ared evals are o",
+          "ften rejected ",
+          "as \"not apple",
+          "s-to-apples,\"",
+          " per methodology pa",
+          "pers on HELM (w",
+          "hich mandates scen",
+          "ario-specific proto",
+          "cols) and BIG-b",
+          "ench (which w",
+          "arns against s",
+          "core extrapola",
+          "tion",
+          ").[8]\n\n## Statist",
+          "ical Tests\nFor pa",
+          "ired prediction",
+          "s on the same ",
+          "test set:\n- **McNemar test**: Gold standard for binary outcom",
+          "es (correct/incorrect); t",
+          "ests if disagreem",
+          "ents are symme",
+          "tric (p < 10^-4",
+          "8 as in Synap",
+          "ta's report indic",
+          "ates overwhel",
+          "ming signific",
+          "ance).",
+          "[2][7]\n- **Paired boots",
+          "trap**: Resample predictions 10,000+ t",
+          "imes to estimate confid",
+          "ence interval",
+          "s on score differe",
+          "nces, robust to",
+          " non-normality.\n",
+          "- **Wilcoxon si",
+          "gned-rank**: Non-parametric for score differe",
+          "nces per inst",
+          "ance, suitabl",
+          "e if McNemar assumpt",
+          "ions fail.\n\n| ",
+          "Test | Use Ca",
+          "se | Assumptio",
+          "ns | When Prefe",
+          "rred |\n|------|------",
+          "----|-------------|------------",
+          "----|\n| McNem",
+          "ar | Binary pa",
+          "ss/fail per ques",
+          "tion | Paired dichoto",
+          "mous data | E",
+          "xact signific",
+          "ance on same insta",
+          "nc",
+          "es [2] |\n| Paired boots",
+          "trap | Score differe",
+          "nces (e.g., 8",
+          "9.6% vs 89.7%) | ",
+          "None (resampl",
+          "ing) | CI estima",
+          "tion, small sam",
+          "ples |\n| Wilc",
+          "oxon | Ordinal/ra",
+          "nked scores | Symme",
+          "tric differenc",
+          "es | Non-binary met",
+          "rics like ",
+          "F1 [2] |\n\nAvoid unpa",
+          "ired tests (e",
+          ".g., t-test) ac",
+          "ross benchmarks",
+          ", as they ignore dependen",
+          "cie",
+          "s.[2]\n\n## Metric Cho",
+          "ices\nSubstring m",
+          "atch (Synapta'",
+          "s 89.6%) risks ",
+          "overcrediting par",
+          "tial outputs, w",
+          "hile IndiaFinB",
+          "ench likely uses stri",
+          "cter accuracy ",
+          "or F1 across",
+          " its 4 task ty",
+          "pes. Token F1 bala",
+          "nces precision",
+          "/recall for genera",
+          "tive tasks; e",
+          "xact match suit",
+          "s MCQ. Reviewers de",
+          "mand metric align",
+          "ment\u2014e.g., ACL pa",
+          "pers favor F1",
+          " for extracti",
+          "on (regulatory/temporal reaso",
+          "ning) over subst",
+          "rin",
+          "g.[4]\n\n## Confounds ",
+          "Post-Shared ",
+          "Eval\nEven on I",
+          "ndiaFinBench:\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to ",
+          "fine-tuned st",
+          "yles (e.g., regula",
+          "tory interpreta",
+          "tion), underperfor",
+          "ming IndiaFinB",
+          "ench's numeri",
+          "cal/contradiction_detectio",
+          "n.[10]\n- **Prompt sensiti",
+          "vity**: Zero-shot Gemini may vary 5-27",
+          "% by format (CoT h",
+          "urts; shuffling opt",
+          "ions flips 59% predict",
+          "io",
+          "ns). Fine-tuned adap",
+          "ters are less sensi",
+          "tive but still do",
+          "main-tuned.[9][4]\n- **Ada",
+          "pter vs zero-",
+          "shot**: Fine-tuning boosts in-domain but r",
+          "isks OOD brittle",
+          "ness; zero-shot sc",
+          "ales via emerg",
+          "enc",
+          "e.[1]\n\nReport ef",
+          "fect sizes (e",
+          ".g., Cohen's",
+          " d > 0.8 for \"l",
+          "arge\"), ablate pro",
+          "mpts (3-5 vari",
+          "ants), and inc",
+          "lude calibration cu",
+          "rves. Reviewers ",
+          "flag unsubstanti",
+          "ated cross-bench cl",
+          "aims as \"leaderb",
+          "oard gami",
+          "ng\".[3][8]"
+        ],
+        "chunk_starting_offset": 0,
+        "answer": "Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\n\n## Core Protocol\nStandardize evaluation by:\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\n\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \"not apples-to-apples,\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\n\n## Statistical Tests\nFor paired predictions on the same test set:\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\n\n| Test | Use Case | Assumptions | When Preferred |\n|------|----------|-------------|----------------|\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\n\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\n\n## Metric Choices\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\n\n## Confounds Post-Shared Eval\nEven on IndiaFinBench:\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\n\nReport effect sizes (e.g., Cohen's d > 0.8 for \"large\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \"leaderboard gaming\".[3][8]"
+      }
+    },
+    {
+      "intended_usage": "pro_search_steps",
+      "plan_block": {
+        "progress": "DONE",
+        "goals": [],
+        "steps": [
+          {
+            "uuid": "",
+            "step_type": "INITIAL_QUERY",
+            "initial_query_content": {
+              "query": "What is the academically rigorous protocol for comparing a fine-tuned context-grounded adapter on benchmark A versus a zero-shot frontier model on benchmark B in the same domain? Synapta scores 89.6 percent substring match on its 664-question held-out RBI/SEBI eval (paired McNemar p < 10^-48 vs base Nemotron-30B). Gemini 2.5 Flash scored 89.7 percent on IndiaFinBench (arXiv 2604.19298, 406 questions, 4 task types: regulatory_interpretation, numerical_reasoning, contradiction_detection, temporal_reasoning). Different question sets, different scoring, different inference modes. Cite NLP/ML evaluation literature on cross-benchmark comparison validity (BIG-bench, HELM, OpenLLM Leaderboard methodology critiques). What NeurIPS/ICLR/ACL reviewers expect for cross-benchmark claims. What statistical tests apply (McNemar, paired bootstrap, Wilcoxon). What is the right protocol for apples-to-apples and what confounds remain even after running Synapta on IndiaFinBench. Discuss task-style transfer, prompt format sensitivity, and whether substring vs token F1 vs accuracy is the right metric."
+            }
+          },
+          {
+            "uuid": "834faa51-9409-4c80-ac7b-e87f25a92b6f",
+            "step_type": "SEARCH_WEB",
+            "search_web_content": {
+              "goal_id": "0",
+              "queries": [
+                {
+                  "engine": "web",
+                  "query": "academic protocol comparing fine-tuned adapter vs zero-shot model benchmark A vs B",
+                  "limit": 8
+                },
+                {
+                  "engine": "web",
+                  "query": "statistical tests for cross-benchmark model comparison McNemar paired bootstrap Wilcoxon",
+                  "limit": 8
+                },
+                {
+                  "engine": "web",
+                  "query": "validity of cross-benchmark claims in BIG-bench HELM OpenLLM Leaderboard",
+                  "limit": 8
+                },
+                {
+                  "engine": "web",
+                  "query": "task-style transfer and prompt format sensitivity in model evaluation",
+                  "limit": 8
+                }
+              ]
+            }
+          },
+          {
+            "uuid": "85c2c604-d9b1-4e67-b0eb-9f0801390a2e",
+            "step_type": "SEARCH_RESULTS",
+            "web_results_content": {
+              "goal_id": "0",
+              "web_results": [
+                {
+                  "name": "Efficient and Versatile Robust Fine-Tuning of Zero-shot Models - arXiv",
+                  "url": "https://arxiv.org/abs/2408.05749",
+                  "snippet": "Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these issues. Our method integrates lightweight modules into the pre-trained model and employs novel self-ensemble techniques to boost OOD robustness and reduce storage expenses substantially. Furthermore, we propose MPM-NCE loss designed for fine-tuning on vision-language downstream tasks. It ensures precise alignment of multiple image-text pairs and discriminative feature learning. By extending the benchmark for robust fine-tuning beyond classification to include diverse tasks such as cross-modal retrieval and open vocabulary segmentation, we demonstrate the broad applicability of R-Adapter. Our extensive experiments demonstrate that R-Adapter achieves state-of-the-art performance across a diverse set of tasks, tuning only 13% of the parameters of the CLIP encoders.",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "date": "2024-08-11",
+                    "domain_name": "arXiv.org",
+                    "description": "Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these issues. Our method integrates lightweight modules into the pre-trained model and employs novel self-ensemble techniques to boost OOD robustness and reduce storage expenses substantially. Furthermore, we propose MPM-NCE loss designed for fine-tuning on vision-language downstream tasks. It ensures precise alignment of multiple image-text pairs and discriminative feature learning. By extending the benchmark for robust fine-tuning beyond classification to include diverse tasks such as cross-modal retrieval and open vocabulary segmentation, we demonstrate the broad applicability of R-Adapter. Our extensive experiments demonstrate that R-Adapter achieves state-of-the-art performance across a diverse set of tasks, tuning only 13% of the parameters of the CLIP encoders.",
+                    "published_date": "2024-08-11T00:00:00"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "Statistical Significance Tests for Comparing Machine Learning ...",
+                  "url": "https://www.machinelearningmastery.com/statistical-significance-tests-for-comparing-machine-learning-algorithms/",
+                  "snippet": "In this tutorial, you will discover the importance and the challenge of selecting a statistical hypothesis test for comparing machine learning models.",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "date": "2019-08-08T00:00:00",
+                    "citation_domain_name": "machinelearningmastery",
+                    "suffix": "com",
+                    "domain_name": "MachineLearningMastery.com",
+                    "description": "Comparing machine learning methods and selecting a final model is a common operation in applied machine learning. Models are commonly evaluated using resampling methods like k-fold cross-validation from which mean skill scores are calculated and compared directly. Although simple, this approach can be misleading as it is hard to know whether the difference between mean skill scores is real or\u2026",
+                    "published_date": "2019-08-08T00:00:00"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "LLM Benchmarks Explained: A Guide to Comparing the Best AI ...",
+                  "url": "https://www.datacamp.com/tutorial/llm-benchmarks",
+                  "snippet": "Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models ...",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "date": "2025-12-28T00:00:00",
+                    "citation_domain_name": "datacamp",
+                    "suffix": "com",
+                    "domain_name": "DataCamp",
+                    "description": "Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models for your needs.",
+                    "published_date": "2025-12-28T00:00:00"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "Evaluating Prompt Sensitivity in Medical Language Models - arXiv",
+                  "url": "https://arxiv.org/html/2603.25960v1",
+                  "snippet": "Large Language Models (LLMs) are increasingly deployed in medical settings, yet their sensitivity to prompt formatting remains poorly ...",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "date": "2026-03-26T00:00:00",
+                    "citation_domain_name": "arxiv",
+                    "suffix": "org",
+                    "published_date": "2026-03-26T00:00:00"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "A Zero-Shot and Few-Shot Study of Instruction-Finetuned ...",
+                  "url": "https://www.scribd.com/document/926988466/2307-12114v3",
+                  "snippet": "ZSL and FSL",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "date": "2025-11-11",
+                    "domain_name": "Scribd",
+                    "description": "ZSL and FSL",
+                    "published_date": "2025-11-11T00:00:00"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "[PDF] Efficient and Versatile Robust Fine-Tuning of Zero-shot Models",
+                  "url": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/02642.pdf",
+                  "snippet": "",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "domain_name": "ecva"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "McNemar, Marginal Homogeneity, Sign, Wilcoxon Tests",
+                  "url": "https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/mcnemar-marginal-homogeneity-sign-wilcoxon-tests/",
+                  "snippet": "The McNemar test assesses if a statistically significant change in proportions have occurred on a dichotomous trait at two time points on the same population.",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "citation_domain_name": "statisticssolutions",
+                    "suffix": "com",
+                    "domain_name": "Statistics Solutions",
+                    "description": "McNemar\u2019s test, Marginal Homogeneity, Sign test, Wilcoxon tests signed rank test are non-parametric significance tests for two dependent samples",
+                    "published_date": "2025-05-19T00:00:00"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "Pitfalls of Evaluating Language Models with Open Benchmarks",
+                  "url": "https://arxiv.org/pdf/2507.00460v1.pdf",
+                  "snippet": "",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "domain_name": "arxiv"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "How I learned to start worrying about prompt formatting",
+                  "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/6c0e99d736da621403018ca7b32b1a4d-Paper-Conference.pdf",
+                  "snippet": "",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "domain_name": "iclr"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                },
+                {
+                  "name": "FINETUNED LANGUAGE MODELS ARE ZERO-SHOT ...",
+                  "url": "https://openreview.net/pdf?id=gEZrGCozdqR",
+                  "snippet": "",
+                  "is_attachment": false,
+                  "meta_data": {
+                    "client": "web",
+                    "domain_name": "openreview"
+                  },
+                  "is_memory": false,
+                  "is_conversation_history": false,
+                  "is_conversation_summary": false,
+                  "is_navigational": false,
+                  "is_focused_web": false
+                }
+              ]
+            }
+          }
+        ],
+        "final": true
+      }
+    },
+    {
+      "intended_usage": "web_results",
+      "web_result_block": {
+        "progress": "DONE",
+        "web_results": [
+          {
+            "name": "Efficient and Versatile Robust Fine-Tuning of Zero-shot Models - arXiv",
+            "snippet": "Large-scale image-text pre-trained models enable zero-shot classification and provide consistent accuracy across various data distributions. Nonetheless, optimizing these models in downstream tasks typically requires fine-tuning, which reduces generalization to out-of-distribution (OOD) data and demands extensive computational resources. We introduce Robust Adapter (R-Adapter), a novel method for fine-tuning zero-shot models to downstream tasks while simultaneously addressing both these...",
+            "timestamp": "2024-08-11T00:00:00",
+            "url": "https://arxiv.org/abs/2408.05749",
+            "meta_data": {
+              "citation_domain_name": null,
+              "client": "web",
+              "images": []
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "Statistical Significance Tests for Comparing Machine Learning ...",
+            "snippet": "Comparing machine learning methods and selecting a final model is a common operation in applied machine learning. Models are commonly evaluated using resampling methods like k-fold cross-validation from which mean skill scores are calculated and compared directly. Although simple, this approach can be misleading as it is hard to know whether the difference between mean skill scores is real or\u2026",
+            "timestamp": "2019-08-08T00:00:00",
+            "url": "https://www.machinelearningmastery.com/statistical-significance-tests-for-comparing-machine-learning-algorithms/",
+            "meta_data": {
+              "citation_domain_name": "machinelearningmastery",
+              "client": "web",
+              "images": [
+                "https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/1a8171e7-98c0-5b83-b7d9-8dadfe3a165a/a68f9f3a-910a-522a-a5e2-3c9a4da27678.jpg"
+              ]
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "LLM Benchmarks Explained: A Guide to Comparing the Best AI ...",
+            "snippet": "Cut through the hype. Learn to interpret LLM benchmarks, navigate open leaderboards, and run your own evaluations to find the best AI models for your needs.",
+            "timestamp": "2025-12-28T00:00:00",
+            "url": "https://www.datacamp.com/tutorial/llm-benchmarks",
+            "meta_data": {
+              "citation_domain_name": "datacamp",
+              "client": "web",
+              "images": [
+                "https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/2043b6e4-f552-56ab-9036-f89443edc764/d39b3a1f-a62c-55b0-a0f4-34ba8dd623b2.jpg"
+              ]
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "Evaluating Prompt Sensitivity in Medical Language Models - arXiv",
+            "snippet": "Our experiments reveal several concerning findings. Chain-of-Thought (CoT) prompting decreases accuracy by 5.7% compared to direct answering. Few-shot examples degrade performance by 11.9% while increasing position bias from 0.14 to 0.47. Shuffling answer options causes the model to change predictions 59.1% of the time, with accuracy dropping up to 27.4 percentage points.",
+            "timestamp": "2026-03-26T00:00:00",
+            "url": "https://arxiv.org/html/2603.25960v1",
+            "meta_data": {
+              "citation_domain_name": "arxiv",
+              "client": "web",
+              "images": []
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "A Zero-Shot and Few-Shot Study of Instruction-Finetuned ...",
+            "snippet": "ZSL and FSL",
+            "timestamp": "2025-11-11T00:00:00",
+            "url": "https://www.scribd.com/document/926988466/2307-12114v3",
+            "meta_data": {
+              "citation_domain_name": null,
+              "client": "web",
+              "images": [
+                "https://imgv2-1-f.scribdassets.com/img/document/926988466/original/0c3d0c1a3d/1?v=1"
+              ]
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "[PDF] Efficient and Versatile Robust Fine-Tuning of Zero-shot Models",
+            "snippet": "scaling the weights of the adapter and integrating it into the pre-trained layer via re-parametrization, we enable a seamless linear interpolation between the weights of the pre-trained and fine-tuned models without two separate models. Additionally, we propose the Multi-Positive Margin NCE (MPM-NCE) loss function designed for effective fine-tuning on vision-language downstream",
+            "timestamp": "",
+            "url": "https://www.ecva.net/papers/eccv_2024/papers_ECCV/papers/02642.pdf",
+            "meta_data": {
+              "citation_domain_name": null,
+              "client": "web",
+              "images": []
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "McNemar, Marginal Homogeneity, Sign, Wilcoxon Tests",
+            "snippet": "McNemar\u2019s test, Marginal Homogeneity, Sign test, Wilcoxon tests signed rank test are non-parametric significance tests for two dependent samples",
+            "timestamp": "2025-05-19T00:00:00",
+            "url": "https://www.statisticssolutions.com/free-resources/directory-of-statistical-analyses/mcnemar-marginal-homogeneity-sign-wilcoxon-tests/",
+            "meta_data": {
+              "citation_domain_name": "statisticssolutions",
+              "client": "web",
+              "images": [
+                "https://d2u1z1lopyfwlx.cloudfront.net/thumbnails/63b17d0d-f8f2-5dcd-8dfb-9b1d6bd2c492/7eb1ff90-d8ff-52e9-b392-a58492247aea.jpg"
+              ]
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "Pitfalls of Evaluating Language Models with Open Benchmarks",
+            "snippet": "marks, such as HELM and BIG-bench, offer standardized, transparent protocols that facilitate the fair comparison, reproducibility, and iterative advancement of Language Models (LMs). However, their openness also introduces critical and underexplored pitfalls. This study exposes these weaknesses by sys- tematically constructing \u201ccheating\u201d models\u2014 \u2026 \u2022 RQ 2. Do high scores in HELM scenarios reflect the true capabilities of language models? To answer these questions, we conduct extensive...",
+            "timestamp": "",
+            "url": "https://arxiv.org/pdf/2507.00460v1.pdf",
+            "meta_data": {
+              "citation_domain_name": null,
+              "client": "web",
+              "images": []
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "How I learned to start worrying about prompt formatting",
+            "snippet": "mats and 53 tasks at a cost of under 10USD on average per task. Beyond facilitating evaluation, we also propose a suite of analyses to further characterize model sensitivity to formatting. Among other results, we show that the separability of continuous prompt embeddings correlates with the spread observed in task performance.",
+            "timestamp": "",
+            "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/6c0e99d736da621403018ca7b32b1a4d-Paper-Conference.pdf",
+            "meta_data": {
+              "citation_domain_name": null,
+              "client": "web",
+              "images": []
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          },
+          {
+            "name": "FINETUNED LANGUAGE MODELS ARE ZERO-SHOT ...",
+            "snippet": "over 60 NLP datasets verbalized via natural language instruction templates. We evaluate this instruction-tuned model, which we call FLAN, on unseen task types. FLAN substantially improves the performance of its unmodified counterpart and surpasses zero-shot 175B GPT-3 on 20 of 25 datasets that we evaluate. ... Bottom: performance of zero-shot FLAN, compared with zero-shot and few-shot GPT-3, on three unseen task types where instruction tuning improved performance substantially out of ten we...",
+            "timestamp": "",
+            "url": "https://openreview.net/pdf?id=gEZrGCozdqR",
+            "meta_data": {
+              "citation_domain_name": null,
+              "client": "web",
+              "images": []
+            },
+            "is_attachment": false,
+            "is_image": false,
+            "is_code_interpreter": false,
+            "is_knowledge_card": false,
+            "is_navigational": false,
+            "is_widget": false,
+            "is_focused_web": false,
+            "is_client_context": false,
+            "is_memory": false,
+            "is_conversation_history": false,
+            "is_conversation_summary": false
+          }
+        ]
+      }
+    }
+  ],
+  "message_mode": "FULL",
+  "related_query_items": [
+    {
+      "text": "What statistical power is needed for detecting differences between adapter and frontier model scores",
+      "type": "DEFAULT"
+    },
+    {
+      "text": "How to handle prompt sensitivity when comparing fine-tuned adapters to zero-shot models",
+      "type": "DEFAULT"
+    },
+    {
+      "text": "Recommended benchmarks for domain-specific adapter vs frontier model evaluation",
+      "type": "DEFAULT"
+    },
+    {
+      "text": "Common pitfalls like data leakage in cross-benchmark AI comparisons",
+      "type": "DEFAULT"
+    },
+    {
+      "text": "Implementation steps for McNemar's test on model predictions",
+      "type": "DEFAULT"
+    }
+  ],
+  "access_level": "PUBLIC_READ",
+  "answer_modes": [
+    {
+      "answer_mode_type": "SOURCES"
+    }
+  ],
+  "structured_answer_block_usages": [
+    "ask_text_0_markdown"
+  ],
+  "reconnectable": false,
+  "cursor": "069f8368-1b0f-7cc6-8000-280f6ea7d88b",
+  "classifier_results": {
+    "personal_search": false,
+    "skip_search": false,
+    "hide_nav": false,
+    "hide_sources": false,
+    "image_generation": false,
+    "time_widget": false,
+    "mhe_predictions": {
+      "skip_search": false,
+      "image_generation_intent": false,
+      "time_widget": false,
+      "places_search_intent": false,
+      "shopping_intent": false,
+      "movie_lists_intent": false,
+      "image_preview": false,
+      "video_preview": false,
+      "nav_intent": false,
+      "personal_search": false,
+      "weather_widget": false,
+      "finance_widget_gating": false,
+      "calculator_widget": false,
+      "comet_nav_widget_combined_target": false,
+      "finance_agent_gating": false
+    },
+    "mhe_predictions_full": {
+      "skip_search": {
+        "is_true": false
+      },
+      "image_generation_intent": {
+        "is_true": false,
+        "probability": 0.0012435913,
+        "threshold": 0.98
+      },
+      "time_widget": {
+        "is_true": false,
+        "probability": 9.6321106e-05,
+        "threshold": 0.8
+      },
+      "places_search_intent": {
+        "is_true": false,
+        "probability": 0.017456055,
+        "threshold": 0.85
+      },
+      "shopping_intent": {
+        "is_true": false,
+        "probability": 0.0007095337,
+        "threshold": 0.8
+      },
+      "movie_lists_intent": {
+        "is_true": false,
+        "probability": 0.0019836426,
+        "threshold": 0.65
+      },
+      "image_preview": {
+        "is_true": false,
+        "probability": 0.0010681152,
+        "threshold": 0.42
+      },
+      "video_preview": {
+        "is_true": false,
+        "probability": 0.0020446777,
+        "threshold": 0.5
+      },
+      "nav_intent": {
+        "is_true": false,
+        "probability": 0.004760742,
+        "threshold": 0.5
+      },
+      "personal_search": {
+        "is_true": false
+      },
+      "skip_personal_search": {
+        "is_true": true,
+        "probability": 1.0,
+        "threshold": 0.95
+      },
+      "weather_widget": {
+        "is_true": false,
+        "probability": 0.0028839111,
+        "threshold": 0.4
+      },
+      "finance_widget_gating": {
+        "is_true": false,
+        "probability": 0.07470703,
+        "threshold": 0.53
+      },
+      "calculator_widget": {
+        "is_true": false,
+        "probability": 0.001701355,
+        "threshold": 0.3
+      },
+      "comet_nav_widget_combined_target": {
+        "is_true": false,
+        "probability": 0.071777344,
+        "threshold": 0.5
+      },
+      "domain_subdomain": {
+        "label": "TECHNOLOGY/ARTIFICIAL_INTELLIGENCE",
+        "probability": 0.89453125
+      },
+      "finance_agent_gating": {
+        "is_true": false,
+        "probability": 0.03564453,
+        "threshold": 0.7
+      }
+    }
+  },
+  "search_implementation_mode": "fast",
+  "query_language": "en",
+  "search_mode": "SEARCH",
+  "status": "COMPLETED",
+  "final": true,
+  "_extras": {
+    "next": null,
+    "country": "IN",
+    "subdomain": null,
+    "pro_search_mode": "auto",
+    "subscription_tier": null,
+    "payment_tier": null,
+    "core_elapsed": 17.100440422073007
+  },
+  "final_sse_message": true,
+  "answer": "Cross-benchmark comparisons between a fine-tuned adapter like Synapta on its RBI/SEBI eval and a zero-shot model like Gemini 2.5 Flash on IndiaFinBench require caution due to mismatched datasets, metrics, and inference modes, as these confound direct claims of superiority. Rigorous NLP/ML protocols emphasize running both models on the *same* held-out benchmark under identical conditions to enable paired statistical tests, drawing from critiques of BIG-bench, HELM, and OpenLLM Leaderboard that highlight leakage, contamination, and poor generalization. Even then, residual confounds like task-style transfer persist.[3][8]\n\n## Core Protocol\nStandardize evaluation by:\n- Selecting a shared, held-out benchmark (e.g., run Synapta on IndiaFinBench or vice versa).\n- Using identical prompts, inference settings (temperature=0, max tokens), and hardware/seeds for reproducibility.\n- Computing multiple metrics: accuracy, token-level F1 (preferred over substring match for partial credit), and exact match.\n\nThis aligns with NeurIPS/ICLR/ACL reviewer expectations, where cross-benchmark claims without shared evals are often rejected as \"not apples-to-apples,\" per methodology papers on HELM (which mandates scenario-specific protocols) and BIG-bench (which warns against score extrapolation).[8]\n\n## Statistical Tests\nFor paired predictions on the same test set:\n- **McNemar test**: Gold standard for binary outcomes (correct/incorrect); tests if disagreements are symmetric (p < 10^-48 as in Synapta's report indicates overwhelming significance).[2][7]\n- **Paired bootstrap**: Resample predictions 10,000+ times to estimate confidence intervals on score differences, robust to non-normality.\n- **Wilcoxon signed-rank**: Non-parametric for score differences per instance, suitable if McNemar assumptions fail.\n\n| Test | Use Case | Assumptions | When Preferred |\n|------|----------|-------------|----------------|\n| McNemar | Binary pass/fail per question | Paired dichotomous data | Exact significance on same instances [2] |\n| Paired bootstrap | Score differences (e.g., 89.6% vs 89.7%) | None (resampling) | CI estimation, small samples |\n| Wilcoxon | Ordinal/ranked scores | Symmetric differences | Non-binary metrics like F1 [2] |\n\nAvoid unpaired tests (e.g., t-test) across benchmarks, as they ignore dependencies.[2]\n\n## Metric Choices\nSubstring match (Synapta's 89.6%) risks overcrediting partial outputs, while IndiaFinBench likely uses stricter accuracy or F1 across its 4 task types. Token F1 balances precision/recall for generative tasks; exact match suits MCQ. Reviewers demand metric alignment\u2014e.g., ACL papers favor F1 for extraction (regulatory/temporal reasoning) over substring.[4]\n\n## Confounds Post-Shared Eval\nEven on IndiaFinBench:\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to fine-tuned styles (e.g., regulatory interpretation), underperforming IndiaFinBench's numerical/contradiction_detection.[10]\n- **Prompt sensitivity**: Zero-shot Gemini may vary 5-27% by format (CoT hurts; shuffling options flips 59% predictions). Fine-tuned adapters are less sensitive but still domain-tuned.[9][4]\n- **Adapter vs zero-shot**: Fine-tuning boosts in-domain but risks OOD brittleness; zero-shot scales via emergence.[1]\n\nReport effect sizes (e.g., Cohen's d > 0.8 for \"large\"), ablate prompts (3-5 variants), and include calibration curves. Reviewers flag unsubstantiated cross-bench claims as \"leaderboard gaming\".[3][8]",
+  "chunks": [
+    "Cross-benchmark compari",
+    "sons between a ",
+    "fine-tuned ada",
+    "pter like Syn",
+    "apta on its RB",
+    "I/SEBI eval a",
+    "nd a zero-shot m",
+    "odel like Ge",
+    "mini 2.5 Flash on I",
+    "ndiaFinBench req",
+    "uire caution du",
+    "e to mismatched data",
+    "sets, metrics,",
+    " and inference m",
+    "odes, as these conf",
+    "ound direct cl",
+    "aims of superio",
+    "rity. Rigorous",
+    " NLP/ML proto",
+    "cols emphasize run",
+    "ning both model",
+    "s on the *same* ",
+    "held-out bench",
+    "mark under ident",
+    "ical condition",
+    "s to enable pa",
+    "ired statistical t",
+    "ests, drawing ",
+    "from critique",
+    "s of BIG-bench,",
+    " HELM, and Op",
+    "enLLM Leaderb",
+    "oard that highl",
+    "ight leakage, contamina",
+    "tion, and poor generaliza",
+    "t",
+    "ion. Even then, resi",
+    "dual confounds ",
+    "like task-style tran",
+    "sfer persist.[3]",
+    "[8]\n\n## Core Prot",
+    "ocol\nStandardize evalua",
+    "tion by:\n- Selecting a shared, held-out bench",
+    "mark (e.g., run",
+    " Synapta on I",
+    "ndiaFinBench or ",
+    "vice versa).\n- U",
+    "sing identical pro",
+    "mpts, inference sett",
+    "ings (tempera",
+    "ture=0, max to",
+    "kens), and hard",
+    "ware/seeds for reproducibi",
+    "lity.\n- Compu",
+    "ting multiple met",
+    "rics: accuracy, token-level F1 (prefe",
+    "rred over subst",
+    "ring match for par",
+    "tial credit),",
+    " and exact ma",
+    "tch.\n\nThis aligns ",
+    "with NeurIPS/",
+    "ICLR/ACL revi",
+    "ewer expectat",
+    "ions, where c",
+    "ross-benchmark cl",
+    "aims without sh",
+    "ared evals are o",
+    "ften rejected ",
+    "as \"not apple",
+    "s-to-apples,\"",
+    " per methodology pa",
+    "pers on HELM (w",
+    "hich mandates scen",
+    "ario-specific proto",
+    "cols) and BIG-b",
+    "ench (which w",
+    "arns against s",
+    "core extrapola",
+    "tion",
+    ").[8]\n\n## Statist",
+    "ical Tests\nFor pa",
+    "ired prediction",
+    "s on the same ",
+    "test set:\n- **McNemar test**: Gold standard for binary outcom",
+    "es (correct/incorrect); t",
+    "ests if disagreem",
+    "ents are symme",
+    "tric (p < 10^-4",
+    "8 as in Synap",
+    "ta's report indic",
+    "ates overwhel",
+    "ming signific",
+    "ance).",
+    "[2][7]\n- **Paired boots",
+    "trap**: Resample predictions 10,000+ t",
+    "imes to estimate confid",
+    "ence interval",
+    "s on score differe",
+    "nces, robust to",
+    " non-normality.\n",
+    "- **Wilcoxon si",
+    "gned-rank**: Non-parametric for score differe",
+    "nces per inst",
+    "ance, suitabl",
+    "e if McNemar assumpt",
+    "ions fail.\n\n| ",
+    "Test | Use Ca",
+    "se | Assumptio",
+    "ns | When Prefe",
+    "rred |\n|------|------",
+    "----|-------------|------------",
+    "----|\n| McNem",
+    "ar | Binary pa",
+    "ss/fail per ques",
+    "tion | Paired dichoto",
+    "mous data | E",
+    "xact signific",
+    "ance on same insta",
+    "nc",
+    "es [2] |\n| Paired boots",
+    "trap | Score differe",
+    "nces (e.g., 8",
+    "9.6% vs 89.7%) | ",
+    "None (resampl",
+    "ing) | CI estima",
+    "tion, small sam",
+    "ples |\n| Wilc",
+    "oxon | Ordinal/ra",
+    "nked scores | Symme",
+    "tric differenc",
+    "es | Non-binary met",
+    "rics like ",
+    "F1 [2] |\n\nAvoid unpa",
+    "ired tests (e",
+    ".g., t-test) ac",
+    "ross benchmarks",
+    ", as they ignore dependen",
+    "cie",
+    "s.[2]\n\n## Metric Cho",
+    "ices\nSubstring m",
+    "atch (Synapta'",
+    "s 89.6%) risks ",
+    "overcrediting par",
+    "tial outputs, w",
+    "hile IndiaFinB",
+    "ench likely uses stri",
+    "cter accuracy ",
+    "or F1 across",
+    " its 4 task ty",
+    "pes. Token F1 bala",
+    "nces precision",
+    "/recall for genera",
+    "tive tasks; e",
+    "xact match suit",
+    "s MCQ. Reviewers de",
+    "mand metric align",
+    "ment\u2014e.g., ACL pa",
+    "pers favor F1",
+    " for extracti",
+    "on (regulatory/temporal reaso",
+    "ning) over subst",
+    "rin",
+    "g.[4]\n\n## Confounds ",
+    "Post-Shared ",
+    "Eval\nEven on I",
+    "ndiaFinBench:\n- **Task-style transfer**: RBI/SEBI (664 Qs) may overfit to ",
+    "fine-tuned st",
+    "yles (e.g., regula",
+    "tory interpreta",
+    "tion), underperfor",
+    "ming IndiaFinB",
+    "ench's numeri",
+    "cal/contradiction_detectio",
+    "n.[10]\n- **Prompt sensiti",
+    "vity**: Zero-shot Gemini may vary 5-27",
+    "% by format (CoT h",
+    "urts; shuffling opt",
+    "ions flips 59% predict",
+    "io",
+    "ns). Fine-tuned adap",
+    "ters are less sensi",
+    "tive but still do",
+    "main-tuned.[9][4]\n- **Ada",
+    "pter vs zero-",
+    "shot**: Fine-tuning boosts in-domain but r",
+    "isks OOD brittle",
+    "ness; zero-shot sc",
+    "ales via emerg",
+    "enc",
+    "e.[1]\n\nReport ef",
+    "fect sizes (e",
+    ".g., Cohen's",
+    " d > 0.8 for \"l",
+    "arge\"), ablate pro",
+    "mpts (3-5 vari",
+    "ants), and inc",
+    "lude calibration cu",
+    "rves. Reviewers ",
+    "flag unsubstanti",
+    "ated cross-bench cl",
+    "aims as \"leaderb",
+    "oard gami",
+    "ng\".[3][8]"
+  ]
+}

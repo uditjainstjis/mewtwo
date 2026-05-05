@@ -1,0 +1,314 @@
+\documentclass{article}
+
+\usepackage{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath,amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+
+\title{Topical Adapter Routing Is Wrong: The Code Paradox and\\Paradox-Aware Token-Level LoRA Routing on a 30B Base}
+
+\author{%
+  Anonymous Author(s) \\
+  Affiliation \\
+  \texttt{email}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A common assumption in multi-adapter composition is that the right adapter for a task is the topically matched one. We show this is empirically wrong on a 4-bit Nemotron-Nano-30B-A3B base trained with four task-specialised LoRA adapters at rank 16. Training on Python code degrades HumanEval pass@1 by 23 pp under our original scorer and continues to underperform the unfine-tuned base under a corrected scorer, yet the same code adapter improves ARC-Challenge by $+11$ pp and MATH-500 by $+14.5$ pp---making the worst code adapter the best non-code reasoner. We call this the \emph{Code Paradox}. Building on it, we propose \emph{paradox-aware token-level routing}: route by the empirical cross-domain transfer matrix, not by topical labels. We instantiate this principle in \emph{Format Guard}, a HuggingFace \texttt{LogitsProcessor} that holds all four adapters resident in VRAM and swaps the active adapter every ten generated tokens via a deterministic regex cascade. Warm swaps are an $\mathcal{O}(1)$ pointer flip; the four-adapter process fits in $\approx 18$ GB of VRAM on a single 32 GB consumer GPU. On full HumanEval ($n=164$, paired) under our corrected scorer, Format Guard lifts pass@1 from $56.1\%$ to $73.2\%$ ($+17.1$ pp; McNemar $\chi^2 = 15.68$, $p < 10^{-3}$). Static weight-merging via uniform DARE, TIES, and linear interpolation never exceeds the best single expert and yields $+0.0$ pp on a 45-question mixed-domain probe. Format Guard's empirical zero-overhead property---matching a dedicated adapter when one exists---replicates on a 664-question regulatory-QA evaluation ($p = 1.66 \times 10^{-48}$) and a 60-question hand-curated benchmark. We additionally retract a v1 HumanEval scoring bug (import-stripping plus indent-stripping) that inflated the absolute base floor by 34 pp, and we report a $-3$ pp Format Guard regression on MBPP as a load-bearing scope condition.
+\end{abstract}
+
+\section{Introduction}
+
+The dominant paradigm for adapting a foundation model to multiple downstream domains is to train one parameter-efficient adapter per domain and compose them in deployment~\cite{hu2021lora}. The literature offers two broad families. \emph{Static weight-merging} combines adapter weights ahead of time (DARE, TIES~\cite{edalati2023absorbing,quarantiello2024adaptive}; model soups~\cite{wortsman2022model}; AdapterFusion~\cite{pfeiffer2020adapterfusion}). \emph{Routing} selects among adapters at inference time, sometimes per prompt and sometimes per token~\cite{pfeiffer2020adapterfusion,shazeer2017moe,fedus2021switch}. Both paradigms typically assume that the topically matched adapter is the best per-task choice and that combining experts can only help. We report empirical evidence from a 30B-class base that contradicts both assumptions, and we propose a routing-rule design principle that recovers a substantial portion of the lost composition gain on the load-bearing benchmark in our grid.
+
+\paragraph{Contributions.}
+\begin{itemize}
+\setlength{\itemsep}{2pt}
+  \item \textbf{(C1) The Code Paradox.} On a 4-bit Nemotron-Nano-30B-A3B base with four LoRA adapters, training on Python code degrades in-domain HumanEval pass@1 while simultaneously lifting out-of-domain ARC-Challenge ($+11$ pp) and MATH-500 ($+14.5$ pp); training on math, conversely, lifts HumanEval. The transfer is sufficiently asymmetric that the \emph{worst} adapter at code generation is the \emph{best} adapter at non-code reasoning. The in-domain regression replicates at $n=200$ on Qwen-3.5-0.8B and survives a rank-scaling spot-check up to $r=1024$ on Nemotron-Mini-4B (Appendix~\ref{app:replication}).
+  \item \textbf{(C2) Static composition fails at 30B under uniform weights.} Uniform DARE, TIES, and linear merging do not exceed the per-benchmark best single expert across HumanEval, MATH-500, ARC-Challenge, and MBPP, and yield $+0.0$ pp on a 45-question mixed-domain probe.
+  \item \textbf{(C3) Paradox-aware token-level routing.} Routing rules grounded in the empirical cross-domain transfer matrix---sending code contexts to the math adapter and math contexts to the code adapter---outperform topical routing rules. We instantiate this principle in \emph{Format Guard}, a \texttt{LogitsProcessor} that swaps the active adapter every ten tokens via a deterministic regex cascade. Format Guard reaches $+17.1$ pp over base on full HumanEval ($n=164$, paired McNemar $\chi^2 = 15.68$, $p < 10^{-3}$, $b_{10}{=}11$, $b_{01}{=}39$), matches best-single on ARC and MATH-500, and matches a dedicated adapter on two regulatory-QA evaluations at empirically zero cost.
+  \item \textbf{(C4) HumanEval reproducibility lesson.} We diagnose two extraction bugs (import-stripping; indent-stripping) that under-count chain-of-thought-heavy completions far more than concise ones. Re-scoring the same saved completions moves our base absolute floor from $22.0\%$ to $56.1\%$ ($+34$ pp) and shrinks the headline delta from $+48.7$ to $+17.1$ pp. We retract the v1 numbers and report v2 figures as canonical.
+\end{itemize}
+
+\paragraph{Scope.} Format Guard's HumanEval headline is established on a single 30B base; the asymmetric \emph{positive} arm of the Code Paradox is established only on Nemotron-30B; our static-merge baselines test uniform weights only (no LoRAHub-learned weights); and Format Guard regresses MBPP by 3 pp because mid-sequence swaps perturb Python indentation. Section~\ref{sec:limitations} lists these and other scope conditions explicitly. We position the paper as a methodology paper about routing-rule design, validated on the strongest paired statistic in our project, rather than as a general claim.
+
+\section{Background and related work}
+
+\textbf{LoRA} injects rank-$r$ updates into the attention and MLP weights of a frozen backbone, giving a $\sim 1$--$2\%$-of-base trainable artifact per domain~\cite{hu2021lora}. \textbf{Static composition} combines adapter or model deltas ahead of time: model soups average full weights~\cite{wortsman2022model}; DARE drops a fraction of deltas and rescales while TIES resolves sign conflicts and retains top-magnitude entries~\cite{edalati2023absorbing}; AdapterFusion learns a fusion layer over adapter outputs~\cite{pfeiffer2020adapterfusion}; LoRAHub-style methods learn mixing weights~\cite{quarantiello2024adaptive}. Our static baselines test uniform DARE, TIES, and linear weights; learned-weight composition at 30B is out of scope. \textbf{Routing} architectures select experts at inference time. Sparse mixture-of-experts routes tokens to a small subset of experts via a learned gate~\cite{shazeer2017moe,fedus2021switch}; AdapterFusion is layer-level routing; prompt-level routers select one adapter per query. We sit in this branch but operate at the token level via a hand-designed paradox-aware regex router implemented as a \texttt{LogitsProcessor}, deliberately avoiding a learned gate so that any composition gain is attributable to the routing \emph{rule} rather than to a trained classifier (Appendix~\ref{app:regex}). \textbf{Benchmarks.} We use HumanEval~\cite{chen2021evaluating}, MATH-500~\cite{hendrycks2021math}, ARC-Challenge~\cite{clark2018arc}, MBPP~\cite{austin2021mbpp}, plus two regulatory-QA evaluations built from public-domain Indian regulatory text (RBI master directions, SEBI master circulars).
+
+\section{Methods}
+
+\paragraph{Base model and adapters.} We use Nemotron-Nano-30B-A3B in 4-bit NF4 as the base. Four LoRA adapters are trained, one per domain: \texttt{math}, \texttt{code}, \texttt{science}, \texttt{bfsi\_extract} (extractive QA over Indian regulatory text). All adapters use rank 16 with $\alpha = 32$, all attention and MLP target modules, paged AdamW 8-bit at lr $2{\cdot}10^{-4}$ cosine, one epoch, MAX\_LEN 1024. The bfsi\_extract run completes in 3h28m on an RTX 5090 with 17.81 GB peak VRAM, producing a 1.74 GB bf16 artifact; trainable parameters are 434.6M of 32B (1.36\%).
+
+\paragraph{Static composition baselines.} Uniform linear (per-parameter mean), DARE (random delta drop with rescale, uniform weights), and TIES (sign-conflict resolution and top-magnitude retention, uniform weights) over the four adapters. All evaluated against the per-benchmark best single adapter and against the unmerged base.
+
+\paragraph{Format Guard.} A HuggingFace \texttt{LogitsProcessor} instantiated at generation time with three properties. \emph{(i) VRAM residency:} all four adapters are loaded simultaneously via PEFT's multi-adapter API; cold load from NVMe SSD is 315.9 ms/swap (44 swaps observed) but the warm path is $\mathcal{O}(1)$ in the microsecond regime, far below per-token decode cost. \emph{(ii) Pointer-swap primitive:} \texttt{model.set\_adapter(target)} incurs no kernel re-compilation. \emph{(iii) Regex- and paradox-aware router.} Every $K{=}10$ generated tokens, Format Guard inspects the recent decoded suffix and chooses the next adapter via a deterministic regex cascade: code-like text $\rightarrow$ \emph{math} adapter (because math-on-code improves HumanEval while code-on-code regresses); math notation $\rightarrow$ \emph{code} adapter (because code-on-math is the strongest MATH-500 lifter); BFSI keywords (\texttt{Section X(Y)}, regulator names) $\rightarrow$ \emph{bfsi\_extract}; default $\rightarrow$ \emph{code}. The router is deterministic by design (Appendix~\ref{app:regex}). The four-adapter process peaks at $\approx 18$ GB VRAM on a single 32 GB consumer GPU.
+
+\paragraph{Evaluation.} HumanEval ($n=164$, pass@1, greedy)~\cite{chen2021evaluating}; MATH-500 ($n=200$, exact match)~\cite{hendrycks2021math}; ARC-Challenge ($n=100$)~\cite{clark2018arc}; MBPP ($n=100$, pass@1)~\cite{austin2021mbpp}; BFSI-extract held-out ($n=664$, document-disjoint, substring + token F1); Indian Regulatory BFSI Benchmark v1 ($n=60$, hand-curated, 30 substring + 30 token-F1 $\geq 0.5$). All comparisons are paired (same prompts, same seeds). Tests are paired McNemar exact-binomial on binary outcomes and Wilcoxon signed-rank on continuous F1.
+
+\paragraph{HumanEval scoring correction.} An earlier v1 scorer exhibited two extraction bugs. \emph{Import-stripping}: \texttt{extract\_code} dropped the prompt's pre-def header (e.g., \texttt{from typing import List}), causing \texttt{NameError}. \emph{Indent-stripping}: a \texttt{body.strip()} on a body-only fenced block dropped the leading 4-space indent, causing \texttt{IndentationError}. We patched both and re-ran the same saved completions through the corrected extractor (\emph{v2}). The v2 corrected harness is canonical throughout this paper.
+
+\section{Results}
+
+\subsection{The Code Paradox: single-adapter baselines}
+\label{sec:phase1}
+
+Table~\ref{tab:phase1} reports Phase~1 single-adapter scores on Nemotron-30B. The HumanEval column uses v1 buggy scoring (caveat preserved); v2 absolute floors are higher (Section~\ref{sec:humaneval}) but the qualitative direction is preserved.
+
+\begin{table}[h]
+  \caption{Single-adapter baselines on Nemotron-Nano-30B-A3B (4-bit). HumanEval column is v1 buggy scoring; absolute floor moves under v2 (Section~\ref{sec:humaneval}) but the code-on-code regression direction is preserved.}
+  \label{tab:phase1}
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    Adapter & ARC ($n{=}100$) & HumanEval (v1, $n{=}100$) & MATH-500 ($n{=}200$) & MBPP ($n{=}100$) \\
+    \midrule
+    base    & 20.0 & 50.0 & 41.5 & 8.0 \\
+    math    & 23.0 & \textbf{60.0} & 50.5 & 2.0 \\
+    code    & \textbf{31.0} & 27.0 & \textbf{56.0} & 6.0 \\
+    science & 21.0 &  1.0 & 55.0 & 0.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The Code Paradox is visible in two places. The \emph{code} adapter scores 27.0\% on HumanEval, 23 pp below the unfine-tuned base---the worst code performance in the grid despite being the only adapter trained on code. The same adapter scores $+11$ pp on ARC and $+14.5$ pp on MATH-500. The math adapter, conversely, lifts HumanEval to 60.0\% ($+10$ pp). The topical pairing is not the right pairing.
+
+\subsection{Static composition does not exceed best single}
+\label{sec:static}
+
+\begin{table}[h]
+  \caption{Static merging via uniform-weight DARE/TIES/linear on the same four adapters. ``Best single'' picks the per-benchmark winner from Table~\ref{tab:phase1}.}
+  \label{tab:static}
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    Method & ARC & HumanEval (v1) & MATH-500 & MBPP \\
+    \midrule
+    Base                              & 20.0 & 50.0 & 41.5 & 8.0 \\
+    Best single                       & 31.0 (code) & 60.0 (math) & 56.0 (code) & 6.0 (code) \\
+    Static merge (uniform DARE/TIES)  & 19.0 & 34.0 & 56.0 & 0.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Static merging never exceeds the best single expert and degrades catastrophically on ARC ($-12$ pp) and HumanEval ($-26$ pp under v1). On a 45-question author-curated mixed-domain probe, base scores 51.1\%, best-single (oracle prompt-level routing) scores 60.0\%, and all three merges score 60.0\%---compositional headroom over best-single is $+0.0$ pp. We caveat: only uniform weights are tested; LoRAHub-learned-weight composition at 30B is open.
+
+\subsection{Format Guard on HumanEval (corrected scorer)}
+\label{sec:humaneval}
+
+\begin{table}[h]
+  \caption{Format Guard vs.\ base on full HumanEval ($n=164$), paired, v2 corrected scorer. Wilson 95\% CIs are non-overlapping. v1 numbers are shown for transparency only and should not be cited.}
+  \label{tab:humaneval}
+  \centering
+  \small
+  \begin{tabular}{lccc}
+    \toprule
+    Mode & Pass@1 & Wilson 95\% CI & (v1 inflated, do not cite) \\
+    \midrule
+    Base Nemotron-30B & \textbf{56.1\%} (92/164)  & [48.4, 63.5] & (22.0\%) \\
+    Format Guard      & \textbf{73.2\%} (120/164) & [65.9, 79.4] & (70.7\%) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The paired McNemar contingency on the v2 scorer: $b_{11}{=}81$ (both pass), $b_{10}{=}11$ (base passes / FG fails), $b_{01}{=}39$ (FG passes / base fails), $b_{00}{=}33$. McNemar $\chi^2 = (39-11)^2/(39+11) = 15.68$, $p < 10^{-3}$. The improvement is statistically significant at NeurIPS standards. Per-category, FG adds $+33$ pp on math-arith problems and $+15$ pp on string problems but loses $7$ pp on list-operation problems---consistent with the paradox-aware router selecting the math adapter inside code-generation contexts.
+
+The v1$\rightarrow$v2 correction is itself a finding. Re-scoring the same saved completions moved the base absolute floor from 22.0\% to 56.1\% ($+34$ pp) and the FG from 70.7\% to 73.2\%. The headline delta therefore \emph{shrank} from $+48.7$ pp (v1) to $+17.1$ pp (v2) because v1 disproportionately under-counted base outputs (more verbose chain-of-thought hits both extraction bugs). We retract the v1 figure and adopt v2 as canonical. The 30 pp absolute floor movement from extraction-bug fixes alone suggests that several published HumanEval numbers at $\sim 30$B scale may have similar issues; we urge audits for both bug classes.
+
+\subsection{Format Guard across the four-benchmark grid}
+\label{sec:grid}
+
+\begin{table}[h]
+  \caption{Format Guard vs.\ base on the four-benchmark grid. HumanEval row is v2 scoring; others match Table~\ref{tab:phase1}.}
+  \label{tab:fggrid}
+  \centering
+  \small
+  \begin{tabular}{lccc l}
+    \toprule
+    Benchmark                  & Base & Format Guard & $\Delta$ & Note \\
+    \midrule
+    ARC-Challenge ($n{=}100$)  & 20.0 & 31.0 & $+11.0$ pp & matches best single (code) \\
+    HumanEval ($n{=}164$, v2)  & 56.1 & 73.2 & \textbf{$+17.1$ pp} & exceeds every single expert \\
+    MATH-500 ($n{=}200$)       & 41.5 & 56.0 & $+14.5$ pp & matches best single (code) \\
+    MBPP ($n{=}100$)           &  8.0 &  5.0 & \textbf{$-3.0$ pp} & format-rigid regression \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+On ARC and MATH-500, FG \emph{matches} best-single rather than exceeding it---the heuristic router cannot find a within-task swap that beats picking the right adapter once. On MBPP, FG \emph{regresses} by 3 pp because mid-sequence swaps perturb Python indentation; a debounce or learned router would likely close the gap (Appendix~\ref{app:regex}).
+
+\subsection{Format Guard zero-overhead replication on regulatory QA}
+\label{sec:bfsi}
+
+We validated the \emph{zero-overhead} property---FG matching the dedicated adapter when one exists in the pool---on two evaluations.
+
+\textbf{BFSI-extract held-out ($n=664$, paired).} On a document-disjoint split of 664 questions across 26 PDFs, base scores 58.7\% substring, the dedicated bfsi\_extract adapter scores 89.6\%, and FG scores 88.7\%. Adapter vs.\ base McNemar: $b_{11}{=}376$, $b_{10}{=}14$, $b_{01}{=}219$, $b_{00}{=}55$, $p = 1.66 \times 10^{-48}$ (improvement-to-regression ratio $15.6\times$). FG vs.\ adapter direct: $b_{10}{=}6$, $b_{01}{=}0$, $\Delta = -0.9$ pp, $p = 0.031$---differences are confined to 6/664 questions and FG never improves over the direct adapter. Per tier, the adapter adds $+24.6$ pp on numeric questions ($n=386$) and $+39.5$ pp on heading-extractive questions ($n=278$).
+
+\textbf{Indian Regulatory BFSI Benchmark v1 ($n=60$, paired).} Base 40.0\% (24/60), bfsi\_extract 50.0\% (30/60), FG 50.0\% (30/60), mean 0.1 swaps/Q. Adapter vs.\ base McNemar $p = 0.0313$ (marginal at $\alpha = 0.05$). FG vs.\ adapter direct: identical 30/60 ($p = 1.0$). Per scoring method: substring half (30 Qs) base 80.0\% vs.\ adapter 100.0\% (clean $+20$ pp); F1 $\geq 0.5$ half both score 0.0\% (metric-cutoff artefact rather than a real zero).
+
+These results validate that the \emph{mechanism} of token-level swapping does not introduce systematic regressions on a domain where a dedicated adapter is the right routing target.
+
+\section{Latency and memory}
+\label{sec:latency}
+
+Cold adapter load (NVMe SSD $\rightarrow$ GPU) averages 315.9 ms/swap over 44 observed swaps---prohibitive for token-level routing. The warm path (\texttt{set\_adapter} pointer flip with all adapters resident in VRAM) is $\mathcal{O}(1)$, microseconds. The four-adapter FG process peaks at $\approx 18$ GB VRAM (base $\approx 17$ GB plus delta from additional adapters; underlying frozen base weights are shared). A five-adapter variant peaks at $\approx 19.7$ GB. Both fit on a single 32 GB consumer GPU. Token-level routing is sometimes dismissed as latency-prohibitive; the real cost is small \emph{if} adapters are kept resident.
+
+\section{Limitations}
+\label{sec:limitations}
+
+We list scope conditions explicitly; they bound the paper's claims.
+\begin{itemize}
+\setlength{\itemsep}{1pt}
+\item \textbf{Single base for the FG headline.} Only Nemotron-Nano-30B-A3B in 4-bit NF4 has been evaluated. Cross-base generalisation (Qwen3-32B, Llama-3-70B, Mixtral-8x7B) is the highest-priority follow-up and is not claimed here.
+\item \textbf{Code Paradox positive arm is single-base.} The in-domain regression replicates at $n=200$ on Qwen-3.5-0.8B, but the asymmetric \emph{positive} transfer is established only on Nemotron-30B. Earlier $n=50$ cross-family claims are retracted (Appendix~\ref{app:replication}).
+\item \textbf{MBPP regression on format-rigid tasks.} Mid-sequence adapter swaps perturb Python indentation conventions, costing 3 pp on MBPP. A learned router or a swap-debounce would likely close this gap.
+\item \textbf{Heuristic regex router.} Deliberately so, to attribute gain to the routing-\emph{rule} rather than a trained classifier (Appendix~\ref{app:regex}); the BFSI router also misfires on \texttt{Section X(Y)(z)} patterns when the query is not BFSI-extractive.
+\item \textbf{Uniform-weight static merging only.} LoRAHub-learned-weight composition at 30B is not tested; we do not claim ``static merging is fundamentally bad.''
+\item \textbf{HumanEval v1 retraction.} All v1 numbers anywhere in earlier internal documents are stale; we use only v2 corrected scores.
+\item \textbf{Small $n$ on Benchmark v1.} $n=60$ and McNemar $p = 0.0313$ on adapter vs.\ base is marginal at $\alpha = 0.05$; the F1 $\geq 0.5$ cutoff is too strict for verbose paragraph extraction.
+\end{itemize}
+
+\section{Discussion}
+
+Routing rules grounded in the empirical cross-domain transfer matrix can be strictly better than routing rules that follow topical labels. The Code Paradox (Section~\ref{sec:phase1}) is the evidence that topical pairing is wrong; Format Guard's $+17.1$ pp paired-McNemar gain on full HumanEval (Section~\ref{sec:humaneval}) is the evidence that paradox-aware token-level routing recovers the lost composition gain; the per-category breakdown ($+33$ pp on math-arith, $+15$ pp on strings) is consistent with the regex cascade actively firing the paradox-aware swap. We additionally show that the \emph{alternative}---uniform-weight static merging---fails to exceed best-single on the same grid (Section~\ref{sec:static}) and yields $+0.0$ pp on the mixed-domain probe. The MBPP $-3$ pp regression bounds the principle's applicability under the simplest possible router and is part of the contribution rather than a weakness.
+
+Three methodology lessons recur. \emph{Paired tests matter}: most load-bearing comparisons here are paired McNemar / Wilcoxon on the same prompts and seeds. \emph{Scoring bugs matter}: the v1$\rightarrow$v2 correction moved the absolute base floor by 34 pp; we urge HumanEval reproductions at $\sim 30$B to audit for import-stripping (the prompt's pre-def header dropped from the executed code) and indent-stripping (a body-only fenced block stripped of its leading 4-space indent). \emph{Negative results matter}: the MBPP regression and the 6/664 BFSI false-fires are exactly the cases that bound the claim. The most direct extension is to replace the regex cascade with a small learned router conditioned on the last $K$ tokens, which would likely close MBPP and BFSI false-fires; the second-most-direct extension is to train comparable adapter sets on a second 30B-class base and re-run the $n=164$ HumanEval evaluation. Within the stated scope conditions, paradox-aware token-level routing is a working alternative to both topical routing and to static composition.
+
+% Acknowledgments are intentionally omitted at submission to preserve double-blind anonymity.
+\begin{ack}
+Acknowledgments will be added in the camera-ready version.
+\end{ack}
+
+\section*{References}
+\small
+\begin{thebibliography}{99}
+
+\bibitem{austin2021mbpp}
+J.~Austin, A.~Odena, M.~Nye, M.~Bosma, H.~Michalewski, D.~Dohan, et~al.
+\newblock Program synthesis with large language models.
+\newblock In \emph{Advances in Neural Information Processing Systems (NeurIPS)}, 2021.
+
+\bibitem{chen2021evaluating}
+M.~Chen, J.~Tworek, H.~Jun, Q.~Yuan, H.~P.\ de~Oliveira~Pinto, J.~Kaplan, et~al.
+\newblock Evaluating large language models trained on code.
+\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021.
+
+\bibitem{clark2018arc}
+P.~Clark, I.~Cowhey, O.~Etzioni, T.~Khot, A.~Sabharwal, O.~Tafjord, et~al.
+\newblock Think you have solved question answering? Try {ARC}, the {AI2} reasoning challenge.
+\newblock In \emph{Proceedings of ACL}, 2018.
+
+\bibitem{edalati2023absorbing}
+A.~Edalati, C.~Zhang, S.~I.\ Mirzadeh, M.~Farajtabar, and A.~Ghasemi.
+\newblock Absorbing abilities from homologous models as a free lunch.
+\newblock \emph{arXiv preprint arXiv:2311.03099}, 2023.
+
+\bibitem{fedus2021switch}
+W.~Fedus, B.~Zoph, and N.~Shazeer.
+\newblock Switch transformers: Scaling to trillion parameter models with simple and efficient sparsity.
+\newblock \emph{arXiv preprint arXiv:2101.03961}, 2021.
+
+\bibitem{hendrycks2021math}
+D.~Hendrycks, S.~Basart, S.~Kadavath, M.~Mazeika, A.~Arora, E.~Guo, et~al.
+\newblock Measuring mathematical problem solving with the {MATH} dataset.
+\newblock In \emph{NeurIPS}, 2021.
+
+\bibitem{hu2021lora}
+E.~J.\ Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, L.~Wang, and W.~Chen.
+\newblock {LoRA}: Low-rank adaptation of large language models.
+\newblock \emph{arXiv preprint arXiv:2106.09685}, 2021.
+
+\bibitem{pfeiffer2020adapterfusion}
+J.~Pfeiffer, A.~Kamath, A.~R\"uckl\'e, K.~Cho, and I.~Gurevych.
+\newblock {AdapterFusion}: Non-destructive task composition for transfer learning.
+\newblock \emph{arXiv preprint arXiv:2005.00247}, 2020.
+
+\bibitem{quarantiello2024adaptive}
+L.~Quarantiello et~al.
+\newblock Adaptive {LoRA} merging for efficient domain incremental learning.
+\newblock In \emph{NeurIPS}, 2024.
+
+\bibitem{shazeer2017moe}
+N.~Shazeer, A.~Mirhoseini, K.~Maziarz, A.~Davis, Q.~Le, G.~Hinton, and J.~Dean.
+\newblock Outrageously large neural networks: The sparsely-gated mixture-of-experts layer.
+\newblock \emph{arXiv preprint arXiv:1701.06538}, 2017.
+
+\bibitem{wortsman2022model}
+M.~Wortsman, G.~Ilharco, S.~Y.\ Gadre, R.~Roelofs, R.~Gontijo-Lopes, A.~S.\ Morcos, et~al.
+\newblock Model soups: Averaging weights of multiple fine-tuned models improves accuracy without increasing inference time.
+\newblock In \emph{ICML}, 2022.
+
+\end{thebibliography}
+
+\appendix
+
+\section{Code Paradox replication and rank scaling}
+\label{app:replication}
+
+\textbf{Qwen-3.5-0.8B at $n=200$.} Base 15.0\% (30/200); math adapter 16.0\% (32/200); code adapter 12.0\% (24/200, in-domain regression replicated). The asymmetric \emph{positive} arm of the paradox is not established at this $n$ on Qwen and is not yet tested at $n=200$ on any other base; we therefore claim only that the in-domain regression is robust.
+
+\textbf{Earlier $n=50$ cross-family claims are retracted} (Table~\ref{tab:replication-app}); the numbers are not robust enough to publish and the cross-family positive arm has not been re-run at $n=200$.
+
+\begin{table}[h]
+  \caption{Code Paradox replication. The $n=50$ rows are NOT robust and are reported only for completeness; the $n=200$ row is the load-bearing replication.}
+  \label{tab:replication-app}
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    Base & Code adapter & Math adapter & Base & $n$ \\
+    \midrule
+    Qwen-3.5-0.8B    & 16.0 & 10.0 &  8.0 & 50 (NOT robust) \\
+    Nemotron-Mini-4B & 10.0 &  8.0 & 12.0 & 50 (NOT robust) \\
+    Qwen-3.5-0.8B    & 12.0 (regression) & 16.0 & 15.0 & 200 (robust) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textbf{Rank-scaling spot-check} on Nemotron-Mini-4B-Instruct, $n=50$ HumanEval. Even at $r=1024$, the code adapter scores 10.0\%, below the base's 12.0\% on the same split. Increasing capacity does not rescue the code-on-code regression at this scale.
+
+\begin{table}[h]
+  \caption{Rank scaling on Nemotron-Mini-4B-Instruct, $n=50$ HumanEval. Even at $r=1024$, the code adapter does not exceed base ($12\%$).}
+  \label{tab:rank-app}
+  \centering
+  \small
+  \begin{tabular}{lcc}
+    \toprule
+    Rank & math adapter & code adapter \\
+    \midrule
+    8    & 2.0 & 4.0 \\
+    128  & 8.0 & 8.0 \\
+    1024 & 4.0 & \textbf{10.0} (still $\leq$ base) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Why the regex router is the right ablation}
+\label{app:regex}
+
+A natural objection is that a learned router (e.g., a small classifier conditioned on the last $K$ decoded tokens) would likely outperform our regex cascade. We agree, and we treat this as the natural follow-up. We use a regex router \emph{deliberately} for three reasons. (i) \emph{It isolates the routing rule.} If a learned classifier later improves over the regex, the gain is attributable to the classifier, not to the paradox-aware routing principle---so the regex result is a clean attribution of the principle. (ii) \emph{No train/test leakage.} Every routing decision is auditable from the regex itself; FG's result is not a function of a separate trained component that might overfit. (iii) \emph{Zero added parameters or training compute.} The comparison to base and to the dedicated adapter is therefore clean. We expect a learned router to close the MBPP $-3$ pp regression and the BFSI false-fire on \texttt{Section X(Y)(z)} patterns. The regex router is reported as a controlled probe of the paradox-aware routing principle, not as the proposed deployment artifact.
+
+\section{Per-category and per-tier breakdowns}
+\label{app:breakdowns}
+
+\textbf{HumanEval per-category (FG vs.\ base, $n=164$, v2):} math-arith $+33$ pp, strings $+15$ pp, list-ops $-7$ pp. The per-category pattern is consistent with the paradox-aware regex selecting the math adapter inside code-generation contexts.
+
+\textbf{BFSI-extract per tier ($n=664$, paired):} Tier 2 numeric ($n=386$) $+24.6$ pp adapter vs.\ base; Tier 3 heading-extractive ($n=278$) $+39.5$ pp. Per regulator: RBI $+31.5$ pp, SEBI $+30.1$ pp.
+
+\newpage
+\input{checklist.tex}
+
+\end{document}

@@ -1,0 +1,352 @@
+[
+  {
+    "question": "What is the minimum total Capital Adequacy Ratio (CAR) prescribed for Indian commercial banks under RBI Basel III norms?",
+    "answer": "9 per cent of risk-weighted assets",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum Common Equity Tier 1 (CET1) capital ratio required for Indian banks under Basel III?",
+    "answer": "5.5 per cent of risk-weighted assets",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the Capital Conservation Buffer (CCB) requirement for Indian banks under Basel III?",
+    "answer": "2.5 per cent of risk-weighted assets, held as Common Equity Tier 1",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum Tier 1 capital ratio required for Indian commercial banks under Basel III?",
+    "answer": "7 per cent of risk-weighted assets",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum leverage ratio prescribed by RBI for non-systemically-important Indian banks under Basel III?",
+    "answer": "3.5 per cent",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum leverage ratio prescribed by RBI for Domestic Systemically Important Banks (D-SIBs)?",
+    "answer": "4 per cent",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum Liquidity Coverage Ratio (LCR) prescribed by RBI for scheduled commercial banks?",
+    "answer": "100 per cent",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What asset-size threshold defines a Non-Banking Financial Company as Systemically Important (NBFC-ND-SI) under RBI norms?",
+    "answer": "Asset size of Rs. 500 crore or more",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum Net Owned Fund (NOF) required for registration of an NBFC with the Reserve Bank of India?",
+    "answer": "Rs. 10 crore (revised from Rs. 2 crore, to be achieved in a phased manner by March 2027)",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What does the abbreviation NBFC-MFI stand for in RBI regulations?",
+    "answer": "Non-Banking Financial Company - Micro Finance Institution",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum percentage of qualifying assets required for an NBFC to be classified as an NBFC-MFI?",
+    "answer": "Not less than 75 per cent of net assets",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What does NBFC-IFC stand for in RBI's classification of non-banking financial companies?",
+    "answer": "Non-Banking Financial Company - Infrastructure Finance Company",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum percentage of total assets that must be deployed in infrastructure loans for an NBFC to qualify as an Infrastructure Finance Company (IFC)?",
+    "answer": "A minimum of 75 per cent of total assets",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under RBI's Scale Based Regulation (SBR) framework for NBFCs, how many layers are NBFCs categorized into?",
+    "answer": "Four layers: Base Layer, Middle Layer, Upper Layer, and Top Layer",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum Capital to Risk-Weighted Assets Ratio (CRAR) prescribed by RBI for NBFCs?",
+    "answer": "15 per cent, with Tier 1 capital not less than 10 per cent",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What does the abbreviation OVD mean in the context of RBI's Know Your Customer (KYC) framework?",
+    "answer": "Officially Valid Document",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What are the six Officially Valid Documents (OVDs) accepted under RBI's KYC Master Direction for individuals?",
+    "answer": "Passport, driving licence, proof of possession of Aadhaar number, Voter's Identity Card issued by Election Commission of India, job card issued by NREGA signed by an officer of the State Government, and letter issued by the National Population Register containing details of name and address",
+    "regulator": "RBI"
+  },
+  {
+    "question": "How often must Customer Due Diligence (CDD) be re-done for high-risk customers under RBI KYC norms?",
+    "answer": "At least once every two years",
+    "regulator": "RBI"
+  },
+  {
+    "question": "How often must Customer Due Diligence be re-done for medium-risk customers under RBI KYC norms?",
+    "answer": "At least once every eight years",
+    "regulator": "RBI"
+  },
+  {
+    "question": "How often must Customer Due Diligence be re-done for low-risk customers under RBI KYC norms?",
+    "answer": "At least once every ten years",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the threshold for cash transactions that must be reported by banks as Cash Transaction Reports (CTRs) under the Prevention of Money Laundering Act?",
+    "answer": "All cash transactions of the value of more than Rs. 10 lakh or its equivalent in foreign currency",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the reporting timeline for Suspicious Transaction Reports (STRs) under the PMLA Rules?",
+    "answer": "Not later than seven working days from the date of arriving at a conclusion that the transaction is suspicious",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the threshold for Cross-Border Wire Transfer Reports (CBWTRs) under PMLA Rules?",
+    "answer": "All cross-border wire transfers of the value of more than Rs. 5 lakh or its equivalent in foreign currency where either origin or destination is in India",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the threshold for reporting Counterfeit Currency Reports (CCRs) under PMLA Rules?",
+    "answer": "All cash transactions where forged or counterfeit currency notes have been used as genuine, regardless of value",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the maximum customer charge per financial transaction beyond the free monthly limit at other banks' ATMs as per RBI rules effective May 2025?",
+    "answer": "Rs. 23 per transaction (inclusive of taxes)",
+    "regulator": "RBI"
+  },
+  {
+    "question": "How many free transactions per month are customers entitled to at other banks' ATMs in metro centres under RBI rules?",
+    "answer": "Three free transactions per month at other banks' ATMs in six metro centres",
+    "regulator": "RBI"
+  },
+  {
+    "question": "How many free transactions per month are customers entitled to at other banks' ATMs in non-metro centres under RBI rules?",
+    "answer": "Five free transactions per month at other banks' ATMs in non-metro centres",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under the Foreign Exchange Management Act (FEMA), what is the difference between a current account transaction and a capital account transaction?",
+    "answer": "A capital account transaction alters the assets or liabilities outside India of persons resident in India, or assets or liabilities in India of persons resident outside India; a current account transaction is any transaction other than a capital account transaction",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the present overall annual limit per individual under the Liberalised Remittance Scheme (LRS) of RBI?",
+    "answer": "USD 250,000 per financial year per resident individual",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the maximum tenor permitted for External Commercial Borrowings (ECBs) under the automatic route, with minimum average maturity of 3 years (general category)?",
+    "answer": "Minimum average maturity period of 3 years (5 years for ECBs raised by manufacturing companies above USD 50 million per financial year)",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under SEBI's mutual fund categorization circular, what are the five broad groups into which mutual fund schemes are classified?",
+    "answer": "Equity Schemes, Debt Schemes, Hybrid Schemes, Solution Oriented Schemes, and Other Schemes",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI rules, how is a Large Cap company defined for mutual fund categorization?",
+    "answer": "1st to 100th company in terms of full market capitalisation",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI rules, how is a Mid Cap company defined for mutual fund categorization?",
+    "answer": "101st to 250th company in terms of full market capitalisation",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI rules, how is a Small Cap company defined for mutual fund categorization?",
+    "answer": "251st company onwards in terms of full market capitalisation",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "What is the minimum percentage of equity exposure required for an equity-oriented mutual fund scheme under SEBI categorization?",
+    "answer": "Minimum 65 per cent of total assets in equity and equity-related instruments",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI rules, what is the minimum investment in equity for a Multi Cap Fund?",
+    "answer": "Minimum 75 per cent in equity, with at least 25 per cent each in large cap, mid cap and small cap stocks",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "What is the maximum Total Expense Ratio (TER) permitted by SEBI for an open-ended equity mutual fund scheme on the first Rs. 500 crore of average daily net assets?",
+    "answer": "2.25 per cent",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "What is the maximum Total Expense Ratio (TER) permitted by SEBI for an open-ended debt mutual fund scheme on the first Rs. 500 crore of average daily net assets?",
+    "answer": "2.00 per cent",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI (Listing Obligations and Disclosure Requirements) Regulations, what is the minimum number of independent directors required on the board of a listed entity?",
+    "answer": "At least one-third of the board, or one-half if the chairperson is non-independent or executive",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI's Substantial Acquisition of Shares and Takeovers Regulations, what is the threshold above which an open offer is triggered?",
+    "answer": "Acquisition of 25 per cent or more of voting rights triggers a mandatory open offer",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI's Takeover Regulations, what is the minimum size of an open offer that must be made by an acquirer triggering the open offer?",
+    "answer": "At least 26 per cent of the total shares of the target company",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI ICDR Regulations, what is the minimum subscription requirement for an Initial Public Offer (IPO)?",
+    "answer": "At least 90 per cent of the offer through the offer document",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI's Insider Trading Regulations, what is the trading window closure period before declaration of financial results?",
+    "answer": "Trading window must be closed from end of every quarter till 48 hours after declaration of financial results",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "What is the minimum solvency ratio prescribed by IRDAI for Indian insurance companies?",
+    "answer": "1.5 (i.e., 150 per cent of the Required Solvency Margin)",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "What is the minimum paid-up equity capital required for setting up a life insurance company in India under IRDAI rules?",
+    "answer": "Rs. 100 crore",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "What is the minimum paid-up equity capital required for setting up a general insurance company in India under IRDAI rules?",
+    "answer": "Rs. 100 crore",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "What is the minimum paid-up equity capital required for setting up a reinsurance company in India under IRDAI rules?",
+    "answer": "Rs. 200 crore",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "What is the maximum free-look period that IRDAI mandates for life insurance policyholders?",
+    "answer": "30 days from the date of receipt of the policy document",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "What is the maximum deposit insurance coverage per depositor per bank provided by the Deposit Insurance and Credit Guarantee Corporation (DICGC)?",
+    "answer": "Rs. 5 lakh per depositor per bank, including principal and interest",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the Cash Reserve Ratio (CRR) maintenance requirement under RBI norms, expressed as a percentage of Net Demand and Time Liabilities?",
+    "answer": "Maintained as prescribed by the RBI from time to time, calculated as a percentage of Net Demand and Time Liabilities (NDTL)",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the Statutory Liquidity Ratio (SLR) under RBI norms?",
+    "answer": "18 per cent of Net Demand and Time Liabilities (NDTL)",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the Priority Sector Lending (PSL) target prescribed by RBI for domestic scheduled commercial banks?",
+    "answer": "40 per cent of Adjusted Net Bank Credit or Credit Equivalent of Off-Balance Sheet Exposures, whichever is higher",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the agriculture sub-target within Priority Sector Lending for domestic scheduled commercial banks under RBI norms?",
+    "answer": "18 per cent of Adjusted Net Bank Credit (ANBC), with 10 per cent for Small and Marginal Farmers",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under RBI's Income Recognition and Asset Classification (IRAC) norms, after how many days of default does a term loan account become a Non-Performing Asset (NPA)?",
+    "answer": "When interest and/or instalment of principal remain overdue for a period of more than 90 days",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under RBI IRAC norms, when is an asset classified as Sub-standard?",
+    "answer": "When the asset has remained NPA for a period less than or equal to 12 months",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under RBI IRAC norms, when is an asset classified as Doubtful?",
+    "answer": "When the asset has remained in the Sub-standard category for a period of 12 months",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under RBI norms, what is the minimum provisioning requirement on the secured portion of a Sub-standard asset?",
+    "answer": "15 per cent of the outstanding balance",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under RBI norms, what is the provisioning requirement on a Loss asset?",
+    "answer": "100 per cent of the outstanding balance",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum paid-up voting equity capital required for setting up a Small Finance Bank in India under RBI norms?",
+    "answer": "Rs. 200 crore",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum paid-up voting equity capital required for setting up a Payments Bank in India under RBI norms?",
+    "answer": "Rs. 100 crore",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the maximum end-of-day balance per individual customer that a Payments Bank may hold under RBI norms?",
+    "answer": "Rs. 2 lakh per individual customer",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the minimum proportion of Adjusted Net Bank Credit that Small Finance Banks must extend to Priority Sector Lending under RBI rules?",
+    "answer": "75 per cent of Adjusted Net Bank Credit (ANBC)",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the maximum compensation that the RBI Ombudsman may award for losses suffered by a complainant due to deficiency in banking services?",
+    "answer": "Compensation not exceeding Rs. 20 lakh",
+    "regulator": "RBI"
+  },
+  {
+    "question": "What is the maximum additional compensation the RBI Ombudsman may award for mental anguish and harassment to a complainant?",
+    "answer": "Up to Rs. 1 lakh",
+    "regulator": "RBI"
+  },
+  {
+    "question": "Under IRDAI norms, what is the maximum age limit for entry into a standard health insurance policy under the Arogya Sanjeevani product?",
+    "answer": "65 years for adults; dependent children may be covered from 3 months to 25 years",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "Under IRDAI rules, what is the minimum percentage of business an insurer must underwrite in the rural sector during the first financial year of operations?",
+    "answer": "2 per cent of total gross premium written direct in that year",
+    "regulator": "OTHER"
+  },
+  {
+    "question": "Under SEBI Alternative Investment Funds (AIF) Regulations, what is the minimum corpus required for an AIF scheme?",
+    "answer": "Rs. 20 crore (Rs. 10 crore for Angel Funds)",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI AIF Regulations, what is the minimum investment per investor in an AIF (other than Angel Fund)?",
+    "answer": "Rs. 1 crore",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI AIF Regulations, how many categories are AIFs classified into?",
+    "answer": "Three categories: Category I, Category II and Category III",
+    "regulator": "SEBI"
+  },
+  {
+    "question": "Under SEBI rules, what is the minimum public shareholding required for a listed company in India?",
+    "answer": "Minimum 25 per cent public shareholding",
+    "regulator": "SEBI"
+  }
+]

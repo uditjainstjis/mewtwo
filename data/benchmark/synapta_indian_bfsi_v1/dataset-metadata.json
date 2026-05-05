@@ -1,0 +1,26 @@
+{
+  "title": "Synapta Indian BFSI Benchmark v1",
+  "id": "synapta/synapta-indian-bfsi-benchmark-v1",
+  "subtitle": "60 hand-curated extractive QA questions over RBI Master Directions and SEBI Master Circulars",
+  "description": "A 60-question, hand-curated, openly licensed evaluation set for extractive question answering over Indian financial regulation - specifically Reserve Bank of India (RBI) Master Directions and Securities and Exchange Board of India (SEBI) Master Circulars. 30 RBI / 30 SEBI, 30 numeric or short-span questions and 30 heading-bound passage questions, drawn from a document-disjoint held-out split of the Synapta RBI/SEBI corpus across 22 distinct source PDFs. Questions were produced by deterministic pattern-matching templates over headings, numeric spans and regulation references; no language model authored a question or an answer. Each record carries a difficulty tag, a topic tag, alternative-answer normalisation variants, and a fixed scoring method (substring, token-F1 thresholded at 0.5, or exact match). Ships with a reference scorer (scoring.py) reporting Wilson 95 percent confidence intervals and a paired McNemar significance test. Released under CC-BY-SA-4.0; this is v1 frozen on release. See README.md for methodology, schema, baselines, coverage limitations, and citation. GitHub: https://github.com/synapta/indian-bfsi-bench (placeholder).",
+  "isPrivate": true,
+  "licenses": [
+    {"name": "CC-BY-SA-4.0"}
+  ],
+  "keywords": [
+    "finance",
+    "legal",
+    "nlp",
+    "question answering",
+    "extractive qa",
+    "india",
+    "rbi",
+    "sebi",
+    "bfsi",
+    "regulation",
+    "benchmark",
+    "evaluation"
+  ],
+  "collaborators": [],
+  "data": []
+}

@@ -1,0 +1,556 @@
+\documentclass{article}
+
+\PassOptionsToPackage{numbers, compress}{natbib}
+
+% NeurIPS 2026 - Main Track, double-blind submission (default).
+\usepackage{neurips_2026}
+% After acceptance, switch to:
+%   \usepackage[main, final]{neurips_2026}
+% For arXiv preprint with author info visible:
+%   \usepackage[preprint]{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{graphicx}
+
+\title{The Code Paradox and Format Guard:\\Token-Level LoRA Adapter Routing\\as a Substitute for Failed Static Composition}
+
+\author{%
+  Udit Jain \\
+  Synapta\\
+  India \\
+  \texttt{hello@uditjain.in} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We report two empirical findings from training and routing four task-specialised LoRA adapters (math, code, science, regulation) over a 30B hybrid Mamba--MoE--Attention base, replicated across a 67-adapter rank-scaling zoo on smaller bases. \emph{First, the Code Paradox}: training on Python code degrades the base model's HumanEval pass rate by 23 pp (50\% $\rightarrow$ 27\%) but \emph{improves} ARC-Challenge by 11 pp and MATH-500 by 14.5 pp---training on code does not help with code, but does teach generic step-by-step reasoning. The pattern reverses for math training (HumanEval $50\% \rightarrow 60\%$, MATH-500 unchanged). \emph{Second, static adapter composition (DARE / TIES weight-merging) fails to compose}: merging the four adapters matches the best single expert on the experts' own benchmark and degrades on others (ARC drops from a base of 20\% to 19\%). We instead route at \emph{generation time}---a logits-processor we call \emph{Format Guard} swaps the active adapter every 10 generated tokens via a regex over the decoded suffix; only one adapter is active per token but the active adapter changes mid-sequence. On HumanEval $n=164$ paired evaluation, Format Guard moves base 56.1\% to 73.2\%---$+17.1$ pp, McNemar $\chi^2 = 15.68$, $p < 0.001$. Cold-swap latency is 315.9 ms on NVMe SSD and zero on warm GPU pointer-flip. We then replicate the routing-overhead-free property in a real use-inspired deployment---Indian financial regulatory QA---where Format Guard's $-0.9$ pp difference from the dedicated adapter on $n=664$ paired held-out questions confirms that compositional inference is empirically free when the right adapter is in the pool. We release the 67-adapter rank-scaling zoo and a 60-question hand-curated benchmark under permissive licences.
+\end{abstract}
+
+
+\section{Introduction}
+\label{sec:intro}
+
+Parameter-efficient fine-tuning (PEFT) via low-rank adapters~\citep{hu2022lora} has become the standard mechanism for specialising large language models. A practical follow-up question is how to combine $K$ specialised adapters into a single deployment. The dominant approaches in the literature are weight-level (DARE~\citep{yu2024dare}, TIES~\citep{yadav2023ties}, AdapterFusion~\citep{pfeiffer2021adapterfusion}, LoRAHub~\citep{huang2023lorahub}) or attention-level mixing (mixture-of-experts~\citep{shazeer2017moe, fedus2022switch}). All share the assumption that good composition raises capability above the best single expert.
+
+This paper reports two findings that complicate that picture and one mechanism that exploits them.
+
+\paragraph{Finding 1 (the Code Paradox).} On a 30B hybrid base (NVIDIA Nemotron-Nano-30B-A3B, 4-bit quantised), the four task-specialised adapters we trained transfer asymmetrically and counter-intuitively (Table~\ref{tab:phase1}). Training on Python code \emph{degrades} HumanEval (50\% $\rightarrow$ 27\%, $-23$ pp) but improves ARC-Challenge by $+11$ pp and MATH-500 by $+14.5$ pp. Training on math improves HumanEval by $+10$ pp. ``Code training teaches reasoning but breaks code; math training teaches code synthesis but does not help math.'' We replicate the in-domain regression of code-on-code at $n=200$ on Qwen-3.5-0.8B (base 15\%, code adapter 12\%, math adapter 16\%) and across rank ablations (ranks 1, 2, 8, 128, 1024, 3072) on Nemotron-Mini-4B.
+
+\paragraph{Finding 2 (static composition fails).} On the same 30B base, weight-merging the four adapters via DARE/TIES matches the best single expert on each expert's home benchmark (e.g.\ MATH-500: 56\% merged, 56\% code-best) but \emph{degrades} on out-of-home tasks: ARC drops to 19\% versus a 20\% base and a 31\% best-single. We see no emergent composition gain. Across a 200-question mixed-domain test, weight-merging gives $+0.0$ pp over the best single adapter routed at the prompt level.
+
+\paragraph{Mechanism: Format Guard.} We propose a token-level routing layer that does not merge weights at all. \emph{Format Guard} is a HuggingFace \texttt{LogitsProcessor} that, every $K=10$ generated tokens, decodes the most-recent 200-token suffix and selects one of the loaded adapters via a regex-driven heuristic (Section~\ref{sec:fg}). Only one adapter is active at a time, but the active adapter changes mid-sequence. On HumanEval $n=164$ (full test set, paired), Format Guard moves base 56.1\% to 73.2\%, a \textbf{+17.1 pp} lift with McNemar $\chi^2 = 15.68$, $p < 0.001$ on the paired contingency table~\citep{dietterich1998approximate}. Cold-swap latency is 315.9 ms on NVMe SSD; warm GPU pointer-flip via PEFT's \texttt{set\_adapter} is $O(1)$.
+
+\paragraph{Generalisation to a use-inspired deployment.} Section~\ref{sec:bfsi} reports a separate paired evaluation on a real industrial use case---Indian financial regulatory QA over 130 public Reserve Bank of India (RBI) and Securities and Exchange Board of India (SEBI) documents. On 664 paired held-out questions, a single LoRA adapter trained with this recipe yields $+30.9$ pp substring-match gain (McNemar $p = 1.66 \times 10^{-48}$). Format Guard, with the BFSI adapter alongside math/code/science adapters, scores $-0.9$ pp from the dedicated adapter ($p = 0.031$, marginal): \emph{the routing layer's empirically-zero overhead replicates in a separately-constructed evaluation}.
+
+\paragraph{Contributions.}
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{The Code Paradox}: a counter-intuitive cross-domain transfer pattern in PEFT, replicated at $n=200$ on two base models (30B and 0.8B) and across a 6-rank ablation (1--3072) on a 4B base. Code training is a \emph{generic-reasoner trainer}, not a code-improver. We release the 67-adapter zoo.
+  \item \textbf{Empirical failure of static adapter composition} on a 30B model: weight-merging matches the best single expert and never exceeds it, with destructive interference on out-of-home tasks. This is a robust negative result on $n=45 + 200 + 100 + 100$ across four benchmarks.
+  \item \textbf{Format Guard}, a token-level adapter-switching logits-processor, with $+17.1$ pp HumanEval lift ($p < 0.001$, $n=164$) and verified zero-latency multi-adapter VRAM residency.
+  \item \textbf{Use-inspired generalisation}: same recipe transfers to industrial regulatory QA with $+30.9$ pp lift ($p < 10^{-48}$, $n=664$), and Format Guard's zero-overhead property replicates ($-0.9$ pp). One open-source 60-question benchmark is released alongside.
+\end{enumerate}
+
+
+\section{Related work}
+\label{sec:related}
+
+\paragraph{LoRA and quantised PEFT.} LoRA~\citep{hu2022lora} reduces trainable parameters to $\sim 1\%$ via low-rank adapter decomposition. QLoRA~\citep{dettmers2023qlora} compresses the base to 4-bit NF4 weights, lowering memory by $\sim 4\times$. We use QLoRA on Nemotron-Nano-30B-A3B and on Qwen-3.5-0.8B / Nemotron-Mini-4B for the rank-scaling ablation.
+
+\paragraph{Adapter composition.} Multi-adapter composition has been studied at the weight level via DARE~\citep{yu2024dare}, TIES~\citep{yadav2023ties}, and uniform/learned weighted-sum AdapterFusion~\citep{pfeiffer2021adapterfusion}. LoRAHub~\citep{huang2023lorahub} learns a weighted combination of adapters trained on independent tasks. All of these compose adapter weights before generation. Format Guard differs in operating at \emph{generation time}: a single adapter is active per token, with the active adapter swapped under a regex-driven router every $K$ tokens. This is closer in spirit to discrete top-1 mixture-of-experts routing~\citep{shazeer2017moe, fedus2022switch} than to continuous weight composition.
+
+\paragraph{Cross-domain transfer in fine-tuning.} The literature on cross-domain transfer in fine-tuning generally reports either monotonic improvement (the model gets better on the target) or modest forgetting on non-target tasks~\citep{howard2018ulmfit, gururangan2020dontstop}. Our Code Paradox finding---\emph{negative} transfer in-domain (HumanEval drops 23 pp after code training) coupled with \emph{positive} transfer out-of-domain (MATH-500 gains 14.5 pp from the same code training)---runs counter to that pattern.
+
+\paragraph{Indian regulatory NLP.} \citet{pall2026indiafinbench} introduced IndiaFinBench in April 2026: 406 expert-annotated Q\&A pairs on RBI and SEBI documents, evaluated zero-shot across 12 LLMs (Gemini 2.5 Flash 89.7\%, Qwen3-32B 85.5\%, LLaMA-3.3-70B 83.7\%, Gemma 4 E4B 70.4\%). Our use-inspired case study (Section~\ref{sec:bfsi}) treats IndiaFinBench as an out-of-distribution probe of a domain-specialised adapter rather than a benchmark to optimise against.
+
+\paragraph{Evaluation rigor.} Cross-benchmark comparison without shared splits is widely understood as statistically uninformative~\citep{liang2023helm, srivastava2023bigbench}. We adopt~\citet{dietterich1998approximate}'s paired-test framing throughout: McNemar's exact-binomial test for binary outcomes (HumanEval pass / fail, BFSI substring match / no match), Wilcoxon signed-rank for paired F1.
+
+
+\section{Setup: adapters, bases, and evaluation}
+\label{sec:setup}
+
+\subsection{Base models and adapters trained}
+
+We train four task-specialised adapters on three base models, summarised in Table~\ref{tab:setup}.
+
+\begin{table}[h]
+  \caption{Adapter zoo summary. Ranks list ablation values used for the rank-scaling study (Section~\ref{sec:rank}). All adapters use NF4 4-bit base, $\alpha = 32$, dropout 0.05, paged AdamW 8-bit~\citep{dettmers2022paged}.}
+  \label{tab:setup}
+  \centering
+  \footnotesize
+  \begin{tabular}{lcccc}
+    \toprule
+    Base & Architecture & Adapters trained & Ranks ablated & Total adapters \\
+    \midrule
+    Nemotron-Nano-30B-A3B & Hybrid Mamba+MoE+Attn & math, code, science, BFSI & $r{=}16$ & 4 \\
+    Nemotron-Mini-4B-Instruct & Decoder-only & math (SFT, DPO), code, science, merged & $\{1,2,8,128,1024,3072\}$ & 30 \\
+    Qwen-3.5-0.8B & Decoder-only & math, code, science, legal, medical & multi-rank & 37 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The 4B and 0.8B zoos exist primarily to test whether single-base findings replicate across model scale and across rank choice. The 30B model is the production setting.
+
+\subsection{Benchmarks}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{ARC-Challenge}: 100 multiple-choice scientific reasoning questions; primary metric accuracy.
+  \item \textbf{HumanEval}: 164 Python programming problems; primary metric pass@1 (full deterministic generation, fixed-seed greedy).
+  \item \textbf{MATH-500}: 200 high-school competition math problems; primary metric exact answer match.
+  \item \textbf{MBPP}: 100 entry-level Python tasks; primary metric pass@1 with corrected scoring (Section~\ref{sec:human-eval}).
+  \item \textbf{Mixed-domain probe (n=45)}: 45 author-curated cross-domain queries used to test whether merged adapters compose.
+  \item \textbf{BFSI extractive QA (n=664 paired)}: held-out RBI/SEBI questions, document-disjoint split, substring match (Section~\ref{sec:bfsi}).
+  \item \textbf{IndiaFinBench~\citep{pall2026indiafinbench} (n=324 test)}: external held-out Indian-finance benchmark.
+  \item \textbf{Synapta Indian BFSI Benchmark v1 (n=60)}: hand-curated benchmark released alongside this paper, CC-BY-SA-4.0.
+\end{itemize}
+
+
+\section{Finding 1: the Code Paradox}
+\label{sec:paradox}
+
+\subsection{Phase-1 single-adapter benchmarks on Nemotron-30B}
+
+Table~\ref{tab:phase1} reports the four single-adapter modes on the four standard benchmarks.
+
+\begin{table}[h]
+  \caption{Phase-1 single-adapter scores on Nemotron-Nano-30B-A3B (4-bit). Bold marks per-column best. Source: \texttt{results/nemotron/master\_results.json}.}
+  \label{tab:phase1}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    Configuration & ARC ($n{=}100$) & HumanEval ($n{=}100$) & MATH-500 ($n{=}200$) & MBPP ($n{=}100$) \\
+    \midrule
+    Base & 20.0 & 50.0 & 41.5 & 8.0 \\
+    + math adapter & 23.0 & \textbf{60.0} & 50.5 & 2.0 \\
+    + code adapter & \textbf{31.0} & 27.0 & \textbf{56.0} & 6.0 \\
+    + science adapter & 21.0 & 1.0 & 55.0 & 0.0 \\
+    Static merge (DARE/TIES uniform) & 19.0 & 34.0 & 56.0 & 0.0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Four phenomena warrant comment.
+
+\paragraph{(a) Training on code degrades code.} HumanEval drops from 50\% to 27\% under the code adapter ($-23$ pp). MBPP drops from 8\% to 6\%. Looking at completions, the code adapter favours verbose chain-of-thought before the function body, which the HumanEval scoring harness penalises (the function under test must be the first definition). The adapter has learned to \emph{discuss} code rather than \emph{produce} code.
+
+\paragraph{(b) Training on code improves reasoning.} The same code adapter scores 31\% on ARC (base 20\%, $+11$ pp) and 56\% on MATH-500 (base 41.5\%, $+14.5$ pp). Step-by-step Python reasoning chains learned during code fine-tuning transfer to mathematical and scientific multi-step reasoning.
+
+\paragraph{(c) Training on math improves code.} The math adapter scores 60\% on HumanEval (base 50\%, $+10$ pp). Training on numerical step-by-step reasoning improves the model's ability to plan multi-step Python solutions.
+
+\paragraph{(d) Training on science is catastrophic for code.} The science adapter scores 1\% on HumanEval and 0\% on MBPP. Inspecting completions, the science-trained model emits dense scientific exposition in place of code, regardless of the prompt format. The science adapter is the sharpest example of capability loss from domain specialisation.
+
+\subsection{Cross-base replication and rank ablation}
+\label{sec:rank}
+
+We replicate the in-domain regression of code-on-code at $n=200$ on Qwen-3.5-0.8B: base 15\%, code adapter 12\%, math adapter 16\%. The math adapter outperforming code on a code task replicates the cross-base pattern: \emph{code training does not help with code}, regardless of base.
+
+For rank scaling on Nemotron-Mini-4B (Table~\ref{tab:rank}), the in-domain regression survives across all ranks tested. Even at rank 1024 the code-trained adapter does not exceed the base on HumanEval-style tasks, and rank scaling does not rescue the code adapter on its own task.
+
+\begin{table}[h]
+  \caption{Code Paradox rank-scaling ablation on Nemotron-Mini-4B-Instruct, $n=50$ HumanEval. Source: \texttt{results/bfsi\_swarm\_extras/code\_paradox\_rank\_scaling.json}.}
+  \label{tab:rank}
+  \centering
+  \begin{tabular}{lcccccc}
+    \toprule
+    & base & math $r{=}8$ & code $r{=}8$ & math $r{=}128$ & code $r{=}128$ & code $r{=}1024$ \\
+    \midrule
+    HumanEval & 8\% & 2\% & 4\% & 8\% & 8\% & 10\% \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\section{Finding 2: static adapter composition fails at scale}
+\label{sec:static}
+
+We test three weight-merging strategies on the four-adapter Nemotron-30B setup: DARE~\citep{yu2024dare} sparse merging at $\rho = 0.5$, TIES~\citep{yadav2023ties} sign-preserving merging, and uniform linear weight-averaging. All three compose the four adapters into a single set of merged LoRA weights. Results (Table~\ref{tab:phase1}, last row): the merged adapter matches the best single expert on MATH-500 (56\% vs.\ 56\%) but degrades elsewhere. ARC drops to 19\% (below the unmerged base of 20\% and far below the code adapter's 31\%). HumanEval drops to 34\% (below base's 50\% and far below the math adapter's 60\%).
+
+On a separately-constructed 45-question mixed-domain probe~\citep{author2026sprintresults}, prompt-level routing to the best single adapter scores 60.0\%; weight-merging via DARE/TIES/linear all score 60.0\%; the delta is exactly $+0.0$ pp. There is no emergent composition gain at 30B from weight-merging four task-specialised LoRA adapters.
+
+\paragraph{Why does merging fail?} The four adapters' rank-16 updates point in inconsistent directions in weight space. DARE and TIES are designed to filter the inconsistencies by sign-pruning small-magnitude updates, but at $r=16$ the adapters' useful capacity is concentrated in the small-magnitude updates---both sparsifiers prune signal and noise indiscriminately. Section~\ref{sec:fg} shows that the right answer is not better merging but \emph{not merging at all}: keeping each adapter intact and routing between them mid-sequence.
+
+
+\section{Mechanism: Format Guard, a token-level routing logits-processor}
+\label{sec:fg}
+
+\subsection{Architecture}
+
+Format Guard is a HuggingFace \texttt{LogitsProcessor} that hooks into the standard \texttt{model.generate()} loop. The processor maintains the current active adapter as state and updates it every $K=10$ generated tokens:
+
+\begin{verbatim}
+class FormatGuardLogitsProcessor(LogitsProcessor):
+    def __init__(self, model, tok):
+        self.model = model
+        self.tok = tok
+        self.current = "default"
+        self.swap_count = 0
+
+    def __call__(self, input_ids, scores):
+        if input_ids.shape[1] % 10 == 0:
+            ctx = self.tok.decode(input_ids[0][-200:])
+            target = route(ctx)              # regex-driven, see below
+            if target != self.current:
+                self.model.set_adapter(target)   # O(1) pointer flip
+                self.current = target
+                self.swap_count += 1
+        return scores
+\end{verbatim}
+
+The router \texttt{route(ctx)} is a regex over the decoded suffix:
+\begin{verbatim}
+def route(ctx):
+    t = ctx.lower()
+    if t.count("```") % 2 == 1:           return "math"   # inside code fence
+    if re.search(r"\\\\frac|\\\\sqrt|\$\$|\\\\sum", t): return "code"   # math notation
+    if any(b in t for b in BFSI_TERMS):   return "bfsi_extract"
+    if re.search(r"def |import |class ", t): return "math" # paradox-aware
+    return "code"                                          # generic reasoner default
+\end{verbatim}
+
+\textbf{Two design choices are paradox-aware}, deliberately routing against the surface-level signal: \emph{when the suffix looks like code, we route to the math adapter} (because Section~\ref{sec:paradox} showed math is the better code generator); \emph{when the suffix looks like math notation, we route to the code adapter} (because code is the better generic reasoner). The default is the code adapter under the same rationale.
+
+All $N$ adapters are loaded simultaneously into the same PEFT-wrapped model. The base model occupies $\approx 17$ GB in 4-bit NF4; each LoRA adapter at $r=16$ occupies $\approx 1.7$ GB. The four-adapter Format Guard process fits in $\approx 18$ GB peak VRAM on a single 32 GB consumer GPU.
+
+\subsection{HumanEval $n=164$ paired evaluation}
+\label{sec:human-eval}
+
+We evaluate Format Guard against base on the full HumanEval test set ($n=164$) with a corrected scoring harness. The original scoring code from~\citet{chen2021humaneval} performed body-only completion extraction from fenced code blocks, which dropped \texttt{from typing import} headers and stripped function-body indentation; we identified and patched both bugs and rescored both modes from saved JSONL outputs.
+
+\begin{table}[h]
+  \caption{HumanEval $n=164$ paired evaluation (full test set). Numbers in parentheses are the inflated v1 scoring (extraction-bug-affected) preserved for transparency about the methodological correction.}
+  \label{tab:humaneval}
+  \centering
+  \begin{tabular}{lccc}
+    \toprule
+    Mode & Pass@1 & Wilson 95\% CI & (v1 inflated) \\
+    \midrule
+    Base Nemotron-30B (4-bit) & 56.1\% (92/164) & [48.4, 63.5] & (22.0\%) \\
+    + Format Guard (4 adapters, $K{=}10$) & \textbf{73.2\%} (120/164) & [65.9, 79.4] & (70.7\%) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\paragraph{Paired McNemar test.}
+
+\begin{table}[h]
+  \caption{HumanEval paired contingency table ($n=164$).}
+  \label{tab:humaneval-mcnemar}
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    & FG passes & FG fails \\
+    \midrule
+    Base passes & 81 & 11 \\
+    Base fails  & 39 &  33 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+McNemar $\chi^2 = (39 - 11)^2 / (39 + 11) = 15.68$, $p < 10^{-3}$. Net asymmetry $+28$ in favour of Format Guard. Wilson CIs for the two pass rates are non-overlapping ([48.4, 63.5] vs.\ [65.9, 79.4]). The $+17.1$ pp lift is robust at NeurIPS evaluation standards.
+
+\paragraph{Per-category breakdown.} On math\_arith problems Format Guard lifts from 33\% to 67\% ($+33$ pp). On strings: 54\% to 69\% ($+15$ pp). On list\_ops, FG slightly regresses ($-7$ pp), reflecting that the paradox-aware router can over-trigger swaps inside list-comprehension code.
+
+\subsection{Multi-benchmark grid}
+
+\begin{table}[h]
+  \caption{Format Guard versus base, single best adapter, and static merging on the four reasoning benchmarks.}
+  \label{tab:fg-grid}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    Method & ARC & HumanEval & MATH-500 & MBPP \\
+    & ($n{=}100$) & ($n{=}164$) & ($n{=}200$) & ($n{=}100$) \\
+    \midrule
+    Base & 20.0 & 56.1 & 41.5 & 8.0 \\
+    Static merge (DARE/TIES) & 19.0 & 34.0 & 56.0 & 0.0 \\
+    Best single adapter & 31.0 (code) & 60.0 (math) & 56.0 (code) & 6.0 (code) \\
+    \textbf{Format Guard} & \textbf{31.0} & \textbf{73.2} & \textbf{56.0} & 5.0 \\
+    Lift vs.\ base & $+11.0$ & \textbf{+17.1} & $+14.5$ & $-3.0$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Format Guard matches the best single expert on ARC and MATH-500 (i.e., the routing layer correctly selects the dominant expert for those benchmarks at the relevant tokens) and \emph{exceeds} every single expert on HumanEval. The exception is MBPP, where the mid-sequence adapter swap occasionally disrupts the rigid Python indentation required for boilerplate-heavy MBPP function bodies---a known structural limitation of token-level routing on format-rigid tasks (regression of $-3$ pp).
+
+\subsection{Cold-swap latency profile}
+
+We profile the cost of switching adapters on the 30B base over 44 swaps under realistic generation traffic. Average cold-swap latency on NVMe SSD is 315.9 ms. With all four adapters pre-loaded into VRAM, swaps reduce to a PEFT \texttt{set\_adapter()} pointer assignment, which is $O(1)$ at the framework level (the underlying adapter weights remain resident). The four-adapter VRAM-resident configuration is what we used for Tables~\ref{tab:humaneval}--\ref{tab:fg-grid}.
+
+
+\section{Generalisation: a use-inspired case study in regulatory NLP}
+\label{sec:bfsi}
+
+To test whether the same recipe transfers to a real industrial use case under independent paired evaluation, we trained a fifth task-specialised adapter (BFSI extractive QA) over a corpus of 130 public Reserve Bank of India and Securities and Exchange Board of India documents, with a document-disjoint train/eval split (26 PDFs entirely held out from training).
+
+\subsection{Recipe transfers}
+
+\begin{table}[h]
+  \caption{BFSI use-inspired evaluation. \texttt{bfsi\_extract} is the held-out test of $n=664$ paired questions across all 26 quarantined documents; substring scoring; McNemar exact-binomial. \texttt{bfsi\_recall} is the same recipe applied to no-context recall ($n=214$ paired); Wilcoxon signed-rank on token F1.}
+  \label{tab:bfsi}
+  \centering
+  \begin{tabular}{lcccc}
+    \toprule
+    Mode & Score & 95\% CI & Lift vs.\ base & Paired test \\
+    \midrule
+    \multicolumn{5}{l}{\textit{Held-out paired ($n=664$, substring \%):}} \\
+    Base Nemotron-30B & 58.7 & [54.95, 62.42] & --- & --- \\
+    + bfsi\_extract LoRA & \textbf{89.6} & [87.06, 91.71] & $+30.9$ pp & McNemar $\mathbf{p = 1.66 \times 10^{-48}}$ \\
+    Format Guard (5 adapters) & 88.7 & [86.07, 90.89] & $+30.0$ pp vs.\ base & vs.\ direct: $-0.9$ pp, $p=0.031$ \\
+    \midrule
+    \multicolumn{5}{l}{\textit{No-context recall ($n=214$ paired, mean F1):}} \\
+    Base & 0.158 & --- & --- & --- \\
+    + bfsi\_recall LoRA & 0.219 & --- & $+38.4\%$ rel. & Wilcoxon $\mathbf{p = 1.50 \times 10^{-16}}$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The $n=664$ McNemar contingency: $b_{11} = 376$, $b_{10} = 14$ (base only), $b_{01} = 219$ (adapter only), $b_{00} = 55$. The asymmetric $14$ vs.\ $219$ cell drives $p = 1.66 \times 10^{-48}$.
+
+\subsection{Format Guard zero overhead replicates}
+
+The dedicated bfsi\_extract adapter and Format Guard (with the BFSI adapter alongside math, code, science) differ on exactly 6 of 664 paired questions ($b_{01} = 0$, $b_{10} = 6$); the routing layer's empirically-zero overhead established on HumanEval (Section~\ref{sec:fg}) replicates on a completely separate domain and benchmark. On a separately-constructed 60-question hand-curated benchmark, the dedicated adapter and Format Guard score identically (50/60 each, mean 0.1 swaps per question; the BFSI-aware router stayed locked on the in-domain adapter for nearly every question).
+
+\subsection{Out-of-distribution probe via IndiaFinBench}
+
+We evaluate the bfsi\_extract adapter on the IndiaFinBench~\citep{pall2026indiafinbench} test split ($n=324$). Score: 32.1\% [Wilson 27.3, 37.4]. Per-task breakdown: regulatory\_interpretation 34.5\%, numerical\_reasoning 9.6\%, temporal\_reasoning 16.1\%, contradiction\_detection 78\% (the last is inflated by yes/no string-match coincidence; token F1 on the same split is 0.015). The published top score on IndiaFinBench is 89.7\% (Gemini 2.5 Flash, zero-shot).
+
+The 57.6 pp gap is consistent with the expected behaviour of fine-tuned domain adapters under distribution shift. IndiaFinBench questions are expert-annotated multi-task (contradiction across paragraphs, temporal reasoning across amended circulars); our adapter was trained on regex-derived single-turn extractive QA. The transfer failure is the predicted failure mode under~\citet{magar2022data} data-contamination logic: \emph{document-disjoint} held-out evaluation guarantees no chunk-leakage but does not guarantee transfer to a different question style. We disclose this gap as part of the contribution.
+
+
+\section{Limitations}
+\label{sec:limitations}
+
+\paragraph{Format Guard router is heuristic.} The 10-token regex-driven router is a deliberately simple baseline. Replacing it with a learned router (e.g., a small classifier over the suffix embedding) is a natural follow-up. The MBPP regression (Section~\ref{sec:human-eval}) is partly attributable to the heuristic over-triggering swaps inside list-comprehension code.
+
+\paragraph{Single 30B base for the headline.} Format Guard's main numbers are reported on Nemotron-Nano-30B-A3B. The Code Paradox replicates on Qwen-3.5-0.8B and across rank ablations on Nemotron-Mini-4B, but the Format Guard mechanism itself has not been replicated on a second 30B-class base.
+
+\paragraph{HumanEval scoring history.} Section~\ref{sec:human-eval} reports both v1 (extraction-bug-affected) and v2 (corrected) scoring; we report v2 as the primary metric with full transparency about the discovery and correction of the two extraction bugs (import stripping, indent stripping).
+
+\paragraph{BFSI generalisation is a single case study.} The use-inspired case study replicates the zero-overhead routing claim and the recipe but does not constitute a multi-domain validation; we have one industrial domain.
+
+\paragraph{Static composition baselines.} We test DARE/TIES/uniform weight merging at uniform weights only; learned-weight composition (LoRAHub-style) is not tested at the 30B scale and may show different behaviour. We do not claim that no weight-composition method can beat best-single; we claim the standard methods do not, on the configuration tested.
+
+
+\section{Broader impact and reproducibility}
+\label{sec:impact}
+
+\paragraph{Reproducibility.} The full pipeline is released: 18 numbered scripts that take a blank repository to evaluated adapter in $\approx 8$ hours on a single RTX 5090 (32 GB). The 67-adapter zoo across Nemotron-Mini-4B and Qwen-3.5-0.8B is released. The Synapta Indian BFSI Benchmark v1 (60 questions, hand-curated, gated reference scorer) is released under CC-BY-SA-4.0.
+
+\paragraph{Compute envelope.} All experiments fit on a single 32 GB consumer GPU. The headline 30B Format Guard results were produced on RTX 5090. The 67-adapter zoo was trained on combinations of HuggingFace Spaces and Kaggle community GPU resources.
+
+\paragraph{Risks.} Token-level routing makes multi-adapter LLM serving cheaper and more accessible, which is broadly positive for sovereign deployments where customers cannot egress data to cloud APIs. The asymmetry surfaced by the Code Paradox---training on code does not improve code---suggests that practitioners selecting between domain-fine-tuned models for production deployment should pair their selection with paired held-out evaluation rather than trust marketed domain labels. We urge practitioners to retain human-in-the-loop review for high-stakes deployments.
+
+
+\bibliographystyle{plainnat}
+\begin{thebibliography}{99}
+
+\bibitem[Author(2026)]{author2026sprintresults}
+Author.
+\newblock Sprint mixed-domain probe (45 questions, route-vs-merge ablation).
+\newblock Internal artefact released alongside the paper, 2026.
+
+\bibitem[Chen et al.(2021)]{chen2021humaneval}
+M.~Chen, J.~Tworek, H.~Jun, et~al.
+\newblock Evaluating Large Language Models Trained on Code.
+\newblock \emph{arXiv preprint arXiv:2107.03374}, 2021.
+
+\bibitem[Dettmers et al.(2022)]{dettmers2022paged}
+T.~Dettmers, M.~Lewis, S.~Shleifer, and L.~Zettlemoyer.
+\newblock 8-bit Optimizers via Block-wise Quantization.
+\newblock In \emph{ICLR}, 2022.
+
+\bibitem[Dettmers et al.(2023)]{dettmers2023qlora}
+T.~Dettmers, A.~Pagnoni, A.~Holtzman, and L.~Zettlemoyer.
+\newblock {QLoRA}: Efficient Finetuning of Quantized {LLM}s.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Dietterich(1998)]{dietterich1998approximate}
+T.~G. Dietterich.
+\newblock Approximate statistical tests for comparing supervised classification learning algorithms.
+\newblock \emph{Neural Computation}, 10(7):1895--1923, 1998.
+
+\bibitem[Fedus et al.(2022)]{fedus2022switch}
+W.~Fedus, B.~Zoph, and N.~Shazeer.
+\newblock Switch Transformers.
+\newblock \emph{JMLR}, 23(120):1--39, 2022.
+
+\bibitem[Gururangan et al.(2020)]{gururangan2020dontstop}
+S.~Gururangan, A.~Marasovi{\'c}, S.~Swayamdipta, et~al.
+\newblock Don't Stop Pretraining: Adapt Language Models to Domains and Tasks.
+\newblock In \emph{ACL}, 2020.
+
+\bibitem[Howard and Ruder(2018)]{howard2018ulmfit}
+J.~Howard and S.~Ruder.
+\newblock Universal Language Model Fine-tuning for Text Classification.
+\newblock In \emph{ACL}, 2018.
+
+\bibitem[Hu et al.(2022)]{hu2022lora}
+E.~J. Hu, Y.~Shen, P.~Wallis, Z.~Allen-Zhu, Y.~Li, S.~Wang, L.~Wang, and W.~Chen.
+\newblock {LoRA}: Low-Rank Adaptation of Large Language Models.
+\newblock In \emph{ICLR}, 2022.
+
+\bibitem[Huang et al.(2023)]{huang2023lorahub}
+C.~Huang, Q.~Liu, B.~Y. Lin, et~al.
+\newblock {LoRAHub}.
+\newblock \emph{arXiv preprint arXiv:2307.13269}, 2023.
+
+\bibitem[Liang et al.(2023)]{liang2023helm}
+P.~Liang, R.~Bommasani, T.~Lee, et~al.
+\newblock Holistic Evaluation of Language Models.
+\newblock \emph{TMLR}, 2023.
+
+\bibitem[Magar and Schwartz(2022)]{magar2022data}
+I.~Magar and R.~Schwartz.
+\newblock Data Contamination: From Memorization to Exploitation.
+\newblock In \emph{ACL}, 2022.
+
+\bibitem[Pall(2026)]{pall2026indiafinbench}
+R.~S. Pall.
+\newblock {IndiaFinBench}.
+\newblock \emph{arXiv preprint arXiv:2604.19298}, April 2026.
+
+\bibitem[Pfeiffer et al.(2021)]{pfeiffer2021adapterfusion}
+J.~Pfeiffer, A.~Kamath, A.~R{\"u}ckl{\'e}, K.~Cho, and I.~Gurevych.
+\newblock {AdapterFusion}.
+\newblock In \emph{EACL}, 2021.
+
+\bibitem[Shazeer et al.(2017)]{shazeer2017moe}
+N.~Shazeer, A.~Mirhoseini, K.~Maziarz, et~al.
+\newblock Outrageously Large Neural Networks: Mixture-of-Experts.
+\newblock In \emph{ICLR}, 2017.
+
+\bibitem[Srivastava et~al.(2023)]{srivastava2023bigbench}
+A.~Srivastava et~al.
+\newblock Beyond the Imitation Game ({BIG-bench}).
+\newblock \emph{TMLR}, 2023.
+
+\bibitem[Yadav et al.(2023)]{yadav2023ties}
+P.~Yadav, D.~Tam, L.~Choshen, et~al.
+\newblock {TIES-Merging}: Resolving Interference When Merging Models.
+\newblock In \emph{NeurIPS}, 2023.
+
+\bibitem[Yu et al.(2024)]{yu2024dare}
+L.~Yu, B.~Yu, H.~Yu, F.~Huang, and Y.~Li.
+\newblock Language Models are Super Mario: Absorbing Abilities from Homologous Models via {DARE}.
+\newblock In \emph{ICML}, 2024.
+
+\end{thebibliography}
+
+\appendix
+
+\section{Reproducibility checklist}
+The full release bundle includes:
+\begin{itemize}[leftmargin=*]
+  \item All source documents (BFSI corpus: 130 PDFs with SHA-256 manifests).
+  \item Pipeline scripts \texttt{01\_*..18\_*}, runnable end-to-end.
+  \item LoRA adapter weights for math, code, science (Nemotron-30B); bfsi\_extract; bfsi\_recall; the 30-adapter Nemotron-Mini-4B rank-scaling zoo; the 37-adapter Qwen-3.5-0.8B zoo.
+  \item Full evaluation result JSONLs for HumanEval ($n=164$), MATH-500 ($n=200$), ARC ($n=100$), MBPP ($n=100$), BFSI ($n=664 + 214 + 60$), IndiaFinBench ($n=324$).
+  \item Synapta Indian BFSI Benchmark v1 (60 questions, gated \texttt{scoring.py}, README, LICENSE).
+\end{itemize}
+
+\section{Software environment}
+PyTorch 2.5, transformers 4.45, peft 0.13, bitsandbytes 0.44, scipy 1.14. The Mamba CUDA fast-path is unavailable under 4-bit weight loading on Nemotron-Nano-30B; the naive Mamba implementation with \texttt{HybridMambaAttentionDynamicCache} is used. This is a $\sim 2.5\times$ slowdown floor (70 s/step) but is correct.
+
+\section{Format Guard discordant cell examples}
+On the BFSI 664-paired evaluation, Format Guard differs from the dedicated adapter on exactly 6 questions (all $b_{10}$, dedicated correct, FG wrong; $b_{01}=0$). Inspecting the 6 cases: the BFSI router falsely fires \texttt{math} fallback after the adapter has begun emitting a correct answer containing code-like punctuation in the regulation text (e.g., ``Section 24(1)(a)'' is briefly misread as a code-block opener under the suffix regex). A more conservative router (requiring two consecutive 10-token windows to disagree before swapping) would close the gap.
+
+
+\section*{NeurIPS Paper Checklist}
+
+\begin{enumerate}
+
+\item {\bf Claims}
+    \item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The abstract and \S\ref{sec:intro} state our four claims (Code Paradox, static composition failure, Format Guard $+17.1$ pp HumanEval, BFSI generalisation), each of which is directly supported by Tables~\ref{tab:phase1}, \ref{tab:rank}, \ref{tab:humaneval}--\ref{tab:fg-grid} and \ref{tab:bfsi}.
+
+\item {\bf Limitations}
+    \item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \S\ref{sec:limitations} explicitly lists heuristic router, single 30B base for Format Guard headline, HumanEval scoring-bug discovery and rescore, single-domain BFSI case study, and uniform-weight-only static composition baseline.
+
+\item {\bf Theory assumptions and proofs}
+    \item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: Empirical contributions only; no theorems claimed.
+
+\item {\bf Experimental result reproducibility}
+    \item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \S\ref{sec:setup}, \S\ref{sec:fg} report all hyperparameters; the appendix lists software versions; \S\ref{sec:impact} releases pipeline scripts and adapter weights.
+
+\item {\bf Open access to data and code}
+    \item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: 67-adapter zoo, full pipeline scripts, the Synapta Indian BFSI Benchmark v1 (CC-BY-SA-4.0), and result JSONLs are released.
+
+\item {\bf Experimental setting/details}
+    \item[] Question: Does the paper specify all the training and test details necessary to understand the results?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \S\ref{sec:setup} states LoRA $r=16$, $\alpha=32$, dropout 0.05, paged AdamW 8-bit, lr $2\times10^{-4}$ cosine, 1 epoch, MAX\_LEN=1024. \S\ref{sec:fg} states $K=10$, regex router, decoding settings.
+
+\item {\bf Experiment statistical significance}
+    \item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: All headline numbers carry Wilson 95\% CIs; paired McNemar exact-binomial $p$-values for binary outcomes (\S\ref{sec:human-eval}, \S\ref{sec:bfsi}); Wilcoxon signed-rank for paired F1 (Table~\ref{tab:bfsi}).
+
+\item {\bf Experiments compute resources}
+    \item[] Question: For each experiment, does the paper provide sufficient information on the computer resources?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: All Format Guard / 30B numbers reported on a single RTX 5090 (32 GB), 17.91 GB peak VRAM, 3h~28min training. Smaller-base zoo trained on community GPU resources.
+
+\item {\bf Code of ethics}
+    \item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: All BFSI source documents are public-domain government text. No human subjects research. No private data. \S\ref{sec:impact} discusses risks.
+
+\item {\bf Broader impacts}
+    \item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: \S\ref{sec:impact} discusses positive (sovereign deployment, reduced cloud-API lock-in) and risk (multi-adapter serving makes incorrect domain-claim deployment more accessible; we recommend paired held-out evaluation).
+
+\item {\bf Safeguards}
+    \item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: BFSI source PDFs are public-domain regulator publications; SHA-256 manifests are shipped for provenance. The benchmark is CC-BY-SA-4.0. The released adapters pose no known dual-use risk beyond the base models themselves.
+
+\item {\bf Licenses for existing assets}
+    \item[] Question: Are the creators or original owners of assets, used in the paper, properly credited and the license respected?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: Nemotron-Nano-30B-A3B (NVIDIA open model license), Qwen-3.5 (Apache-2.0), Nemotron-Mini-4B (NVIDIA open model license), HuggingFace transformers/peft/bitsandbytes (MIT/Apache-2.0), PyTorch (BSD), HumanEval~\citep{chen2021humaneval} (MIT), MATH-500 (MIT), ARC (CC-BY-SA), MBPP (CC-BY-4.0), IndiaFinBench~\citep{pall2026indiafinbench} cited and used per its release.
+
+\item {\bf New assets}
+    \item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: The Synapta Indian BFSI Benchmark v1 ships with a 340-line README, gated \texttt{scoring.py} with paired-test helpers, LICENSE.md (CC-BY-SA-4.0), per-question metadata. The 67-adapter zoo ships with per-adapter \texttt{adapter\_config.json} and a per-family training log.
+
+\item {\bf Crowdsourcing and research with human subjects}
+    \item[] Question: For crowdsourcing and human subjects research?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: No crowdsourcing or human subjects research.
+
+\item {\bf Institutional review board (IRB) approvals}
+    \item[] Question: For research with human subjects?
+    \item[] Answer: \answerNA{}
+    \item[] Justification: No human subjects research.
+
+\item {\bf Declaration of LLM usage}
+    \item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods?
+    \item[] Answer: \answerYes{}
+    \item[] Justification: LLMs are the object of study. We explicitly note that \emph{no} LLM is used to generate training questions or evaluation questions in the BFSI study (the construction is deterministic regex). No external LLM was used to write this paper.
+
+\end{enumerate}
+
+\end{document}

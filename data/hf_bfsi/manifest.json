@@ -1,0 +1,29 @@
+[
+  {
+    "name": "prakhar146/indian-finance-rag",
+    "purpose": "RAG store: pre-chunked RBI+SEBI+IRDAI+NSE/BSE+tax with FAISS index",
+    "license": "Apache-2.0",
+    "use_for": "raw context corpus for chunking, NOT for QA pairs (no Q&A schema)",
+    "local_dir": "/home/learner/Desktop/mewtwo/data/hf_bfsi/prakhar146_indian-finance-rag",
+    "row_count": 24780,
+    "status": "ok"
+  },
+  {
+    "name": "lirus18/rbi",
+    "purpose": "Small clean RBI Q&A pairs",
+    "license": "llama2",
+    "use_for": "SFT seed (1709 examples)",
+    "local_dir": "/home/learner/Desktop/mewtwo/data/hf_bfsi/lirus18_rbi",
+    "row_count": 1709,
+    "status": "ok"
+  },
+  {
+    "name": "iam-sathya/rbi-test",
+    "purpose": "Raw RBI Master Direction PDFs as text",
+    "license": "OpenRAIL",
+    "use_for": "additional raw context (98 MDs)",
+    "local_dir": "/home/learner/Desktop/mewtwo/data/hf_bfsi/iam-sathya_rbi-test",
+    "row_count": 98,
+    "status": "ok"
+  }
+]
