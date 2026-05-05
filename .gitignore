@@ -1,62 +1,84 @@
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.egg-info/
-dist/
-build/
-.eggs/
-
-# Frontend (has its own repo)
-frontend/
-build/
-.eggs/
-
-# Node
-node_modules/
-package-lock.json
-
-# MLX / Model weights (large files)
-backend/expert_adapters/
-backend/adapters/
-backend/data/
-backend/data_expert/
-*.safetensors
-*.bin
-*.gguf
-*.ggml
-
-# Environment
-.env
-.venv/
-venv/
-env/
-
-# OS
+# OS / editor
 .DS_Store
 Thumbs.db
-
-# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# Ablation raw data (large)
-backend/ablation_raw_results.json
+# Environment / secrets
+.env
+.env.*
+!.env.template
+.claude/scheduled_tasks.lock
+.venv/
+venv/
+env/
+perplexity-mcp-venv/
 
-# Cached
-*.npz
-checkpoints/
-models/
-*.pt
-*.pth
-# Documents and Archives
-*.pdf
-*.zip
+# Python / packaging
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage*
+htmlcov/
+build/
+dist/
+.eggs/
+*.egg-info/
+pip-wheel-metadata/
+
+# Node
+node_modules/
+
+# Logs / runtime
+logs/
 *.log
 *.pid
-.venv/
+*.out
+*.err
+
+# Local caches / temp files
+.cache/
+**/.cache/
+*.tmp
+*.bak
+*.incomplete
+
+# Large experiment outputs
+results/
+archive/
+checkpoints/
+models/
+hf_kaggle_opensource/results/
+hf_kaggle_opensource/data/benchmark_cache/
+hf_kaggle_opensource/data/dpo_cache/
+
+# Model weights and training artifacts
+*.safetensors
+*.bin
+*.gguf
+*.ggml
+*.pt
+*.pth
+*.ckpt
+*.npz
+*.npy
+adapters/**/checkpoint-*/
+adapters/**/hidden_checkpoint-*/
+adapters/**/interrupt-step-*/
+adapters/**/training/checkpoint-*/
+
+# Dataset caches and bulky local corpora
+*.arrow
+*.parquet
+data/**/_cache/
+data/**/benchmark_cache/
+data/**/dpo_cache/
+data/**/hf_downloads/
 data/training/
 data/eval/
 data/synthetic_geometry/
@@ -65,5 +87,17 @@ data/nemotron/
 data/router_reasoning_sft_5000/
 data/router_reasoning_dpo_5000/
 data/router_synthetic_routing_5000.json
-hf_kaggle_opensource/results/
-hf_kaggle_opensource/data/benchmark_cache/
+data/rbi_corpus/chunks/
+data/rbi_corpus/pdfs/
+data/rbi_corpus/text/
+data/sebi_corpus/pdfs/
+data/sebi_corpus/text/
+
+# Local-only vendor / benchmark repos
+frontend/
+external_benchmarks/**/results/
+external_benchmarks/**/.pytest_cache/
+
+# Archives
+*.pdf
+*.zip
